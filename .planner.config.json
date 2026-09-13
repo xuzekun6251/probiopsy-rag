@@ -1,0 +1,127 @@
+{
+  "schema_version": "v1.5",
+  "project": {
+    "code_name": "probiopsy-rag",
+    "chinese_name": "前列安汇",
+    "description_one_line": "基于规则引擎+LightRAG知识图谱+LLM仲裁的前列腺穿刺活检全流程标准化决策支持系统,以ProBIOPSY国际共识为金标准验证",
+    "target_journal_primary": "European Urology Open Science",
+    "target_journal_backup": ["Journal of Medical Internet Research", "BJU International"],
+    "timeline_weeks": 10
+  },
+  "domain": {
+    "disease_or_topic": "前列腺癌诊断/前列腺穿刺活检(prostate biopsy)",
+    "research_direction": "LightRAG混合决策支持系统:患者临床情境×穿刺决策项",
+    "research_question": "在前列腺穿刺活检决策中,规则引擎+LightRAG知识图谱+LLM仲裁混合系统能否依据ProBIOPSY国际共识与EAU指南,为特定患者临床情境生成规范化的穿刺决策建议?"
+  },
+  "entities": {
+    "a": {
+      "name": "patient_clinical_scenario",
+      "chinese_name": "患者临床情境要素",
+      "target_count": 50,
+      "registry_source": "ProBIOPSY 36 stems + EAU/AUA guidelines risk factors + PI-RADS v2.1 lexicon",
+      "example_flags": ["pirads_1_2", "pirads_3", "pirads_4_5", "psad_elevated", "psad_low", "prior_negative_biopsy", "family_history", "anticoagulation", "uti_risk", "small_prostate_volume", "large_prostate_volume", "dre_abnormal", "bpmpri_adequate_quality", "indeterminate_mri_lesion", "focal_therapy_candidate"]
+    },
+    "b": {
+      "name": "biopsy_decision_item",
+      "chinese_name": "穿刺决策项",
+      "target_count": 40,
+      "registry_source": "ProBIOPSY 96 statements (grouped into 36 stems) + EAU Prostate Cancer Guidelines biopsy chapter",
+      "example_flags": ["biopsy_indication", "imaging_quality_check", "bpmpri_vs_mpmpri_pathway", "indeterminate_lesion_management", "transperineal_vs_transrectal", "targeted_plus_perilesional_scheme", "contralateral_sampling", "anesthesia_regimen", "antibiotic_prophylaxis", "complication_counseling", "repeat_biopsy_timing", "treatment_planning_sufficiency", "focal_therapy_selection_sampling"]
+    }
+  },
+  "interaction_mechanisms": ["indication_matching", "imaging_pathway_selection", "biopsy_scheme_selection", "perioperative_management", "complication_risk_management", "treatment_planning_linkage"],
+  "population": {
+    "primary": "adult_men_with_suspected_prostate_cancer",
+    "subgroups": ["mri_visible_lesion", "mri_indeterminate", "prior_negative_biopsy", "anticoagulated", "focal_therapy_candidate"],
+    "patient_factors": ["anticoagulation", "urinary_tract_infection_risk", "prostate_volume", "psa_density", "family_history"]
+  },
+  "data_sources": [
+    {"name": "ProBIOPSY consensus main text + mmc1 supplementary", "entity": "both", "access": "manual", "url": "local: C:/Users/31291/AppData/Local/Temp/MicrosoftEdgeDownloads/5c2b4cde-666a-4ab3-a59e-1f5c59e0f1fe/ProBIOPSY_*.pdf + D:/论文写作汇总/看过的文献/1-s2.0-S0302283826022335-mmc1.pdf"},
+    {"name": "EAU Prostate Cancer Guidelines (biopsy chapter)", "entity": "both", "access": "download", "url": "https://uroweb.org/guidelines/prostate-cancer"},
+    {"name": "AUA/SUO Prostate Cancer Guideline (2023/amended)", "entity": "both", "access": "download", "url": "https://www.auanet.org/guidelines-and-quality/guidelines/prostate-cancer-guideline"},
+    {"name": "NICE NG131 Prostate Cancer", "entity": "both", "access": "download", "url": "https://www.nice.org.uk/guidance/ng131"},
+    {"name": "PubMed abstract pool (targeted biopsy / systematic biopsy / PI-RADS, 2015-2026)", "entity": "both", "access": "api", "url": "https://pubmed.ncbi.nlm.nih.gov/ via bio-entrez-search"}
+  ],
+  "clinical": {
+    "collaborator_available": true,
+    "irb_possible": true,
+    "expert_panel_size": 3,
+    "case_count_estimate": 0
+  },
+  "ethics": {
+    "irb_needed": false,
+    "irb_pathway": "exemption",
+    "human_subjects_involvement": "none",
+    "informed_consent_required": false,
+    "informed_consent_type": "waived",
+    "vulnerable_populations": [],
+    "pi": {
+      "name": "[TODO: pi_name]",
+      "title": "[TODO: pi_title]",
+      "email": "[TODO: pi_email]",
+      "phone": "[TODO: pi_phone]",
+      "department": "[TODO: pi_department]",
+      "orcid": ""
+    },
+    "hospital_name": "[TODO: hospital_name]",
+    "hospital_collab_status": "verbal",
+    "irb_committee_name": "[TODO: irb_committee_name]",
+    "irb_committee_id": "[TODO: irb_committee_id]",
+    "irb_contact_name": "[TODO: irb_contact_name]",
+    "irb_contact_email": "[TODO: irb_contact_email]",
+    "irb_contact_phone": "[TODO: irb_contact_phone]",
+    "funding_source": "[TODO: funding_source]",
+    "funding_id": "[TODO: funding_id]",
+    "coi_disclosure": "[TODO: coi_disclosure, 若无请写'无']",
+    "data_storage_location": "本地工作站(加密磁盘),仅使用公开数据",
+    "notes": "纯公开数据路径:ProBIOPSY共识(CC BY开放获取)+公开指南+PubMed摘要。若后续启用回顾性病例验证模块,需补充IRB快速审查并更新本节"
+  },
+  "resources": {
+    "compute": "cpu_only",
+    "llm_provider": "zhipu",
+    "team_python_level": "none",
+    "team_domain_expertise": ["urology", "medical_imaging"]
+  },
+  "llm_api": {
+    "deepseek": {
+      "api_key": "",
+      "base_url": "https://api.deepseek.com",
+      "chat_model": "deepseek-v4-flash"
+    },
+    "volcengine_ark": {
+      "api_key": "",
+      "base_url": "https://ark.cn-beijing.volces.com/api/v3",
+      "chat_model": "doubao-pro-32k",
+      "embed_model": "doubao-embedding-vision-251215",
+      "embed_dim": 2048,
+      "endpoint_id": ""
+    },
+    "custom_chat": {"enabled": true, "base_url": "https://open.bigmodel.cn/api/paas/v4", "api_key_env": "HUANYU_BULK_API_KEY", "model": "glm-5.3"},
+    "custom_embed": {"enabled": false, "base_url": "", "api_key_env": "", "model": "", "dim": 0},
+    "budget_estimate_calls": 8000
+  },
+  "differentiation": {
+    "avoid_duplicate_of": "通用医疗问答RAG(如UroBot/ChatGPT直接问答/naive RAG文献问答)与ProBIOPSY共识本身",
+    "key_selling_point": "方法学创新(首个面向外科操作标准化的规则+LightRAG+LLM混合架构)+领域首创(前列腺穿刺全流程知识图谱:影像-指征-方案-并发症-治疗规划一体化)+临床验证强度(96条共识声明还原度+专家盲评+4基线消融)"
+  },
+  "constraints": {
+    "must_use_chinese_ui": false,
+    "data_must_stay_local": false,
+    "no_foreign_api": false
+  },
+  "online_validation": {
+    "research_prospect_verdict": "strong",
+    "data_availability_verdict": "strong",
+    "prior_art_summary": "arXiv:2506.13674 (PERICLES Group 2025) 已将LightRAG用于泌尿外科RAG方法评测(SUO指南QA),UroBot (Eur Urol Focus 2025) 显示纯LLM准确率低于人类专家;但'规则引擎+LightRAG+LLM仲裁'混合架构用于前列腺穿刺活检流程决策支持、并以96条国际共识声明做声明级保真度验证的工作未见先例(clear_gap)。论文中不可声称'首个LightRAG泌尿应用',需正面引用arXiv:2506.13674并明确定位差异。",
+    "exemplar_papers": [
+      {"title": "RAG vs. GraphRAG: A Systematic Evaluation and Contextual Analysis for the Application of RAG Methods in Urology", "doi": "10.48550/arXiv.2506.13674", "year": 2025},
+      {"title": "LightRAG: Simple and Fast Retrieval-Augmented Generation", "doi": "10.48550/arXiv.2410.05779", "year": 2024},
+      {"title": "Comparative Analysis of Large Language Models Versus Urologists for EAU Guideline Questions: UroBot Study", "doi": "10.1016/j.euf.2025.101766", "year": 2025},
+      {"title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy", "doi": "10.1016/j.eururo.2026.06.014", "year": 2026}
+    ],
+    "journal_fit_exemplars": [
+      {"title": "Artificial Intelligence in Prostate MRI Quality, Interpretation, and Targeted Biopsy", "journal": "European Urology Open Science", "year": 2024, "doi": "10.1016/j.euros.2024.1000191"},
+      {"title": "The emerging role of artificial intelligence in the diagnosis and treatment of urological malignancies", "journal": "BJU International", "year": 2025, "doi": "10.1111/bju.70026"}
+    ]
+  }
+}

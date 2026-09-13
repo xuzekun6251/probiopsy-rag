@@ -1,0 +1,167 @@
+# Figure contract: Figure 4 — Demo Case Report
+# Consumed by nature-figure skill.
+# Project: probiopsy-rag (前列安汇)
+
+figure_id: figure4_demo_case
+title: "Demo case: 患者临床情境要素 × 穿刺决策项 risk evaluation"
+figure_number: 4
+manuscript_section: Results → Qualitative Case Demonstration
+
+core_conclusion: >-
+  A worked demo case shows how 前列安汇 integrates rule signals,
+  retrieved evidence, and LLM arbitration into an explainable risk report —
+  enabling clinicians to trace each component of the recommendation back to
+  its source.
+
+archetype: image_plate_plus_quant   # mixed visual + textual evidence
+
+panels:
+  - id: panel_a_input
+    role: contextual
+    layout_template: asymmetric_hero_panel
+    layout: top_strip
+    title: "Input"
+    content: >-
+      Compact summary card: Entity A (subtype + key flags) | Entity B (exposure
+      + key flags) | Patient factors (tags). No fancy graphics — just clear
+      metadata.
+    visual_elements:
+      - type: card
+        fields: [entity_a_id, primary_name, top_3_flags]
+      - type: card
+        fields: [entity_b_id, generic_name, top_3_flags]
+      - type: tags
+        fields: [patient_factors]
+
+  - id: panel_b_rule_signals
+    role: primary
+    layout_template: dark_image_plate_repeated_views
+    layout: middle_left
+    title: "Triggered rules"
+    content: >-
+      Horizontal bar chart: each rule triggered, with severity color and
+      mechanism category label. Bars ordered by severity (H → M → L).
+    plot_type: horizontal_bar
+    x_axis: rule_score (severity weight)
+    y_axis: rule_id (with mechanism tag)
+    color: severity
+    annotations:
+      - "Each rule annotated with literature PMID"
+
+  - id: panel_c_evidence_pyramid
+    role: primary
+    layout_template: dark_image_plate_repeated_views
+    layout: middle_right
+    title: "Evidence pyramid"
+    content: >-
+      Pyramid: top = Level A (regulatory), bottom = Level E (mechanism).
+      Each level shows retrieved chunk count + sample title.
+    plot_type: pyramid_stack
+    levels: [A, B, C, D, E]
+    counts_from: evidence_chunks
+    sample_titles: true
+
+  - id: panel_d_traceability
+    role: primary
+    layout_template: dark_image_plate_repeated_views
+    layout: bottom
+    title: "Traceability chain"
+    content: >-
+      Flow diagram showing how the LLM arbiter combined rule signals + top-k
+      evidence chunks → final risk level. Each chunk numbered, source cited.
+    visual_elements:
+      - type: horizontal_flow
+        nodes: [rules, top_k_evidence, llm_arbiter, risk_level, recommendation]
+        annotations: ["3 signals", "5 chunks", "DeepSeek primary / GPT-4 if high", "HIGH", "avoid exposure + biomonitoring"]
+
+backend:
+  value: python
+  lock: true
+  fallback_policy: stop_and_report
+dependencies:
+  - matplotlib >= 3.7
+  - matplotlib.patches (FancyBboxPatch for cards)
+  - numpy
+
+export:
+  dimensions_mm: [180, 160]   # taller than wide for case report
+  dpi: 600
+  formats: [svg, pdf, tiff, png]
+  editable_text: true
+  svg_fonttype: none           # keep <text> nodes editable (v2.5)
+  pdf_fonttype: 42             # TrueType editable text (v2.5)
+  font_type: arial
+  font_size_range_pt: [6, 12]
+  line_width_range_pt: [0.5, 1.5]
+  color_mode: cmyk_friendly
+
+# ─────────────────────────────────────────────────────────────
+# STYLE (v2.5) — locks theme + rcParams at the contract layer.
+# The renderer (medical-agent-writer/scripts/figure_style.py) reads
+# style.theme and applies the matching PALETTE + rcParams.
+# ─────────────────────────────────────────────────────────────
+style:
+  theme: nmi_pastel
+  font_family: Arial
+  font_size_pt: 7
+  axes_linewidth: 0.8
+
+color_palette:
+  name: NMI_pastel
+  severity:
+    high: "#dc2626"
+    medium: "#ea580c"
+    low: "#16a34a"
+    unknown: "#6b7280"
+  evidence_levels:
+    A: "#003f5c"   # deep blue — strongest
+    B: "#58508d"
+    C: "#bc5090"
+    D: "#ff6361"
+    E: "#ffa600"   # amber — weakest
+  note: >-
+    Evidence pyramid uses sequential viridis-like ramp to imply evidentiary
+    strength gradient.
+
+source_data:
+  csv_path: outputs/figures/source_data/figure4_demo_case.csv
+  schema:
+    - column: case_id
+    - column: entity_a_id
+    - column: entity_b_id
+    - column: patient_factors
+    - column: rule_id
+    - column: rule_severity
+      values: [high, medium, low, unknown]
+    - column: rule_mechanism
+    - column: evidence_chunk_id
+    - column: evidence_level
+      values: [A, B, C, D, E]
+    - column: evidence_source
+    - column: evidence_pmid
+    - column: llm_arbiter_decision
+    - column: final_risk_level
+
+review_risks:
+  - id: cherry_picking_demo
+    risk: "Demo case is chosen to look good"
+    mitigation: "Pick a case where system flagged something non-obvious that experts confirmed"
+  - id: llm_output_privacy
+    risk: "LLM raw output may contain hallucinated details"
+    mitigation: "Show arbiter's structured output, not free-form LLM text; cross-check every chunk with source DB"
+  - id: too_busy
+    risk: "4 panels + traceability = visually busy"
+    mitigation: "Use generous whitespace; arrows only for primary flow; secondary info in supplement"
+
+legend:
+  position: below
+  font_size_pt: 7
+  items:
+    - "Levels: A=regulatory, B=meta-analysis, C=original study, D=in vitro/animal, E=mechanism inference"
+    - "Case selection: representative high-risk case from Phase 3 retrospective set"
+
+accessibility:
+  alt_text: >-
+    Four-panel case demonstration showing input summary, triggered rule bars,
+    evidence level pyramid, and traceability flow from inputs to final risk.
+  color_blind_safe: true

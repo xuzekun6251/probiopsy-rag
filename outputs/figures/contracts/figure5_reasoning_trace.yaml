@@ -1,0 +1,184 @@
+# Figure contract: Figure 5 — Reasoning Trace
+# Consumed by nature-figure skill.
+# Project: probiopsy-rag (前列安汇)
+
+figure_id: figure5_reasoning_trace
+title: "Step-by-step reasoning trace across the three architectural layers"
+figure_number: 5
+manuscript_section: Results → Interpretability / Supplementary
+
+core_conclusion: >-
+  前列安汇's three-layer architecture produces a fully
+  traceable reasoning chain — each transition from rule signal to KG path to
+  LLM arbitration is logged, enabling post-hoc audit of every output.
+
+archetype: schematic_led_composite
+
+panels:
+  - id: panel_a_trace_flow
+    role: primary
+    layout_template: hero_schematic_with_quant_row
+    layout: full_width_top
+    title: "Trace flow for one case"
+    content: >-
+      Horizontal swim-lane diagram: 3 lanes (Rule / KG / LLM). Time flows
+      left → right. Each node is a step with input + output + duration.
+    visual_elements:
+      - type: swimlane
+        lanes: [Rule Engine, LightRAG KG, LLM Arbiter]
+        nodes:
+          - lane: Rule Engine
+            label: "Match flags × mechanism"
+            duration_ms: 50
+            output: "3 signals"
+          - lane: LightRAG KG
+            label: "Risk-guided retrieval"
+            duration_ms: 800
+            output: "5 chunks, top-k=5"
+          - lane: LightRAG KG
+            label: "Path extraction"
+            duration_ms: 120
+            output: "2 KG paths"
+          - lane: LLM Arbiter
+            label: "DeepSeek first pass"
+            duration_ms: 2300
+            output: "M (medium)"
+          - lane: LLM Arbiter
+            label: "GPT-4 top-10% escalation"
+            duration_ms: 1800
+            output: "H (high, confidence 0.83)"
+        arrows:
+          - from: Rule.out
+            to: KG.in
+          - from: KG.out
+            to: LLM.in
+          - from: LLM.first_pass
+            to: LLM.escalation
+            condition: "if severity high"
+
+  - id: panel_b_latency_breakdown
+    role: supporting
+    layout_template: asymmetric_hero_panel
+    layout: bottom_left
+    title: "Latency breakdown"
+    content: >-
+      Stacked horizontal bar: avg time per layer (rule / KG / LLM). Shows
+      where the runtime cost sits (usually LLM).
+    plot_type: stacked_bar
+    x_axis: milliseconds
+    y_axis: phase
+    stacks: [rule_engine, lightrag_kg, llm_arbiter]
+    annotations:
+      - "Median across n=200 Phase 3 cases"
+
+  - id: panel_c_path_diversity
+    role: supporting
+    layout_template: asymmetric_hero_panel
+    layout: bottom_right
+    title: "KG path diversity"
+    content: >-
+      Network graph: nodes = entity_a + entity_b + intermediate concepts;
+      edges = extracted paths. Path thickness = retrieval frequency.
+    plot_type: network
+    nodes: [entity_a, entity_b, gene_a, gene_b, pathway_c, disease_d]
+    edges_from: outputs/figures/source_data/figure5_paths.csv
+    layout: spring
+    node_color: type
+    edge_width: 0.5_to_3
+
+backend:
+  value: python
+  lock: true
+  fallback_policy: stop_and_report
+dependencies:
+  - matplotlib >= 3.7
+  - networkx >= 3.0
+  - numpy
+
+export:
+  dimensions_mm: [180, 120]
+  dpi: 600
+  formats: [svg, pdf, tiff, png]
+  editable_text: true
+  svg_fonttype: none           # keep <text> nodes editable (v2.5)
+  pdf_fonttype: 42             # TrueType editable text (v2.5)
+  font_type: arial
+  font_size_range_pt: [6, 11]
+  line_width_range_pt: [0.5, 1.2]
+  color_mode: cmyk_friendly
+
+# ─────────────────────────────────────────────────────────────
+# STYLE (v2.5) — locks theme + rcParams at the contract layer.
+# The renderer (medical-agent-writer/scripts/figure_style.py) reads
+# style.theme and applies the matching PALETTE + rcParams.
+# ─────────────────────────────────────────────────────────────
+style:
+  theme: nmi_pastel
+  font_family: Arial
+  font_size_pt: 7
+  axes_linewidth: 0.8
+
+color_palette:
+  name: NMI_pastel
+  lanes:
+    rule: "#5B8FF9"        # blue
+    kg: "#5AD8A6"          # green
+    llm: "#F6BD16"         # amber
+  severity:
+    high: "#dc2626"
+    medium: "#ea580c"
+    low: "#16a34a"
+    unknown: "#6b7280"
+  network_nodes:
+    entity_a: "#5B8FF9"
+    entity_b: "#5AD8A6"
+    gene: "#F6BD16"
+    pathway: "#9D2933"
+    disease: "#722ED1"
+  note: >-
+    Lane colors match Figure 1 layer colors for visual consistency across
+    the manuscript.
+
+source_data:
+  csv_path: outputs/figures/source_data/figure5_reasoning_trace.csv
+  schema:
+    - column: case_id
+    - column: step_id
+    - column: layer
+      values: [rule_engine, lightrag_kg, llm_arbiter]
+    - column: step_label
+    - column: duration_ms
+    - column: input_summary
+    - column: output_summary
+  secondary_csv:
+    path: outputs/figures/source_data/figure5_paths.csv
+    schema:
+      - column: source_node
+      - column: target_node
+      - column: weight
+      - column: path_type
+
+review_risks:
+  - id: trace_too_detailed
+    risk: "Showing every token-level decision overwhelms readers"
+    mitigation: "Show only decision points; aggregate repeated LLM retries"
+  - id: privacy_of_prompts
+    risk: "Prompts may contain PHI-adjacent text"
+    mitigation: "Use synthetic case for figure; redact any real patient references"
+  - id: latency_overemphasis
+    risk: "Latency breakdown may make system look slow vs baselines"
+    mitigation: "Frame as 'transparent cost of interpretability'; note batch mode amortizes"
+
+legend:
+  position: below
+  font_size_pt: 7
+  items:
+    - "Swim-lane colors correspond to architectural layers (per Figure 1)"
+    - "Durations are median across n=200 Phase 3 retrospective cases"
+    - "GPT-4 escalation triggers only on top-10% high-severity cases"
+
+accessibility:
+  alt_text: >-
+    Three-panel figure showing reasoning swim-lanes, latency breakdown, and
+    knowledge-graph path network for a demo case.
+  color_blind_safe: true

@@ -1,0 +1,34 @@
+{
+  "schema_version": "v2.6",
+  "project": {
+    "code_name": "probiopsy-rag",
+    "chinese_name": "前列安汇",
+    "created_date": "2026-09-13"
+  },
+  "lifecycle_stage": "planner",
+  "completed": [
+    "planner.phase4"
+  ],
+  "in_progress": "executor.phase0",
+  "blocked": [],
+  "artifacts": {
+    "config": ".planner.config.json",
+    "plan_md": "PLAN.md",
+    "executor_progress": ".executor/progress.json",
+    "writer_progress": ".writer/progress.json",
+    "latest_validation": "",
+    "latest_manuscript": ""
+  },
+  "history": [
+    {
+      "date": "2026-09-13",
+      "event": "project initialized",
+      "skill": "medical-agent"
+    },
+    {
+      "date": "2026-09-13",
+      "event": "planner.phase0-4.5 completed: config+scaffold+PLAN.md+§X online validation+env(.venv py3.13)+ethics docs(10)+figure contracts(5)",
+      "skill": "medical-agent-planner"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Env
+.env
+.env.local
+
+# Data and outputs (large/regenerable)
+data/raw/
+data/processed/
+outputs/figures/*.png
+outputs/figures/*.pdf
+outputs/paper/*.pdf
+outputs/baseline_predictions*.jsonl
+
+# OS
+.DS_Store
+Thumbs.db

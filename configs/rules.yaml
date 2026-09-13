@@ -1,0 +1,102 @@
+# 前列安汇 rule engine configuration.
+# 12 rules covering: indication_matching, imaging_pathway_selection, biopsy_scheme_selection, perioperative_management, complication_risk_management, treatment_planning_linkage.
+# Flag taxonomy must match the `flags` columns in data/seed/entities_a.csv and entities_b.csv.
+# See docs/rule_rationale.md for literature citations per rule.
+#
+# CITATION SCHEMA (v2.6) — every rule MUST cite >=1 authoritative source.
+# Sources must come from: 文献 / 指南 / 权威书籍 / 知名数据库 (see find_authoritative_sources.py).
+# Each entry is EITHER a string (legacy) OR an object with `source_type` + `ref`:
+#   citations:
+#     - source_type: literature        # 文献 (DOI/PMID — cross-verified by kuku Rule 3+4)
+#       ref: "10.1016/j.xxxx.2024.01.001"
+#     - source_type: guideline         # 指南 (GOLD/WHO/NCCN/ESC/ADA/...)
+#       ref: "GOLD 2024 Report <URL> <section> <access date>"
+#     - source_type: authority_book    # 权威书籍 (教材/专著, with ISBN/URL + section)
+#       ref: "Harrison's Principles of Internal Medicine 21e <ISBN> <chapter>"
+#     - source_type: database          # 知名数据库 (DrugBank/KEGG/ClinVar/...)
+#       ref: "DrugBank:DB00001 <URL>"
+# Legacy bare-string entries are still accepted (classified by regex at verify time).
+
+risk_levels:
+  high: 3
+  medium: 2
+  low: 1
+  unknown: 0
+
+rules:
+  # ===== Pharmacokinetic: CYP / transporter modulation =====
+  - id: cyp3a4_inhibition_strong
+    severity: high
+    risk_type: pharmacokinetic_cyp3a4
+    entity_a_flags: [cyp3a4_inhibitor_strong]
+    entity_b_flags: [cyp3a4_substrate]
+    rationale: <mechanism sentence, 1-2 sentences, with citation hint>
+    recommendation: <actionable sentence>
+    citations: []
+    # example (filled by find_authoritative_sources.py or the author):
+    #   - source_type: database
+    #     ref: "DrugBank:DB00001 https://go.drugbank.com/drugs/DB00001"
+    #   - source_type: literature
+    #     ref: "10.1016/j.ijpharm.2023.123456"
+
+  - id: cyp3a4_inhibition_weak
+    severity: medium
+    risk_type: pharmacokinetic_cyp3a4
+    entity_a_flags: [cyp3a4_inhibitor]
+    entity_b_flags: [cyp3a4_substrate]
+    rationale: <...>
+    recommendation: <...>
+    citations: []
+
+  # ===== Pharmacodynamic: additive / antagonistic =====
+  - id: additive_effect_example
+    severity: high
+    risk_type: pharmacodynamic_<effect>
+    entity_a_flags: [<flag>]
+    entity_b_flags: [<flag>]
+    rationale: <...>
+    recommendation: <...>
+    citations: []
+
+  # ===== Physicochemical =====
+  - id: chelation_absorption_example
+    severity: medium
+    risk_type: physicochemical_chelation
+    entity_a_flags: [chelator]
+    entity_b_flags: [chelation_sensitive]
+    rationale: <...>
+    recommendation: <...>
+    citations: []
+
+  # ===== Toxicity overlap =====
+  - id: hepatotoxicity_overlap_example
+    severity: high
+    risk_type: toxicity_hepatotoxicity
+    entity_a_flags: [hepatotoxic]
+    entity_b_flags: [hepatotoxic]
+    rationale: <...>
+    recommendation: <...>
+    citations: []
+
+# ===== Patient factor escalation rules =====
+patient_factor_rules:
+  liver_disease:
+    severity: high
+    matching_entity_a_flags: [hepatotoxic]
+    matching_entity_b_flags: [hepatotoxic]
+    rationale: Hepatic impairment reduces clearance and amplifies toxicity of hepatotoxic entities.
+  elderly:
+    severity: medium
+    matching_entity_a_flags: []
+    matching_entity_b_flags: [narrow_therapeutic_index]
+    rationale: Elderly patients have reduced clearance and increased sensitivity.
+  pregnancy:
+    severity: high
+    matching_entity_a_flags: [pregnancy_contraindicated]
+    matching_entity_b_flags: [pregnancy_category_d_or_x]
+    rationale: Pregnancy contraindication applies.
+  renal_impairment:
+    severity: high
+    matching_entity_a_flags: [nephrotoxic]
+    matching_entity_b_flags: [nephrotoxic]
+    rationale: Renal impairment reduces clearance of nephrotoxic entities.

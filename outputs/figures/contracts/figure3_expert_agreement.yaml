@@ -1,0 +1,178 @@
+# Figure contract: Figure 3 — Expert Agreement
+# Consumed by nature-figure skill.
+# Project: probiopsy-rag (前列安汇)
+
+figure_id: figure3_expert_agreement
+title: "Expert-system agreement and inter-rater reliability"
+figure_number: 3
+manuscript_section: Results → Face Validity
+
+core_conclusion: >-
+  前列安汇 system outputs show substantial agreement with the
+  4-expert blind panel (Cohen's κ ≥ 0.6 for system-vs-expert, Fleiss κ ≥ 0.6
+  across experts), supporting face validity for clinical decision support.
+
+archetype: quantitative_grid
+
+panels:
+  - id: panel_a_fleiss_kappa
+    role: primary
+    layout_template: ultra_wide_multi_metric_bar
+    layout: top_left
+    title: "Inter-rater agreement (Fleiss κ across 4 experts)"
+    content: >-
+      Bar chart: Fleiss κ per case, sorted ascending. Reference lines at
+      0.4 (moderate), 0.6 (substantial), 0.8 (almost perfect).
+    plot_type: bar_horizontal
+    x_axis: fleiss_kappa
+    y_axis: case_id
+    reference_lines:
+      - {at: 0.4, label: "moderate", style: dashed}
+      - {at: 0.6, label: "substantial", style: solid}
+      - {at: 0.8, label: "almost perfect", style: dashed}
+    color_zones:
+      - {range: [0, 0.4], color: "#F4664A"}   # poor-moderate
+      - {range: [0.4, 0.6], color: "#F6BD16"} # moderate-substantial
+      - {range: [0.6, 1.0], color: "#5AD8A6"} # substantial+
+
+  - id: panel_b_system_vs_expert
+    role: primary
+    layout_template: ultra_wide_multi_metric_bar
+    layout: top_right
+    title: "System vs expert consensus"
+    content: >-
+      Heatmap: rows = cases, cols = [expert_1, expert_2, expert_3, expert_4,
+      system]. Cells = risk level (H/M/L/U) with color encoding.
+    plot_type: heatmap_categorical
+    rows: case_id
+    cols: [expert_1, expert_2, expert_3, expert_4, system]
+    cell_labels: [H, M, L, U]
+    cell_colors:
+      H: "#dc2626"   # high — red
+      M: "#ea580c"   # medium — orange
+      L: "#16a34a"   # low — green
+      U: "#6b7280"   # unknown — gray
+    annotations:
+      - "Diagonal pattern = agreement"
+      - "Off-diagonal in system col = disagreement"
+
+  - id: panel_c_confusion_system_expert
+    role: supporting
+    layout_template: asymmetric_hero_panel
+    layout: bottom_left
+    title: "System vs expert majority (confusion matrix)"
+    content: >-
+      4x4 confusion matrix: expert majority (or modal) vs system output.
+    plot_type: heatmap
+    rows: expert_majority
+    cols: system_output
+    cells: proportion
+    annotations:
+      - "Cohen's κ value displayed in subtitle"
+      - "Off-diagonal cells annotated with case IDs"
+
+  - id: panel_d_likert
+    role: supporting
+    layout_template: asymmetric_hero_panel
+    layout: bottom_right
+    title: "Expert Likert ratings"
+    content: >-
+      Stacked bar: each expert's ratings on 4 dimensions (clarity / usefulness /
+      recommendation_alignment / evidence_quality). Scale 1-5.
+    plot_type: stacked_bar_horizontal
+    x_axis: proportion
+    y_axis: dimension × expert
+    stacks: [1, 2, 3, 4, 5]
+
+backend:
+  value: python
+  lock: true
+  fallback_policy: stop_and_report
+dependencies:
+  - matplotlib >= 3.7
+  - seaborn >= 0.13
+  - numpy
+  - statsmodels   # for Fleiss κ
+  - scipy
+
+export:
+  dimensions_mm: [180, 140]
+  dpi: 600
+  formats: [svg, pdf, tiff, png]
+  editable_text: true
+  svg_fonttype: none           # keep <text> nodes editable (v2.5)
+  pdf_fonttype: 42             # TrueType editable text (v2.5)
+  font_type: arial
+  font_size_range_pt: [6, 11]
+  line_width_range_pt: [0.5, 1.2]
+  color_mode: cmyk_friendly
+
+# ─────────────────────────────────────────────────────────────
+# STYLE (v2.5) — locks theme + rcParams at the contract layer.
+# The renderer (medical-agent-writer/scripts/figure_style.py) reads
+# style.theme and applies the matching PALETTE + rcParams.
+# ─────────────────────────────────────────────────────────────
+style:
+  theme: nmi_pastel
+  font_family: Arial
+  font_size_pt: 7
+  axes_linewidth: 0.8
+
+color_palette:
+  name: NMI_pastel
+  levels:
+    H: "#dc2626"
+    M: "#ea580c"
+    L: "#16a34a"
+    U: "#6b7280"
+  zones:
+    poor: "#F4664A"
+    moderate: "#F6BD16"
+    substantial: "#5AD8A6"
+    almost_perfect: "#5B8FF9"
+  likert_diverging: RdBu_r   # centered at 3
+  note: >-
+    H/M/L/U colors match Streamlit UI for consistency; ensure adequate
+    lightness contrast for colorblind users (tested with Coblis simulator).
+
+source_data:
+  csv_path: outputs/figures/source_data/figure3_expert_agreement.csv
+  schema:
+    - column: case_id
+    - column: expert_id
+      values: [1, 2, 3, 4]
+    - column: expert_rating
+      values: [H, M, L, U]
+    - column: system_output
+      values: [H, M, L, U]
+    - column: expert_majority
+      values: [H, M, L, U]
+    - column: likert_clarity        # 1-5
+    - column: likert_usefulness     # 1-5
+    - column: likert_recommendation # 1-5
+    - column: likert_evidence       # 1-5
+
+review_risks:
+  - id: small_n_kappa_instability
+    risk: "n=32-40 ratings → κ CI is wide"
+    mitigation: "Report κ with bootstrap 95% CI; interpret as 'preliminary face validity'"
+  - id: expert_disagreement_inflates_kappa
+    risk: "When experts disagree among themselves, system-vs-majority looks artificially good"
+    mitigation: "Show panel_a Fleiss κ prominently; disclose expert disagreement in caption"
+  - id: cherry_picked_cases
+    risk: "Only 8-10 cases — reviewers may say 'too few'"
+    mitigation: "Random sample from a larger pool; report sampling protocol in Methods"
+
+legend:
+  position: below
+  font_size_pt: 7
+  items:
+    - "H = High risk, M = Medium, L = Low, U = Unknown"
+    - "κ interpretation: 0.4 moderate, 0.6 substantial, 0.8 almost perfect (Landis-Koch)"
+    - "Error: 95% bootstrap CI (B=2000)"
+
+accessibility:
+  alt_text: >-
+    Four-panel figure showing inter-rater agreement bar chart, case-by-expert
+    heatmap, system-vs-expert confusion matrix, and Likert rating distributions.
+  color_blind_safe: true

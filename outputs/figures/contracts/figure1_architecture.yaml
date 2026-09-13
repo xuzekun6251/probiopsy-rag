@@ -1,0 +1,176 @@
+# Figure contract: Figure 1 — System Architecture
+# Consumed by nature-figure skill. Edit values, do not edit structure.
+# Project: probiopsy-rag (前列安汇)
+
+figure_id: figure1_architecture
+title: "System architecture of 前列安汇"
+figure_number: 1
+manuscript_section: Methods → System Overview
+
+# ─────────────────────────────────────────────────────────────
+# CORE CONCLUSION — the one-sentence claim this figure defends
+# ─────────────────────────────────────────────────────────────
+core_conclusion: >-
+  前列安汇 integrates three layers — a deterministic rule engine,
+  a knowledge-graph retrieval module (LightRAG), and an LLM arbiter — to produce
+  explainable risk-graded reports for 患者临床情境要素 × 穿刺决策项
+  interactions, with full traceability from output back to source evidence.
+
+# ─────────────────────────────────────────────────────────────
+# EVIDENCE CHAIN — what each panel must show
+# ─────────────────────────────────────────────────────────────
+archetype: schematic_led_composite
+
+panels:
+  - id: panel_a_pipeline
+    role: primary
+    layout: full_width_top
+    layout_template: hero_schematic_with_quant_row
+    content: >-
+      End-to-end pipeline: User input → Entity normalization → Rule engine →
+      Risk-guided LightRAG retrieval → Evidence compression → LLM arbiter →
+      Structured report.
+    visual_elements:
+      - type: box
+        label: "Entity A + Entity B + Patient factors"
+        position: left
+      - type: arrow
+        from: "User input"
+        to: "Normalization"
+      - type: box
+        label: "Rule Engine (YAML)"
+        annotation: "22 deterministic rules"
+      - type: box
+        label: "LightRAG retrieval"
+        annotation: "risk-guided, top-k"
+      - type: box
+        label: "LLM Arbiter"
+        annotation: "DeepSeek + GPT-4"
+      - type: box
+        label: "Structured Report"
+        position: right
+
+  - id: panel_b_layers
+    role: supporting
+    layout: bottom_left
+    layout_template: asymmetric_hero_panel
+    content: >-
+      Three-layer zoom-in: Rule layer (YAML config) + KG layer (LightRAG graph)
+      + Arbiter layer (LLM). Shows traceability chain.
+    visual_elements:
+      - type: layer_diagram
+        layers: [rules, kg, llm_arbiter]
+        annotations: ["deterministic", "traceable", "flexible"]
+
+  - id: panel_c_outputs
+    role: supporting
+    layout: bottom_right
+    layout_template: direct_labels_in_regions
+    content: >-
+      Four output views: clinician card / patient handout / research table /
+      policy brief. All from single inference pass.
+    visual_elements:
+      - type: grid
+        cells: [clinician, patient, research, policy]
+
+# ─────────────────────────────────────────────────────────────
+# BACKEND (exclusive — Python only for this figure)
+# ─────────────────────────────────────────────────────────────
+backend:
+  value: python
+  lock: true
+  fallback_policy: stop_and_report
+dependencies:
+  - matplotlib >= 3.7
+  - numpy
+  - optional: matplotlib-sixel (for terminal preview)
+
+# ─────────────────────────────────────────────────────────────
+# EXPORT CONTRACT — journal requirements
+# ─────────────────────────────────────────────────────────────
+export:
+  dimensions_mm: [180, 110]   # double-column journal width
+  dpi: 600
+  formats: [svg, pdf, tiff, png]
+  editable_text: true          # text stays as text in SVG (not path)
+  svg_fonttype: none           # keep <text> nodes editable (v2.5)
+  pdf_fonttype: 42             # TrueType editable text (v2.5)
+  font_type: arial
+  font_size_range_pt: [7, 14]
+  line_width_range_pt: [0.5, 1.5]
+  color_mode: cmyk_friendly
+
+# ─────────────────────────────────────────────────────────────
+# STYLE (v2.5) — locks theme + rcParams at the contract layer.
+# The renderer (medical-agent-writer/scripts/figure_style.py) reads
+# style.theme and applies the matching PALETTE + rcParams.
+# ─────────────────────────────────────────────────────────────
+style:
+  theme: nmi_pastel
+  font_family: Arial
+  font_size_pt: 7
+  axes_linewidth: 0.8
+
+# ─────────────────────────────────────────────────────────────
+# COLOR PALETTE — NMI pastel per nature-figure default
+# ─────────────────────────────────────────────────────────────
+color_palette:
+  name: NMI_pastel
+  primary: "#5B8FF9"      # layer 1 (rules)
+  secondary: "#5AD8A6"    # layer 2 (KG)
+  accent: "#F6BD16"       # layer 3 (LLM)
+  neutral: "#B8B8B8"      # background
+  directional:
+    positive: "#5AD8A6"
+    negative: "#F4664A"
+  note: >-
+    Avoid red/green for non-directional distinctions; reserve them for
+    "validated" vs "blocked" cues.
+
+# ─────────────────────────────────────────────────────────────
+# SOURCE DATA — every figure must have CSV
+# ─────────────────────────────────────────────────────────────
+source_data:
+  csv_path: outputs/figures/source_data/figure1_architecture.csv
+  schema:
+    - column: component
+      values: [rule_engine, lightrag_kg, llm_arbiter, evidence_store, normalize]
+    - column: layer
+      values: [deterministic, retrieval, arbitration]
+    - column: inputs
+    - column: outputs
+    - column: source_code_file
+
+# ─────────────────────────────────────────────────────────────
+# REVIEW RISKS — what reviewers will scrutinize
+# ─────────────────────────────────────────────────────────────
+review_risks:
+  - id: pipeline_overcomplexity
+    risk: "Pipeline diagram looks busy → reviewers miss the three-layer insight"
+    mitigation: "Use vertical layer bands; same color within layer; arrows only between layers"
+  - id: llm_blackbox_appearance
+    risk: "LLM arbiter looks black-box → reviewers question explainability"
+    mitigation: "Show prompt + response excerpt in panel_b_layers annotation"
+  - id: missing_baseline_compare
+    risk: "Architecture doesn't show why baselines differ"
+    mitigation: "Keep architecture pure; baselines comparison belongs in Figure 2"
+
+# ─────────────────────────────────────────────────────────────
+# LEGEND
+# ─────────────────────────────────────────────────────────────
+legend:
+  position: below
+  font_size_pt: 7
+  items:
+    - "Rule layer: 22 deterministic rules in configs/rules.yaml"
+    - "KG layer: LightRAG graph over evidence chunks"
+    - "Arbiter layer: DeepSeek primary, GPT-4 for top-10% high-risk pairs"
+
+# ─────────────────────────────────────────────────────────────
+# ACCESSIBILITY
+# ─────────────────────────────────────────────────────────────
+accessibility:
+  alt_text: >-
+    Schematic of three-layer architecture showing rule engine, knowledge graph
+    retrieval, and LLM arbiter feeding into a structured report.
+  color_blind_safe: true
