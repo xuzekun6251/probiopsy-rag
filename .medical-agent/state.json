@@ -9,7 +9,8 @@
   "completed": [
     "planner.phase4",
     "executor.phase0",
-    "executor.phase1"
+    "executor.phase1",
+    "executor.phase2"
   ],
   "in_progress": null,
   "blocked": [],
@@ -40,6 +41,11 @@
     {
       "date": "2026-09-13",
       "event": "executor.phase1 completed",
+      "skill": "medical-agent-executor"
+    },
+    {
+      "date": "2026-09-13",
+      "event": "executor.phase2 completed",
       "skill": "medical-agent-executor"
     }
   ]

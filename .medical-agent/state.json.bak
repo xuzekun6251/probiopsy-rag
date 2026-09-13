@@ -8,7 +8,8 @@
   "lifecycle_stage": "executor",
   "completed": [
     "planner.phase4",
-    "executor.phase0"
+    "executor.phase0",
+    "executor.phase1"
   ],
   "in_progress": null,
   "blocked": [],
@@ -34,6 +35,11 @@
     {
       "date": "2026-09-13",
       "event": "executor.phase0 completed",
+      "skill": "medical-agent-executor"
+    },
+    {
+      "date": "2026-09-13",
+      "event": "executor.phase1 completed",
       "skill": "medical-agent-executor"
     }
   ]
