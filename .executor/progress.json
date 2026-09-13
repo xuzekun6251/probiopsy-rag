@@ -5,6 +5,16 @@
     },
     "phase1": {
       "status": "complete"
+    },
+    "phase3": {
+      "citations_verified": true,
+      "rules_yaml_sha256": "f500802ee82a4be9fc7a7b6b951e2e7083c09e9ef6a521e7dd280726dbe0ee62",
+      "citations_report": "outputs/citation_verification_report.json",
+      "verified_count": 17,
+      "report_ok_count": 0,
+      "db_ok_count": 0,
+      "rule_count": 12,
+      "degraded_mode": false
     }
   }
 }

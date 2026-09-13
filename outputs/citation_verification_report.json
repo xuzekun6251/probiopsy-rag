@@ -1,0 +1,1228 @@
+{
+  "generated_at": "2026-09-13T23:45:47",
+  "rules_yaml_sha256": "f500802ee82a4be9fc7a7b6b951e2e7083c09e9ef6a521e7dd280726dbe0ee62",
+  "rule_count": 12,
+  "patient_factor_rule_count": 4,
+  "rules_added": false,
+  "rules_added_delta": null,
+  "llm_enabled": true,
+  "network_enabled": true,
+  "mode": "strict",
+  "degraded_mode": false,
+  "overall": "pass",
+  "summary": {
+    "rules_pass": 12,
+    "rules_fail": 0,
+    "rules_total": 12,
+    "by_status": {
+      "verified": 17,
+      "report_ok": 0,
+      "db_ok": 0,
+      "authentic_only": 0,
+      "needs_identifier": 0,
+      "unverified": 0,
+      "retracted": 0,
+      "single_source": 0,
+      "source_type_mismatch": 0
+    }
+  },
+  "rules": [
+    {
+      "id": "mri_acquisition_quality_pathway",
+      "risk_type": "imaging_pathway",
+      "entity_a_flags": [
+        "bpmri",
+        "mpmri",
+        "mri_15t",
+        "mri_3t",
+        "quality_inadequate"
+      ],
+      "entity_b_flags": [
+        "d_mri_driven_pathway",
+        "d_accept_any_field_strength",
+        "d_mri_quality_check",
+        "d_use_piqual_v2",
+        "d_bpmri_acceptable"
+      ],
+      "pass": true,
+      "citations": [
+        {
+          "raw": {
+            "source_type": "literature",
+            "ref": "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q1, Q4a, Q4b, Q5-Q7)"
+          },
+          "status": "verified",
+          "meta": {
+            "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+            "authors": [
+              "Chernysheva",
+              "Di Bello",
+              "Avesani"
+            ],
+            "journal": "European Urology",
+            "year": "2026",
+            "doi": "10.1016/j.eururo.2026.06.012",
+            "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+            "abstract": ""
+          },
+          "relevance": true,
+          "reason": "llm:The paper is the ProBIOPSY consensus itself, directly establishing PI-QUAL v2 quality checks, field-strength equivalence, and MRI pathway standards. | kuku sources: ['crossref', 'openalex']",
+          "declared_source_type": "literature",
+          "sources": {
+            "crossref": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Di Bello",
+                "Avesani"
+              ],
+              "journal": "European Urology",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": null,
+              "abstract": ""
+            },
+            "openalex": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Bello",
+                "Avesani"
+              ],
+              "journal": "",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+              "is_retracted": false,
+              "abstract": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "indeterminate_lesion_ancillary_workup",
+      "risk_type": "ancillary_workup",
+      "entity_a_flags": [
+        "indeterminate_lesion",
+        "pirads_3",
+        "psad_intermediate",
+        "psad_intermediate_high",
+        "psad_high",
+        "risk_calculator_available",
+        "biomarker_available",
+        "contrast_mri_available"
+      ],
+      "entity_b_flags": [
+        "d_contrast_mri_for_pz_indeterminate",
+        "d_followup_indeterminate_bpmri",
+        "d_psad_gate_bpmri_indeterminate",
+        "d_psad_gate_mpmri_indeterminate",
+        "d_riskcalc_gate_bpmri_indeterminate",
+        "d_riskcalc_gate_mpmri_indeterminate",
+        "d_biomarker_gate_bpmri_indeterminate",
+        "d_biomarker_gate_mpmri_indeterminate",
+        "d_psma_pet_indeterminate_ancillary",
+        "d_reject_microultrasound_indeterminate"
+      ],
+      "pass": true,
+      "citations": [
+        {
+          "raw": {
+            "source_type": "literature",
+            "ref": "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q10a-Q16, Q18, Q21, Q22)"
+          },
+          "status": "verified",
+          "meta": {
+            "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+            "authors": [
+              "Chernysheva",
+              "Di Bello",
+              "Avesani"
+            ],
+            "journal": "European Urology",
+            "year": "2026",
+            "doi": "10.1016/j.eururo.2026.06.012",
+            "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+            "abstract": ""
+          },
+          "relevance": true,
+          "reason": "llm:The paper is the ProBIOPSY consensus itself, directly providing the endorsed statements on PSAD gating and ancillary workup for PI-RADS 3 lesions. | kuku sources: ['crossref', 'openalex']",
+          "declared_source_type": "literature",
+          "sources": {
+            "crossref": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Di Bello",
+                "Avesani"
+              ],
+              "journal": "European Urology",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": null,
+              "abstract": ""
+            },
+            "openalex": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Bello",
+                "Avesani"
+              ],
+              "journal": "",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+              "is_retracted": false,
+              "abstract": ""
+            }
+          }
+        },
+        {
+          "raw": {
+            "source_type": "literature",
+            "ref": "10.1111/bju.15277 (Schoots & Padhani, BJU Int 2021 — risk-adapted biopsy decision based on prostate MRI and PSA density)"
+          },
+          "status": "verified",
+          "meta": {
+            "title": "Risk‐adapted biopsy decision based on prostate magnetic resonance imaging and prostate‐specific antigen density for enhanced biopsy avoidance in first prostate cancer diagnostic evaluation",
+            "authors": [
+              "Schoots",
+              "Padhani"
+            ],
+            "journal": "BJU International",
+            "year": "2020",
+            "doi": "10.1111/bju.15277",
+            "pmid": "https://pubmed.ncbi.nlm.nih.gov/33089586",
+            "abstract": ""
+          },
+          "relevance": true,
+          "reason": "llm: | kuku sources: ['crossref', 'semantic_scholar', 'openalex']",
+          "declared_source_type": "literature",
+          "sources": {
+            "crossref": {
+              "title": "Risk‐adapted biopsy decision based on prostate magnetic resonance imaging and prostate‐specific antigen density for enhanced biopsy avoidance in first prostate cancer diagnostic evaluation",
+              "authors": [
+                "Schoots",
+                "Padhani"
+              ],
+              "journal": "BJU International",
+              "year": "2020",
+              "doi": "10.1111/bju.15277",
+              "pmid": null,
+              "abstract": ""
+            },
+            "semantic_scholar": {
+              "title": "Risk‐adapted biopsy decision based on prostate magnetic resonance imaging and prostate‐specific antigen density for enhanced biopsy avoidance in first prostate cancer diagnostic evaluation",
+              "authors": [
+                "Schoots",
+                "Padhani"
+              ],
+              "journal": "Bju International",
+              "year": "2020",
+              "doi": "10.1111/bju.15277",
+              "pmid": "",
+              "is_retracted": false,
+              "abstract": ""
+            },
+            "openalex": {
+              "title": "Risk‐adapted biopsy decision based on prostate magnetic resonance imaging and prostate‐specific antigen density for enhanced biopsy avoidance in first prostate cancer diagnostic evaluation",
+              "authors": [
+                "Schoots",
+                "Padhani"
+              ],
+              "journal": "",
+              "year": "2020",
+              "doi": "10.1111/bju.15277",
+              "pmid": "https://pubmed.ncbi.nlm.nih.gov/33089586",
+              "is_retracted": false,
+              "abstract": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "negative_mri_high_suspicion_pathway",
+      "risk_type": "imaging_pathway",
+      "entity_a_flags": [
+        "negative_mri",
+        "suspicion_high",
+        "psa_elevated",
+        "dre_positive",
+        "family_history",
+        "black_ethnicity",
+        "prior_negative_biopsy"
+      ],
+      "entity_b_flags": [
+        "d_sbx_negative_mri_high_suspicion",
+        "d_psma_pet_negative_mri_ancillary",
+        "d_reject_microultrasound_negative_mri",
+        "d_sbx_12core_template"
+      ],
+      "pass": true,
+      "citations": [
+        {
+          "raw": {
+            "source_type": "literature",
+            "ref": "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q19, Q25, Q55a, Q22)"
+          },
+          "status": "verified",
+          "meta": {
+            "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+            "authors": [
+              "Chernysheva",
+              "Di Bello",
+              "Avesani"
+            ],
+            "journal": "European Urology",
+            "year": "2026",
+            "doi": "10.1016/j.eururo.2026.06.012",
+            "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+            "abstract": ""
+          },
+          "relevance": true,
+          "reason": "llm: | kuku sources: ['crossref', 'openalex']",
+          "declared_source_type": "literature",
+          "sources": {
+            "crossref": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Di Bello",
+                "Avesani"
+              ],
+              "journal": "European Urology",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": null,
+              "abstract": ""
+            },
+            "openalex": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Bello",
+                "Avesani"
+              ],
+              "journal": "",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+              "is_retracted": false,
+              "abstract": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "upfront_new_imaging_rejection",
+      "risk_type": "imaging_pathway",
+      "entity_a_flags": [
+        "psma_pet_available",
+        "microultrasound_available",
+        "imaging_available"
+      ],
+      "entity_b_flags": [
+        "d_reject_psma_pet_upfront",
+        "d_reject_microultrasound_upfront"
+      ],
+      "pass": true,
+      "citations": [
+        {
+          "raw": {
+            "source_type": "literature",
+            "ref": "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q17, Q20)"
+          },
+          "status": "verified",
+          "meta": {
+            "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+            "authors": [
+              "Chernysheva",
+              "Di Bello",
+              "Avesani"
+            ],
+            "journal": "European Urology",
+            "year": "2026",
+            "doi": "10.1016/j.eururo.2026.06.012",
+            "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+            "abstract": ""
+          },
+          "relevance": true,
+          "reason": "llm:This paper is the ProBIOPSY consensus itself, directly supplying the Q17/Q20 evidence rejecting upfront PSMA PET and microultrasound. | kuku sources: ['crossref', 'openalex']",
+          "declared_source_type": "literature",
+          "sources": {
+            "crossref": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Di Bello",
+                "Avesani"
+              ],
+              "journal": "European Urology",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": null,
+              "abstract": ""
+            },
+            "openalex": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Bello",
+                "Avesani"
+              ],
+              "journal": "",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+              "is_retracted": false,
+              "abstract": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "ai_mri_lesion_detection_aid",
+      "risk_type": "ai_decision_support",
+      "entity_a_flags": [
+        "ai_software_available",
+        "bpmri",
+        "mpmri",
+        "visible_lesion"
+      ],
+      "entity_b_flags": [
+        "d_ai_mri_lesion_aid"
+      ],
+      "pass": true,
+      "citations": [
+        {
+          "raw": {
+            "source_type": "literature",
+            "ref": "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statement Q26)"
+          },
+          "status": "verified",
+          "meta": {
+            "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+            "authors": [
+              "Chernysheva",
+              "Di Bello",
+              "Avesani"
+            ],
+            "journal": "European Urology",
+            "year": "2026",
+            "doi": "10.1016/j.eururo.2026.06.012",
+            "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+            "abstract": ""
+          },
+          "relevance": true,
+          "reason": "llm:This is the ProBIOPSY consensus itself, directly endorsing AI software as an aid to MRI lesion detection. | kuku sources: ['crossref', 'openalex']",
+          "declared_source_type": "literature",
+          "sources": {
+            "crossref": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Di Bello",
+                "Avesani"
+              ],
+              "journal": "European Urology",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": null,
+              "abstract": ""
+            },
+            "openalex": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Bello",
+                "Avesani"
+              ],
+              "journal": "",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+              "is_retracted": false,
+              "abstract": ""
+            }
+          }
+        },
+        {
+          "raw": {
+            "source_type": "literature",
+            "ref": "10.1016/S1470-2045(24)00220-1 (Saha et al., PI-CAI, Lancet Oncol 2024 — AI and radiologists in prostate cancer detection on MRI)"
+          },
+          "status": "verified",
+          "meta": {
+            "title": "Artificial intelligence and radiologists in prostate cancer detection on MRI (PI-CAI): an international, paired, non-inferiority, confirmatory study",
+            "authors": [
+              "Saha",
+              "Bosma",
+              "Twilt"
+            ],
+            "journal": "The Lancet Oncology",
+            "year": "2024",
+            "doi": "10.1016/S1470-2045(24)00220-1",
+            "pmid": "https://pubmed.ncbi.nlm.nih.gov/38876123",
+            "abstract": ""
+          },
+          "relevance": true,
+          "reason": "llm: | kuku sources: ['crossref', 'openalex']",
+          "declared_source_type": "literature",
+          "sources": {
+            "crossref": {
+              "title": "Artificial intelligence and radiologists in prostate cancer detection on MRI (PI-CAI): an international, paired, non-inferiority, confirmatory study",
+              "authors": [
+                "Saha",
+                "Bosma",
+                "Twilt"
+              ],
+              "journal": "The Lancet Oncology",
+              "year": "2024",
+              "doi": "10.1016/S1470-2045(24)00220-1",
+              "pmid": null,
+              "abstract": ""
+            },
+            "openalex": {
+              "title": "Artificial intelligence and radiologists in prostate cancer detection on MRI (PI-CAI): an international, paired, non-inferiority, confirmatory study",
+              "authors": [
+                "Saha",
+                "Saha",
+                "Bosma"
+              ],
+              "journal": "",
+              "year": "2024",
+              "doi": "10.1016/s1470-2045(24)00220-1",
+              "pmid": "https://pubmed.ncbi.nlm.nih.gov/38876123",
+              "is_retracted": false,
+              "abstract": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "advanced_disease_reduced_systematic_scheme",
+      "risk_type": "scheme_selection",
+      "entity_a_flags": [
+        "advanced_disease",
+        "unfit_curative",
+        "locally_advanced_suspected",
+        "psa_gt_50"
+      ],
+      "entity_b_flags": [
+        "d_sbx_reduced_6core_advanced",
+        "d_reject_saturation_bx"
+      ],
+      "pass": true,
+      "citations": [
+        {
+          "raw": {
+            "source_type": "literature",
+            "ref": "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q57, Q54, Q56)"
+          },
+          "status": "verified",
+          "meta": {
+            "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+            "authors": [
+              "Chernysheva",
+              "Di Bello",
+              "Avesani"
+            ],
+            "journal": "European Urology",
+            "year": "2026",
+            "doi": "10.1016/j.eururo.2026.06.012",
+            "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+            "abstract": ""
+          },
+          "relevance": true,
+          "reason": "llm:The ProBIOPSY consensus paper itself supplies the direct evidence (Q57, Q54, Q56) endorsing reduced 6-core schemes and rejecting saturation biopsy in advanced disease. | kuku sources: ['crossref', 'openalex']",
+          "declared_source_type": "literature",
+          "sources": {
+            "crossref": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Di Bello",
+                "Avesani"
+              ],
+              "journal": "European Urology",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": null,
+              "abstract": ""
+            },
+            "openalex": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Bello",
+                "Avesani"
+              ],
+              "journal": "",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+              "is_retracted": false,
+              "abstract": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "systematic_template_selection",
+      "risk_type": "scheme_selection",
+      "entity_a_flags": [
+        "psa_elevated",
+        "dre_positive",
+        "prior_negative_biopsy",
+        "visible_lesion"
+      ],
+      "entity_b_flags": [
+        "d_sbx_12core_template",
+        "d_reject_sextant_template",
+        "d_reject_ginsburg_template",
+        "d_reject_saturation_bx"
+      ],
+      "pass": true,
+      "citations": [
+        {
+          "raw": {
+            "source_type": "literature",
+            "ref": "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q51-Q54)"
+          },
+          "status": "verified",
+          "meta": {
+            "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+            "authors": [
+              "Chernysheva",
+              "Di Bello",
+              "Avesani"
+            ],
+            "journal": "European Urology",
+            "year": "2026",
+            "doi": "10.1016/j.eururo.2026.06.012",
+            "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+            "abstract": ""
+          },
+          "relevance": true,
+          "reason": "llm: | kuku sources: ['crossref', 'semantic_scholar', 'openalex']",
+          "declared_source_type": "literature",
+          "sources": {
+            "crossref": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Di Bello",
+                "Avesani"
+              ],
+              "journal": "European Urology",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": null,
+              "abstract": ""
+            },
+            "semantic_scholar": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy.",
+              "authors": [
+                "Chernysheva",
+                "Bello",
+                "Avesani"
+              ],
+              "journal": "European urology",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": "",
+              "is_retracted": false,
+              "abstract": ""
+            },
+            "openalex": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Bello",
+                "Avesani"
+              ],
+              "journal": "",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+              "is_retracted": false,
+              "abstract": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "targeted_core_count_adaptation",
+      "risk_type": "targeted_bx",
+      "entity_a_flags": [
+        "visible_lesion",
+        "pirads_4_5",
+        "pirads_3",
+        "pz_lesion",
+        "lesion_small"
+      ],
+      "entity_b_flags": [
+        "d_tbx_cores_adapt_pirads",
+        "d_tbx_min3_cores"
+      ],
+      "pass": true,
+      "citations": [
+        {
+          "raw": {
+            "source_type": "literature",
+            "ref": "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q34-Q36)"
+          },
+          "status": "verified",
+          "meta": {
+            "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+            "authors": [
+              "Chernysheva",
+              "Di Bello",
+              "Avesani"
+            ],
+            "journal": "European Urology",
+            "year": "2026",
+            "doi": "10.1016/j.eururo.2026.06.012",
+            "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+            "abstract": ""
+          },
+          "relevance": true,
+          "reason": "llm: | kuku sources: ['crossref', 'semantic_scholar', 'openalex']",
+          "declared_source_type": "literature",
+          "sources": {
+            "crossref": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Di Bello",
+                "Avesani"
+              ],
+              "journal": "European Urology",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": null,
+              "abstract": ""
+            },
+            "semantic_scholar": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy.",
+              "authors": [
+                "Chernysheva",
+                "Bello",
+                "Avesani"
+              ],
+              "journal": "European urology",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": "",
+              "is_retracted": false,
+              "abstract": ""
+            },
+            "openalex": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Bello",
+                "Avesani"
+              ],
+              "journal": "",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+              "is_retracted": false,
+              "abstract": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "perilesional_plbx_technique",
+      "risk_type": "targeted_bx",
+      "entity_a_flags": [
+        "visible_lesion",
+        "unifocal",
+        "multifocal_ipsilateral",
+        "lesion_large",
+        "lesion_small"
+      ],
+      "entity_b_flags": [
+        "d_adopt_term_perilesional",
+        "d_plbx_within_10mm",
+        "d_plbx_count_by_lesion_size",
+        "d_plbx_2cores_small_lesion",
+        "d_plbx_max2cores_large_lesion"
+      ],
+      "pass": true,
+      "citations": [
+        {
+          "raw": {
+            "source_type": "literature",
+            "ref": "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q37a-Q41)"
+          },
+          "status": "verified",
+          "meta": {
+            "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+            "authors": [
+              "Chernysheva",
+              "Di Bello",
+              "Avesani"
+            ],
+            "journal": "European Urology",
+            "year": "2026",
+            "doi": "10.1016/j.eururo.2026.06.012",
+            "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+            "abstract": ""
+          },
+          "relevance": true,
+          "reason": "llm:This is the ProBIOPSY consensus itself, directly establishing perilesional terminology, 10-mm placement, and core-count standards (Q37a–Q39). | kuku sources: ['crossref', 'openalex']",
+          "declared_source_type": "literature",
+          "sources": {
+            "crossref": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Di Bello",
+                "Avesani"
+              ],
+              "journal": "European Urology",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": null,
+              "abstract": ""
+            },
+            "openalex": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Bello",
+                "Avesani"
+              ],
+              "journal": "",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+              "is_retracted": false,
+              "abstract": ""
+            }
+          }
+        },
+        {
+          "raw": {
+            "source_type": "literature",
+            "ref": "10.1016/j.eururo.2022.01.008 (Brisbane et al., Eur Urol 2022 — targeted prostate biopsy: umbra, penumbra, and value of perilesional sampling)"
+          },
+          "status": "verified",
+          "meta": {
+            "title": "Targeted Prostate Biopsy: Umbra, Penumbra, and Value of Perilesional Sampling",
+            "authors": [
+              "Brisbane",
+              "Priester",
+              "Ballon"
+            ],
+            "journal": "European Urology",
+            "year": "2022",
+            "doi": "10.1016/j.eururo.2022.01.008",
+            "pmid": "https://pubmed.ncbi.nlm.nih.gov/35115177",
+            "abstract": ""
+          },
+          "relevance": true,
+          "reason": "llm: | kuku sources: ['crossref', 'semantic_scholar', 'openalex']",
+          "declared_source_type": "literature",
+          "sources": {
+            "crossref": {
+              "title": "Targeted Prostate Biopsy: Umbra, Penumbra, and Value of Perilesional Sampling",
+              "authors": [
+                "Brisbane",
+                "Priester",
+                "Ballon"
+              ],
+              "journal": "European Urology",
+              "year": "2022",
+              "doi": "10.1016/j.eururo.2022.01.008",
+              "pmid": null,
+              "abstract": ""
+            },
+            "semantic_scholar": {
+              "title": "Targeted Prostate Biopsy: Umbra, Penumbra, and Value of Perilesional Sampling.",
+              "authors": [
+                "Brisbane",
+                "Priester",
+                "Ballon"
+              ],
+              "journal": "European urology",
+              "year": "2022",
+              "doi": "10.1016/j.eururo.2022.01.008",
+              "pmid": "",
+              "is_retracted": false,
+              "abstract": ""
+            },
+            "openalex": {
+              "title": "Targeted Prostate Biopsy: Umbra, Penumbra, and Value of Perilesional Sampling",
+              "authors": [
+                "Brisbane",
+                "Priester",
+                "Ballon"
+              ],
+              "journal": "",
+              "year": "2022",
+              "doi": "10.1016/j.eururo.2022.01.008",
+              "pmid": "https://pubmed.ncbi.nlm.nih.gov/35115177",
+              "is_retracted": false,
+              "abstract": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "biopsy_scheme_by_lesion_distribution",
+      "risk_type": "scheme_selection",
+      "entity_a_flags": [
+        "unifocal",
+        "multifocal_ipsilateral",
+        "multifocal_bilateral",
+        "multiple_lesions",
+        "visible_lesion"
+      ],
+      "entity_b_flags": [
+        "d_scheme_unifocal_tbx_plbx",
+        "d_scheme_unifocal_add_contralateral",
+        "d_scheme_unifocal_add_sbx",
+        "d_scheme_ipsilateral_multifocal",
+        "d_scheme_bilateral_tbx_plbx"
+      ],
+      "pass": true,
+      "citations": [
+        {
+          "raw": {
+            "source_type": "literature",
+            "ref": "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q42-Q50)"
+          },
+          "status": "verified",
+          "meta": {
+            "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+            "authors": [
+              "Chernysheva",
+              "Di Bello",
+              "Avesani"
+            ],
+            "journal": "European Urology",
+            "year": "2026",
+            "doi": "10.1016/j.eururo.2026.06.012",
+            "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+            "abstract": ""
+          },
+          "relevance": true,
+          "reason": "llm:This is the ProBIOPSY consensus itself, directly supplying Q43/Q49 evidence on biopsy schemes by lesion distribution. | kuku sources: ['crossref', 'openalex']",
+          "declared_source_type": "literature",
+          "sources": {
+            "crossref": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Di Bello",
+                "Avesani"
+              ],
+              "journal": "European Urology",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": null,
+              "abstract": ""
+            },
+            "openalex": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Bello",
+                "Avesani"
+              ],
+              "journal": "",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+              "is_retracted": false,
+              "abstract": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "route_anaesthesia_prophylaxis",
+      "risk_type": "perioperative",
+      "entity_a_flags": [
+        "infection_risk_factor",
+        "prior_negative_biopsy",
+        "unfit_curative",
+        "advanced_disease"
+      ],
+      "entity_b_flags": [
+        "d_route_transperineal",
+        "d_pnb_tr",
+        "d_pnb_tp",
+        "d_omit_abx_tp_no_risk",
+        "d_augmented_abx_tr"
+      ],
+      "pass": true,
+      "citations": [
+        {
+          "raw": {
+            "source_type": "literature",
+            "ref": "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q58-Q63)"
+          },
+          "status": "verified",
+          "meta": {
+            "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+            "authors": [
+              "Chernysheva",
+              "Di Bello",
+              "Avesani"
+            ],
+            "journal": "European Urology",
+            "year": "2026",
+            "doi": "10.1016/j.eururo.2026.06.012",
+            "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+            "abstract": ""
+          },
+          "relevance": true,
+          "reason": "llm: | kuku sources: ['crossref', 'semantic_scholar', 'openalex']",
+          "declared_source_type": "literature",
+          "sources": {
+            "crossref": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Di Bello",
+                "Avesani"
+              ],
+              "journal": "European Urology",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": null,
+              "abstract": ""
+            },
+            "semantic_scholar": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy.",
+              "authors": [
+                "Chernysheva",
+                "Bello",
+                "Avesani"
+              ],
+              "journal": "European urology",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": "",
+              "is_retracted": false,
+              "abstract": ""
+            },
+            "openalex": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Bello",
+                "Avesani"
+              ],
+              "journal": "",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+              "is_retracted": false,
+              "abstract": ""
+            }
+          }
+        },
+        {
+          "raw": {
+            "source_type": "literature",
+            "ref": "10.1016/j.euo.2026.01.009 (Marra et al., Eur Urol Oncol 2026 — transperineal versus transrectal prostate biopsy: systematic review and meta-analysis of RCTs)"
+          },
+          "status": "verified",
+          "meta": {
+            "title": "Transperineal Versus Transrectal Biopsy for Prostate Cancer Diagnosis: A Systematic Review and Meta-analysis of Randomized Controlled Trials",
+            "authors": [
+              "Marra",
+              "Bazzurro",
+              "Dematteis"
+            ],
+            "journal": "European Urology Oncology",
+            "year": "2026",
+            "doi": "10.1016/j.euo.2026.01.009",
+            "pmid": "https://pubmed.ncbi.nlm.nih.gov/41667335",
+            "abstract": ""
+          },
+          "relevance": true,
+          "reason": "llm:Directly compares the rule's exposure (transperineal vs transrectal biopsy route), with RCT data on perioperative complications including infection. | kuku sources: ['crossref', 'openalex']",
+          "declared_source_type": "literature",
+          "sources": {
+            "crossref": {
+              "title": "Transperineal Versus Transrectal Biopsy for Prostate Cancer Diagnosis: A Systematic Review and Meta-analysis of Randomized Controlled Trials",
+              "authors": [
+                "Marra",
+                "Bazzurro",
+                "Dematteis"
+              ],
+              "journal": "European Urology Oncology",
+              "year": "2026",
+              "doi": "10.1016/j.euo.2026.01.009",
+              "pmid": null,
+              "abstract": ""
+            },
+            "openalex": {
+              "title": "Transperineal Versus Transrectal Biopsy for Prostate Cancer Diagnosis: A Systematic Review and Meta-analysis of Randomized Controlled Trials",
+              "authors": [
+                "Marra",
+                "Bazzurro",
+                "Dematteis"
+              ],
+              "journal": "",
+              "year": "2026",
+              "doi": "10.1016/j.euo.2026.01.009",
+              "pmid": "https://pubmed.ncbi.nlm.nih.gov/41667335",
+              "is_retracted": false,
+              "abstract": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "treatment_planning_tissue_requirements",
+      "risk_type": "treatment_planning",
+      "entity_a_flags": [
+        "intent_focal_therapy",
+        "intent_nerve_sparing",
+        "intent_plnd",
+        "intent_whole_gland_rt",
+        "intent_focal_boost",
+        "intent_adt_duration"
+      ],
+      "entity_b_flags": [
+        "d_tp_focal_add_contralateral",
+        "d_tp_focal_tbx_only_not_enough",
+        "d_tp_nss_unifocal_tbx_plbx",
+        "d_tp_nss_bilateral_tbx_adequate",
+        "d_tp_plnd_unifocal_no_consensus",
+        "d_tp_plnd_bilateral_tbx_plbx",
+        "d_tp_wg_rt_tbx_plbx",
+        "d_tp_focal_boost_tbx_plbx",
+        "d_tp_adt_duration_tbx_plbx",
+        "d_tp_reject_adding_systematic_universal"
+      ],
+      "pass": true,
+      "citations": [
+        {
+          "raw": {
+            "source_type": "literature",
+            "ref": "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q64-Q96)"
+          },
+          "status": "verified",
+          "meta": {
+            "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+            "authors": [
+              "Chernysheva",
+              "Di Bello",
+              "Avesani"
+            ],
+            "journal": "European Urology",
+            "year": "2026",
+            "doi": "10.1016/j.eururo.2026.06.012",
+            "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+            "abstract": ""
+          },
+          "relevance": true,
+          "reason": "llm: | kuku sources: ['crossref', 'openalex']",
+          "declared_source_type": "literature",
+          "sources": {
+            "crossref": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Di Bello",
+                "Avesani"
+              ],
+              "journal": "European Urology",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": null,
+              "abstract": ""
+            },
+            "openalex": {
+              "title": "ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy",
+              "authors": [
+                "Chernysheva",
+                "Bello",
+                "Avesani"
+              ],
+              "journal": "",
+              "year": "2026",
+              "doi": "10.1016/j.eururo.2026.06.012",
+              "pmid": "https://pubmed.ncbi.nlm.nih.gov/42420069",
+              "is_retracted": false,
+              "abstract": ""
+            }
+          }
+        },
+        {
+          "raw": {
+            "source_type": "literature",
+            "ref": "10.1016/j.euros.2024.03.006 (van den Kroonenberg et al., Eur Urol Open Sci 2024 — impact of omitting contralateral systematic biopsy on surgical planning)"
+          },
+          "status": "verified",
+          "meta": {
+            "title": "The Impact of Omitting Contralateral Systematic Biopsy on the Surgical Planning of Patients with a Unilateral Suspicious Lesion on Magnetic Resonance Imaging Undergoing Robot-assisted Radical Prostatectomy for Prostate Cancer",
+            "authors": [
+              "van den Kroonenberg",
+              "Stoter",
+              "Jager"
+            ],
+            "journal": "European Urology Open Science",
+            "year": "2024",
+            "doi": "10.1016/j.euros.2024.03.006",
+            "pmid": "https://pubmed.ncbi.nlm.nih.gov/38558763",
+            "abstract": ""
+          },
+          "relevance": true,
+          "reason": "llm: | kuku sources: ['crossref', 'openalex']",
+          "declared_source_type": "literature",
+          "sources": {
+            "crossref": {
+              "title": "The Impact of Omitting Contralateral Systematic Biopsy on the Surgical Planning of Patients with a Unilateral Suspicious Lesion on Magnetic Resonance Imaging Undergoing Robot-assisted Radical Prostatectomy for Prostate Cancer",
+              "authors": [
+                "van den Kroonenberg",
+                "Stoter",
+                "Jager"
+              ],
+              "journal": "European Urology Open Science",
+              "year": "2024",
+              "doi": "10.1016/j.euros.2024.03.006",
+              "pmid": null,
+              "abstract": ""
+            },
+            "openalex": {
+              "title": "The Impact of Omitting Contralateral Systematic Biopsy on the Surgical Planning of Patients with a Unilateral Suspicious Lesion on Magnetic Resonance Imaging Undergoing Robot-assisted Radical Prostatectomy for Prostate Cancer",
+              "authors": [
+                "Kroonenberg",
+                "Stoter",
+                "Jager"
+              ],
+              "journal": "",
+              "year": "2024",
+              "doi": "10.1016/j.euros.2024.03.006",
+              "pmid": "https://pubmed.ncbi.nlm.nih.gov/38558763",
+              "is_retracted": false,
+              "abstract": ""
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

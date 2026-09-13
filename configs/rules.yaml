@@ -1,21 +1,30 @@
-# 前列安汇 rule engine configuration.
-# 12 rules covering: indication_matching, imaging_pathway_selection, biopsy_scheme_selection, perioperative_management, complication_risk_management, treatment_planning_linkage.
-# Flag taxonomy must match the `flags` columns in data/seed/entities_a.csv and entities_b.csv.
-# See docs/rule_rationale.md for literature citations per rule.
+# 前列安汇 (probiopsy-rag) rule engine configuration.
+# 12 rules covering the prostate-biopsy decision pathway defined by the
+# ProBIOPSY international consensus (Chernysheva et al., Eur Urol 2026;
+# doi:10.1016/j.eururo.2026.06.012 — 34 experts, modified Delphi, 112 statements, 36 stems).
+# Flag taxonomy must match the `flags` columns in data/seed/entities_a.csv (49 patient-scenario
+# flags) and the entity ids in data/seed/entities_b.csv (54 decision items, ids d_*).
+# A rule fires when entity_a_flags ∩ patient.flags AND entity_b_flags ∩ decisionItem set.
+# See docs/rule_rule_rationale.md for statement-level mapping per rule.
 #
 # CITATION SCHEMA (v2.6) — every rule MUST cite >=1 authoritative source.
 # Sources must come from: 文献 / 指南 / 权威书籍 / 知名数据库 (see find_authoritative_sources.py).
 # Each entry is EITHER a string (legacy) OR an object with `source_type` + `ref`:
 #   citations:
 #     - source_type: literature        # 文献 (DOI/PMID — cross-verified by kuku Rule 3+4)
-#       ref: "10.1016/j.xxxx.2024.01.001"
-#     - source_type: guideline         # 指南 (GOLD/WHO/NCCN/ESC/ADA/...)
-#       ref: "GOLD 2024 Report <URL> <section> <access date>"
+#       ref: "10.1016/j.eururo.2026.06.012"
+#     - source_type: guideline         # 指南 (needs URL+section+access date; whitelist tokens)
+#       ref: "... <URL> <section> <access date>"
 #     - source_type: authority_book    # 权威书籍 (教材/专著, with ISBN/URL + section)
-#       ref: "Harrison's Principles of Internal Medicine 21e <ISBN> <chapter>"
 #     - source_type: database          # 知名数据库 (DrugBank/KEGG/ClinVar/...)
-#       ref: "DrugBank:DB00001 <URL>"
-# Legacy bare-string entries are still accepted (classified by regex at verify time).
+#
+# DOMAIN NOTE: all 12 rules cite peer-reviewed literature by DOI (kuku Rule 3 cross-verification
+# + Rule 4 retraction check). Primary source for every rule is the ProBIOPSY consensus itself
+# (the validation gold standard). Supporting trial/meta-analysis DOIs were extracted from the
+# consensus reference list (ProBIOPSY mmc1, refs [55]-[90]) so every citation is traceable to
+# the local corpus. EAU/AUA guideline URLs are deliberately NOT used in `citations` (the
+# verify_rule_citations GUIDELINE_TOKENS whitelist does not cover them); guideline context is
+# carried in `rationale` text and the evidence base instead.
 
 risk_levels:
   high: 3
@@ -24,79 +33,295 @@ risk_levels:
   unknown: 0
 
 rules:
-  # ===== Pharmacokinetic: CYP / transporter modulation =====
-  - id: cyp3a4_inhibition_strong
+  # ===== R01 Imaging acquisition & quality gate (ProBIOPSY stems 1-3) =====
+  - id: mri_acquisition_quality_pathway
     severity: high
-    risk_type: pharmacokinetic_cyp3a4
-    entity_a_flags: [cyp3a4_inhibitor_strong]
-    entity_b_flags: [cyp3a4_substrate]
-    rationale: <mechanism sentence, 1-2 sentences, with citation hint>
-    recommendation: <actionable sentence>
-    citations: []
-    # example (filled by find_authoritative_sources.py or the author):
-    #   - source_type: database
-    #     ref: "DrugBank:DB00001 https://go.drugbank.com/drugs/DB00001"
-    #   - source_type: literature
-    #     ref: "10.1016/j.ijpharm.2023.123456"
+    risk_type: imaging_pathway
+    entity_a_flags: [bpmri, mpmri, mri_15t, mri_3t, quality_inadequate]
+    entity_b_flags: [d_mri_driven_pathway, d_accept_any_field_strength, d_mri_quality_check, d_use_piqual_v2, d_bpmri_acceptable]
+    rationale: >
+      ProBIOPSY consensus: every prostate MRI must be checked against PI-QUAL v2 quality
+      criteria before the biopsy pathway is decided (Q4a median 9, Q4b median 8 — consensus
+      agree); 1.5T and 3T scanners are equivalent once quality standards are met (Q1 median 8 —
+      consensus agree); and a quality-assured biparametric (T2W+DWI) MRI is acceptable for
+      prostate cancer detection, so contrast-enhanced sequences are not routinely required
+      (Q5-Q7 median 8 — consensus agree). MRI that fails quality standards should not be used
+      to gate the biopsy decision.
+    recommendation: >
+      Run the PI-QUAL v2 check on every submitted prostate MRI before pathway triage. Accept
+      any field strength (1.5T or 3T) and a bpMRI protocol when quality_adequate; if
+      quality_inadequate, request repeat/complete imaging instead of declaring a negative MRI.
+    citations:
+      - source_type: literature
+        ref: "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q1, Q4a, Q4b, Q5-Q7)"
 
-  - id: cyp3a4_inhibition_weak
+  # ===== R02 Indeterminate lesion (PI-RADS 3) ancillary workup (stems 5-7) =====
+  - id: indeterminate_lesion_ancillary_workup
     severity: medium
-    risk_type: pharmacokinetic_cyp3a4
-    entity_a_flags: [cyp3a4_inhibitor]
-    entity_b_flags: [cyp3a4_substrate]
-    rationale: <...>
-    recommendation: <...>
-    citations: []
+    risk_type: ancillary_workup
+    entity_a_flags: [indeterminate_lesion, pirads_3, psad_intermediate, psad_intermediate_high, psad_high, risk_calculator_available, biomarker_available, contrast_mri_available]
+    entity_b_flags: [d_contrast_mri_for_pz_indeterminate, d_followup_indeterminate_bpmri, d_psad_gate_bpmri_indeterminate, d_psad_gate_mpmri_indeterminate, d_riskcalc_gate_bpmri_indeterminate, d_riskcalc_gate_mpmri_indeterminate, d_biomarker_gate_bpmri_indeterminate, d_biomarker_gate_mpmri_indeterminate, d_psma_pet_indeterminate_ancillary, d_reject_microultrasound_indeterminate]
+    rationale: >
+      For an indeterminate lesion (PI-RADS 3), ProBIOPSY endorses PSAD as the primary gate to
+      reduce unnecessary biopsies — for bpMRI (Q11 median 7) and even more strongly for mpMRI
+      (Q14 median 8); contrast-enhanced MRI may be added for peripheral-zone indeterminate
+      findings on bpMRI (Q10a median 7) with follow-up imaging as an alternative (Q10b median 8).
+      Risk calculators are supported for mpMRI-gated decisions (Q15 median 7) but reached no
+      consensus for bpMRI (Q12); blood/urine biomarkers reached no consensus in either setting
+      (Q13, Q16). PSMA PET (Q18) and microultrasound (Q21) are conditional, not standard, for
+      indeterminate lesions.
+    recommendation: >
+      When indeterminate_lesion (PI-RADS 3) is present, compute PSAD first: biopsy when
+      psad_high/psad_intermediate_high, defer with MRI follow-up when psad_low. On mpMRI also
+      apply a risk calculator when risk_calculator_available. Treat biomarkers, PSMA PET and
+      microultrasound as conditional ancillary options only — report_option, not endorsement.
+    citations:
+      - source_type: literature
+        ref: "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q10a-Q16, Q18, Q21, Q22)"
+      - source_type: literature
+        ref: "10.1111/bju.15277 (Schoots & Padhani, BJU Int 2021 — risk-adapted biopsy decision based on prostate MRI and PSA density)"
 
-  # ===== Pharmacodynamic: additive / antagonistic =====
-  - id: additive_effect_example
+  # ===== R03 Negative MRI with high clinical suspicion (stems 5, 20) =====
+  - id: negative_mri_high_suspicion_pathway
     severity: high
-    risk_type: pharmacodynamic_<effect>
-    entity_a_flags: [<flag>]
-    entity_b_flags: [<flag>]
-    rationale: <...>
-    recommendation: <...>
-    citations: []
+    risk_type: imaging_pathway
+    entity_a_flags: [negative_mri, suspicion_high, psa_elevated, dre_positive, family_history, black_ethnicity, prior_negative_biopsy]
+    entity_b_flags: [d_sbx_negative_mri_high_suspicion, d_psma_pet_negative_mri_ancillary, d_reject_microultrasound_negative_mri, d_sbx_12core_template]
+    rationale: >
+      ProBIOPSY: when MRI is negative but clinical suspicion remains high (abnormal DRE,
+      persistently elevated PSA, strong family history, Black ethnicity, prior negative
+      biopsy), a 12-core systematic biopsy is still endorsed (Q25 median 7 — consensus agree;
+      Q55a median 7). PSMA PET may serve as an ancillary test in this situation (Q19 median 8 —
+      consensus agree), whereas microultrasound reached no consensus (Q22).
+    recommendation: >
+      Do not discharge a patient with negative_mri + suspicion_high. Offer a 12-core systematic
+      biopsy (d_sbx_12core_template); PSMA PET is an optional ancillary workup when
+      psma_pet_available; microultrasound is not endorsed.
+    citations:
+      - source_type: literature
+        ref: "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q19, Q25, Q55a, Q22)"
 
-  # ===== Physicochemical =====
-  - id: chelation_absorption_example
+  # ===== R04 Reject upfront PSMA PET / microultrasound as first-line imaging (stem 6-7) =====
+  - id: upfront_new_imaging_rejection
+    severity: high
+    risk_type: imaging_pathway
+    entity_a_flags: [psma_pet_available, microultrasound_available, imaging_available]
+    entity_b_flags: [d_reject_psma_pet_upfront, d_reject_microultrasound_upfront]
+    rationale: >
+      ProBIOPSY explicitly rejects PSMA PET/MRI as an upfront first-line biopsy-decision tool
+      (Q17 median 2 — consensus disagree) and microultrasound as an upfront alternative to
+      prostate MRI (Q20 median 2 — consensus disagree). These modalities have defined ancillary
+      niches (see R02/R03) but must not replace quality-assured MRI at triage.
+    recommendation: >
+      If psma_pet_available or microultrasound_available, do NOT route the patient to these
+      modalities as the primary biopsy gate. Use PI-QUAL-checked MRI first; reserve PSMA PET /
+      microultrasound for the ancillary indications encoded in R02/R03.
+    citations:
+      - source_type: literature
+        ref: "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q17, Q20)"
+
+  # ===== R05 AI as MRI lesion-detection aid (stem 8) =====
+  - id: ai_mri_lesion_detection_aid
+    severity: low
+    risk_type: ai_decision_support
+    entity_a_flags: [ai_software_available, bpmri, mpmri, visible_lesion]
+    entity_b_flags: [d_ai_mri_lesion_aid]
+    rationale: >
+      ProBIOPSY endorses AI software as an aid to MRI lesion detection and characterization,
+      with interpretation remaining the radiologist's responsibility (Q26 median 7 — consensus
+      agree). PI-CAI (Saha et al., Lancet Oncol 2024) showed non-inferiority of AI-assisted
+      MRI reading for clinically significant prostate cancer detection, supporting the aid
+      (not replacement) framing.
+    recommendation: >
+      When ai_software_available, apply AI lesion detection as a second reader on MRI; the
+      reporting radiologist must confirm/correct AI-flagged lesions before lesion-targeted
+      planning. Never let AI output alone define the biopsy target set.
+    citations:
+      - source_type: literature
+        ref: "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statement Q26)"
+      - source_type: literature
+        ref: "10.1016/S1470-2045(24)00220-1 (Saha et al., PI-CAI, Lancet Oncol 2024 — AI and radiologists in prostate cancer detection on MRI)"
+
+  # ===== R06 Advanced disease: reduced systematic scheme (stem 20) =====
+  - id: advanced_disease_reduced_systematic_scheme
+    severity: high
+    risk_type: scheme_selection
+    entity_a_flags: [advanced_disease, unfit_curative, locally_advanced_suspected, psa_gt_50]
+    entity_b_flags: [d_sbx_reduced_6core_advanced, d_reject_saturation_bx]
+    rationale: >
+      ProBIOPSY endorses a reduced (6-core) systematic scheme in advanced disease, where
+      detection of any grade group confirms management rather than changing mapping precision
+      (Q57 median 8 — consensus agree). Extended/saturation systematic templates are rejected
+      in general (Q54 median 2, Q56 median 2 — consensus disagree).
+    recommendation: >
+      For advanced_disease / unfit_curative patients (e.g. psa_gt_50, locally_advanced_suspected),
+      offer a reduced 6-core systematic biopsy (plus lesion-targeted cores when a visible lesion
+      exists); do not use saturation templates.
+    citations:
+      - source_type: literature
+        ref: "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q57, Q54, Q56)"
+
+  # ===== R07 Systematic template selection (stem 19) =====
+  - id: systematic_template_selection
     severity: medium
-    risk_type: physicochemical_chelation
-    entity_a_flags: [chelator]
-    entity_b_flags: [chelation_sensitive]
-    rationale: <...>
-    recommendation: <...>
-    citations: []
+    risk_type: scheme_selection
+    entity_a_flags: [psa_elevated, dre_positive, prior_negative_biopsy, visible_lesion]
+    entity_b_flags: [d_sbx_12core_template, d_reject_sextant_template, d_reject_ginsburg_template, d_reject_saturation_bx]
+    rationale: >
+      ProBIOPSY endorses the 12-core systematic template as the standard when systematic cores
+      are indicated (Q52 median 8 — consensus agree) and rejects the classical 6-core sextant
+      template (Q51 median 3), the Ginsburg 4-6 core template (Q53 median 3) and saturation
+      biopsy (Q54 median 2) — all consensus disagree.
+    recommendation: >
+      When systematic biopsy is indicated, use the 12-core template. Substitute a reduced 6-core
+      scheme only under R06 (advanced disease); never propose sextant, Ginsburg or saturation
+      templates.
+    citations:
+      - source_type: literature
+        ref: "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q51-Q54)"
 
-  # ===== Toxicity overlap =====
-  - id: hepatotoxicity_overlap_example
+  # ===== R08 Targeted biopsy core count (stems 9-10) =====
+  - id: targeted_core_count_adaptation
+    severity: low
+    risk_type: targeted_bx
+    entity_a_flags: [visible_lesion, pirads_4_5, pirads_3, pz_lesion, lesion_small]
+    entity_b_flags: [d_tbx_cores_adapt_pirads, d_tbx_min3_cores]
+    rationale: >
+      ProBIOPSY reached no consensus on a fixed targeted-core count: adapting the number of
+      targeted cores to PI-RADS score was 'neither' (Q34 median 6), and the proposed minimum of
+      3 cores per target failed to reach consensus in both rounds (Q35, Q36 — no consensus).
+      The system must therefore report this as an open option (report_option) rather than
+      enforcing a fixed count.
+    recommendation: >
+      For any visible_lesion, report that the targeted core number is not consensus-fixed
+      (report_option): >=3 cores per target is a common practice option, adaptation to PI-RADS
+      is a conditional option; surface both without endorsing either.
+    citations:
+      - source_type: literature
+        ref: "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q34-Q36)"
+
+  # ===== R09 Perilesional sampling technique (stems 12-16) =====
+  - id: perilesional_plbx_technique
+    severity: low
+    risk_type: targeted_bx
+    entity_a_flags: [visible_lesion, unifocal, multifocal_ipsilateral, lesion_large, lesion_small]
+    entity_b_flags: [d_adopt_term_perilesional, d_plbx_within_10mm, d_plbx_count_by_lesion_size, d_plbx_2cores_small_lesion, d_plbx_max2cores_large_lesion]
+    rationale: >
+      ProBIOPSY adopts the term 'perilesional biopsy' for cores placed just outside the MRI
+      lesion margin (Q37a — SOQ consensus), requires targeted cores to be placed within 10 mm
+      of the lesion (Q38 — SOQ consensus), scales the number of perilesional cores to lesion
+      size (Q39 median 7 — consensus agree), with no consensus for exactly 2 cores in small
+      lesions (Q40) and SOQ consensus for a maximum of 2 cores in large lesions (Q41).
+      Brisbane et al. (Eur Urol 2022) provide the primary evidence that perilesional sampling
+      reduces under-detection at the lesion 'penumbra'.
+    recommendation: >
+      For each visible_lesion, keep every targeted core within 10 mm of the lesion margin
+      (d_plbx_within_10mm) and scale perilesional core count to lesion size (small vs large);
+      use the term 'perilesional biopsy' in the report. Do not hard-code 2 cores for small
+      lesions (report_option).
+    citations:
+      - source_type: literature
+        ref: "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q37a-Q41)"
+      - source_type: literature
+        ref: "10.1016/j.eururo.2022.01.008 (Brisbane et al., Eur Urol 2022 — targeted prostate biopsy: umbra, penumbra, and value of perilesional sampling)"
+
+  # ===== R10 Biopsy scheme by lesion distribution (stems 17-18) =====
+  - id: biopsy_scheme_by_lesion_distribution
+    severity: medium
+    risk_type: scheme_selection
+    entity_a_flags: [unifocal, multifocal_ipsilateral, multifocal_bilateral, multiple_lesions, visible_lesion]
+    entity_b_flags: [d_scheme_unifocal_tbx_plbx, d_scheme_unifocal_add_contralateral, d_scheme_unifocal_add_sbx, d_scheme_ipsilateral_multifocal, d_scheme_bilateral_tbx_plbx]
+    rationale: >
+      ProBIOPSY endorses targeted + perilesional biopsy without contralateral systematic cores
+      for a unifocal lesion (Q43 median 7 — consensus agree) and for multifocal ipsilateral
+      disease reaching bilateral tissue adequacy is addressed by the bilateral scheme (Q49
+      median 7 — consensus agree for bilateral TBx+PLBX in multifocal bilateral disease);
+      adding contralateral systematic cores to a unifocal scheme reached no consensus (Q44a,
+      Q44) and adding full systematic biopsy to targeted+perilesional is rejected (Q45 median 3
+      — consensus disagree).
+    recommendation: >
+      Choose the scheme by lesion distribution: unifocal → targeted + perilesional (no routine
+      contralateral systematic cores; report contralateral addition as an option);
+      multifocal_bilateral → bilateral targeted + perilesional. Never append a full systematic
+      template to targeted+perilesional by default.
+    citations:
+      - source_type: literature
+        ref: "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q42-Q50)"
+
+  # ===== R11 Route, anaesthesia & antibiotic prophylaxis (stems 21-25) =====
+  - id: route_anaesthesia_prophylaxis
     severity: high
-    risk_type: toxicity_hepatotoxicity
-    entity_a_flags: [hepatotoxic]
-    entity_b_flags: [hepatotoxic]
-    rationale: <...>
-    recommendation: <...>
-    citations: []
+    risk_type: perioperative
+    entity_a_flags: [infection_risk_factor, prior_negative_biopsy, unfit_curative, advanced_disease]
+    entity_b_flags: [d_route_transperineal, d_pnb_tr, d_pnb_tp, d_omit_abx_tp_no_risk, d_augmented_abx_tr]
+    rationale: >
+      ProBIOPSY endorses the transperineal route as the standard for prostate biopsy (Q58 —
+      SOQ consensus) with periprostatic nerve block for both transrectal (Q59) and transperineal
+      (Q60) approaches (both SOQ consensus). Antibiotic prophylaxis may be omitted for
+      transperineal biopsy in patients without infection risk factors (Q62 — SOQ consensus);
+      for transrectal biopsy in patients with infection risk factors, augmented prophylaxis is
+      the majority position (Q63 — no consensus, report). Marra et al. (Eur Urol Oncol 2026,
+      meta-analysis of RCTs) corroborate the lower infection risk of the transperineal route.
+    recommendation: >
+      Default to d_route_transperineal. Use periprostatic nerve block for either route. If the
+      patient carries infection_risk_factor (Q62 catalogue) and a transrectal route is
+      unavoidable, give augmented antibiotic prophylaxis (report as majority position); antibiotic
+      omission is acceptable only for transperineal biopsy without risk factors.
+    citations:
+      - source_type: literature
+        ref: "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q58-Q63)"
+      - source_type: literature
+        ref: "10.1016/j.euo.2026.01.009 (Marra et al., Eur Urol Oncol 2026 — transperineal versus transrectal prostate biopsy: systematic review and meta-analysis of RCTs)"
 
-# ===== Patient factor escalation rules =====
+  # ===== R12 Treatment-planning tissue adequacy (stems 26-36) =====
+  - id: treatment_planning_tissue_requirements
+    severity: high
+    risk_type: treatment_planning
+    entity_a_flags: [intent_focal_therapy, intent_nerve_sparing, intent_plnd, intent_whole_gland_rt, intent_focal_boost, intent_adt_duration]
+    entity_b_flags: [d_tp_focal_add_contralateral, d_tp_focal_tbx_only_not_enough, d_tp_nss_unifocal_tbx_plbx, d_tp_nss_bilateral_tbx_adequate, d_tp_plnd_unifocal_no_consensus, d_tp_plnd_bilateral_tbx_plbx, d_tp_wg_rt_tbx_plbx, d_tp_focal_boost_tbx_plbx, d_tp_adt_duration_tbx_plbx, d_tp_reject_adding_systematic_universal]
+    rationale: >
+      ProBIOPSY links biopsy scheme to downstream treatment intent: for focal therapy,
+      targeted+perilesional alone is deemed insufficient and contralateral systematic biopsy
+      must be added (Q65 median 7 — consensus agree); nerve sparing is supported by
+      targeted+perilesional in unifocal disease (Q67 median 7) and by adequate bilateral tissue
+      in bilateral disease (Q70a/Q70 median 7); PLND planning reached no consensus for unifocal
+      schemes (Q73a-Q75) but bilateral targeted+perilesional suffices for bilateral disease
+      (Q76a/Q76 median 7); whole-gland radiotherapy (Q79a/Q79 median 7-8), focal boost
+      (Q85a/Q85 median 7-8; Q88a/Q88 median 7-8) and ADT-duration planning (Q91a/Q91, Q94a/Q94
+      median 7-8) are all adequately served by targeted+perilesional schemes, while universally
+      adding systematic biopsy for treatment planning is rejected (Q81, Q83, Q84, Q87, Q89, Q90,
+      Q92, Q93, Q95, Q96 — consensus disagree).
+    recommendation: >
+      When any treatment intent flag is set, state the tissue-adequacy consequence explicitly:
+      intent_focal_therapy → add contralateral systematic biopsy (mandatory, consensus);
+      intent_nerve_sparing / intent_plnd → check unifocal vs bilateral pattern against
+      Q67-Q78; intent_whole_gland_rt / intent_focal_boost / intent_adt_duration →
+      targeted+perilesional suffices. Universal systematic-biopsy add-on is action_against.
+    citations:
+      - source_type: literature
+        ref: "10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q64-Q96)"
+      - source_type: literature
+        ref: "10.1016/j.euros.2024.03.006 (van den Kroonenberg et al., Eur Urol Open Sci 2024 — impact of omitting contralateral systematic biopsy on surgical planning)"
+
+# ===== Patient factor escalation rules (domain-adapted modifiers) =====
 patient_factor_rules:
-  liver_disease:
+  immunocompromised_or_infection_history:
     severity: high
-    matching_entity_a_flags: [hepatotoxic]
-    matching_entity_b_flags: [hepatotoxic]
-    rationale: Hepatic impairment reduces clearance and amplifies toxicity of hepatotoxic entities.
-  elderly:
+    matching_entity_a_flags: [infection_risk_factor]
+    matching_entity_b_flags: [d_route_transperineal, d_augmented_abx_tr]
+    rationale: "Infection risk factors (Q62 catalogue: immunosuppression, prior prostatitis, recent instrumentation, MRSA colonization, etc.) escalate the perioperative rule R11 — prefer the transperineal route and augmented prophylaxis when transrectal access is unavoidable."
+  unfit_for_curative_treatment:
     severity: medium
-    matching_entity_a_flags: []
-    matching_entity_b_flags: [narrow_therapeutic_index]
-    rationale: Elderly patients have reduced clearance and increased sensitivity.
-  pregnancy:
-    severity: high
-    matching_entity_a_flags: [pregnancy_contraindicated]
-    matching_entity_b_flags: [pregnancy_category_d_or_x]
-    rationale: Pregnancy contraindication applies.
-  renal_impairment:
-    severity: high
-    matching_entity_a_flags: [nephrotoxic]
-    matching_entity_b_flags: [nephrotoxic]
-    rationale: Renal impairment reduces clearance of nephrotoxic entities.
+    matching_entity_a_flags: [unfit_curative, advanced_disease]
+    matching_entity_b_flags: [d_sbx_reduced_6core_advanced]
+    rationale: "Patients unfit for curative treatment shift the goal from mapping precision to confirmation — R06 reduced systematic scheme applies."
+  repeat_biopsy_setting:
+    severity: medium
+    matching_entity_a_flags: [prior_negative_biopsy]
+    matching_entity_b_flags: [d_route_transperineal, d_sbx_12core_template]
+    rationale: "Prior negative biopsy with persisting suspicion raises sepsis risk on repeat access and keeps the 12-core template relevant (R03/R11 escalation)."
+  suspicious_dre_without_mri_lesion:
+    severity: medium
+    matching_entity_a_flags: [dre_positive]
+    matching_entity_b_flags: [d_sbx_negative_mri_high_suspicion]
+    rationale: "Abnormal DRE with negative MRI keeps clinical suspicion high — systematic 12-core biopsy per R03."

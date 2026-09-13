@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import json
 import os
+import time
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
@@ -83,6 +84,13 @@ class LLMClient:
         self.max_tokens = int(
             max_tokens or os.getenv("HUANYU_BULK_MAX_TOKENS", "1024")
         )
+        # Thinking models (GLM-5.x on Zhipu) spend tokens on internal reasoning
+        # before emitting content; Zhipu error 1210 confirms thinking cannot be
+        # switched off for these models. A small caller-supplied max_tokens
+        # therefore starves the final content (empty ``content`` responses).
+        # Floor the budget so short-answer callers still get real text.
+        if "bigmodel" in (self.base_url or "") and "glm" in self.model.lower():
+            self.max_tokens = max(self.max_tokens, 2048)
 
         if not self.api_key:
             # no key → degrade to stub so the build can proceed in keyword-only mode
@@ -93,7 +101,12 @@ class LLMClient:
     # public API
     # ------------------------------------------------------------------ #
     def complete(self, prompt: str, system: str | None = None) -> ChatResponse:
-        """Return a chat completion. ``degraded=True`` if in stub mode."""
+        """Return a chat completion. ``degraded=True`` if in stub mode.
+
+        Retries up to 3 attempts: GLM-5.3 is a thinking model and
+        intermittently returns an empty ``content`` (reasoning consumed the
+        token budget); empty responses are treated as transient failures.
+        """
         if self.degraded:
             return ChatResponse(
                 text=f"[stub] no LLM key configured; prompt was {len(prompt)} chars.",
@@ -103,12 +116,18 @@ class LLMClient:
         if system:
             messages.append({"role": "system", "content": system})
         messages.append({"role": "user", "content": prompt})
-        try:
-            text = self._chat(messages)
-            return ChatResponse(text=text, degraded=False)
-        except Exception as e:
-            # network / API failure → degrade rather than crash the build
-            return ChatResponse(text=f"[llm error] {e}", degraded=True)
+        last_err: Exception | str = "unknown"
+        for attempt in range(3):
+            try:
+                text = self._chat(messages)
+                if text and text.strip():
+                    return ChatResponse(text=text, degraded=False)
+                last_err = "empty content from model (transient)"
+            except Exception as e:
+                last_err = e
+            time.sleep(1.0 * (attempt + 1))
+        # network / API failure → degrade rather than crash the build
+        return ChatResponse(text=f"[llm error] {last_err}", degraded=True)
 
     # ------------------------------------------------------------------ #
     # transport
@@ -131,7 +150,7 @@ class LLMClient:
         return self._chat_urllib(messages)
 
     def _chat_urllib(self, messages: list[dict[str, str]]) -> str:
-        body = json.dumps({
+        data = json.dumps({
             "model": self.model,
             "messages": messages,
             "temperature": self.temperature,
@@ -139,7 +158,7 @@ class LLMClient:
         }).encode("utf-8")
         url = f"{self.base_url.rstrip('/')}/chat/completions"
         req = urllib.request.Request(
-            url, data=body,
+            url, data=data,
             headers={
                 "Authorization": f"Bearer {self.api_key}",
                 "Content-Type": "application/json",
