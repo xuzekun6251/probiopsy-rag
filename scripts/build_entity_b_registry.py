@@ -1,15 +1,322 @@
-"""
-Build Entity B registry CSV from raw sources.
+# -*- coding: utf-8 -*-
+"""Build Entity B registry (prostate-biopsy decision items) for probiopsy-rag.
 
-TODO: migrate from TongYuan `scripts/build_entity_b_registry.py` at the appropriate Phase.
-"""
+Source of truth: ProBIOPSY consensus Tables 1-3 (112 final statements; 36 stems;
+29 stems reached consensus, doi:10.1016/j.eururo.2026.06.012).
 
+Column semantics (TongYuan-compatible headers, reinterpreted for this domain):
+  entity_b_id              stable snake_case id of the decision item
+  generic_name             EN decision statement
+  aliases                  '|'-separated synonyms (EN + zh-CN)
+  drug_class               decision domain: indication | procedure | treatment_planning
+  flags                    '|'-separated machine tags consumed by configs/rules.yaml
+                           (entity_b_flags). Encoding: endorsement_* + action_* + topic
+  metabolic_pathways       repurposed -> decision_action: recommend|against|conditional|report_only
+  transporter_substrates   repurposed -> linked_probiopsy_statements (Q ids, '|'-separated)
+  narrow_therapeutic_index 0 (unused; kept for schema compatibility)
+  label_source             provenance of the decision content
+
+Endorsement encoding (mirrors modified RAND/UCLA interpretation):
+  endorsement_consensus   median 7-9 AND IPRAS<IPR, or SOQ >=75% majority per paper
+  endorsement_majority    SOQ plurality but "no consensus" (reported as conditional)
+  endorsement_against     median 1-3 (panel disagrees)
+  endorsement_neither     median 4-6 (panel neither agrees nor disagrees -> conditional)
+"""
 from __future__ import annotations
+
+import csv
+import io
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+OUT = ROOT / "data" / "seed" / "entities_b.csv"
+
+HEADER = [
+    "entity_b_id", "generic_name", "aliases", "drug_class", "flags",
+    "metabolic_pathways", "transporter_substrates", "narrow_therapeutic_index",
+    "label_source",
+]
+
+# (id, name, aliases, domain, flags, action, linked_Q, source)
+ROWS: list[tuple[str, str, str, str, str, str, str, str, str]] = [
+    # ---------------- Domain 1: indication (stems 1-8) ----------------
+    ("d_mri_driven_pathway", "Adopt MRI-driven diagnostic pathway",
+     "MRI先行路径",
+     "indication", "endorsement_consensus|action_recommend|topic_imaging_pathway",
+     "recommend", "Q1|Q5", "ProBIOPSY Table 1"),
+    ("d_accept_any_field_strength", "Accept 1.5T and 3T MRI equally for PCa diagnosis",
+     "场强不限",
+     "indication", "endorsement_consensus|action_recommend|topic_imaging_pathway",
+     "recommend", "Q1", "ProBIOPSY Table 1"),
+    ("d_mri_quality_check", "Perform formal MRI quality check on all sequences",
+     "影像质量核查",
+     "indication", "endorsement_consensus|action_recommend|topic_imaging_pathway",
+     "recommend", "Q4a|Q4b", "ProBIOPSY Table 1"),
+    ("d_use_piqual_v2", "Assess MRI quality with PI-QUAL v2 criteria",
+     "PI-QUAL评分",
+     "indication", "endorsement_consensus|action_recommend|topic_imaging_pathway",
+     "recommend", "Q4b", "ProBIOPSY Table 1"),
+    ("d_bpmri_acceptable", "Accept bpMRI as equivalent to mpMRI when quality adequate",
+     "双参数MRI等效",
+     "indication", "endorsement_consensus|action_recommend|topic_imaging_pathway",
+     "recommend", "Q5|Q6|Q7", "ProBIOPSY Table 1"),
+    ("d_report_max3_lesions", "Report up to 3 MRI lesions maximum (plurality choice)",
+     "最多报告3个病灶",
+     "indication", "endorsement_majority|action_conditional|topic_reporting",
+     "conditional", "Q8", "ProBIOPSY Table 1 (SOQ 53%)"),
+    ("d_contrast_mri_for_pz_indeterminate",
+     "Add contrast-enhanced MRI sequence for peripheral-zone indeterminate bpMRI lesion",
+     "外周带不确定性病灶加增强序列",
+     "indication", "endorsement_consensus|action_recommend|topic_ancillary",
+     "recommend", "Q10a", "ProBIOPSY Table 1"),
+    ("d_followup_indeterminate_bpmri",
+     "Schedule follow-up imaging for indeterminate bpMRI lesion",
+     "不确定性病灶随访",
+     "indication", "endorsement_consensus|action_recommend|topic_ancillary",
+     "recommend", "Q10b", "ProBIOPSY Table 1"),
+    ("d_psad_gate_bpmri_indeterminate",
+     "Use PSA density to gate biopsy for indeterminate bpMRI lesion",
+     "PSAD指导穿刺(bpMRI)",
+     "indication", "endorsement_consensus|action_recommend|topic_ancillary",
+     "recommend", "Q11", "ProBIOPSY Table 1"),
+    ("d_riskcalc_gate_bpmri_indeterminate",
+     "Use risk calculator to gate biopsy for indeterminate bpMRI lesion",
+     "风险计算器指导穿刺(bpMRI)",
+     "indication", "endorsement_neither|action_conditional|topic_ancillary",
+     "conditional", "Q12", "ProBIOPSY Table 1"),
+    ("d_biomarker_gate_bpmri_indeterminate",
+     "Use serum/urine biomarkers to gate biopsy for indeterminate bpMRI lesion",
+     "标志物指导穿刺(bpMRI)",
+     "indication", "endorsement_neither|action_conditional|topic_ancillary",
+     "conditional", "Q13", "ProBIOPSY Table 1"),
+    ("d_psad_gate_mpmri_indeterminate",
+     "Use PSA density to gate biopsy for indeterminate mpMRI lesion",
+     "PSAD指导穿刺(mpMRI)",
+     "indication", "endorsement_consensus|action_recommend|topic_ancillary",
+     "recommend", "Q14", "ProBIOPSY Table 1"),
+    ("d_riskcalc_gate_mpmri_indeterminate",
+     "Use validated risk calculator to gate biopsy for indeterminate mpMRI lesion",
+     "风险计算器指导穿刺(mpMRI)",
+     "indication", "endorsement_consensus|action_recommend|topic_ancillary",
+     "recommend", "Q15", "ProBIOPSY Table 1"),
+    ("d_biomarker_gate_mpmri_indeterminate",
+     "Use serum/urine biomarkers to gate biopsy for indeterminate mpMRI lesion",
+     "标志物指导穿刺(mpMRI)",
+     "indication", "endorsement_neither|action_conditional|topic_ancillary",
+     "conditional", "Q16", "ProBIOPSY Table 1"),
+    ("d_reject_psma_pet_upfront",
+     "Do NOT prefer PSMA PET over MRI for primary PCa diagnosis",
+     "不首选PSMA PET",
+     "indication", "endorsement_against|action_against|topic_ancillary",
+     "against", "Q17", "ProBIOPSY Table 1"),
+    ("d_psma_pet_indeterminate_ancillary",
+     "Consider PSMA PET-CT as ancillary test for indeterminate MRI lesion",
+     "不确定性病灶PSMA PET",
+     "indication", "endorsement_neither|action_conditional|topic_ancillary",
+     "conditional", "Q18", "ProBIOPSY Table 1"),
+    ("d_psma_pet_negative_mri_ancillary",
+     "Consider PSMA PET-CT as ancillary test when MRI negative but suspicion high",
+     "MRI阴性高怀疑PSMA PET",
+     "indication", "endorsement_consensus|action_recommend|topic_ancillary",
+     "recommend", "Q19", "ProBIOPSY Table 1"),
+    ("d_reject_microultrasound_upfront",
+     "Do NOT prefer micro-ultrasound over MRI for primary PCa diagnosis",
+     "不首选微超声",
+     "indication", "endorsement_against|action_against|topic_ancillary",
+     "against", "Q20", "ProBIOPSY Table 1"),
+    ("d_reject_microultrasound_indeterminate",
+     "Do NOT use micro-ultrasound to indicate biopsy for indeterminate MRI lesion",
+     "不确定性病灶不用微超声",
+     "indication", "endorsement_neither|action_conditional|topic_ancillary",
+     "conditional", "Q21", "ProBIOPSY Table 1"),
+    ("d_reject_microultrasound_negative_mri",
+     "Do NOT use micro-ultrasound when MRI negative but suspicion high",
+     "MRI阴性高怀疑不用微超声",
+     "indication", "endorsement_neither|action_conditional|topic_ancillary",
+     "conditional", "Q22", "ProBIOPSY Table 1"),
+    ("d_sbx_negative_mri_high_suspicion",
+     "Perform systematic biopsy when MRI negative but csPCa suspicion high",
+     "MRI阴性高怀疑行系统穿刺",
+     "indication", "endorsement_consensus|action_recommend|topic_scheme",
+     "recommend", "Q25|Q55a", "ProBIOPSY Table 1-2"),
+    ("d_ai_mri_lesion_aid",
+     "Use AI algorithms upfront to identify suspicious MRI lesions (radiologist aid)",
+     "AI辅助读片",
+     "indication", "endorsement_consensus|action_recommend|topic_ai",
+     "recommend", "Q26", "ProBIOPSY Table 1"),
+    # ---------------- Domain 2: procedure (stems 9-25) ----------------
+    ("d_tbx_cores_adapt_pirads",
+     "Adapt number of targeted cores per lesion to PI-RADS/Likert score",
+     "靶点针数按PI-RADS调整",
+     "procedure", "endorsement_neither|action_conditional|topic_tbx_cores",
+     "conditional", "Q34", "ProBIOPSY Table 2"),
+    ("d_tbx_min3_cores",
+     "Target each visible MRI lesion with at least 3 cores (plurality choice)",
+     "每病灶至少3针",
+     "procedure", "endorsement_majority|action_conditional|topic_tbx_cores",
+     "conditional", "Q35|Q36", "ProBIOPSY Table 2 (SOQ 66-68%)"),
+    ("d_adopt_term_perilesional",
+     "Adopt 'perilesional biopsy' as term for extra cores around the ROI",
+     "采用瘤周穿刺术语",
+     "procedure", "endorsement_consensus|action_report_only|topic_plbx",
+     "report_only", "Q37a", "ProBIOPSY Table 2 (SOQ 97%)"),
+    ("d_plbx_within_10mm",
+     "Take perilesional cores within a 10-mm margin around the ROI",
+     "瘤周穿刺10mm范围",
+     "procedure", "endorsement_consensus|action_recommend|topic_plbx",
+     "recommend", "Q38", "ProBIOPSY Table 2 (SOQ 82%)"),
+    ("d_plbx_count_by_lesion_size",
+     "Adjust perilesional core count according to MRI lesion size",
+     "瘤周针数按病灶大小调整",
+     "procedure", "endorsement_consensus|action_recommend|topic_plbx",
+     "recommend", "Q39", "ProBIOPSY Table 2"),
+    ("d_plbx_2cores_small_lesion",
+     "Take 2 perilesional cores for lesions <10 mm (plurality choice)",
+     "小病灶瘤周2针",
+     "procedure", "endorsement_majority|action_conditional|topic_plbx",
+     "conditional", "Q40", "ProBIOPSY Table 2 (SOQ 67%)"),
+    ("d_plbx_max2cores_large_lesion",
+     "Take maximum 2 perilesional cores for lesions >10 mm",
+     "大病灶瘤周最多2针",
+     "procedure", "endorsement_consensus|action_recommend|topic_plbx",
+     "recommend", "Q41", "ProBIOPSY Table 2 (SOQ 76%)"),
+    ("d_scheme_unifocal_tbx_plbx",
+     "Unifocal visible lesion: targeted biopsy + perilesional biopsy",
+     "单发病灶: TBx+PLBx",
+     "procedure", "endorsement_consensus|action_recommend|topic_scheme",
+     "recommend", "Q43", "ProBIOPSY Table 2"),
+    ("d_scheme_unifocal_add_contralateral",
+     "Unifocal visible lesion: add contralateral biopsy",
+     "单发病灶加对侧穿刺",
+     "procedure", "endorsement_neither|action_conditional|topic_scheme",
+     "conditional", "Q44a|Q44", "ProBIOPSY Table 2"),
+    ("d_scheme_unifocal_add_sbx",
+     "Unifocal visible lesion: add full systematic biopsy",
+     "单发病灶加系统穿刺",
+     "procedure", "endorsement_against|action_against|topic_scheme",
+     "against", "Q45", "ProBIOPSY Table 2"),
+    ("d_scheme_ipsilateral_multifocal",
+     "Multifocal ipsilateral lesions: no consensus scheme (TBx+PLBx neither)",
+     "同侧多发无共识方案",
+     "procedure", "endorsement_neither|action_conditional|topic_scheme",
+     "conditional", "Q46a|Q46b|Q47a|Q47|Q48", "ProBIOPSY Table 2"),
+    ("d_scheme_bilateral_tbx_plbx",
+     "Multifocal bilateral lesions: targeted biopsy + perilesional biopsy",
+     "双侧多发: TBx+PLBx",
+     "procedure", "endorsement_consensus|action_recommend|topic_scheme",
+     "recommend", "Q49", "ProBIOPSY Table 2"),
+    ("d_sbx_12core_template",
+     "Use 12-core (6 cores per lobe) systematic biopsy template",
+     "系统穿刺12针模板",
+     "procedure", "endorsement_consensus|action_recommend|topic_sbx_template",
+     "recommend", "Q52|Q55a", "ProBIOPSY Table 2"),
+    ("d_reject_sextant_template", "Do NOT use sextant (3 cores/lobe) template",
+     "不采用六分区模板",
+     "procedure", "endorsement_against|action_against|topic_sbx_template",
+     "against", "Q51", "ProBIOPSY Table 2"),
+    ("d_reject_ginsburg_template", "Do NOT use Ginsburg (>=12 cores/lobe) template",
+     "不采用Ginsburg模板",
+     "procedure", "endorsement_against|action_against|topic_sbx_template",
+     "against", "Q53|Q55b", "ProBIOPSY Table 2"),
+    ("d_reject_saturation_bx", "Do NOT use saturation biopsy (24 cores / 0.5mm)",
+     "不采用饱和穿刺",
+     "procedure", "endorsement_against|action_against|topic_sbx_template",
+     "against", "Q54|Q56", "ProBIOPSY Table 2"),
+    ("d_sbx_reduced_6core_advanced",
+     "Reduce SBx to max 6 cores for suspected locally advanced disease, PSA>50, or unfit for curative treatment",
+     "局部晚期减针至6针",
+     "procedure", "endorsement_consensus|action_recommend|topic_sbx_template",
+     "recommend", "Q57", "ProBIOPSY Table 2"),
+    ("d_route_transperineal", "Use transperineal approach as standard route",
+     "经会阴入路",
+     "procedure", "endorsement_consensus|action_recommend|topic_route",
+     "recommend", "Q58", "ProBIOPSY Table 2 (SOQ 97%)"),
+    ("d_pnb_tr", "Periprostatic nerve block as standard anaesthesia for transrectal biopsy",
+     "经直肠入路神经阻滞",
+     "procedure", "endorsement_consensus|action_recommend|topic_anaesthesia",
+     "recommend", "Q59", "ProBIOPSY Table 2 (SOQ 83%)"),
+    ("d_pnb_tp", "Periprostatic nerve block as standard anaesthesia for transperineal biopsy",
+     "经会阴入路神经阻滞",
+     "procedure", "endorsement_consensus|action_recommend|topic_anaesthesia",
+     "recommend", "Q60", "ProBIOPSY Table 2 (SOQ 90%)"),
+    ("d_omit_abx_tp_no_risk",
+     "Omit antibiotic prophylaxis for transperineal biopsy unless infection risk factors present",
+     "经会阴无危险因素免抗生素",
+     "procedure", "endorsement_consensus|action_recommend|topic_prophylaxis",
+     "recommend", "Q62", "ProBIOPSY Table 2 (SOQ 88%)"),
+    ("d_augmented_abx_tr",
+     "Augmented antibiotic prophylaxis preferred for transrectal biopsy (plurality, no consensus)",
+     "经直肠入路强化抗生素",
+     "procedure", "endorsement_majority|action_conditional|topic_prophylaxis",
+     "conditional", "Q63", "ProBIOPSY Table 2 (SOQ 67%)"),
+    # ---------------- Domain 3: treatment planning (stems 26-36) ----------------
+    ("d_tp_focal_add_contralateral",
+     "Focal therapy planning (unifocal): TBx+PLBx + contralateral systematic biopsy",
+     "局灶治疗需对侧系统穿刺",
+     "treatment_planning", "endorsement_consensus|action_recommend|topic_treatment_planning",
+     "recommend", "Q65", "ProBIOPSY Table 3"),
+    ("d_tp_focal_tbx_only_not_enough",
+     "Focal therapy planning (unifocal): TBx alone or TBx+PLBx alone not confirmed sufficient",
+     "局灶治疗单靠靶穿刺不足",
+     "treatment_planning", "endorsement_neither|action_conditional|topic_treatment_planning",
+     "conditional", "Q64|Q64a|Q65a|Q66", "ProBIOPSY Table 3"),
+    ("d_tp_nss_unifocal_tbx_plbx",
+     "Nerve-sparing planning (unifocal): TBx+PLBx alone informative enough",
+     "神经保留单发病灶TBx+PLBx足够",
+     "treatment_planning", "endorsement_consensus|action_recommend|topic_treatment_planning",
+     "recommend", "Q67", "ProBIOPSY Table 3"),
+    ("d_tp_nss_bilateral_tbx_adequate",
+     "Nerve-sparing planning (bilateral): TBx (±PLBx) adequate without added systematic cores",
+     "神经保留双侧TBx足够",
+     "treatment_planning", "endorsement_consensus|action_recommend|topic_treatment_planning",
+     "recommend", "Q70a|Q70", "ProBIOPSY Table 3"),
+    ("d_tp_plnd_unifocal_no_consensus",
+     "PLND planning (unifocal): biopsy scheme informative value unresolved",
+     "淋巴结清扫单发无共识",
+     "treatment_planning", "endorsement_neither|action_conditional|topic_treatment_planning",
+     "conditional", "Q73a|Q73|Q74a|Q74|Q75", "ProBIOPSY Table 3"),
+    ("d_tp_plnd_bilateral_tbx_plbx",
+     "PLND planning (bilateral): TBx ± PLBx adequate to guide decision",
+     "淋巴结清扫双侧TBx±PLBx足够",
+     "treatment_planning", "endorsement_consensus|action_recommend|topic_treatment_planning",
+     "recommend", "Q76a|Q76", "ProBIOPSY Table 3"),
+    ("d_tp_wg_rt_tbx_plbx",
+     "Whole-gland RT planning (unifocal/bilateral): TBx ± PLBx informative enough",
+     "全腺体放疗TBx±PLBx足够",
+     "treatment_planning", "endorsement_consensus|action_recommend|topic_treatment_planning",
+     "recommend", "Q79a|Q79|Q82a|Q82", "ProBIOPSY Table 3"),
+    ("d_tp_focal_boost_tbx_plbx",
+     "Focal RT boost planning (unifocal/bilateral): TBx ± PLBx informative enough",
+     "局灶加量放疗TBx±PLBx足够",
+     "treatment_planning", "endorsement_consensus|action_recommend|topic_treatment_planning",
+     "recommend", "Q85a|Q85|Q88a|Q88", "ProBIOPSY Table 3"),
+    ("d_tp_adt_duration_tbx_plbx",
+     "ADT duration planning (unifocal/bilateral): TBx ± PLBx informative enough",
+     "ADT疗程TBx±PLBx足够",
+     "treatment_planning", "endorsement_consensus|action_recommend|topic_treatment_planning",
+     "recommend", "Q91a|Q91|Q94a|Q94", "ProBIOPSY Table 3"),
+    ("d_tp_reject_adding_systematic_universal",
+     "Do NOT add contralateral/systematic cores universally for RT boost and ADT planning",
+     "放疗加量ADT方案不加系统穿刺",
+     "treatment_planning", "endorsement_against|action_against|topic_treatment_planning",
+     "against", "Q80|Q81|Q83|Q84|Q87|Q89|Q90|Q92|Q93|Q95|Q96", "ProBIOPSY Table 3"),
+]
 
 
 def main() -> None:
-    raise NotImplementedError("scaffold stub — fill in during execution")
+    OUT.parent.mkdir(parents=True, exist_ok=True)
+    with io.open(OUT, "w", encoding="utf-8", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(HEADER)
+        for row in ROWS:
+            # ROWS tuples have 8 fields; CSV needs 9 columns (NTI constant "0")
+            w.writerow([*row[:7], "0", row[7]])
+    ids = [r[0] for r in ROWS]
+    assert len(ids) == len(set(ids)), "duplicate entity_b ids"
+    print(f"[ok] entities_b.csv written: {len(ROWS)} rows -> {OUT}")
 
 
 if __name__ == "__main__":
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
     main()

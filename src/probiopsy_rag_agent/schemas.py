@@ -22,12 +22,17 @@ RISK_ORDER: dict[RiskLevel, int] = {
 
 
 class EntityA(BaseModel):
-    """Entity A registry record (e.g., Food / Herb / Gene / Microbiota).
+    """Entity A registry record.
 
-    Rename `EntityA` to the domain-specific name (Food, Herb, Variant, Microbe, Symptom, Supplement).
-    Extend fields as needed but keep `flags` (list of mechanism tags) — the rule engine depends on it.
+    Domain (probiopsy-rag): a **patient clinical scenario element** (imaging finding,
+    biomarker, clinical presentation, infection-risk history, treatment intent, or
+    resource-availability condition) that modulates prostate-biopsy decisions.
+
+    CSV column is `patient_clinical_scenario_id`; the pydantic field keeps the
+    TongYuan-compatible name `entity_a_id` (rule engine / evaluators depend on it),
+    with a population alias mapping the CSV header.
     """
-    entity_a_id: str
+    entity_a_id: str = Field(alias="patient_clinical_scenario_id")
     primary_name: str = ""
     aliases: list[str] = Field(default_factory=list)
     category: str = ""
@@ -36,9 +41,19 @@ class EntityA(BaseModel):
     evidence_sources: list[str] = Field(default_factory=list)
     extra: dict[str, Any] = Field(default_factory=dict)
 
+    model_config = {"populate_by_name": True}
+
 
 class EntityB(BaseModel):
-    """Entity B registry record (e.g., Drug)."""
+    """Entity B registry record.
+
+    Domain (probiopsy-rag): a **prostate-biopsy decision item** (imaging-pathway
+    choice, ancillary test gating, biopsy scheme, SBx template, route/anaesthesia/
+    prophylaxis, or treatment-planning linkage) that the system recommends on,
+    against, or conditionally. `metabolic_pathways` is repurposed as the decision
+    action (recommend/against/conditional/report_only) and `transporter_substrates`
+    as the linked ProBIOPSY statement ids.
+    """
     entity_b_id: str
     generic_name: str
     aliases: list[str] = Field(default_factory=list)
