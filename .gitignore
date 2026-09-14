@@ -30,3 +30,4 @@ outputs/baseline_predictions*.jsonl
 # OS
 .DS_Store
 Thumbs.db
+outputs/phase4_build_log.txt 

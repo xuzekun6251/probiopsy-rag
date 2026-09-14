@@ -1,0 +1,52 @@
+{
+  "case_id": "case4_advanced_route_prophylaxis",
+  "title": "晚期疾病穿刺方案与路线 (Advanced disease: reduced SBx, TP route, no ABx)",
+  "question": "For a man with suspected locally advanced disease who is unfit for curative treatment, should systematic biopsy be reduced to a maximum of 6 cores, and should a transperineal route without antibiotic prophylaxis be used?",
+  "patient_flags": [
+    "advanced_disease",
+    "locally_advanced_suspected",
+    "psa_gt_50",
+    "unfit_curative"
+  ],
+  "decision_items": [
+    "d_omit_abx_tp_no_risk",
+    "d_route_transperineal",
+    "d_sbx_reduced_6core_advanced"
+  ],
+  "rules_fired": [
+    "advanced_disease_reduced_systematic_scheme",
+    "route_anaesthesia_prophylaxis",
+    "PF-unfit_for_curative_treatment"
+  ],
+  "hard_constraints": [
+    "HARD: the consensus ENDORSES 'd_sbx_reduced_6core_advanced' (Reduce SBx to max 6 cores for suspected locally advanced disease, PSA>50, or unfit for curative treatment) — do not reject it outright.",
+    "HARD: the consensus ENDORSES 'd_omit_abx_tp_no_risk' (Omit antibiotic prophylaxis for transperineal biopsy unless infection risk factors present) — do not reject it outright.",
+    "HARD: the consensus ENDORSES 'd_route_transperineal' (Use transperineal approach as standard route) — do not reject it outright.",
+    "HARD: the consensus ENDORSES 'd_sbx_reduced_6core_advanced' (Reduce SBx to max 6 cores for suspected locally advanced disease, PSA>50, or unfit for curative treatment) — do not reject it outright."
+  ],
+  "verdict": {
+    "action": "conditional",
+    "confidence": 0.0,
+    "rationale": "rule-only mode (no LLM arbiter) — verdict class not determined",
+    "citations": [],
+    "degraded": true
+  },
+  "elapsed_s": 0.0,
+  "lexical_top": [
+    {
+      "evidence_id": "EV0079",
+      "score": 15.28,
+      "locator": "Table 2 (Q57)"
+    },
+    {
+      "evidence_id": "EV0320",
+      "score": 10.03,
+      "locator": "SM2 ref 57"
+    },
+    {
+      "evidence_id": "EV0013",
+      "score": 9.54,
+      "locator": "Main text / results_d2_route"
+    }
+  ]
+}

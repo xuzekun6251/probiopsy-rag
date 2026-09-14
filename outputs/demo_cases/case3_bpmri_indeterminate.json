@@ -1,0 +1,51 @@
+{
+  "case_id": "case3_bpmri_indeterminate",
+  "title": "bpMRI 不确定病灶处理 (Indeterminate bpMRI lesion workup)",
+  "question": "For a man with an indeterminate (PI-RADS 3) peripheral-zone lesion on adequate-quality bpMRI, should PSA density be used to gate the biopsy decision, and should contrast-enhanced MRI or scheduled follow-up imaging be used as ancillary workup?",
+  "patient_flags": [
+    "bpmri",
+    "indeterminate_lesion",
+    "pirads_3",
+    "psa_elevated",
+    "psad_high",
+    "quality_adequate"
+  ],
+  "decision_items": [
+    "d_contrast_mri_for_pz_indeterminate",
+    "d_followup_indeterminate_bpmri",
+    "d_psad_gate_bpmri_indeterminate"
+  ],
+  "rules_fired": [
+    "indeterminate_lesion_ancillary_workup"
+  ],
+  "hard_constraints": [
+    "HARD: the consensus ENDORSES 'd_contrast_mri_for_pz_indeterminate' (Add contrast-enhanced MRI sequence for peripheral-zone indeterminate bpMRI lesion) — do not reject it outright.",
+    "HARD: the consensus ENDORSES 'd_followup_indeterminate_bpmri' (Schedule follow-up imaging for indeterminate bpMRI lesion) — do not reject it outright.",
+    "HARD: the consensus ENDORSES 'd_psad_gate_bpmri_indeterminate' (Use PSA density to gate biopsy for indeterminate bpMRI lesion) — do not reject it outright."
+  ],
+  "verdict": {
+    "action": "conditional",
+    "confidence": 0.0,
+    "rationale": "rule-only mode (no LLM arbiter) — verdict class not determined",
+    "citations": [],
+    "degraded": true
+  },
+  "elapsed_s": 0.0,
+  "lexical_top": [
+    {
+      "evidence_id": "EV0008",
+      "score": 19.51,
+      "locator": "Main text / results_d1_ancillary"
+    },
+    {
+      "evidence_id": "EV0035",
+      "score": 11.21,
+      "locator": "Table 1 (Q10a)"
+    },
+    {
+      "evidence_id": "EV0288",
+      "score": 10.16,
+      "locator": "SM2 ref 7"
+    }
+  ]
+}

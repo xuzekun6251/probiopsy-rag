@@ -1,0 +1,45 @@
+{
+  "case_id": "case2_psma_pet_upfront",
+  "title": "PSMA PET 替代 MRI 先行 (PSMA PET instead of MRI upfront)",
+  "question": "For a biopsy-naive man with elevated PSA and high clinical suspicion, should PSMA PET-CT be preferred over MRI as the primary imaging test before prostate biopsy?",
+  "patient_flags": [
+    "imaging_available",
+    "psa_elevated",
+    "psma_pet_available",
+    "suspicion_high"
+  ],
+  "decision_items": [
+    "d_reject_psma_pet_upfront"
+  ],
+  "rules_fired": [
+    "upfront_new_imaging_rejection"
+  ],
+  "hard_constraints": [
+    "HARD: the consensus explicitly REJECTS 'd_reject_psma_pet_upfront' (Do NOT prefer PSMA PET over MRI for primary PCa diagnosis) — do not endorse it."
+  ],
+  "verdict": {
+    "action": "conditional",
+    "confidence": 0.0,
+    "rationale": "rule-only mode (no LLM arbiter) — verdict class not determined",
+    "citations": [],
+    "degraded": true
+  },
+  "elapsed_s": 0.0,
+  "lexical_top": [
+    {
+      "evidence_id": "EV0045",
+      "score": 14.31,
+      "locator": "Table 1 (Q19)"
+    },
+    {
+      "evidence_id": "EV0043",
+      "score": 11.52,
+      "locator": "Table 1 (Q17)"
+    },
+    {
+      "evidence_id": "EV0044",
+      "score": 11.25,
+      "locator": "Table 1 (Q18)"
+    }
+  ]
+}

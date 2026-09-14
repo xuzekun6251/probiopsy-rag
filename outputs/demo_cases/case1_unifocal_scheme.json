@@ -1,0 +1,52 @@
+{
+  "case_id": "case1_unifocal_scheme",
+  "title": "单发病灶穿刺方案 (Unifocal lesion: TBx+PLBx vs add SBx)",
+  "question": "For a 62-year-old man with a single 9 mm PI-RADS 4 peripheral-zone lesion on adequate-quality 3T mpMRI, should the biopsy scheme be targeted biopsy plus perilesional biopsy, and should a full systematic biopsy be added?",
+  "patient_flags": [
+    "lesion_small",
+    "mpmri",
+    "mri_3t",
+    "pirads_4_5",
+    "psa_elevated",
+    "pz_lesion",
+    "quality_adequate",
+    "unifocal",
+    "visible_lesion"
+  ],
+  "decision_items": [
+    "d_scheme_unifocal_add_sbx",
+    "d_scheme_unifocal_tbx_plbx"
+  ],
+  "rules_fired": [
+    "biopsy_scheme_by_lesion_distribution"
+  ],
+  "hard_constraints": [
+    "HARD: the consensus explicitly REJECTS 'd_scheme_unifocal_add_sbx' (Unifocal visible lesion: add full systematic biopsy) — do not endorse it.",
+    "HARD: the consensus ENDORSES 'd_scheme_unifocal_tbx_plbx' (Unifocal visible lesion: targeted biopsy + perilesional biopsy) — do not reject it outright."
+  ],
+  "verdict": {
+    "action": "conditional",
+    "confidence": 0.0,
+    "rationale": "rule-only mode (no LLM arbiter) — verdict class not determined",
+    "citations": [],
+    "degraded": true
+  },
+  "elapsed_s": 0.0,
+  "lexical_top": [
+    {
+      "evidence_id": "EV0024",
+      "score": 8.88,
+      "locator": "SM2 / sm2_d2_systematic"
+    },
+    {
+      "evidence_id": "EV0004",
+      "score": 4.54,
+      "locator": "Main text / introduction"
+    },
+    {
+      "evidence_id": "EV0027",
+      "score": 4.38,
+      "locator": "SM2 / sm2_d3_planning"
+    }
+  ]
+}

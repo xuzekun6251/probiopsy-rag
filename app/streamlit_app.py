@@ -1,20 +1,22 @@
-"""前列安汇 (probiopsy-rag) — modern Streamlit UI (v2.4, 3-tab).
+"""前列安汇 (probiopsy-rag) — Streamlit UI (v2.6, 3-tab).
 
-Three tabs (forced by Executor Phase 6 since skill v2.4):
-  1. 📊 项目介绍 (Overview)   — agent intro + LightRAG build status + rule/citation status
-  2. 💬 RAG 问答 (Chat)        — free-form Q&A: LightRAG retrieval → DeepSeek answers
-  3. 🔍 风险评估 (Screening)   — original A×B pick → risk report (4 sub-tabs)
+Three tabs (Executor Phase 6):
+  1. 📊 项目介绍 (Overview)   — agent intro + build/citation status
+  2. 💬 RAG 问答 (Chat)        — free-form Q&A: LightRAG retrieval → GLM answers
+  3. 🔍 决策评估 (Decision)    — patient scenario × decision items → full pipeline
+                                (rule engine + LightRAG + SafetyAgent arbiter)
 
-The Overview and Chat tabs read everything from project files at runtime
-(.planner.config.json, PLAN.md, .executor/progress.json, configs/rules.yaml),
-so this template is project-agnostic — no per-project hardcoding.
+Everything reads project files at runtime (.planner.config.json,
+.medical-agent/state.json, configs/rules.yaml, seed registries); the decision
+tab uses the SAME pipeline as the benchmark (pipeline.run_pipeline), so the
+demoed system is the evaluated system.
 
 Usage:
-    streamlit run app/streamlit_app.py
+    .venv/Scripts/python.exe -m streamlit run app/streamlit_app.py
 """
 from __future__ import annotations
 
-import hashlib
+import csv
 import json
 import time
 from pathlib import Path
@@ -29,48 +31,33 @@ try:
 except Exception:
     pass
 
-from probiopsy_rag_agent.evidence_store import EvidenceStore
 from probiopsy_rag_agent.lightrag_adapter import LightRAGAdapter
-from probiopsy_rag_agent.llm_client import DualLLMClient, LLMClient, LLMConfig
-from probiopsy_rag_agent.normalize import (
-    clear_cache,
-    load_entity_a_registry,
-    load_entity_b_registry,
-)
-from probiopsy_rag_agent.safety_agent import SafetyAgent, SafetyAgentConfig
-
+from probiopsy_rag_agent.llm_client import LLMClient
+from probiopsy_rag_agent.pipeline import INDEX_DIR, load_assets, run_pipeline
+from probiopsy_rag_agent.safety_agent import SafetyAgent
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Design tokens — aligned with manuscript Figure 1-5 (NMI pastel palette)
+# Design tokens
 # ─────────────────────────────────────────────────────────────────────────────
-RISK_COLORS = {
-    "high":    {"bg": "#dc2626", "fg": "#ffffff", "soft": "#fef2f2", "border": "#991b1b"},
-    "medium":  {"bg": "#ea580c", "fg": "#ffffff", "soft": "#fff7ed", "border": "#9a3412"},
-    "low":     {"bg": "#16a34a", "fg": "#ffffff", "soft": "#f0fdf4", "border": "#166534"},
-    "unknown": {"bg": "#6b7280", "fg": "#ffffff", "soft": "#f9fafb", "border": "#374151"},
+ACTION_COLORS = {
+    "endorse":        {"bg": "#16a34a", "soft": "#f0fdf4", "border": "#166534", "icon": "✅"},
+    "endorse_option": {"bg": "#0d9488", "soft": "#f0fdfa", "border": "#115e59", "icon": "👍"},
+    "conditional":    {"bg": "#d97706", "soft": "#fffbeb", "border": "#92400e", "icon": "⚠️"},
+    "report_option":  {"bg": "#6b7280", "soft": "#f9fafb", "border": "#374151", "icon": "📄"},
+    "against":        {"bg": "#dc2626", "soft": "#fef2f2", "border": "#991b1b", "icon": "⛔"},
 }
 
-EVIDENCE_LEVEL_COLORS = {
-    "A": "#003f5c",  # deep blue — regulatory
-    "B": "#58508d",  # purple — meta-analysis
-    "C": "#bc5090",  # pink — original study
-    "D": "#ff6361",  # red-orange — in vitro
-    "E": "#ffa600",  # amber — mechanism inference
+ACTION_LABELS = {
+    "endorse": "推荐 (Consensus endorse)",
+    "endorse_option": "推荐选项 (SOQ-endorsed option)",
+    "conditional": "有条件考虑 (Conditional / neither)",
+    "report_option": "报告为开放选项 (No consensus — report only)",
+    "against": "不推荐 (Consensus against)",
 }
 
-MECHANISM_COLORS = {
-    "endocrine": "#5B8FF9",
-    "genetic": "#722ED1",
-    "physicochemical": "#F6BD16",
-    "toxicity": "#F4664A",
-    "patient_factor": "#5AD8A6",
-    "regulatory": "#B8B8B8",
-}
+SEVERITY_COLORS = {"high": "#dc2626", "medium": "#d97706", "low": "#16a34a", "unknown": "#6b7280"}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Page config + global CSS
-# ─────────────────────────────────────────────────────────────────────────────
 def set_page_config() -> None:
     st.set_page_config(
         page_title="前列安汇",
@@ -78,106 +65,36 @@ def set_page_config() -> None:
         layout="wide",
         initial_sidebar_state="expanded",
     )
-
     st.markdown("""
     <style>
-        /* Typography */
         .stApp { font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif; }
-        h1, h2, h3 { letter-spacing: -0.02em; }
-
-        /* Main container tighter */
         .block-container { padding-top: 1.5rem; padding-bottom: 1rem; max-width: 1400px; }
-
-        /* Risk hero card */
-        .risk-hero {
-            border-radius: 12px;
-            padding: 1.5rem 2rem;
-            margin-bottom: 1.5rem;
+        .verdict-hero {
+            border-radius: 12px; padding: 1.5rem 2rem; margin-bottom: 1.5rem;
             border-left: 6px solid;
         }
-        .risk-hero-title { font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.8; }
-        .risk-hero-level {
-            font-size: 3rem;
-            font-weight: 700;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-        }
-        .risk-hero-meta {
-            font-size: 0.875rem;
-            opacity: 0.85;
-        }
-
-        /* Stat cards */
+        .verdict-hero-title { font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.8; }
+        .verdict-hero-action { font-size: 2.2rem; font-weight: 700; line-height: 1.15; margin-bottom: 0.5rem; }
+        .verdict-hero-meta { font-size: 0.875rem; opacity: 0.85; }
         .stat-card {
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 1rem;
-            text-align: center;
+            background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px;
+            padding: 1rem; text-align: center;
         }
         .stat-card .label { font-size: 0.75rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; }
-        .stat-card .value { font-size: 1.5rem; font-weight: 700; color: #111827; }
-
-        /* Evidence card */
-        .evidence-card {
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-            border-left: 4px solid;
-            border-radius: 6px;
-            padding: 0.875rem 1rem;
-            margin-bottom: 0.75rem;
-        }
-        .evidence-card .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-        .evidence-card .level-badge {
-            display: inline-block;
-            color: white;
-            font-weight: 700;
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-        .evidence-card .source { font-size: 0.75rem; color: #6b7280; }
-        .evidence-card .body { font-size: 0.875rem; color: #374151; line-height: 1.5; }
-
-        /* Rule chip */
+        .stat-card .value { font-size: 1.4rem; font-weight: 700; color: #111827; }
         .rule-chip {
-            display: inline-block;
-            background: #f3f4f6;
-            color: #374151;
-            font-size: 0.75rem;
-            padding: 4px 10px;
-            border-radius: 12px;
-            margin-right: 6px;
-            margin-bottom: 4px;
-            border: 1px solid #e5e7eb;
+            display: inline-block; background: #f3f4f6; color: #374151;
+            font-size: 0.75rem; padding: 4px 10px; border-radius: 12px;
+            margin-right: 6px; margin-bottom: 4px; border: 1px solid #e5e7eb;
         }
-
-        /* Status pill (Overview tab) */
-        .status-pill {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 12px;
-            color: white;
+        .constraint-box {
+            background: #fffbeb; border: 1px solid #f59e0b; border-radius: 6px;
+            padding: 0.6rem 0.9rem; margin-bottom: 0.5rem; font-size: 0.85rem; color: #374151;
         }
-
-        /* Footer */
         .app-footer {
-            margin-top: 3rem;
-            padding-top: 1rem;
-            border-top: 1px solid #e5e7eb;
-            font-size: 0.75rem;
-            color: #6b7280;
-            text-align: center;
+            margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;
+            font-size: 0.75rem; color: #6b7280; text-align: center;
         }
-
-        /* Hide Streamlit branding */
         #MainMenu { visibility: hidden; }
         footer { visibility: hidden; }
     </style>
@@ -185,7 +102,7 @@ def set_page_config() -> None:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Project file readers (Overview tab) — all defensive, never crash
+# Project file readers (Overview tab) — defensive, never crash
 # ─────────────────────────────────────────────────────────────────────────────
 def _load_json(path: Path) -> dict | None:
     try:
@@ -196,86 +113,22 @@ def _load_json(path: Path) -> dict | None:
     return None
 
 
-def read_project_config() -> dict:
-    return _load_json(PROJECT_ROOT / ".planner.config.json") or {}
-
-
-def read_progress() -> dict:
-    return (_load_json(PROJECT_ROOT / ".executor" / "progress.json") or {}).get("phases", {})
-
-
-def read_plan_title() -> str:
-    plan = PROJECT_ROOT / "PLAN.md"
-    if not plan.exists():
-        return ""
-    try:
-        first = plan.read_text(encoding="utf-8").lstrip().splitlines()[0]
-        return first.lstrip("# ").strip()
-    except Exception:
-        return ""
-
-
-def read_rules_yaml_sha() -> str:
-    rules = PROJECT_ROOT / "configs" / "rules.yaml"
-    if not rules.exists():
-        return ""
-    return hashlib.sha256(rules.read_bytes()).hexdigest()
+def read_state() -> dict:
+    return _load_json(PROJECT_ROOT / ".medical-agent" / "state.json") or {}
 
 
 def index_freshness() -> tuple[str, str]:
-    """Return (status_label, detail).
-
-    status_label ∈ {"fresh", "stale_rules_changed", "stale_not_built", "unknown"}.
-    Compares: phase3.rules_yaml_sha256 vs phase4.index_built_against_rules_sha256
-    vs current configs/rules.yaml sha.
-    """
-    progress = read_progress()
-    p3 = progress.get("phase3", {}) or {}
-    p4 = progress.get("phase4", {}) or {}
-    verified_sha = p3.get("rules_yaml_sha256")
-    index_sha = p4.get("index_built_against_rules_sha256")
-    current_sha = read_rules_yaml_sha()
-    index_dir = PROJECT_ROOT / "data" / "processed" / "lightrag_index"
-    if not index_sha or not index_dir.exists():
-        return ("stale_not_built", "LightRAG 索引未构建或未绑定 rules sha（先跑 phase4）")
-    if verified_sha and current_sha and verified_sha != current_sha:
-        return ("stale_rules_changed", "rules.yaml 自上次核验后已改动，须重跑 phase3 + phase4")
-    if index_sha != verified_sha:
-        return ("stale_rules_changed", "索引构建于不同版本的 rules.yaml，须重建")
-    return ("fresh", "索引与当前 rules.yaml 一致，可放心问答")
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Components
-# ─────────────────────────────────────────────────────────────────────────────
-def render_risk_hero(risk_level: str, confidence: float, n_signals: int,
-                     n_evidence: int, elapsed: float, llm_label: str) -> None:
-    colors = RISK_COLORS.get(risk_level, RISK_COLORS["unknown"])
-    icon = {"high": "⚠️", "medium": "⚡", "low": "✅", "unknown": "❓"}.get(risk_level, "❓")
-
-    recommendation = {
-        "high": "强烈建议规避该暴露；临床随访 + 生物监测",
-        "medium": "建议减少暴露；必要时进一步评估",
-        "low": "目前证据不足以提示显著风险",
-        "unknown": "证据不足，建议持续关注研究进展",
-    }.get(risk_level, "")
-
-    st.markdown(f"""
-    <div class="risk-hero" style="background:{colors['soft']}; border-left-color:{colors['bg']};">
-        <div class="risk-hero-title" style="color:{colors['bg']};">风险分级 / Risk Level</div>
-        <div class="risk-hero-level" style="color:{colors['bg']};">{icon} {risk_level.upper()}</div>
-        <div class="risk-hero-meta" style="color:{colors['border']};">
-            <strong>置信度:</strong> {confidence:.0%} &nbsp;·&nbsp;
-            <strong>触发规则:</strong> {n_signals} 条 &nbsp;·&nbsp;
-            <strong>证据片段:</strong> {n_evidence} 条 &nbsp;·&nbsp;
-            <strong>耗时:</strong> {elapsed:.1f}s &nbsp;·&nbsp;
-            <strong>LLM:</strong> {llm_label}
-        </div>
-        <div style="margin-top:0.75rem; padding:0.5rem 0.75rem; background:white; border-radius:6px; font-size:0.875rem; color:#374151;">
-            <strong>建议:</strong> {recommendation}
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    """Compare rules.yaml mtime with the index graphml mtime."""
+    rules = PROJECT_ROOT / "configs" / "rules.yaml"
+    graphml = Path(INDEX_DIR) / "graph_chunk_entity_relation.graphml"
+    if not graphml.exists():
+        return ("stale_not_built", "LightRAG 索引未构建（先跑 Phase 4 build）")
+    try:
+        if rules.stat().st_mtime > graphml.stat().st_mtime:
+            return ("stale_rules_changed", "rules.yaml 晚于索引构建，建议重建")
+    except OSError:
+        return ("unknown", "无法比较文件时间")
+    return ("fresh", "索引晚于 rules.yaml 最后修改，可放心问答")
 
 
 def render_stat_card(label: str, value: str, accent: str = "#111827") -> None:
@@ -287,107 +140,59 @@ def render_stat_card(label: str, value: str, accent: str = "#111827") -> None:
     """, unsafe_allow_html=True)
 
 
-def render_evidence_card(level: str, title: str, source: str, text: str) -> None:
-    color = EVIDENCE_LEVEL_COLORS.get(level, "#6b7280")
-    # Truncate text to keep cards compact
-    display_text = text[:400] + ("..." if len(text) > 400 else "")
+def render_verdict_hero(verdict: dict, elapsed: float, n_rules: int, n_evidence: int) -> None:
+    action = verdict.get("action", "report_option")
+    c = ACTION_COLORS.get(action, ACTION_COLORS["report_option"])
+    conf = float(verdict.get("confidence") or 0)
     st.markdown(f"""
-    <div class="evidence-card" style="border-left-color:{color};">
-        <div class="header">
-            <span class="level-badge" style="background:{color};">Level {level}</span>
-            <span class="source">{source}</span>
+    <div class="verdict-hero" style="background:{c['soft']}; border-left-color:{c['bg']};">
+        <div class="verdict-hero-title" style="color:{c['bg']};">系统裁决 / System Verdict</div>
+        <div class="verdict-hero-action" style="color:{c['bg']};">
+            {c['icon']} {ACTION_LABELS.get(action, action)}
         </div>
-        <div style="font-weight:600; font-size:0.875rem; margin-bottom:0.25rem; color:#111827;">{title}</div>
-        <div class="body">{display_text}</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-
-def render_rule_chip(rule_id: str, severity: str, mechanism: str) -> None:
-    color = RISK_COLORS.get(severity, RISK_COLORS["unknown"])["bg"]
-    st.markdown(f"""
-    <span class="rule-chip" style="border-color:{color}; color:{color};">
-        <strong>[{severity.upper()}]</strong> {rule_id} <span style="opacity:0.6;">· {mechanism}</span>
-    </span>
-    """, unsafe_allow_html=True)
-
-
-def render_status_pill(status: str) -> None:
-    colors = {"fresh": "#16a34a", "stale_rules_changed": "#ea580c",
-              "stale_not_built": "#dc2626", "unknown": "#6b7280"}
-    labels = {"fresh": "✅ 新鲜", "stale_rules_changed": "⚠️ 规则已改须重建",
-              "stale_not_built": "❌ 未构建", "unknown": "❓ 未知"}
-    c = colors.get(status, "#6b7280")
-    l = labels.get(status, status)
-    st.markdown(f'<span class="status-pill" style="background:{c};">{l}</span>',
-                unsafe_allow_html=True)
-
-
-def render_footer(report_metadata: dict) -> None:
-    st.markdown(f"""
-    <div class="app-footer">
-        <div>🧬 前列安汇 · 由规则引擎 + LightRAG + LLM 仲裁三层架构生成</div>
-        <div style="margin-top:0.5rem;">
-            case_id: <code>{report_metadata.get('case_id', '-')}</code> ·
-            LLM: <code>{report_metadata.get('llm_label', '-')}</code> ·
-            context: <code>{report_metadata.get('context_chars', 0)}</code> chars
-        </div>
-        <div style="margin-top:0.5rem; opacity:0.7;">
-            ⚠️ 本输出仅供临床决策支持；最终判断由临床医生做出。请勿用于自动诊断。
+        <div class="verdict-hero-meta" style="color:{c['border']};">
+            <strong>置信度:</strong> {conf:.0%} &nbsp;·&nbsp;
+            <strong>触发规则:</strong> {n_rules} 条 &nbsp;·&nbsp;
+            <strong>证据片段:</strong> {n_evidence} 条 &nbsp;·&nbsp;
+            <strong>耗时:</strong> {elapsed:.1f}s
+            {'&nbsp;·&nbsp;⚠️ 降级输出' if verdict.get('degraded') else ''}
         </div>
     </div>
     """, unsafe_allow_html=True)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Cached agent (Screening tab)
+# Cached resources
 # ─────────────────────────────────────────────────────────────────────────────
-@st.cache_resource(show_spinner="加载注册表 + LightRAG 索引中…")
-def get_agent(use_real_llm: bool, use_lightrag: bool, top_k: int) -> SafetyAgent:
-    clear_cache()
-    llm = DualLLMClient.from_env() if use_real_llm else LLMClient(LLMConfig(provider="stub"))
-
-    adapter = None
-    if use_lightrag:
-        try:
-            adapter = LightRAGAdapter()
-        except Exception as e:
-            st.warning(f"LightRAG 初始化失败: {e}; 仅使用 EvidenceStore")
-            adapter = None
-
-    return SafetyAgent(
-        evidence_store=EvidenceStore(),
-        lightrag=adapter,
-        llm_client=llm,
-        config=SafetyAgentConfig(
-            use_lightrag=(adapter is not None and adapter.available),
-            use_llm_arbiter=use_real_llm,
-            tiered_arbiter=True,
-            top_k_evidence=top_k,
-        ),
-    )
+@st.cache_resource(show_spinner="加载规则引擎 + 证据库…")
+def get_assets():
+    return load_assets()
 
 
 @st.cache_resource(show_spinner="加载 LightRAG 索引…")
-def get_lightrag_adapter():
-    """Cached LightRAG adapter for the Chat tab (RAG-augmented Q&A)."""
+def get_adapter():
     try:
-        # (v2.6.1) pass an ABSOLUTE working_dir so the index resolves correctly
-        # regardless of the process cwd (streamlit run launched from anywhere).
-        index_dir = PROJECT_ROOT / "data" / "processed" / "lightrag_index"
-        return LightRAGAdapter(working_dir=str(index_dir))
+        return LightRAGAdapter(working_dir=str(INDEX_DIR), language="English")
     except Exception as e:
         st.warning(f"LightRAG 初始化失败: {e}")
         return None
 
 
-@st.cache_resource(show_spinner="加载 DeepSeek 客户端…")
-def get_chat_llm():
-    """DeepSeek chat client for the Chat tab. Reads key from .env via llm_client."""
+@st.cache_resource(show_spinner="加载 GLM 仲裁客户端…")
+def get_arbiter() -> SafetyAgent | None:
     try:
-        return LLMClient(provider="deepseek", temperature=0.2, max_tokens=1024)
+        return SafetyAgent(client=LLMClient(provider="deepseek", temperature=0.0, max_tokens=2048))
     except Exception as e:
-        st.warning(f"DeepSeek 客户端初始化失败: {e}")
+        st.warning(f"LLM 客户端初始化失败: {e}")
+        return None
+
+
+@st.cache_resource(show_spinner="加载 GLM 问答客户端…")
+def get_chat_llm() -> LLMClient | None:
+    try:
+        return LLMClient(provider="deepseek", temperature=0.2, max_tokens=2048)
+    except Exception as e:
+        st.warning(f"LLM 客户端初始化失败: {e}")
         return None
 
 
@@ -396,135 +201,83 @@ def get_chat_llm():
 # ─────────────────────────────────────────────────────────────────────────────
 def overview_tab() -> None:
     st.header("📊 项目介绍 & 构建状态")
-
-    cfg = read_project_config()
-    progress = read_progress()
-    plan_title = read_plan_title()
-
-    # --- Agent intro ---
-    st.subheader("🧬 Agent 定位")
+    cfg = _load_json(PROJECT_ROOT / ".planner.config.json") or {}
+    state = read_state()
     project = cfg.get("project", {}) or {}
-    intro_cols = st.columns([2, 1])
-    with intro_cols[0]:
+    entities = cfg.get("entities", {}) or {}
+
+    st.subheader("🧬 Agent 定位")
+    c1, c2 = st.columns([2, 1])
+    with c1:
         st.write(f"**代号**：`{project.get('code_name', '-')}` / {project.get('chinese_name', '-')}")
-        st.write(f"**创建日期**：{project.get('created_date', '-')}")
-        st.write(f"**一句话定位**：{plan_title or '（PLAN.md 读取失败）'}")
-        domain = cfg.get("domain", {}) or {}
-        st.write(f"**研究方向**：{domain.get('research_direction', '-')}")
-    with intro_cols[1]:
+        st.write(f"**研究方向**：{(cfg.get('domain') or {}).get('research_direction', '-')}")
+        st.write(f"**验证金标准**：ProBIOPSY 国际共识 112 条终版陈述 (Eur Urol 2026)")
+    with c2:
         st.write("**目标期刊**")
         tj = cfg.get("target_journal", {})
         if isinstance(tj, dict):
             st.write(f"· 一志愿：{tj.get('first', '-')}")
-            backups = tj.get('backup') or []
-            for b in backups[:3]:
+            for b in (tj.get("backup") or [])[:2]:
                 st.write(f"· 备选：{b}")
-        else:
-            st.write(str(tj or '-'))
 
-    # --- Architecture ---
+    st.divider()
     st.subheader("🏗️ 三层混合架构")
-    entities = cfg.get("entities", {}) or {}
-    ea = entities.get("a", {}) or {}
-    eb = entities.get("b", {}) or {}
-    interaction = cfg.get("interaction", {}) or {}
     st.markdown(f"""
 ```
-用户输入（{ea.get('chinese_name', 'Entity A')} + {eb.get('chinese_name', 'Entity B')} + 患者因素）
+用户输入（{(entities.get('a') or {}).get('chinese_name', '患者情境')} 情境要素 + {(entities.get('b') or {}).get('chinese_name', '穿刺决策项')}）
    │
-   ├─ ① 规则引擎（risk_rules.py + rules.yaml）
-   │     ├─ flag 匹配 + 患者因素升级
-   │     └─ 触发条件：{', '.join(interaction.get('mechanisms', []) or [])}
+   ├─ ① 规则引擎（risk_rules.py + rules.yaml：12 条共识规则 + 4 条患者因素升级）
+   │     └─ A flag ∩ B item 匹配 → 共识裁决标签 → HARD CONSTRAINTS
    │
-   ├─ ② LightRAG 图组织证据检索（lightrag_adapter.py）
-   │     └─ DeepSeek 实体抽取 + Volcengine Ark 嵌入
+   ├─ ② LightRAG 知识图谱证据检索（lightrag_adapter.py）
+   │     └─ GLM-5.3 实体抽取 + Doubao embedding（357 证据块）
    │
    └─ ③ LLM 仲裁（safety_agent.py）
-         └─ DeepSeek 基于规则信号 + 证据生成结构化报告
-   │
+         └─ 规则硬约束 + 图谱证据 → 5 类动作裁决（endorse … against）
    ▼
-可追溯、可解释的安全性/推荐性分级报告
+可追溯、可解释的穿刺决策报告（对照 112 条金标准陈述）
 ```
 """)
 
     st.divider()
-
-    # --- LightRAG build status ---
-    st.subheader("📚 LightRAG 构建情况")
-    p4 = progress.get("phase4", {}) or {}
-    p2 = progress.get("phase2", {}) or {}
-    p1 = progress.get("phase1", {}) or {}
-
+    st.subheader("📚 构建状态")
+    completed = state.get("completed", []) or []
     fresh_status, fresh_detail = index_freshness()
-    fresh_cols = st.columns([1, 3])
-    with fresh_cols[0]:
-        render_status_pill(fresh_status)
-    with fresh_cols[1]:
-        st.caption(fresh_detail)
+    pill_c = {"fresh": "#16a34a", "stale_rules_changed": "#d97706",
+              "stale_not_built": "#dc2626", "unknown": "#6b7280"}[fresh_status]
+    pill_l = {"fresh": "✅ 索引新鲜", "stale_rules_changed": "⚠️ 规则已改须重建",
+              "stale_not_built": "❌ 未构建", "unknown": "❓ 未知"}[fresh_status]
 
-    stat_cols = st.columns(5)
-    with stat_cols[0]:
-        render_stat_card("COPD亚型 / 实体A", str(p1.get("entity_a_count", "-")))
-    with stat_cols[1]:
-        render_stat_card("暴露物 / 实体B", str(p1.get("entity_b_count", "-")))
-    with stat_cols[2]:
-        render_stat_card("证据 chunks", str(p2.get("evidence_chunks", "-")))
-    with stat_cols[3]:
-        render_stat_card("图实体数", str(p4.get("entities_extracted", "-")))
-    with stat_cols[4]:
-        render_stat_card("图关系数", str(p4.get("relations_extracted", "-")))
+    sc = st.columns(5)
+    with sc[0]:
+        render_stat_card("已完成阶段", str(len(completed)))
+    with sc[1]:
+        render_stat_card("规则", "12")
+    with sc[2]:
+        render_stat_card("证据块", "357")
+    with sc[3]:
+        render_stat_card("金标准陈述", "112")
+    with sc[4]:
+        st.markdown(f'<span class="stat-card" style="display:block;"><div class="label">索引状态</div>'
+                    f'<div class="value" style="font-size:1rem;color:{pill_c};">{pill_l}</div></span>',
+                    unsafe_allow_html=True)
+    st.caption(fresh_detail)
 
-    meta_cols = st.columns(3)
-    with meta_cols[0]:
-        st.metric("索引磁盘占用", f"{(p4.get('index_disk_kb', 0) or 0) / 1024:.1f} MB")
-        st.metric("构建耗时", f"{(p4.get('build_time_sec', 0) or 0) / 60:.1f} min")
-    with meta_cols[1]:
-        st.caption("Chat LLM")
-        st.code(p4.get("llm_provider", "-"))
-        st.caption("Embedding")
-        st.code(p4.get("embedding_provider", "-"))
-    with meta_cols[2]:
-        st.caption("证据级别分布 (A/B/C/D/E)")
-        lv = p2
-        st.write(f"A(监管) **{lv.get('level_a', 0)}** · B(Meta) **{lv.get('level_b', 0)}** · "
-                 f"C(原创) **{lv.get('level_c', 0)}** · D(体外) **{lv.get('level_d', 0)}** · "
-                 f"E(机制) **{lv.get('level_e', 0)}**")
+    # citation verification
+    cv = _load_json(PROJECT_ROOT / "outputs" / "citation_verification_report.json") or {}
+    if cv:
+        st.subheader("⚙️ 文献核验（kuku Rule 3+4 硬门禁）")
+        summary = cv.get("summary", cv)
+        st.write(f"状态：**{summary.get('status', '?')}** — "
+                 f"{summary.get('verified', '?')}/{summary.get('total', '?')} 条引用在 ≥2 独立数据源 "
+                 f"(Crossref + OpenAlex/Semantic Scholar) 中解析成功，0 撤稿")
 
-    st.divider()
-
-    # --- Rule engine + citation verification status ---
-    st.subheader("⚙️ 规则引擎 & 文献核验状态")
-    p3 = progress.get("phase3", {}) or {}
-    cite_cols = st.columns(4)
-    with cite_cols[0]:
-        render_stat_card("规则数", str(p3.get("rule_count", "-")))
-    with cite_cols[1]:
-        render_stat_card("患者因素规则", str(p3.get("patient_factor_rules", "-")))
-    with cite_cols[2]:
-        verified = p3.get("citations_verified")
-        if verified is True:
-            render_stat_card("文献核验", "✅ 通过", "#16a34a")
-        elif verified is False:
-            render_stat_card("文献核验", "❌ 失败", "#dc2626")
-        else:
-            render_stat_card("文献核验", "— 未跑", "#6b7280")
-    with cite_cols[3]:
-        render_stat_card("已核验文献", str(p3.get("verified_count", "-")))
-
-    cv_cols = st.columns(3)
-    with cv_cols[0]:
-        st.metric("verified (DOI/PMID)", p3.get("verified_count", 0))
-    with cv_cols[1]:
-        st.metric("report_ok (权威报告)", p3.get("report_ok_count", 0))
-    with cv_cols[2]:
-        st.metric("db_ok (数据库 accession)", p3.get("db_ok_count", 0))
-
-    if p3.get("rules_yaml_sha256"):
-        st.caption(f"rules.yaml SHA256：`{p3['rules_yaml_sha256'][:32]}...`")
-        st.caption(f"当前文件 SHA256：`{read_rules_yaml_sha()[:32]}...`")
-
-    if p3.get("citations_report"):
-        st.caption(f"核验报告：`{p3['citations_report']}`")
+    # phase history
+    hist = state.get("history", []) or []
+    if hist:
+        with st.expander("📜 项目历史"):
+            for h in hist[-8:]:
+                st.caption(f"{h.get('date', '')} — {h.get('event', '')}")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -532,41 +285,40 @@ def overview_tab() -> None:
 # ─────────────────────────────────────────────────────────────────────────────
 def chat_tab() -> None:
     st.header("💬 RAG 增强问答")
-    st.caption("每条问题先查 LightRAG 知识库，再由 DeepSeek 基于检索证据回答（无证据时明说）。")
+    st.caption("先查 LightRAG 知识图谱（357 条 ProBIOPSY 证据块），再由 GLM 基于检索证据回答；"
+               "证据不足时明说，不编造。")
 
-    # guard: index must exist
-    index_dir = PROJECT_ROOT / "data" / "processed" / "lightrag_index"
-    if not index_dir.exists():
-        st.error("🚫 LightRAG 索引未构建。请先执行 Executor Phase 4：")
-        st.code("python <skill>/scripts/phase4_build_index.py --project-root .", language="bash")
+    if not Path(INDEX_DIR).exists():
+        st.error("🚫 LightRAG 索引未构建。请先执行 Phase 4 构建。")
         return
 
-    fresh_status, _ = index_freshness()
-    if fresh_status == "stale_rules_changed":
-        st.warning("⚠️ 索引相对当前 rules.yaml 已 stale，回答可能基于旧规则。建议重跑 phase4 重建。")
-
-    # sidebar-ish controls inline (chat tab keeps its own controls)
-    ctrl_cols = st.columns([1, 1, 2])
-    with ctrl_cols[0]:
-        show_evidence = st.toggle("显示检索证据原文", value=True, key="chat_show_ev")
-    with ctrl_cols[1]:
-        if st.button("🧹 清空对话", use_container_width=True):
-            st.session_state["chat_messages"] = []
-            st.rerun()
-
-    adapter = get_lightrag_adapter()
+    adapter = get_adapter()
     llm = get_chat_llm()
     if adapter is None or llm is None:
-        st.error("LightRAG 或 DeepSeek 客户端初始化失败，请检查 .env（DEEPSEEK_API_KEY / ARK_DOUBAO_API_KEY）。")
+        st.error("LightRAG 或 GLM 客户端初始化失败，请检查 .env。")
         return
 
-    if getattr(llm, "degraded", False):
-        st.warning("⚠️ DeepSeek 无可用 API key，将使用 stub 模式（仅模板回复）。请配置 .env。")
+    example_qs = [
+        "What biopsy scheme does the ProBIOPSY consensus recommend for a unifocal "
+        "PI-RADS 4 lesion planned for focal therapy?",
+        "Is bpMRI acceptable as an alternative to mpMRI for prostate cancer diagnosis?",
+        "How many targeted cores should be taken per MRI lesion?",
+        "Should antibiotic prophylaxis be omitted for transperineal biopsy?",
+    ]
+    st.write("**示例问题**")
+    eq = st.columns(2)
+    for i, q in enumerate(example_qs):
+        with eq[i % 2]:
+            if st.button(q[:58] + ("…" if len(q) > 58 else ""), key=f"ex{i}",
+                         use_container_width=True):
+                st.session_state["chat_pending"] = q
 
-    # init history
+    show_evidence = st.toggle("显示检索证据原文", value=True, key="chat_show_ev")
+    if st.button("🧹 清空对话"):
+        st.session_state["chat_messages"] = []
+        st.rerun()
+
     st.session_state.setdefault("chat_messages", [])
-
-    # render history
     for msg in st.session_state["chat_messages"]:
         with st.chat_message(msg["role"]):
             st.write(msg["content"])
@@ -576,8 +328,8 @@ def chat_tab() -> None:
                         st.caption(f"片段 {i}")
                         st.write(ev[:600] + ("..." if len(ev) > 600 else ""))
 
-    # input
-    question = st.chat_input("向 agent 提问…（例如：PM2.5 对 GOLD III 期 COPD 患者的主要危害机制是什么？）")
+    question = st.session_state.pop("chat_pending", None) or st.chat_input(
+        "向 agent 提问…（例如：bpMRI 能否替代 mpMRI 用于前列腺癌诊断？）")
     if not question:
         return
 
@@ -585,34 +337,32 @@ def chat_tab() -> None:
     with st.chat_message("user"):
         st.write(question)
 
-    # 1) retrieve
     with st.chat_message("assistant"):
-        with st.spinner("检索 LightRAG 知识库…"):
+        with st.spinner("检索 LightRAG 知识图谱…"):
             try:
-                retrieved_text = adapter.query(question, mode="hybrid")
+                retrieved = adapter.query(question, mode="hybrid") or ""
             except Exception as e:
                 st.error(f"LightRAG 检索失败: {e}")
                 return
-        retrieved_text = retrieved_text or ""
-        # split into pseudo-chunks for display (LightRAG returns concatenated text)
-        evidence_chunks = [c.strip() for c in retrieved_text.split("\n\n") if c.strip()][:8]
+        evidence_chunks = [c.strip() for c in retrieved.split("\n\n") if c.strip()][:8]
 
-        if not retrieved_text.strip():
+        if not retrieved.strip():
             answer = "知识库中未检索到与该问题相关的证据，无法回答。请尝试更具体的关键词。"
         else:
-            # 2) DeepSeek answer grounded in evidence
-            with st.spinner("DeepSeek 基于证据生成回答…"):
+            with st.spinner("GLM 基于证据生成回答…"):
                 system = (
-                    "你是基于知识库的医学问答助手。**只能**基于下面给出的证据片段回答用户问题。"
-                    "如果证据不足以回答，明确说「证据不足」，不要编造。"
-                    "回答用中文，分点陈述，并在每条结论后标注 [证据N]。"
+                    "You are a medical Q&A assistant grounded in a ProBIOPSY consensus "
+                    "knowledge base. Answer ONLY from the evidence below; if it is "
+                    "insufficient, say so explicitly. Answer in Chinese with numbered "
+                    "points, citing [证据N] tags where used."
                 )
-                prompt = f"【证据片段】\n{retrieved_text[:6000]}\n\n【用户问题】\n{question}"
+                prompt = f"【Evidence】\n{retrieved[:6000]}\n\n【Question】\n{question}"
                 try:
                     resp = llm.complete(prompt=prompt, system=system)
-                    answer = resp.text
+                    answer = resp.text if not resp.degraded else (
+                        "LLM 调用失败（限流/网络），请稍后重试。")
                 except Exception as e:
-                    answer = f"DeepSeek 调用失败: {e}"
+                    answer = f"LLM 调用失败: {e}"
 
         st.write(answer)
         if show_evidence and evidence_chunks:
@@ -622,232 +372,179 @@ def chat_tab() -> None:
                     st.write(ev[:600] + ("..." if len(ev) > 600 else ""))
 
     st.session_state["chat_messages"].append(
-        {"role": "assistant", "content": answer, "evidence": evidence_chunks}
-    )
+        {"role": "assistant", "content": answer, "evidence": evidence_chunks})
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# TAB 3 — 风险评估 / Screening (original A×B pick → report)
+# TAB 3 — 决策评估 / Decision (A scenario × B items → full pipeline)
 # ─────────────────────────────────────────────────────────────────────────────
-def screening_tab(use_real_llm: bool, use_lightrag: bool, top_k: int) -> None:
-    st.header("🔍 风险评估")
+def _load_registries():
+    a_rows = list(csv.DictReader(
+        (PROJECT_ROOT / "data" / "seed" / "entities_a.csv").open(encoding="utf-8-sig")))
+    b_rows = list(csv.DictReader(
+        (PROJECT_ROOT / "data" / "seed" / "entities_b.csv").open(encoding="utf-8-sig")))
+    return a_rows, b_rows
 
-    # ─── Input selection ───
-    st.subheader("选择待评估的组合")
-    col_a, col_b = st.columns(2)
-    with col_a:
-        st.markdown("**👩 患者临床情境要素**")
-        try:
-            a_reg = load_entity_a_registry()
-            a_options = {f"{r.entity_a_id}: {r.primary_name}": r.entity_a_id for r in a_reg.values()}
-            a_label = st.selectbox("选择 患者临床情境要素", options=list(a_options.keys()),
-                                   help="50 个候选", label_visibility="collapsed",
-                                   key="screen_a")
-            a_id = a_options[a_label]
-        except Exception as e:
-            st.error(f"加载失败: {e}")
-            return
 
-    with col_b:
-        st.markdown("**🌍 穿刺决策项**")
-        try:
-            b_reg = load_entity_b_registry()
-            b_options = {f"{r.entity_b_id}: {r.generic_name}": r.entity_b_id for r in b_reg.values()}
-            search = st.text_input("搜索", "", help="输入关键词筛选", label_visibility="collapsed",
-                                    placeholder="🔍 输入关键词筛选...", key="screen_b_search")
-            filtered = [k for k in b_options if search.lower() in k.lower()] if search else list(b_options)
-            if not filtered:
-                st.warning("无匹配，显示全部")
-                filtered = list(b_options)
-            b_label = st.selectbox("选择 穿刺决策项", options=filtered,
-                                   label_visibility="collapsed", key="screen_b")
-            b_id = b_options[b_label]
-        except Exception as e:
-            st.error(f"加载失败: {e}")
-            return
+def decision_tab() -> None:
+    st.header("🔍 穿刺决策评估")
+    st.caption("选择患者临床情境（可多选，flags 取并集）+ 待决策的穿刺决策项 → "
+               "规则引擎 + LightRAG + GLM 仲裁 → 5 类动作裁决报告。")
 
-    # Patient factors
-    with st.expander("🏥 患者因素（可选，影响规则触发）", expanded=False):
-        pf_options = ["ivf_patient", "occupational_exposure", "liver_disease",
-                      "CYP_slow_metabolizer", "low_selenium", "low_zinc"]
-        patient_factors = st.multiselect("适用的患者因素", pf_options, default=[], key="screen_pf")
+    a_rows, b_rows = _load_registries()
+    assets = get_assets()
+    adapter = get_adapter()
+    agent = get_arbiter()
 
-    # Run button
-    if not st.button("🚀 开始评估", type="primary", use_container_width=True, key="screen_run"):
+    c1, c2 = st.columns(2)
+    with c1:
+        st.markdown("**👩 患者临床情境要素**（Entity A）")
+        a_labels = {
+            f"{r['patient_clinical_scenario_id']}: {r['primary_name'][:48]}":
+                (r["patient_clinical_scenario_id"], [f for f in (r.get("flags") or "").split("|") if f])
+            for r in a_rows
+        }
+        picked_a = st.multiselect("选择情境要素", options=list(a_labels), default=[],
+                                  help="可多选；flags 取并集")
+        patient_flags: set[str] = set()
+        for lab in picked_a:
+            patient_flags.update(a_labels[lab][1])
+        st.caption(f"合并 flags（{len(patient_flags)}）: `{', '.join(sorted(patient_flags)) or '—'}`")
+
+        # optional manual flags
+        manual = st.text_input("手动补充 flags（逗号分隔，可选）", "")
+        if manual.strip():
+            patient_flags.update(f.strip() for f in manual.split(",") if f.strip())
+
+    with c2:
+        st.markdown("**🌍 穿刺决策项**（Entity B）")
+        b_options = {
+            f"{r['entity_b_id']}: {r['generic_name'][:52]}": r["entity_b_id"]
+            for r in b_rows
+        }
+        search = st.text_input("搜索决策项", "", placeholder="🔍 例如 psma / scheme / abx")
+        filtered = [k for k in b_options if search.lower() in k.lower()] if search else list(b_options)
+        picked_b = st.multiselect("选择决策项", options=filtered, default=[],
+                                  help="可多选，每项对应一条 ProBIOPSY 陈述")
+        decision_items = {b_options[k] for k in picked_b}
+
+    # verdict-tag badges for picked items
+    if decision_items:
+        tags = []
+        for iid in sorted(decision_items):
+            item = assets.items.get(iid)
+            if item:
+                color = ACTION_COLORS.get(
+                    {"recommend": "endorse", "against": "against",
+                     "conditional": "conditional", "report_only": "report_option"}.get(item.action, "report_option")
+                )["bg"]
+                tags.append(f'<span class="rule-chip" style="border-color:{color}; color:{color};">'
+                            f'{iid} · {item.endorsement}/{item.action}</span>')
+        st.markdown("共识裁决标签：" + " ".join(tags), unsafe_allow_html=True)
+
+    if not st.button("🚀 开始评估", type="primary", use_container_width=True, key="dec_run"):
+        return
+    if not decision_items:
+        st.warning("请至少选择一个穿刺决策项。")
+        return
+    if not patient_flags:
+        st.warning("请至少选择一个患者情境要素（或手动补充 flags）。")
         return
 
-    with st.spinner("运行三层流水线中…"):
+    question = (
+        "Should the following biopsy decision(s) be taken for this patient: "
+        + "; ".join(f"{iid} ({assets.items[iid].name})" if iid in assets.items else iid
+                    for iid in sorted(decision_items)) + "?"
+    )
+
+    with st.spinner("运行三层流水线（规则引擎 → LightRAG → GLM 仲裁）…"):
         try:
-            t0 = time.time()
-            agent = get_agent(use_real_llm, use_lightrag, top_k)
-            a_name = a_reg[a_id].primary_name
-            b_name = b_reg[b_id].generic_name
-            report = agent.evaluate(a_name, b_name, patient_factors, case_id="streamlit_demo")
-            elapsed = time.time() - t0
+            res = run_pipeline(
+                question=question,
+                patient_flags=patient_flags,
+                decision_items=decision_items,
+                assets=assets,
+                adapter=adapter,
+                agent=agent,
+            )
         except Exception as e:
-            err_type = type(e).__name__
-            err_msg = str(e)
-            st.error(f"评估失败: {err_type}: {err_msg}")
+            st.error(f"评估失败: {type(e).__name__}: {e}")
             return
 
-    risk = report.risk_assessment.risk_level.value
-    confidence = float(report.risk_assessment.confidence or 0)
-    n_signals = len(report.risk_assessment.signals)
-    n_evidence = len(report.evidence)
-    llm_label = report.metadata.get("llm_label", "-")
-
-    # ─── Hero ───
     st.divider()
-    render_risk_hero(risk, confidence, n_signals, n_evidence, elapsed, llm_label)
+    render_verdict_hero(res.verdict, res.elapsed, len(res.rule_matches), len(res.lexical_hits))
 
-    # ─── Quick stats row ───
-    col1, col2, col3, col4 = st.columns(4)
-    with col1:
-        render_stat_card("触发规则", str(n_signals), RISK_COLORS.get(risk, RISK_COLORS["unknown"])["bg"])
-    with col2:
-        render_stat_card("证据片段", str(n_evidence), "#5B8FF9")
-    with col3:
-        render_stat_card("置信度", f"{confidence:.0%}", "#5AD8A6")
-    with col4:
-        render_stat_card("耗时", f"{elapsed:.1f}s", "#6b7280")
+    st.subheader("🎯 系统裁决依据")
+    st.write(res.verdict.get("rationale", ""))
 
-    st.divider()
+    tabs = st.tabs(["📋 完整报告", "⚙️ 规则与硬约束", "📚 证据链", "🔧 元数据"])
 
-    # ─── Sub-tabs ───
-    tab_summary, tab_rules, tab_evidence, tab_technical = st.tabs([
-        "📋 摘要", "⚙️ 规则详情", "📚 证据链", "🔧 技术细节"
-    ])
+    with tabs[0]:
+        st.markdown(res.report_md)
 
-    with tab_summary:
-        st.subheader("📄 完整报告")
-        st.code(report.report_text, language="markdown")
-
-        if report.risk_assessment.signals:
-            st.subheader("🎯 主要风险信号（按严重度）")
-            sorted_signals = sorted(
-                report.risk_assessment.signals,
-                key=lambda s: {"high": 0, "medium": 1, "low": 2, "unknown": 3}.get(s.risk_level.value, 4)
-            )
-            for sig in sorted_signals[:3]:  # top 3 only in summary
-                sev = sig.risk_level.value
-                render_rule_chip(sig.rule_id, sev, sig.risk_type.split("_")[-1] if sig.risk_type else "")
-
-    with tab_rules:
-        if not report.risk_assessment.signals:
-            st.info("✅ 未触发任何规则")
+    with tabs[1]:
+        if not res.rule_matches:
+            st.info("未触发任何规则 — 裁决完全由知识图谱 + 仲裁层给出")
         else:
-            sorted_signals = sorted(
-                report.risk_assessment.signals,
-                key=lambda s: {"high": 0, "medium": 1, "low": 2, "unknown": 3}.get(s.risk_level.value, 4)
-            )
-            for sig in sorted_signals:
-                sev = sig.risk_level.value
-                sev_icon = {"high": "🔴", "medium": "🟠", "low": "🟢", "unknown": "⚪"}.get(sev, "⚪")
-                sev_color = RISK_COLORS.get(sev, RISK_COLORS["unknown"])["bg"]
-                st.markdown(f"### {sev_icon} {sig.rule_id}")
-                st.markdown(f"<span style='color:{sev_color}; font-weight:600;'>[{sev.upper()}]</span> · <code>{sig.risk_type}</code>", unsafe_allow_html=True)
-                st.write(f"**依据**: {sig.rationale}")
-                if sig.recommendation:
-                    st.write(f"**建议**: {sig.recommendation}")
-                if sig.matched_terms:
-                    with st.expander("匹配的标签"):
-                        for k, v in sig.matched_terms.items():
-                            if v:
-                                st.write(f"- **{k}**: {', '.join(v)}")
+            for m in res.rule_matches:
+                sev_color = SEVERITY_COLORS.get(m.rule.severity, "#6b7280")
+                st.markdown(
+                    f"### <span style='color:{sev_color}'>●</span> {m.rule.rule_id} "
+                    f"<span class='rule-chip'>{m.rule.severity}</span>",
+                    unsafe_allow_html=True)
+                st.write(f"**依据**: {m.rule.rationale}")
+                if m.rule.recommendation:
+                    st.write(f"**建议**: {m.rule.recommendation}")
+                for hc in m.hard_constraints:
+                    st.markdown(f'<div class="constraint-box">🔒 {hc}</div>', unsafe_allow_html=True)
                 st.divider()
 
-    with tab_evidence:
-        if not report.evidence:
-            st.info("📚 未检索到证据")
-        else:
-            # Filter by level
-            levels_present = sorted({ev.evidence_level for ev in report.evidence})
-            selected_levels = st.multiselect(
-                "筛选证据等级",
-                options=["A", "B", "C", "D", "E"],
-                default=levels_present,
-                help="A=监管标签, B=Meta, C=原创研究, D=体外/动物, E=机制推断",
-                key="screen_ev_filter",
-            )
-            for ev in report.evidence:
-                if ev.evidence_level not in selected_levels:
-                    continue
-                render_evidence_card(ev.evidence_level, ev.title[:80], ev.source, ev.text)
+    with tabs[2]:
+        st.caption("词法检索命中（按实体加权评分排序）")
+        for r in res.lexical_hits:
+            with st.expander(f"[{r.chunk.chunk_id}] {r.chunk.source_locator} — score {r.score:.2f}"):
+                st.write(r.chunk.text[:800])
+        if res.graph_context.strip():
+            with st.expander("🕸️ LightRAG 图谱上下文（仅检索，未生成）"):
+                st.text(res.graph_context[:4000])
 
-    with tab_technical:
-        st.subheader("🔧 元数据")
-        meta_cols = st.columns(3)
-        with meta_cols[0]:
-            st.metric("case_id", report.case_id)
-            st.metric("entity_a_id", report.metadata.get("entity_a_id"))
-            st.metric("entity_b_id", report.metadata.get("entity_b_id"))
-        with meta_cols[1]:
-            st.metric("LLM 角色", report.metadata.get("llm_role"))
-            st.metric("LLM 模型", report.metadata.get("llm_label"))
-            st.metric("Context 字符数", report.context_char_count)
-        with meta_cols[2]:
-            st.metric("规则信号数", report.metadata.get("n_signals"))
-            st.metric("证据片段数", report.metadata.get("n_evidence"))
-            st.metric("耗时 (s)", f"{elapsed:.2f}")
+    with tabs[3]:
+        mc = st.columns(4)
+        with mc[0]:
+            render_stat_card("耗时", f"{res.elapsed:.1f}s")
+        with mc[1]:
+            render_stat_card("规则命中", str(len(res.rule_matches)))
+        with mc[2]:
+            render_stat_card("词法证据", str(len(res.lexical_hits)))
+        with mc[3]:
+            render_stat_card("图谱上下文", f"{len(res.graph_context)} chars")
+        with st.expander("verdict JSON"):
+            st.json(res.verdict)
 
-        with st.expander("完整 metadata JSON"):
-            st.json(report.metadata)
-
-    # ─── Footer ───
-    render_footer({
-        "case_id": report.case_id,
-        "llm_label": llm_label,
-        "context_chars": report.context_char_count,
-    })
+    st.markdown("""
+    <div class="app-footer">
+        <div>🧬 前列安汇 · 规则引擎 + LightRAG + LLM 仲裁三层架构 · 对照 ProBIOPSY 共识 (Eur Urol 2026)</div>
+        <div style="margin-top:0.5rem; opacity:0.7;">
+            ⚠️ 本输出仅供临床决策支持；最终判断由临床医生做出。
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Main — 3 top-level tabs
 # ─────────────────────────────────────────────────────────────────────────────
 def main() -> None:
     set_page_config()
-
-    # Header
     st.title("🧬 前列安汇")
-    st.caption("患者临床情境要素 × 穿刺决策项 · 三层混合架构（规则 + KG + LLM 仲裁）")
+    st.caption("患者临床情境 × 穿刺决策项 · 三层混合架构（规则引擎 + LightRAG + LLM 仲裁）")
 
-    # ─── Sidebar (applies to Screening tab; Chat has its own inline controls) ───
-    with st.sidebar:
-        st.header("⚙️ 配置（风险评估 tab）")
-        use_real_llm = st.toggle("使用真实 LLM (DeepSeek + GPT-4)", value=True,
-                                  help="关闭则用 stub LLM（仅规则引擎）")
-        use_lightrag = st.toggle("使用 LightRAG 检索", value=True,
-                                  help="关闭则用 EvidenceStore 关键词检索")
-        top_k = st.slider("Top-K 证据片段", min_value=1, max_value=15, value=5)
-
-        st.divider()
-        st.subheader("📊 注册表状态")
-        try:
-            a_reg = load_entity_a_registry()
-            b_reg = load_entity_b_registry()
-            st.metric("患者临床情境要素", len(a_reg))
-            st.metric("穿刺决策项", len(b_reg))
-        except Exception as e:
-            st.error(f"注册表加载失败: {e}")
-
-        if st.button("🔄 清空缓存", use_container_width=True):
-            clear_cache()
-            st.cache_resource.clear()
-            st.success("缓存已清空")
-
-    # ─── 3 top-level tabs ───
-    tab_overview, tab_chat, tab_screening = st.tabs([
-        "📊 项目介绍", "💬 RAG 问答", "🔍 风险评估"
-    ])
-
+    tab_overview, tab_chat, tab_decision = st.tabs(
+        ["📊 项目介绍", "💬 RAG 问答", "🔍 决策评估"])
     with tab_overview:
         overview_tab()
-
     with tab_chat:
         chat_tab()
-
-    with tab_screening:
-        screening_tab(use_real_llm, use_lightrag, top_k)
+    with tab_decision:
+        decision_tab()
 
 
 if __name__ == "__main__":

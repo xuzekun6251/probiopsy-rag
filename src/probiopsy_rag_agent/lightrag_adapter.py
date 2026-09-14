@@ -98,7 +98,17 @@ class LightRAGAdapter:
                     "Extract up to 10 high-level keywords from the text. "
                     "Return comma-separated keywords only, no prose."
                 )
-            resp = self.chat.complete(prompt=prompt, system=sys_p)
+            # run the blocking SDK/urllib call on a worker thread: a sync call
+            # directly inside this coroutine would freeze the shared event loop
+            # (embeddings, storage flushes and other chunk tasks all stall while
+            # one throttled LLM request waits on the server).
+            resp = await asyncio.to_thread(self.chat.complete, prompt=prompt, system=sys_p)
+            if getattr(resp, "degraded", False):
+                # never feed error/stub text into the extraction pipeline:
+                # LightRAG caches it as a valid response (poison) and parses
+                # garbage. Raise so LightRAG marks the call failed and retries
+                # on the next insert.
+                raise RuntimeError(f"LLM degraded: {resp.text[:120]}")
             return resp.text
 
         # build embedding_func wrapped in EmbeddingFunc with attrs.
@@ -115,10 +125,14 @@ class LightRAGAdapter:
             func=_embed_async,
         )
 
+        # llm_model_max_async: bound concurrent GLM calls. Zhipu enforces an
+        # ACCOUNT-level request-frequency limit (429/1302); combined with the
+        # client-side throttle the safe profile is serial extraction (1).
         self.rag = LightRAG(
             working_dir=self.working_dir,
             llm_model_func=llm_model_func,
             llm_model_name=self.chat.model,
+            llm_model_max_async=int(os.getenv("LIGHTRAG_MAX_ASYNC", "1")),
             embedding_func=embedding_func,
             addon_params={"language": language},
         )
@@ -187,10 +201,15 @@ class LightRAGAdapter:
         self._ensure_init()
         self._run(self.rag.ainsert(text))
 
-    def query(self, question: str, mode: str = "hybrid") -> str:
-        """Query the index. mode in {local, global, hybrid, naive, mix}."""
+    def query(self, question: str, mode: str = "hybrid", only_need_context: bool = False) -> str:
+        """Query the index. mode in {local, global, hybrid, naive, mix}.
+
+        ``only_need_context=True`` returns the retrieved entities/relations/
+        chunks WITHOUT an LLM generation call — used by the full system to
+        gather graph-aware evidence for the arbiter (fast, embedding-only).
+        """
         self._ensure_init()
-        param = self._QueryParam(mode=mode)
+        param = self._QueryParam(mode=mode, only_need_context=only_need_context)
         return self._run(self.rag.aquery(question, param=param))
 
     def stats(self) -> dict:
@@ -200,20 +219,18 @@ class LightRAGAdapter:
             for root, _dirs, files in os.walk(self.working_dir):
                 for f in files:
                     disk_bytes += os.path.getsize(os.path.join(root, f))
-        # entity / relation counts: prefer the async get_knowledge_graph() API,
-        # fall back to the graph_storage backend's NetworkX graph if present.
+        # entity / relation counts: read the persisted NetworkX graphml that
+        # LightRAG flushes after each insert (deterministic). get_knowledge_graph()
+        # in lightrag-hku 1.5.7 needs a node label and returns only a
+        # neighborhood, so it is useless for totals.
         ents = rels = 0
-        try:
-            kg = self._run(self.rag.get_knowledge_graph())
-            ents = kg.number_of_nodes()
-            rels = kg.number_of_edges()
-        except Exception:
+        graphml = os.path.join(self.working_dir, "graph_chunk_entity_relation.graphml")
+        if os.path.exists(graphml):
             try:
-                storage = getattr(self.rag, "graph_storage", None)
-                g = getattr(storage, "_graph", None) or getattr(storage, "graph", None)
-                if g is not None:
-                    ents = g.number_of_nodes()
-                    rels = g.number_of_edges()
+                import networkx as nx
+                gx = nx.read_graphml(graphml)
+                ents = gx.number_of_nodes()
+                rels = gx.number_of_edges()
             except Exception:
                 pass
         return {

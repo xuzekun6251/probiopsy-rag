@@ -1,0 +1,49 @@
+{
+  "case_id": "case5_infection_risk_escalation",
+  "title": "感染风险患者因素升级 (Patient-factor escalation: infection risk)",
+  "question": "For a man with infection risk factors undergoing repeat prostate biopsy, should the transperineal route be preferred, and should antibiotic prophylaxis be augmented if transrectal access is used?",
+  "patient_flags": [
+    "infection_risk_factor",
+    "prior_negative_biopsy",
+    "psa_elevated"
+  ],
+  "decision_items": [
+    "d_augmented_abx_tr",
+    "d_route_transperineal"
+  ],
+  "rules_fired": [
+    "route_anaesthesia_prophylaxis",
+    "PF-immunocompromised_or_infection_history",
+    "PF-repeat_biopsy_setting"
+  ],
+  "hard_constraints": [
+    "HARD: the consensus ENDORSES 'd_route_transperineal' (Use transperineal approach as standard route) — do not reject it outright.",
+    "HARD: the consensus ENDORSES 'd_route_transperineal' (Use transperineal approach as standard route) — do not reject it outright.",
+    "HARD: the consensus ENDORSES 'd_route_transperineal' (Use transperineal approach as standard route) — do not reject it outright."
+  ],
+  "verdict": {
+    "action": "conditional",
+    "confidence": 0.0,
+    "rationale": "rule-only mode (no LLM arbiter) — verdict class not determined",
+    "citations": [],
+    "degraded": true
+  },
+  "elapsed_s": 0.0,
+  "lexical_top": [
+    {
+      "evidence_id": "EV0013",
+      "score": 11.86,
+      "locator": "Main text / results_d2_route"
+    },
+    {
+      "evidence_id": "EV0084",
+      "score": 10.87,
+      "locator": "Table 2 (Q63)"
+    },
+    {
+      "evidence_id": "EV0083",
+      "score": 10.25,
+      "locator": "Table 2 (Q62)"
+    }
+  ]
+}
