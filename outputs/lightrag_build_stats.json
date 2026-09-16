@@ -1,0 +1,12 @@
+{
+  "working_dir": "D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index",
+  "entities_extracted": 1864,
+  "relations_extracted": 3078,
+  "index_disk_kb": 100903,
+  "llm_provider": "deepseek:glm-5.3-flash",
+  "embedding_provider": "ark:ep-20260730180801-vvcn4",
+  "embedding_dim": 2048,
+  "chunks_inserted": 357,
+  "built_at": "2026-09-17T01:28:59",
+  "build_seconds": 136.4
+}

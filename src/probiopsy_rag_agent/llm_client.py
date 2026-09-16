@@ -32,6 +32,7 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import threading
 import time
 import urllib.error
@@ -165,8 +166,19 @@ class LLMClient:
                 # Zhipu 429 (code 1302) = account-level frequency limit:
                 # a short generic sleep just burns more 429s. Back off hard.
                 if "1302" in str(e) or "429" in str(e):
+                    print(
+                        f"[llm retry] 429/1302 attempt {attempt + 1}, "
+                        f"backing off {30.0 * (attempt + 1):.0f}s: {str(e)[:120]}",
+                        file=sys.stderr,
+                        flush=True,
+                    )
                     time.sleep(30.0 * (attempt + 1))
                     continue
+                print(
+                    f"[llm retry] attempt {attempt + 1}: {str(e)[:120]}",
+                    file=sys.stderr,
+                    flush=True,
+                )
             time.sleep(1.0 * (attempt + 1))
         # network / API failure → degrade rather than crash the build
         return ChatResponse(text=f"[llm error] {last_err}", degraded=True)

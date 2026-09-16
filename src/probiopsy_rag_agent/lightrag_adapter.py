@@ -98,11 +98,30 @@ class LightRAGAdapter:
                     "Extract up to 10 high-level keywords from the text. "
                     "Return comma-separated keywords only, no prose."
                 )
-            # run the blocking SDK/urllib call on a worker thread: a sync call
-            # directly inside this coroutine would freeze the shared event loop
-            # (embeddings, storage flushes and other chunk tasks all stall while
-            # one throttled LLM request waits on the server).
-            resp = await asyncio.to_thread(self.chat.complete, prompt=prompt, system=sys_p)
+            # run the blocking SDK/urllib call on a worker thread WITHOUT
+            # blocking the event loop: fut.result()/to_thread inside the
+            # coroutine would freeze the shared loop (embeddings, storage
+            # flushes and LightRAG's own async:4 merge tasks all stall while
+            # one LLM request waits) — merging then serializes and queued
+            # calls blow their budget. run_in_executor + wait_for keeps the
+            # loop free; on timeout the orphan thread dies at the SDK timeout.
+            import concurrent.futures as cf
+
+            budget = float(os.getenv("LLM_CALL_BUDGET", "230"))
+            loop = asyncio.get_running_loop()
+            ex = cf.ThreadPoolExecutor(max_workers=1, thread_name_prefix="llmcall")
+            try:
+                fut = loop.run_in_executor(
+                    ex, lambda: self.chat.complete(prompt=prompt, system=sys_p)
+                )
+                try:
+                    resp = await asyncio.wait_for(fut, timeout=budget)
+                except (asyncio.TimeoutError, cf.TimeoutError):
+                    raise RuntimeError(
+                        f"LLM call exceeded {budget:.0f}s budget (hang suspected)"
+                    )
+            finally:
+                ex.shutdown(wait=False, cancel_futures=True)
             if getattr(resp, "degraded", False):
                 # never feed error/stub text into the extraction pipeline:
                 # LightRAG caches it as a valid response (poison) and parses

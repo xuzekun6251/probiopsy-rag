@@ -10,7 +10,9 @@
     "planner.phase4",
     "executor.phase0",
     "executor.phase1",
-    "executor.phase2"
+    "executor.phase2",
+    "executor.phase3",
+    "executor.phase4"
   ],
   "in_progress": null,
   "blocked": [],
@@ -46,6 +48,16 @@
     {
       "date": "2026-09-13",
       "event": "executor.phase2 completed",
+      "skill": "medical-agent-executor"
+    },
+    {
+      "date": "2026-09-13",
+      "event": "executor.phase3 completed: 12 rules, 17/17 citations verified (strict gate PASS)",
+      "skill": "medical-agent-executor"
+    },
+    {
+      "date": "2026-09-17",
+      "event": "executor.phase4 completed: 357 chunks indexed, 1863 entities, 3041 relations",
       "skill": "medical-agent-executor"
     }
   ]
