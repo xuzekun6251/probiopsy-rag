@@ -125,7 +125,11 @@ def run_naive_rag(row, question, ctx) -> tuple:
 
 def run_lightrag(row, question, ctx) -> tuple:
     adapter: LightRAGAdapter = ctx["lightrag"]
-    answer = adapter.query(question, mode="hybrid")
+    # aquery returns None if the query-gen content came back null (observed
+    # once on a cold process: GLM thinking exhausted the content budget and
+    # LightRAG's role wrapper propagated None) — normalize to "" so the
+    # degraded check below handles it.
+    answer = adapter.query(question, mode="hybrid") or ""
     if answer.startswith("[llm error]") or not answer.strip():
         return "report_option", len(answer), 0, {"degraded": True}
     client: LLMClient = ctx["client"]
@@ -158,7 +162,7 @@ def run_probiopsy_rag(row, question, ctx) -> tuple:
 
     # graph-aware evidence (embedding-only retrieval, no LLM generation)
     try:
-        graph_ctx = adapter.query(question, mode="hybrid", only_need_context=True)
+        graph_ctx = adapter.query(question, mode="hybrid", only_need_context=True) or ""
     except Exception as e:
         graph_ctx = f"(graph retrieval failed: {e})"
     # lexical statement evidence with entity boosts
@@ -235,7 +239,7 @@ def main() -> int:
             if method == "probiopsy-rag":
                 ctx["agent"] = SafetyAgent(client=LLMClient(provider="deepseek", temperature=0.0))
                 ctx["rules"], ctx["items"], ctx["pfrs"] = rules, items, pfrs
-            if method == "naive_rag":
+            if method in ("naive_rag", "probiopsy-rag"):
                 ctx["store"] = store
 
             t0 = time.time()
