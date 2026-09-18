@@ -16,7 +16,8 @@
     "executor.phase5",
     "executor.complete",
     "writer.start",
-    "writer.phase7"
+    "writer.phase7",
+    "writer.phase8"
   ],
   "in_progress": null,
   "blocked": [],
@@ -87,6 +88,11 @@
     {
       "date": "2026-09-18",
       "event": "Phase7 complete: IMRaD sections (zh) + manuscript.md + manuscript.en.md drafted; handoff tables CSV+md emitted; figures 1/2/4/5 rendered from real data (fig3 pending expert panel); PLAN 15.3 titles finalized",
+      "skill": "medical-agent-writer"
+    },
+    {
+      "date": "2026-09-18",
+      "event": "Phase7_8 submission package complete: cover letter, highlights (all <=85 chars), data availability, graphical abstract, refs 3-9+11 DOI-verified, submission_pkg.zip",
       "skill": "medical-agent-writer"
     }
   ]

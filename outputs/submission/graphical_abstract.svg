@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="435.780583pt" height="194.4pt" viewBox="0 0 435.780583 194.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-09-18T19:16:36.906892</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M -0 194.4 
+L 435.780583 194.4 
+L 435.780583 0 
+L -0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 7.2 122.670117 
+L 56.034593 122.670117 
+Q 57.255458 122.670117 57.255458 121.634878 
+L 57.255458 76.774531 
+Q 57.255458 75.739292 56.034593 75.739292 
+L 7.2 75.739292 
+Q 5.979135 75.739292 5.979135 76.774531 
+L 5.979135 121.634878 
+Q 5.979135 122.670117 7.2 122.670117 
+z
+" clip-path="url(#p0ff5bdf123)" style="fill: #f3f4f6; stroke: #9ca3af; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 76.382341 60.555791 
+L 206.607923 60.555791 
+Q 207.828788 60.555791 207.828788 59.520552 
+L 207.828788 28.463389 
+Q 207.828788 27.42815 206.607923 27.42815 
+L 76.382341 27.42815 
+Q 75.161476 27.42815 75.161476 28.463389 
+L 75.161476 59.520552 
+Q 75.161476 60.555791 76.382341 60.555791 
+z
+" clip-path="url(#p0ff5bdf123)" style="fill: #eff6ff; stroke: #5b8ff9; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 76.382341 108.866933 
+L 206.607923 108.866933 
+Q 207.828788 108.866933 207.828788 107.831694 
+L 207.828788 76.774531 
+Q 207.828788 75.739292 206.607923 75.739292 
+L 76.382341 75.739292 
+Q 75.161476 75.739292 75.161476 76.774531 
+L 75.161476 107.831694 
+Q 75.161476 108.866933 76.382341 108.866933 
+z
+" clip-path="url(#p0ff5bdf123)" style="fill: #ecfdf5; stroke: #5ad8a6; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 76.382341 157.178076 
+L 206.607923 157.178076 
+Q 207.828788 157.178076 207.828788 156.142837 
+L 207.828788 125.085674 
+Q 207.828788 124.050435 206.607923 124.050435 
+L 76.382341 124.050435 
+Q 75.161476 124.050435 75.161476 125.085674 
+L 75.161476 156.142837 
+Q 75.161476 157.178076 76.382341 157.178076 
+z
+" clip-path="url(#p0ff5bdf123)" style="fill: #fffbeb; stroke: #f6bd16; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 56.746218 97.334084 
+Q 66.208926 72.45983 75.313856 48.526052 
+" clip-path="url(#p0ff5bdf123)" style="fill: none; stroke: #4b5563; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 72.680613 50.948041 
+L 75.313856 48.526052 
+L 75.671501 52.08584 
+z
+" clip-path="url(#p0ff5bdf123)" style="fill: #4b5563; stroke: #4b5563; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 141.495132 61.52144 
+Q 141.495132 68.148119 141.495132 73.768567 
+" clip-path="url(#p0ff5bdf123)" style="fill: none; stroke: #4b5563; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 143.095132 70.568567 
+L 141.495132 73.768567 
+L 139.895132 70.568567 
+z
+" clip-path="url(#p0ff5bdf123)" style="fill: #4b5563; stroke: #4b5563; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 141.495132 109.832583 
+Q 141.495132 116.459262 141.495132 122.079709 
+" clip-path="url(#p0ff5bdf123)" style="fill: none; stroke: #4b5563; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 143.095132 118.879709 
+L 141.495132 122.079709 
+L 139.895132 118.879709 
+z
+" clip-path="url(#p0ff5bdf123)" style="fill: #4b5563; stroke: #4b5563; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 5.8px; font-family: 'Arial'" transform="translate(22.589234 91.236728)">Patient</text>
+    <text style="font-size: 5.8px; font-family: 'Arial'" transform="translate(18.157219 97.549326)">scenario ×</text>
+    <text style="font-size: 5.8px; font-family: 'Arial'" transform="translate(14.693984 103.861923)">decision item</text>
+    <text style="font-size: 5.8px; font-family: 'Arial'" transform="translate(19.930297 110.174521)">(51 × 54)</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 6.2px; font-family: 'Arial'" transform="translate(120.471804 42.222427)">1 · Rule engine</text>
+    <text style="font-size: 6.2px; font-family: 'Arial'" transform="translate(85.330882 48.970498)">16 deterministic rules → hard constraints</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 6.2px; font-family: 'Arial'" transform="translate(111.691054 90.53357)">2 · LightRAG retrieval</text>
+    <text style="font-size: 6.2px; font-family: 'Arial'" transform="translate(81.357069 97.28164)">357 chunks · 1,864 entities · 3,078 relations</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 6.2px; font-family: 'Arial'" transform="translate(106.355179 138.842957)">3 · LLM arbiter (GLM-5.3)</text>
+    <text style="font-size: 6.2px; font-family: 'Arial'" transform="translate(95.754148 145.594539)">5-class verdict + Q-code citations</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 5.8px; font-family: 'Arial'; text-anchor: middle; fill: #374151" x="141.495132" y="176.847612" transform="rotate(-0 141.495132 176.847612)">endorse · endorse_option · conditional · report_option · against</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_9">
+    <path d="M 286.100336 69.44159 
+L 322.756426 69.44159 
+L 322.756426 56.501105 
+L 286.100336 56.501105 
+z
+" clip-path="url(#pdc790edbab)" style="fill: #b8b8b8"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 286.100336 98.773355 
+L 359.050779 98.773355 
+L 359.050779 85.83287 
+L 286.100336 85.83287 
+z
+" clip-path="url(#pdc790edbab)" style="fill: #9d2933"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 286.100336 128.10512 
+L 360.015412 128.10512 
+L 360.015412 115.164636 
+L 286.100336 115.164636 
+z
+" clip-path="url(#pdc790edbab)" style="fill: #5ad8a6"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 286.100336 157.436885 
+L 383.166627 157.436885 
+L 383.166627 144.496401 
+L 286.100336 144.496401 
+z
+" clip-path="url(#pdc790edbab)" style="fill: #5b8ff9"/>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 6.6px; font-family: 'Arial'; text-anchor: middle; fill: #111827" x="346.389958" y="26.737991" transform="rotate(-0 346.389958 26.737991)">ProBIOPSY gold standard: 112 statements × 5 seeds</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 6.4px; font-family: 'Arial'; text-anchor: start" x="324.565115" y="64.627598" transform="rotate(-0 324.565115 64.627598)">0.304</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 6.4px; font-family: 'Arial'; text-anchor: end" x="284.291648" y="64.627598" transform="rotate(-0 284.291648 64.627598)">pure LLM</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 6.4px; font-family: 'Arial'; text-anchor: start" x="360.859467" y="93.959363" transform="rotate(-0 360.859467 93.959363)">0.605</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 6.4px; font-family: 'Arial'; text-anchor: end" x="284.291648" y="93.959363" transform="rotate(-0 284.291648 93.959363)">naive RAG</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 6.4px; font-family: 'Arial'; text-anchor: start" x="361.824101" y="123.291128" transform="rotate(-0 361.824101 123.291128)">0.613</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 6.4px; font-family: 'Arial'; text-anchor: end" x="284.291648" y="123.291065" transform="rotate(-0 284.291648 123.291065)">LightRAG only</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 6.4px; font-family: 'Arial'; text-anchor: start" x="384.975316" y="152.622893" transform="rotate(-0 384.975316 152.622893)">0.805</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 6.4px; font-family: 'Arial'; text-anchor: end" x="284.291648" y="152.624706" transform="rotate(-0 284.291648 152.624706)">QianLieAnHui</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 6.2px; font-family: 'Arial'; text-anchor: middle; fill: #374151" x="346.389958" y="172.534117" transform="rotate(-0 346.389958 172.534117)">exact-5 accuracy (κ 0.730 vs 0.525 best baseline)</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 7.5px; font-family: 'Arial'; text-anchor: middle" x="331.317553" y="12.660205" transform="rotate(-0 331.317553 12.660205)">Benchmark result</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p0ff5bdf123">
+   <rect x="7.2" y="14.660205" width="203.477473" height="172.539795"/>
+  </clipPath>
+  <clipPath id="pdc790edbab">
+   <rect x="249.926564" y="14.660205" width="162.781978" height="172.539795"/>
+  </clipPath>
+ </defs>
+</svg>

@@ -167,14 +167,14 @@ No human participants, patient data, or biological samples were involved; the co
 
 1. Chernysheva D, Di Bello F, Avesani G, et al. ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy. Eur Urol 2026. https://doi.org/10.1016/j.eururo.2026.06.012
 2. European Association of Urology. EAU Guidelines on Prostate Cancer. Arnhem: EAU; 2026. https://uroweb.org/guidelines/prostate-cancer
-3. Weinreb JC, Barentsz JO, Choyke PL, et al. PI-RADS Prostate Imaging — Reporting and Data System: 2015, Version 2. Eur Urol 2016;69:16-40.
-4. Sutton RT, Pincock D, Baumgart DC, Sadowski DC, Fedorak RN, Kroeker KI. An overview of clinical decision support systems: benefits, risks, and strategies for success. NPJ Digit Med 2020;3:17.
-5. Thirunavukarasu AJ, Ting DSJ, Elangovan K, Gutierrez L, Tan TF, Ting DSW. Large language models in medicine. Nat Med 2023;29:1930-40.
-6. Singhal K, Azizi S, Tu T, et al. Large language models encode clinical knowledge. Nature 2023;620:172-80.
-7. Ji Z, Lee N, Frieske R, et al. Survey of hallucination in natural language generation. ACM Comput Surv 2023;55:1-38.
+3. Weinreb JC, Barentsz JO, Choyke PL, et al. PI-RADS Prostate Imaging — Reporting and Data System: Version 2.1: 2019. Eur Urol 2019;76:340-51. https://doi.org/10.1016/j.eururo.2019.02.033
+4. Sutton RT, Pincock D, Baumgart DC, Sadowski DC, Fedorak RN, Kroeker KI. An overview of clinical decision support systems: benefits, risks, and strategies for success. NPJ Digit Med 2020;3:17. https://doi.org/10.1038/s41746-020-0221-y
+5. Thirunavukarasu AJ, Ting DSJ, Elangovan K, Gutierrez L, Tan TF, Ting DSW. Large language models in medicine. Nat Med 2023;29:1930-40. https://doi.org/10.1038/s41591-023-02448-8
+6. Singhal K, Azizi S, Tu T, et al. Large language models encode clinical knowledge. Nature 2023;620:172-80. https://doi.org/10.1038/s41586-023-06291-2
+7. Ji Z, Lee N, Frieske R, et al. Survey of hallucination in natural language generation. ACM Comput Surv 2023;55(12):248. https://doi.org/10.1145/3571730
 8. Lewis P, Perez E, Piktus A, et al. Retrieval-augmented generation for knowledge-intensive NLP tasks. Adv Neural Inf Process Syst 2020;33:9459-74.
-9. Xiong G, Jin Q, Lu Z, Zhang A. Benchmarking retrieval-augmented generation for medicine. Findings Assoc Comput Linguist ACL 2024.
+9. Xiong G, Jin Q, Lu Z, Zhang A. Benchmarking retrieval-augmented generation for medicine. Findings Assoc Comput Linguist ACL 2024:633-54. https://doi.org/10.18653/v1/2024.findings-acl.37
 10. Guo Z, Xia L, Yu Y, Ao T, Huang C. LightRAG: Simple and fast retrieval-augmented generation. arXiv:2410.05779 (2024).
 11. Edge D, Trinh H, Cheng N, et al. From local to global: a Graph RAG approach to query-focused summarization. arXiv:2404.16130 (2024).
 
-> **Reference QC note (Phase 7_5/8.2):** refs 1, 10 verified this session (publisher PDF / arXiv); refs 2-9, 11 to be re-verified with `nature-academic-search` (DOI/metadata) before submission.
+> **Reference QC:** refs 1, 10 verified against publisher PDF / arXiv this session; refs 3-7, 9, 11 verified via web search (DOI confirmed) 2026-09-18; ref 8 canonical (NeurIPS 2020 proceedings); ref 2 is a living-guideline web citation (EAU, uroweb.org) — update edition/date at submission time.

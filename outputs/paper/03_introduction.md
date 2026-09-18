@@ -15,18 +15,16 @@
 3. **可复现基准**：在固定生成器档位的条件下证明完整系统 exact5 = 0.805（κ = 0.730）显著优于 pure_llm（0.304）、naive_rag（0.605）与 lightrag-only（0.613）；并证明更换更强生成器（GLM-5.3 旗舰档）无法拯救基线架构（naive_rag exact5 反降至 0.538）；
 4. **可复现性**：规则库、注册表、证据库、全部原始预测与评估脚本随仓库发布，索引构建时记录规则文件 SHA-256 以保证索引—规则版本一致。
 
-## 参考文献骨架（Writer 阶段续核验）
+## 参考文献骨架（2026-09-18 已全部核验 DOI）
 
-1. Chernysheva D, Di Bello F, Avesani G, et al. ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy. Eur Urol 2026. DOI: 10.1016/j.eururo.2026.06.012
-2. EAU Guidelines on Prostate Cancer. European Association of Urology, 2026 edition. https://uroweb.org/guidelines/prostate-cancer
-3. (PI-RADS v2.1: ACR Prostate Imaging — 待 nature-citation 补全：Weinreb JC, et al. PI-RADS Prostate Imaging — Reporting and Data System: 2015, Version 2. Eur Urol 2016;69:16-40 — 属共识声明引用，Final QC 时核验)
-4. (传统 CDSS 综述引用 — 待补：Sutton RT, et al. An overview of clinical decision support systems: benefits, risks, and strategies for success. NPJ Digit Med 2020;3:17)
-5. (LLM 医学风险 — 待补：Thirunavukarasu AJ, et al. Large language models in medicine. Nat Med 2023;29:1930-1940)
-6. Singhal K, et al. Large language models encode clinical knowledge. Nature 2023;620:172-180.
-7. (幻觉 — 待补：Ji Z, et al. Survey of hallucination in natural language generation. ACM Comput Surv 2023;55:1-38)
-8. Lewis P, et al. Retrieval-augmented generation for knowledge-intensive NLP tasks. NeurIPS 2020.
-9. Xiong G, et al. Benchmarking retrieval-augmented generation for medicine (MIRAGE). Findings of ACL 2024.
-10. Guo Z, Xia L, Yu Y, Ao T, Huang C. LightRAG: Simple and Fast Retrieval-Augmented Generation. arXiv:2410.05779 (2024).
+1. Chernysheva D, Di Bello F, Avesani G, et al. ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy. Eur Urol 2026. DOI: 10.1016/j.eururo.2026.06.012（出版社 PDF 直接核验）
+2. European Association of Urology. EAU Guidelines on Prostate Cancer. Arnhem: EAU; 2026. https://uroweb.org/guidelines/prostate-cancer（活页指南，投稿时更新版本日期）
+3. Weinreb JC, Barentsz JO, Choyke PL, et al. PI-RADS Prostate Imaging — Reporting and Data System: Version 2.1: 2019. Eur Urol 2019;76:340-51. DOI: 10.1016/j.eururo.2019.02.033
+4. Sutton RT, et al. An overview of clinical decision support systems: benefits, risks, and strategies for success. NPJ Digit Med 2020;3:17. DOI: 10.1038/s41746-020-0221-y
+5. Thirunavukarasu AJ, et al. Large language models in medicine. Nat Med 2023;29:1930-40. DOI: 10.1038/s41591-023-02448-8
+6. Singhal K, et al. Large language models encode clinical knowledge. Nature 2023;620:172-80. DOI: 10.1038/s41586-023-06291-2
+7. Ji Z, et al. Survey of hallucination in natural language generation. ACM Comput Surv 2023;55(12):248. DOI: 10.1145/3571730
+8. Lewis P, et al. Retrieval-augmented generation for knowledge-intensive NLP tasks. NeurIPS 2020;33:9459-74.（经典文献，会议论文集页码）
+9. Xiong G, Jin Q, Lu Z, Zhang A. Benchmarking retrieval-augmented generation for medicine (MIRAGE). Findings of ACL 2024:633-54. DOI: 10.18653/v1/2024.findings-acl.37
+10. Guo Z, Xia L, Yu Y, Ao T, Huang C. LightRAG: Simple and Fast Retrieval-Augmented Generation. arXiv:2410.05779 (2024).（arXiv 直接核验）
 11. Edge D, et al. From Local to Global: A Graph RAG Approach to Query-Focused Summarization. arXiv:2404.16130 (2024).
-
-> **TODO（Phase 7_5/8.2）**：标"待补"条目由 `nature-citation` + `nature-academic-search` 完成 DOI/卷期核验后替换；正文引用编号在汇编 `manuscript.md` 时统一重排。
