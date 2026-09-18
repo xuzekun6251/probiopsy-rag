@@ -307,3 +307,22 @@ Arbitration pass latency across the five cases: median 47400 ms, range 18960–6
 ## S5. Arbitration prompt and action definitions
 
 The arbitration prompt template (action definitions, rule-constraint enforcement instructions, citation requirements) and the five-class action taxonomy are included in the repository (`configs/prompts.yaml`, rule base `configs/rules.yaml`, SHA-256 `f500802ee82a4be9fc7a7b6b951e2e7083c09e9ef6a521e7dd280726dbe0ee62` recorded at index build).
+## S6. Expert blinded review (four experts × five composite propositions)
+
+**Design.** Each case was presented as a composite proposition assembled from
+declarative decision items. Blinded first pass: experts chose their own
+five-class action; the system verdict was then revealed and four Likert
+dimensions (1–5) were rated. Pre-registered rules: majority = modal rating;
+2:2 ties = no-majority, excluded from system-vs-majority Cohen κ; all
+agreement statistics interpreted as preliminary. Full questionnaire:
+`outputs/expert_review/expert_booklet.md`; protocol:
+`outputs/expert_review/expert_review_protocol.md`.
+
+**Results.** Per-case modal share — case1_unifocal_scheme 2/4; case2_psma_pet_upfront 3/4; case3_bpmri_indeterminate 4/4; case4_advanced_route_prophylaxis 4/4; case5_infection_risk_escalation 4/4; Fleiss κ (overall) = -0.092; Cohen κ (system vs expert majority, n = 4) = 1.0; Likert means — clarity 5.0; usefulness 5.0; recommendation 5.0; evidence 5.0.
+
+**Verbatim expert comments (Chinese original).**
+
+- Expert 1, case1_unifocal_scheme (rated conditional): 如果后续患者不做前列腺根治性切除术，而选择内放疗或者不可逆电穿孔手术，则需要明确是否确实是单发病灶。如果是多发病灶，则系统穿刺可以协助明确肿瘤具体位置
+- Expert 1, case2_psma_pet_upfront (rated report_option): 如果这名患者TPSA非常高，比如＞100ng/ml，很可能已经发生淋巴结转移或者骨转移，则应该考虑将PSMA PET-CT代替增强MR作为前列腺穿刺前的影像学检查。因为这类患者在穿刺病例证实为前列腺癌以后，绝对有必要探明有无前列腺癌局部或远处转移
+- Expert 2, case1_unifocal_scheme (rated conditional): 是否增加系统穿刺，需要考虑患者手术方案的选择
+

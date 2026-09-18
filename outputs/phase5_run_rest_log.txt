@@ -1,0 +1,665 @@
+[run] 112 gold statements x 3 methods x 5 seeds
+[run] resume: 680 predictions already present
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 0: 10/104 (66s)
+[run] naive_rag seed 0: 20/104 (110s)
+[run] naive_rag seed 0: 30/104 (149s)
+[run] naive_rag seed 0: 40/104 (192s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 0: 50/104 (249s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 0: 60/104 (414s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 0: 70/104 (499s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 0: 80/104 (586s)
+[run] naive_rag seed 0: 90/104 (623s)
+[run] naive_rag seed 0: 100/104 (663s)
+[llm retry] attempt 1: Request timed out.
+[run] naive_rag seed 0: DONE 104 items in 2906s
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 1: 10/104 (49s)
+[run] naive_rag seed 1: 20/104 (93s)
+[run] naive_rag seed 1: 30/104 (137s)
+[run] naive_rag seed 1: 40/104 (175s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 1: 50/104 (387s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] attempt 2: Request timed out.
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 1: 60/104 (590s)
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 1: 70/104 (661s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 1: 80/104 (749s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 1: 90/104 (802s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 1: 100/104 (914s)
+[run] naive_rag seed 1: DONE 104 items in 1029s
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 2: 10/104 (64s)
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 2: 20/104 (122s)
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 2: 30/104 (177s)
+[run] naive_rag seed 2: 40/104 (216s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 2: 50/104 (265s)
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 2: 60/104 (416s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 2: 70/104 (456s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] attempt 2: Request timed out.
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 2: 80/104 (682s)
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 2: 90/104 (767s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 2: 100/104 (821s)
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] attempt 1: Request timed out.
+[run] naive_rag seed 2: DONE 104 items in 1097s
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 3: 10/104 (70s)
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 3: 20/104 (122s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 3: 30/104 (183s)
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 3: 40/104 (242s)
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 3: 50/104 (299s)
+[llm retry] attempt 1: Request timed out.
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 3: 60/104 (622s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 3: 70/104 (704s)
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 3: 80/104 (799s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] attempt 2: Request timed out.
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 3: 90/104 (898s)
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 3: 100/104 (959s)
+[run] naive_rag seed 3: DONE 104 items in 1022s
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 4: 10/104 (113s)
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 4: 20/104 (200s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 4: 30/104 (256s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 4: 40/104 (304s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 4: 50/104 (383s)
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] attempt 1: Request timed out.
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 4: 60/104 (477s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 4: 70/104 (550s)
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 4: 80/104 (620s)
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 2, backing off 60s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 1, backing off 30s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 4: 90/104 (688s)
+[llm retry] 429/1302 attempt 3, backing off 90s: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}
+[run] naive_rag seed 4: 100/104 (741s)
+[llm retry] attempt 1: Request timed out.
+[run] naive_rag seed 4: DONE 104 items in 1042s
+INFO: [] Loaded graph from D:\Zcode测试文件夹\测试3\data\processed\lightrag_index\graph_chunk_entity_relation.graphml with 1864 nodes, 3078 edges
+INFO:nano-vectordb:Load (1864, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_entities.json'} 1864 data
+INFO:nano-vectordb:Load (3078, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_relationships.json'} 3078 data
+INFO:nano-vectordb:Load (362, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_chunks.json'} 362 data
+INFO: Role LLM Configuration (initialized):
+INFO:  - extract: None/None, host=None, max_async=1, timeout=240
+INFO:  - keyword: None/None, host=None, max_async=1, timeout=240
+INFO:  - query: None/None, host=None, max_async=1, timeout=240
+INFO:  - vlm: None/None, host=None, max_async=1, timeout=240
+INFO: [] Process 12700 KV load full_docs with 357 records
+INFO: [] Process 12700 KV load text_chunks with 362 records
+INFO: [] Process 12700 KV load full_entities with 357 records
+INFO: [] Process 12700 KV load full_relations with 357 records
+INFO: [] Process 12700 KV load entity_chunks with 1864 records
+INFO: [] Process 12700 KV load relation_chunks with 3078 records
+INFO: [] Process 12700 KV load llm_response_cache with 933 records
+INFO: [] Process 12700 doc status load doc_status with 357 records
+INFO: keyword LLM func: 1 new workers initialized (Timeouts: Func: 240s, Worker: 480s, Health Check: 495s)
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:keywords:97431685100d5256bd9f698755cd0f26
+INFO: Embedding func: 8 new workers initialized (Timeouts: Func: 30s, Worker: 60s, Health Check: 75s)
+INFO: Query nodes: bpMRI, 前列腺活检, 不确定病灶, 共识声明, d_followup_indeterminate_bpmri (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 250 relations
+INFO: Query edges: 前列腺活检决策, 临床决策支持系统, 指南依从性, 不确定病灶随访策略, 辅助检查工具作用 (top_k:40, cosine:0.2)
+INFO: Global query: 49 entites, 40 relations
+INFO: Raw search results: 77 entities, 274 relations, 0 vector chunks
+INFO: After truncation: 29 entities, 103 relations
+INFO: Selecting 57 from 57 entity-related chunks by vector similarity
+INFO: Find 73 additional chunks in 34 relations (deduplicated 40)
+INFO: Selecting 73 from 73 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 130 -> 130 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 29 entities, 103 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R1/1 E4/2 R1/2 E5/3 R1/3 E4/4 R3/4 E3/5 R4/5 E6/6 R1/6 E4/7 R1/7 E4/8 R1/8 E4/9 R2/9 E4/10 R1/10
+INFO: query LLM func: 1 new workers initialized (Timeouts: Func: 240s, Worker: 480s, Health Check: 495s)
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:query:212ced41e07f17e937f9cf98a627f55b
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:keywords:3248f81effc2578519afd9480effdf99
+INFO: Query nodes: PSA密度, bpMRI, 不确定病灶, d_psad_gate_bpmri_indeterminate, indeterminate_lesion (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 178 relations
+INFO: Query edges: 前列腺活检决策, 决策支持系统, 指南依从性, 共识声明, 决策行动选择 (top_k:40, cosine:0.2)
+INFO: Global query: 47 entites, 40 relations
+INFO: Raw search results: 77 entities, 210 relations, 0 vector chunks
+INFO: After truncation: 21 entities, 108 relations
+INFO: Selecting 52 from 260 entity-related chunks by vector similarity
+INFO: Find 62 additional chunks in 40 relations (deduplicated 41)
+INFO: Selecting 62 from 62 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 114 -> 114 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 21 entities, 108 relations, 20 chunks
+INFO: Final chunks S+F/O: E3/1 R3/1 E3/2 R2/2 E3/3 R2/3 E3/4 R1/4 E5/5 R1/5 E3/6 R1/6 E4/7 R2/7 E3/8 R2/8 E3/9 R2/9 E3/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:query:358412a724d0470a515054df2c80b97a
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:keywords:5dc44a26b72027fb22a52d03e76c5b22
+INFO: Query nodes: bpMRI, 风险计算器, 活检指征, d_riskcalc_gate_bpmri_indeterminate, indeterminate_lesion, risk_calculator_available (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 136 relations
+INFO: Query edges: 前列腺活检决策, 不确定病变, 指南依从性, 决策支持系统, 共识声明 (top_k:40, cosine:0.2)
+INFO: Global query: 51 entites, 40 relations
+INFO: Raw search results: 78 entities, 166 relations, 0 vector chunks
+INFO: After truncation: 27 entities, 123 relations
+INFO: Selecting 67 from 225 entity-related chunks by vector similarity
+INFO: Find 25 additional chunks in 23 relations (deduplicated 33)
+INFO: Selecting 25 from 25 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 92 -> 92 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 27 entities, 123 relations, 20 chunks
+INFO: Final chunks S+F/O: E5/1 R1/1 E6/2 R1/2 E5/3 R2/3 E4/4 R1/4 E5/5 R3/5 E4/6 R1/6 E3/7 R2/7 E3/8 R1/8 E4/9 R1/9 E5/10 R6/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:query:5144389f0e83ba49963024cba9a549c0
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:keywords:b135581c31470ae1489e3ba1f0a4694b
+INFO: Query nodes: bpMRI, 不确定病变, 血清生物标志物, 尿液生物标志物, d_biomarker_gate_bpmri_indeterminate, indeterminate_lesion, biomarker_available (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 172 relations
+INFO: Query edges: 前列腺活检决策, 临床决策支持系统, 指南依从性, 共识声明, 磁共振成像病变评估, 生物标志物检测 (top_k:40, cosine:0.2)
+INFO: Global query: 58 entites, 40 relations
+INFO: Raw search results: 84 entities, 199 relations, 0 vector chunks
+INFO: After truncation: 28 entities, 103 relations
+INFO: Selecting 70 from 83 entity-related chunks by vector similarity
+INFO: Find 75 additional chunks in 32 relations (deduplicated 41)
+INFO: Selecting 75 from 75 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 145 -> 145 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 28 entities, 103 relations, 20 chunks
+INFO: Final chunks S+F/O: E5/1 R3/1 E4/2 R1/2 E3/3 R1/3 E4/4 R1/4 E3/5 R1/5 E2/6 R1/6 E5/7 R3/7 E3/8 R1/8 E3/9 R2/9 E3/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:query:1040ad3048b0d2eaded296b275b51b72
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:keywords:8a5852868a256971594f1510c0b31378
+INFO: Query nodes: mpMRI, PSA密度, 不确定病变, 前列腺穿刺活检, d_psad_gate_mpmri_indeterminate, indeterminate_lesion (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 209 relations
+INFO: Query edges: 前列腺穿刺活检决策, 指南依从决策支持系统, 共识声明, 决策行动选择 (top_k:40, cosine:0.2)
+INFO: Global query: 54 entites, 40 relations
+INFO: Raw search results: 88 entities, 243 relations, 0 vector chunks
+INFO: After truncation: 23 entities, 111 relations
+INFO: Selecting 57 from 108 entity-related chunks by vector similarity
+INFO: Find 71 additional chunks in 44 relations (deduplicated 37)
+INFO: Selecting 71 from 71 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 128 -> 128 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 23 entities, 111 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R3/1 E4/2 R1/2 E3/3 R3/3 E4/4 R2/4 E4/5 R2/5 E4/6 R2/6 E4/7 R1/7 E3/8 R2/8 E2/9 R1/9 E2/10 R2/10
+INFO:openai._base_client:Retrying request in 0.416337 seconds
+ERROR: query LLM func: Error in decorated function for task 2981183404560_69219.5891577: LLM call exceeded 300s budget (hang suspected)
+ERROR: Query failed: LLM call exceeded 300s budget (hang suspected)
+[llm retry] attempt 1: Request timed out.
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:keywords:c9833581a26305736f58382a7fd20fbb
+INFO: Query nodes: mpMRI, 多参数磁共振成像, 不确定病变, 风险计算器, 活检指征, d_riskcalc_gate_mpmri_indeterminate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 211 relations
+INFO: Query edges: 前列腺活检决策, 临床决策支持系统, 指南依从性, 共识声明, 附加工具的作用 (top_k:40, cosine:0.2)
+INFO: Global query: 49 entites, 40 relations
+INFO: Raw search results: 80 entities, 241 relations, 0 vector chunks
+INFO: After truncation: 22 entities, 114 relations
+INFO: Selecting 55 from 276 entity-related chunks by vector similarity
+INFO: Find 69 additional chunks in 47 relations (deduplicated 35)
+INFO: Selecting 69 from 69 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 124 -> 124 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 22 entities, 114 relations, 20 chunks
+INFO: Final chunks S+F/O: E5/1 R3/1 E3/2 R1/2 E3/3 R3/3 E3/4 R1/4 E1/5 R1/5 E4/6 R1/6 E3/7 R1/7 E3/8 R1/8 E5/9 R2/9 E1/10 R2/10
+INFO:openai._base_client:Retrying request in 0.436644 seconds
+INFO:openai._base_client:Retrying request in 0.458345 seconds
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+ERROR: query LLM func: Error in decorated function for task 2982005059520_69594.9254383: LLM call exceeded 300s budget (hang suspected)
+ERROR: Query failed: LLM call exceeded 300s budget (hang suspected)
+[llm retry] attempt 1: Request timed out.
+INFO:openai._base_client:Retrying request in 0.461547 seconds
+INFO:openai._base_client:Retrying request in 0.377692 seconds
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:keywords:77008cad2869b24b6cada6c91e074610
+INFO: Query nodes: mpMRI, 前列腺活检, 不确定病灶, 血清生物标志物, 尿液生物标志物, d_biomarker_gate_mpmri_indeterminate, indeterminate_lesion, biomarker_available (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 208 relations
+INFO: Query edges: 前列腺穿刺活检决策, 决策支持系统, 临床指南依从性, 生物标志物指导活检, 磁共振不确定病灶处理, 医学共识声明 (top_k:40, cosine:0.2)
+INFO: Global query: 56 entites, 40 relations
+INFO: Raw search results: 77 entities, 228 relations, 0 vector chunks
+INFO: After truncation: 31 entities, 105 relations
+INFO: Selecting 66 from 66 entity-related chunks by vector similarity
+INFO: Find 68 additional chunks in 26 relations (deduplicated 50)
+INFO: Selecting 65 from 68 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 131 -> 131 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 31 entities, 105 relations, 20 chunks
+INFO: Final chunks S+F/O: E5/1 R1/1 E5/2 R3/2 E3/3 R1/3 E4/4 R2/4 E4/5 R1/5 E3/6 R1/6 E4/7 R1/7 E5/8 R1/8 E3/9 R1/9 E5/10 R2/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:query:a30ad5e7748f60cb7a57cbe5549f9b64
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:keywords:1057638c001ce99f7530e1415b8528c4
+INFO: Query nodes: PSMA PET, MRI, 前列腺活检, d_reject_psma_pet_upfront, psma_pet_available (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 196 relations
+INFO: Query edges: 前列腺癌诊断, 影像学检查选择, 前列腺活检决策, 决策支持系统, 临床指南遵循, 医学共识声明 (top_k:40, cosine:0.2)
+INFO: Global query: 52 entites, 40 relations
+INFO: Raw search results: 80 entities, 223 relations, 0 vector chunks
+INFO: After truncation: 28 entities, 119 relations
+INFO: Selecting 70 from 93 entity-related chunks by vector similarity
+INFO: Find 58 additional chunks in 30 relations (deduplicated 39)
+INFO: Selecting 58 from 58 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 128 -> 128 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 28 entities, 119 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R3/1 E2/2 R1/2 E1/3 R2/3 E2/4 R1/4 E2/5 R1/5 E1/6 R2/6 E1/7 R1/7 E3/8 R2/8 E2/9 R2/9 E1/10 R3/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:query:42a95c1c4f2ba0f7ddc960d8e900d8ed
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:keywords:3415c9a04c86980d534b7afe4f48cb1e
+INFO: Query nodes: PSMA PET, PET-CT, 不确定MRI病灶, 辅助检查, indeterminate_lesion, psma_pet_available, d_psma_pet_indeterminate_ancillary (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 200 relations
+INFO: Query edges: 前列腺活检决策, 决策支持系统, 指南依从性, 新影像学检查手段, 共识声明, 临床决策行动 (top_k:40, cosine:0.2)
+INFO: Global query: 49 entites, 40 relations
+INFO: Raw search results: 77 entities, 225 relations, 0 vector chunks
+INFO: After truncation: 32 entities, 112 relations
+INFO: Selecting 80 from 112 entity-related chunks by vector similarity
+INFO: Find 54 additional chunks in 27 relations (deduplicated 50)
+INFO: Selecting 54 from 54 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 134 -> 134 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 32 entities, 112 relations, 20 chunks
+INFO: Final chunks S+F/O: E3/1 R2/1 E3/2 R1/2 E2/3 R2/3 E2/4 R1/4 E1/5 R1/5 E2/6 R1/6 E2/7 R1/7 E4/8 R1/8 E2/9 R1/9 E1/10 R2/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:query:cbf2b60f67d6e87fae8f0780bf785431
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:keywords:fb7d7c7a7a6ba22577164d6d49d17aa5
+INFO: Query nodes: PSMA PET-CT, csPCa, MRI阴性, 前列腺活检, 辅助检查, 高度怀疑, PSMA PET可用, d_psma_pet_negative_mri_ancillary (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 287 relations
+INFO: Query edges: 前列腺活检决策, 决策支持系统, 指南依从性, 新型影像学检查, 共识声明, 临床决策行动 (top_k:40, cosine:0.2)
+INFO: Global query: 50 entites, 40 relations
+INFO: Raw search results: 79 entities, 313 relations, 0 vector chunks
+INFO: After truncation: 33 entities, 132 relations
+INFO: Selecting 82 from 116 entity-related chunks by vector similarity
+INFO: Find 35 additional chunks in 27 relations (deduplicated 66)
+INFO: Selecting 35 from 35 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 117 -> 117 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 33 entities, 132 relations, 20 chunks
+INFO: Final chunks S+F/O: E3/1 R1/1 E3/2 R1/2 E2/3 R1/3 E3/4 R1/4 E2/5 R1/5 E1/6 R1/6 E1/7 R1/7 E1/8 R1/8 E1/9 R2/9 E2/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:query:5b5539907db7627fb8f1498e791f920a
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:keywords:df485dbf4e47ba27099540e4b973ad97
+INFO: Query nodes: Micro-ultrasound, MRI, d_reject_microultrasound_upfront, microultrasound_available (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 166 relations
+INFO: Query edges: 前列腺活检决策, 前列腺癌诊断, 新型影像技术选择, 共识声明, 指南依从性, 决策支持系统行动 (top_k:40, cosine:0.2)
+INFO: Global query: 51 entites, 40 relations
+INFO: Raw search results: 82 entities, 197 relations, 0 vector chunks
+INFO: After truncation: 36 entities, 119 relations
+INFO: Selecting 90 from 97 entity-related chunks by vector similarity
+INFO: Find 57 additional chunks in 29 relations (deduplicated 34)
+INFO: Selecting 57 from 57 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 147 -> 147 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 36 entities, 119 relations, 20 chunks
+INFO: Final chunks S+F/O: E5/1 R1/1 E2/2 R1/2 E2/3 R1/3 E2/4 R1/4 E1/5 R1/5 E1/6 R1/6 E3/7 R1/7 E3/8 R2/8 E3/9 R1/9 E1/10 R1/10
+INFO:openai._base_client:Retrying request in 0.457372 seconds
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:query:2b3e71aa5ee1cb575016f6b546f066c1
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+[run] lightrag seed 0: 10/104 (2033s)
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:keywords:b106d21aa13851a077935117d3ba6d56
+INFO: Query nodes: 前列腺微超声, 不确定MRI病灶, d_reject_microultrasound_indeterminate, indeterminate_lesion, microultrasound_available (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 201 relations
+INFO: Query edges: 前列腺活检决策, 共识声明, 决策支持系统, 指南依从性, 新型影像技术, 临床决策评估 (top_k:40, cosine:0.2)
+INFO: Global query: 49 entites, 40 relations
+INFO: Raw search results: 79 entities, 231 relations, 0 vector chunks
+INFO: After truncation: 27 entities, 112 relations
+INFO: Selecting 67 from 137 entity-related chunks by vector similarity
+INFO: Find 41 additional chunks in 31 relations (deduplicated 62)
+INFO: Selecting 41 from 41 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 108 -> 108 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 27 entities, 112 relations, 20 chunks
+INFO: Final chunks S+F/O: E3/1 R2/1 E3/2 R2/2 E5/3 R1/3 E3/4 R2/4 E2/5 R2/5 E3/6 R2/6 E3/7 R1/7 E2/8 R1/8 E1/9 R1/9 E3/10 R1/10
+INFO:openai._base_client:Retrying request in 0.437198 seconds
+ERROR: query LLM func: Error in decorated function for task 2982005060928_70677.2321534: LLM call exceeded 300s budget (hang suspected)
+ERROR: Query failed: LLM call exceeded 300s budget (hang suspected)
+[llm retry] attempt 1: Request timed out.
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:keywords:90f750f50611d47ca46849cb82c39d79
+INFO: Query nodes: 前列腺微超声, csPCa, 临床显著性前列腺癌, MRI阴性, 高度怀疑csPCa, 微超声可用, d_reject_microultrasound_negative_mri (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 298 relations
+INFO: Query edges: 前列腺活检决策, 临床决策支持系统, 指南依从性, 共识声明, 新影像学检查模态, 前列腺癌诊断 (top_k:40, cosine:0.2)
+INFO: Global query: 51 entites, 40 relations
+INFO: Raw search results: 78 entities, 321 relations, 0 vector chunks
+INFO: After truncation: 23 entities, 137 relations
+INFO: Selecting 57 from 250 entity-related chunks by vector similarity
+INFO: Find 69 additional chunks in 62 relations (deduplicated 19)
+INFO: Selecting 69 from 69 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 126 -> 126 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 23 entities, 137 relations, 20 chunks
+INFO: Final chunks S+F/O: E3/1 R1/1 E2/2 R1/2 E2/3 R1/3 E2/4 R2/4 E2/5 R1/5 E3/6 R1/6 E3/7 R1/7 E3/8 R2/8 E2/9 R2/9 E2/10 R3/10
+INFO:openai._base_client:Retrying request in 0.418244 seconds
+INFO:openai._base_client:Retrying request in 0.397614 seconds
+[llm retry] attempt 2: Request timed out.
+ERROR: query LLM func: Error in decorated function for task 2982005059168_71035.508701: LLM call exceeded 300s budget (hang suspected)
+ERROR: Query failed: LLM call exceeded 300s budget (hang suspected)
+[llm retry] attempt 1: Request timed out.
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:keywords:10ea5fb9d36d9ab27cfdb405f54b1874
+INFO: Query nodes: MRI, csPCa, Micro-ultrasound, 微超声, 系统性前列腺活检, MRI阴性, 高度怀疑csPCa, d_sbx_negative_mri_high_suspicion, negative_mri, suspicion_high (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 198 relations
+INFO: Query edges: 前列腺活检决策, 前列腺癌, 共识声明, 新型影像技术, 临床决策支持系统, 指南依从 (top_k:40, cosine:0.2)
+INFO: Global query: 46 entites, 40 relations
+INFO: Raw search results: 74 entities, 225 relations, 0 vector chunks
+INFO: After truncation: 26 entities, 115 relations
+INFO: Selecting 65 from 257 entity-related chunks by vector similarity
+INFO: Find 55 additional chunks in 38 relations (deduplicated 34)
+INFO: Selecting 55 from 55 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 120 -> 120 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 26 entities, 115 relations, 20 chunks
+INFO: Final chunks S+F/O: E3/1 R2/1 E3/2 R1/2 E3/3 R2/3 E4/4 R1/4 E1/5 R5/5 E3/6 R1/6 E3/7 R1/7 E2/8 R1/8 E2/9 R2/9 E3/10 R1/10
+INFO:openai._base_client:Retrying request in 0.493305 seconds
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:query:59eafde030a98a610b2ecc9ecc70c9b5
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:keywords:bfcb4cefc1990c13fcd4a9de93b3de92
+INFO: Query nodes: 人工智能算法, MRI可疑病灶识别, 放射科医师评估, d_ai_mri_lesion_aid, ai_software_available (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 139 relations
+INFO: Query edges: 前列腺活检决策, 人工智能辅助MRI阅片, 决策支持系统, 指南依从性, 共识声明 (top_k:40, cosine:0.2)
+INFO: Global query: 56 entites, 40 relations
+INFO: Raw search results: 91 entities, 172 relations, 0 vector chunks
+INFO: After truncation: 28 entities, 121 relations
+INFO: Selecting 70 from 159 entity-related chunks by vector similarity
+INFO: Find 50 additional chunks in 39 relations (deduplicated 56)
+INFO: Selecting 50 from 50 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 120 -> 120 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 28 entities, 121 relations, 20 chunks
+INFO: Final chunks S+F/O: E5/1 R1/1 E5/2 R4/2 E4/3 R3/3 E1/4 R1/4 E1/5 R1/5 E1/6 R2/6 E1/7 R1/7 E2/8 R1/8 E3/9 R2/9 E2/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:query:8cabf1fee51cd4aba014ef045437874d
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:keywords:52937f5bfe62e6822af494e81db9e1ad
+INFO: Query nodes: PIRADS/Likert评分, 每病灶靶向穿刺针数, PIRADS适应性调整, d_tbx_cores_adapt_pirads, visible_lesion, 可见病灶 (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 194 relations
+INFO: Query edges: 前列腺活检决策, 靶向穿刺活检, 决策支持系统, 指南依从性, 共识声明, 临床行动选择 (top_k:40, cosine:0.2)
+INFO: Global query: 46 entites, 40 relations
+INFO: Raw search results: 85 entities, 233 relations, 0 vector chunks
+INFO: After truncation: 24 entities, 107 relations
+INFO: Selecting 60 from 262 entity-related chunks by vector similarity
+INFO: Find 68 additional chunks in 39 relations (deduplicated 41)
+INFO: Selecting 68 from 68 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 128 -> 128 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 24 entities, 107 relations, 20 chunks
+INFO: Final chunks S+F/O: E3/1 R1/1 E3/2 R1/2 E4/3 R1/3 E4/4 R1/4 E3/5 R2/5 E2/6 R1/6 E1/7 R3/7 E2/8 R2/8 E2/9 R1/9 E2/10 R1/10

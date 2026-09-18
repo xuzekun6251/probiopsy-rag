@@ -16,7 +16,9 @@
     "executor.phase5",
     "executor.complete",
     "writer.start",
-    "writer.phase7"
+    "writer.phase7",
+    "writer.phase8",
+    "writer.internal_review"
   ],
   "in_progress": null,
   "blocked": [],
@@ -88,6 +90,16 @@
       "date": "2026-09-18",
       "event": "Phase7 complete: IMRaD sections (zh) + manuscript.md + manuscript.en.md drafted; handoff tables CSV+md emitted; figures 1/2/4/5 rendered from real data (fig3 pending expert panel); PLAN 15.3 titles finalized",
       "skill": "medical-agent-writer"
+    },
+    {
+      "date": "2026-09-18",
+      "event": "Phase7_8 submission package complete: cover letter, highlights (all <=85 chars), data availability, graphical abstract, refs 3-9+11 DOI-verified, submission_pkg.zip",
+      "skill": "medical-agent-writer"
+    },
+    {
+      "date": "2026-09-18",
+      "event": "peer-review 自审模拟完成: 6 major + 10 minor 发现; 已修复 (配对t检验BH-FDR、混淆矩阵披露、panel C、图例、摘要248词、补充材料S1-S5)",
+      "skill": "medical-agent"
     }
   ]
 }

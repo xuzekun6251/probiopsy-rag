@@ -2,8 +2,8 @@
 """Rebuild outputs/submission/submission_pkg.zip (writer 7_8 refresh).
 
 Includes the revised English manuscript, supplementary material, submission
-paraphernalia, and final figures (figure1/2/4/5 — figure3 stays out until the
-expert panel fills its pre-registered columns). The internal review report is
+paraphernalia, and final figures (figure1-5; figure3 now contains the
+completed four-expert blind-review data). The internal review report is
 deliberately excluded (internal quality gate, not for submission).
 """
 import zipfile
@@ -24,7 +24,8 @@ files = [
     (SUB / "graphical_abstract.png", "graphical_abstract.png"),
 ]
 for stem in ["figure1_architecture", "figure2_performance",
-             "figure4_demo_case", "figure5_reasoning_trace"]:
+             "figure3_expert_agreement", "figure4_demo_case",
+             "figure5_reasoning_trace"]:
     for ext in ["svg", "pdf", "png", "tiff"]:
         files.append((FIG / f"{stem}.{ext}", f"figures/{stem}.{ext}"))
 

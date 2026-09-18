@@ -125,6 +125,41 @@ L.append("The arbitration prompt template (action definitions, rule-constraint "
          "`f500802ee82a4be9fc7a7b6b951e2e7083c09e9ef6a521e7dd280726dbe0ee62` recorded at "
          "index build).")
 
+# ---------------------------------------------------------------- S6
+L.append("## S6. Expert blinded review (four experts × five composite propositions)")
+L.append("")
+L.append("**Design.** Each case was presented as a composite proposition assembled from")
+L.append("declarative decision items. Blinded first pass: experts chose their own")
+L.append("five-class action; the system verdict was then revealed and four Likert")
+L.append("dimensions (1–5) were rated. Pre-registered rules: majority = modal rating;")
+L.append("2:2 ties = no-majority, excluded from system-vs-majority Cohen κ; all")
+L.append("agreement statistics interpreted as preliminary. Full questionnaire:")
+L.append("`outputs/expert_review/expert_booklet.md`; protocol:")
+L.append("`outputs/expert_review/expert_review_protocol.md`.")
+L.append("")
+st_er = ROOT / "outputs" / "tables" / "expert_review_stats.json"
+if st_er.exists():
+    er = json.loads(st_er.read_text(encoding="utf-8"))
+    per_case = "; ".join(f"{c} {v}" for c, v in er["per_case_raw_agreement"].items())
+    lk = "; ".join(f"{k.replace('likert_', '')} {v}"
+                   for k, v in er["likert_mean"].items())
+    L.append(f"**Results.** Per-case modal share — {per_case}; "
+             f"Fleiss κ (overall) = {er['fleiss_kappa_overall']}; "
+             f"Cohen κ (system vs expert majority, n = "
+             f"{er['cohen_kappa_n_pairs']}) = {er['cohen_kappa_system_vs_majority']}; "
+             f"Likert means — {lk}.")
+    L.append("")
+L.append("**Verbatim expert comments (Chinese original).**")
+L.append("")
+ws = ROOT / "outputs" / "expert_review" / "answer_worksheet.csv"
+if ws.exists():
+    er_rows = list(csv.DictReader(open(ws, encoding="utf-8-sig")))
+    for r in er_rows:
+        if (r.get("note") or "").strip():
+            L.append(f"- Expert {r['expert_id']}, {r['case_id']} "
+                     f"(rated {r['action_choice']}): {r['note'].strip()}")
+    L.append("")
+
 dest = OUT / "submission" / "supplementary.md"
 dest.write_text("\n".join(L) + "\n", encoding="utf-8")
 print("written", dest, len("\n".join(L)), "chars")

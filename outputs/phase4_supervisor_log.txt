@@ -1,0 +1,5 @@
+[supervisor 00:06:19] start: processed=238/357 dist={'processed': 238}
+[supervisor 00:06:19] cycle 1: build window 1200s (processed=238)
+[supervisor 07:13:52] cycle 1: build window expired (killed — progress banked)
+[supervisor 07:13:52] cycle 1: after reset processed=238 dist={'processed': 238}
+[supervisor 07:13:52] cycle 1: cooldown 1500s

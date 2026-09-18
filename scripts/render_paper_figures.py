@@ -3,12 +3,10 @@
 The generic contract renderer (medical-agent-writer build_figures.py) only
 auto-renders forest/grouped_bar/scatter/heatmap; schematic and domain panels
 come out as placeholders. This script draws Figure 1 (architecture schematic),
-Figure 2 (performance), Figure 4 (demo case + evidence corpus), and Figure 5
-(reasoning-trace timings + KG edges) from REAL project data, overwriting the
-placeholder outputs at outputs/figures/figure{N}_*.{svg,pdf,png}.
-
-Figure 3 (expert agreement) is intentionally NOT drawn: the expert blind
-review (planner phase 4.5) has not run yet; no expert data exists.
+Figure 2 (performance), Figure 3 (expert blind-review agreement), Figure 4
+(demo case + evidence corpus), and Figure 5 (reasoning-trace timings + KG
+edges) from REAL project data, overwriting the placeholder outputs at
+outputs/figures/figure{N}_*.{svg,pdf,png}.
 """
 from __future__ import annotations
 
@@ -303,10 +301,105 @@ def fig5() -> None:
     _export(fig, "figure5_reasoning_trace")
 
 
+# ------------------------------------------------------------------ Figure 3
+# Contract deviation (documented): per-case Fleiss κ is undefined for a single
+# subject, so panel (a) shows raw agreement; the system-vs-majority confusion
+# panel is dropped (n = 4 majority cases after the pre-registered 2:2-tie
+# exclusion — a 5x5 matrix would be vacuous); Likert panel shows means.
+C_ACT = {"endorse": "#5AD8A6", "endorse_option": "#5B8FF9",
+         "conditional": "#F6BD16", "report_option": "#B8B8B8",
+         "against": "#F4664A"}
+ACT_ABBR = {"endorse": "End", "endorse_option": "EndO",
+            "conditional": "Cond", "report_option": "RepO", "against": "Aga"}
+CASE_LABELS = {
+    "case1_unifocal_scheme": "C1 unifocal scheme",
+    "case2_psma_pet_upfront": "C2 PSMA PET upfront",
+    "case3_bpmri_indeterminate": "C3 bpMRI PI-RADS 3",
+    "case4_advanced_route_prophylaxis": "C4 advanced disease",
+    "case5_infection_risk_escalation": "C5 infection risk",
+}
+
+
+def fig3() -> None:
+    stats = json.loads((ROOT / "outputs" / "tables" /
+                        "expert_review_stats.json").read_text(encoding="utf-8"))
+    rows = list(csv.DictReader(open(FIG / "source_data" / "figure3_expert_agreement.csv",
+                                    encoding="utf-8-sig")))
+    case_ids = list(CASE_LABELS)
+    rating = {(r["case_id"], int(r["expert_id"])): r["expert_rating"] for r in rows}
+    system = {r["case_id"]: r["system_output"] for r in rows}
+
+    fig, (ax1, ax2, ax3) = plt.subplots(
+        1, 3, figsize=(7.6, 2.6), gridspec_kw={"width_ratios": [1.2, 1.7, 1.1]})
+
+    # (a) per-case raw agreement (of 4 experts)
+    agree = []
+    for c in case_ids:
+        cnt = Counter(rating[(c, e)] for e in (1, 2, 3, 4))
+        agree.append(cnt.most_common(1)[0][1] / 4)
+    y = range(len(case_ids))
+    ax1.barh(y, agree, color=C_KG, height=0.62)
+    for yi, (c, a) in enumerate(zip(case_ids, agree)):
+        ax1.text(a + 0.02, yi, f"{int(a * 4)}/4", va="center", fontsize=5.8)
+    ax1.axvline(0.75, color="#888888", lw=0.7, ls="--")
+    ax1.text(0.755, 4.45, "3/4", fontsize=5.2, color="#666666")
+    ax1.set_yticks(list(y))
+    ax1.set_yticklabels([CASE_LABELS[c] for c in case_ids], fontsize=5.6)
+    ax1.invert_yaxis()
+    ax1.set_xlim(0, 1.08)
+    ax1.set_xlabel("Modal-rating share (of 4 experts)")
+    fk = stats["fleiss_kappa_overall"]
+    ax1.set_title(f"(a) Inter-rater agreement\n(raw 17/20; Fleiss κ {fk:.2f}*)",
+                  fontsize=6.6)
+    ax1.spines[["top", "right"]].set_visible(False)
+
+    # (b) case × rater categorical matrix (experts 1-4 + system)
+    col_names = ["Expert 1", "Expert 2", "Expert 3", "Expert 4", "System"]
+    ax2.set_xlim(-0.5, len(col_names) - 0.5)
+    ax2.set_ylim(-0.5, len(case_ids) - 0.5)
+    ax2.invert_yaxis()
+    for xi, cn in enumerate(col_names):
+        ax2.text(xi, -0.62, cn, ha="center", fontsize=5.8,
+                 weight="bold" if cn == "System" else "normal")
+    for yi, c in enumerate(case_ids):
+        vals = [rating[(c, e)] for e in (1, 2, 3, 4)] + [system[c]]
+        for xi, a in enumerate(vals):
+            ax2.add_patch(plt.Rectangle((xi - 0.46, yi - 0.44), 0.92, 0.88,
+                                        facecolor=C_ACT[a], edgecolor="white", lw=0.8))
+            ax2.text(xi, yi, ACT_ABBR[a], ha="center", va="center",
+                     fontsize=5.6, color="#222222")
+    ax2.set_yticks(range(len(case_ids)))
+    ax2.set_yticklabels([CASE_LABELS[c] for c in case_ids], fontsize=5.6)
+    ax2.set_xticks([])
+    for s in ax2.spines.values():
+        s.set_visible(False)
+    ax2.tick_params(left=False)
+    handles = [plt.Rectangle((0, 0), 1, 1, facecolor=C_ACT[a]) for a in ACTIONS]
+    ax2.legend(handles, [ACT_ABBR[a] for a in ACTIONS], fontsize=5.2, ncol=5,
+               frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.04))
+    ax2.set_title("(b) Ratings by case and rater", fontsize=6.6, pad=10)
+
+    # (c) Likert means (1-5)
+    dims = ["clarity", "usefulness", "recommendation", "evidence"]
+    means = [stats["likert_mean"][f"likert_{d}"] for d in dims]
+    ax3.bar(range(len(dims)), means, color=C_LLM, width=0.6)
+    for i, m in enumerate(means):
+        ax3.text(i, m + 0.08, f"{m:.1f}", ha="center", fontsize=5.8)
+    ax3.set_xticks(range(len(dims)))
+    ax3.set_xticklabels(dims, fontsize=5.6, rotation=18)
+    ax3.set_ylim(0, 5.5)
+    ax3.set_ylabel("Likert score (1–5)")
+    ax3.set_title("(c) Expert Likert ratings\n(uniform 5/5 — ceiling)", fontsize=6.6)
+    ax3.spines[["top", "right"]].set_visible(False)
+    fig.tight_layout()
+    _export(fig, "figure3_expert_agreement")
+
+
 if __name__ == "__main__":
     print("[render] probiopsy-rag paper figures")
     fig1()
     fig2()
+    fig3()
     fig4()
     fig5()
-    print("[render] done (figure3 = expert panel pending, left as contract placeholder)")
+    print("[render] done")

@@ -6,13 +6,13 @@
     "04_discussion": "complete (revised: conditional-weakness limitation added)",
     "manuscript_zh": "complete",
     "manuscript_en": "complete (internal-review revision: abstract 248 words, figure legends, ethics self-contained)",
-    "figures": "complete (fig1/2/4/5 rendered from real data; fig2 now a/b/c; fig3 pending expert panel)",
-    "tables": "complete (table1-4 csv+md + internal_review_stats.json)",
-    "supplementary": "complete (S1 confusion+stats, S2 flagship, S3 case reports, S4 runtime, S5 prompts)",
-    "internal_review": "complete (peer-review skill simulation; M1-M6 fixed, minor 1-10 addressed or tracked)"
+    "figures": "complete (fig1-5 all rendered from real data; fig2 a/b/c; fig3 four-expert blind review COMPLETE)",
+    "tables": "complete (table1-4 csv+md + internal_review_stats.json + expert_review_stats.json)",
+    "supplementary": "complete (S1 confusion+stats, S2 flagship, S3 case reports, S4 runtime, S5 prompts, S6 expert review)",
+    "internal_review": "complete (peer-review skill simulation; M1-M6 fixed, minor 1-10 addressed or tracked)",
+    "expert_blind_review": "complete (4 experts x 5 composite propositions; Cohen kappa system-vs-majority = 1.0 n=4; Fleiss -0.092 disclosed as small-sample artefact; Likert 5/5 ceiling)"
   },
   "pending": [
-    "expert blind review data (planner phase 4.5) -> figure3 + face validity section",
     "PI name / affiliation / funding / COI TODOs",
     "GitHub repo + Zenodo DOI (data availability)",
     "ref 1 volume/pages check at submission time (in press)"

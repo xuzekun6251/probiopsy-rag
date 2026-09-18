@@ -10,7 +10,7 @@
 
 **Keywords:** prostate cancer; prostate biopsy; clinical decision support; knowledge graph; LightRAG; retrieval-augmented generation; large language models; ProBIOPSY
 
-**Word count:** abstract 248 / main text ~2,950 (excl. tables, legends, references)
+**Word count:** abstract 248 / main text ~3,300 (excl. tables, legends, references)
 
 ---
 
@@ -45,7 +45,7 @@ We developed and validated QianLieAnHui (前列安汇; "probiopsy-rag"), a hybri
 
 ### Study design and ethics
 
-This is a system-development and benchmark-validation study. It involved no human participants, patient data, or biological samples: the corpus derives solely from the published ProBIOPSY consensus and its supplementary material, the gold standard consists of the consensus' 112 published final statements, and demonstration cases are synthetic vignettes constructed by the study team. Institutional review board approval was therefore not required (documented during project planning).
+This is a system-development and benchmark-validation study. The computational evaluation involved no patient data or biological samples: the corpus derives solely from the published ProBIOPSY consensus and its supplementary material, the gold standard consists of the consensus' 112 published final statements, and demonstration cases are synthetic vignettes constructed by the study team. A four-expert blinded face-validity review was subsequently conducted (anonymous, voluntary participation; synthetic cases only; no identifiable data collected; participation-information sheet embedded in the questionnaire). Because no patient data and no interventional procedures were involved, institutional review board approval was not required (assessment documented during project planning).
 
 ### Validation set: 112 ProBIOPSY final statements
 
@@ -74,6 +74,10 @@ The full system uses a mean of 7,640 characters (graph + lexical), substantially
 ### Benchmark protocol
 
 Four methods × five seeds (0–4; temperature 0.2) × 112 statements = **2,240 runs**, resumable by (method, seed, statement_id) key. **The generator was held fixed at GLM-5.3-Flash for all methods and seeds**, so that inter-method differences are attributable to retrieval and decision architecture (rules, retrieval strategy, hard constraints) rather than model capability; rate-limiting parameters were identical across methods. All 2,240 runs returned successfully with zero errors and zero degraded records. As a generator-robustness supplement, pure_llm and naive_rag were re-run in full with the flagship GLM-5.3 tier (5 seeds × 112 statements = 1,120 records).
+
+### Expert blinded review
+
+The five demonstration cases were rated by an independent four-expert panel (two urological surgeons, one radiologist, one radiation oncologist; none involved in development). Each case was presented as a composite proposition assembled from declarative decision items. In a blinded first pass, experts selected their own five-class action for the composite proposition; the system verdict (action, confidence, rationale, citations) was then revealed, and experts rated four Likert dimensions (clarity, usefulness, recommendation agreement, evidence sufficiency; 1–5). Pre-registered analysis rules: expert majority = modal rating; 2:2 splits recorded as no-majority and excluded from the system-versus-majority Cohen κ; all agreement statistics interpreted as preliminary given the sample size. The questionnaire and verbatim expert comments are provided in Supplementary S6.
 
 ### Metrics
 
@@ -117,6 +121,10 @@ Against-class density varies sharply by domain (indication 8.7%, procedure 14.7%
 
 Five synthetic demonstration vignettes (unifocal-lesion biopsy scheme, upfront biopsy after PSMA PET, indeterminate bpMRI lesions, advanced-disease route and prophylaxis, infection-risk escalation) ran end-to-end, each producing the correct five-class action, the expected consensus rules (including patient-factor escalations), and a citation chain traceable to Q-codes and evidence chunks (case reports in Supplementary S3).
 
+### Face validity: four-expert blinded review (Figure 3)
+
+Experts agreed with each other substantially: raw agreement 17/20 ratings, with per-case modal share 4/4 in three cases, 3/4 in one (case 2), and a 2:2 split in case 1 (Figure 3A). The overall Fleiss κ of −0.09 reflects the known instability of κ at this sample size with uneven category marginals, not poor agreement. The system matched the expert majority in all four cases with a decisive majority (Cohen κ = 1.000, n = 4; Figure 3B). In the split case — whether to add systematic biopsy to targeted plus perilesional biopsy — the two experts favouring conditional endorsement cited treatment-plan dependence (whole-gland versus focal therapy alters the value of added systematic cores), the same consideration the system's evidence chain raises (contralateral systematic yield 0.3–4% [EV0024]). All 80 Likert ratings of the system output were 5/5 (clarity, usefulness, recommendation, evidence; ceiling noted, Figure 3C). At this sample size, all agreement estimates are preliminary.
+
 ### Runtime cost
 
 The full system uses a mean of 7,640 characters of context (~2,500–3,000 tokens). With eight concurrent workers and the flash generator, median end-to-end latency per verdict was ~20–40 s (per-case breakdown: Figure 5A, source data in Supplementary S4). The system supports interactive use (a Streamlit interface with a decision-report module and a free-form RAG question-answering module).
@@ -137,11 +145,11 @@ The system is not designed to replace clinician judgement; its value is governab
 
 ### Limitations
 
-First, **corpus–gold-standard homology**: corpus and gold standard both derive from the ProBIOPSY consensus, so this is a *consensus-conformance* evaluation rather than independent clinical validity; the system never saw action labels during development and the rule base covers only 16 topics, but exposure to statement text cannot be excluded, and prospective external validation is the necessary next step. Second, **the residual conditional weakness**: conditional recall is 0.51 with an over-permissive error skew (74/185 gold-conditional statements predicted endorse); deployed without the rule layer's hard constraints, such errors would shift towards false endorsement, so class-specific calibration is required before clinical piloting. Third, **the expert blind review is pending** (planned as a multi-expert face-validity panel); current face-validity evidence rests on five fully traced demonstration cases. Fourth, **synthetic scenarios**: the 51 scenario archetypes and five demonstration cases are synthetic and do not span the full comorbidity complexity of real patients. Fifth, **single generator family**: the benchmark used the GLM family (flash and flagship tiers); cross-vendor generalisation is untested, although the supplement shows generator tier is not the decisive factor. Sixth, **combinatorial coverage**: 112 statements cover the high-frequency region of the 51 × 54 interaction space; long-tail coverage is unquantified. Seventh, **context cost**: the full system's 7,640-character mean context is ~3× the strongest baseline, traded for +19.2 points exact-5; rule-gated short-circuiting (pure-rule combinations skip graph retrieval) can amortise this further. Eighth, **language and region**: the corpus is English, the scenario registry and UI Chinese; cross-lingual transfer is untested.
+First, **corpus–gold-standard homology**: corpus and gold standard both derive from the ProBIOPSY consensus, so this is a *consensus-conformance* evaluation rather than independent clinical validity; the system never saw action labels during development and the rule base covers only 16 topics, but exposure to statement text cannot be excluded, and prospective external validation is the necessary next step. Second, **the residual conditional weakness**: conditional recall is 0.51 with an over-permissive error skew (74/185 gold-conditional statements predicted endorse); deployed without the rule layer's hard constraints, such errors would shift towards false endorsement, so class-specific calibration is required before clinical piloting. Third, **the face-validity panel is small**: four experts rated five composite propositions; agreement statistics at this n are unstable (a negative Fleiss κ despite 17/20 raw agreement illustrates the artefact), all Likert ratings hit the ceiling, and the panel was single-institution — the review therefore supports preliminary face validity only. Fourth, **synthetic scenarios**: the 51 scenario archetypes and five demonstration cases are synthetic and do not span the full comorbidity complexity of real patients. Fifth, **single generator family**: the benchmark used the GLM family (flash and flagship tiers); cross-vendor generalisation is untested, although the supplement shows generator tier is not the decisive factor. Sixth, **combinatorial coverage**: 112 statements cover the high-frequency region of the 51 × 54 interaction space; long-tail coverage is unquantified. Seventh, **context cost**: the full system's 7,640-character mean context is ~3× the strongest baseline, traded for +19.2 points exact-5; rule-gated short-circuiting (pure-rule combinations skip graph retrieval) can amortise this further. Eighth, **language and region**: the corpus is English, the scenario registry and UI Chinese; cross-lingual transfer is untested.
 
 ### Future work
 
-(i) Completing the four-expert blind review (tooling ready; the expert columns of the agreement dataset are pre-registered and currently blank); (ii) a prospective registry study with real cases; (iii) extending the rule base to other guideline chapters (active surveillance, imaging follow-up) to test architecture portability; (iv) FHIR integration for automatic scenario filling from the EMR; (v) on-premises generator deployment to eliminate PHI-transfer concerns.
+(i) extending the expert panel to a multi-centre face-validity and usability study, including treatment-intent-conditioned scenarios of the kind flagged by the reviewers in the split case; (ii) a prospective registry study with real cases; (iii) extending the rule base to other guideline chapters (active surveillance, imaging follow-up) to test architecture portability; (iv) FHIR integration for automatic scenario filling from the EMR; (v) on-premises generator deployment to eliminate PHI-transfer concerns.
 
 ### Conclusions
 
@@ -153,7 +161,7 @@ The rule base (configs/rules.yaml), both registries (entities_a.csv, entities_b.
 
 ## Ethics statement
 
-No human participants, patient data, or biological samples were involved. The evidence corpus and gold standard derive solely from the published ProBIOPSY consensus and its supplementary material; all demonstration cases are synthetic vignettes constructed by the study team. No patient-identifiable data were transmitted to third-party model APIs. Institutional review board approval was therefore not required; the assessment is documented in the project ethics file accompanying the repository.
+No patient data or biological samples were involved. The evidence corpus and gold standard derive solely from the published ProBIOPSY consensus and its supplementary material; all demonstration cases are synthetic vignettes constructed by the study team. No patient-identifiable data were transmitted to third-party model APIs. The four-expert blinded review used anonymous, voluntary participation (experts 1–4; no identifiable data collected; participation-information sheet embedded in the questionnaire). Institutional review board approval was therefore not required; the assessment is documented in the project ethics file accompanying the repository.
 
 ## Figure legends
 
@@ -161,7 +169,7 @@ No human participants, patient data, or biological samples were involved. The ev
 
 **Figure 2.** Multi-seed benchmark (4 methods × 5 seeds × 112 statements). **(a)** Core metrics by method (mean ± SD across 5 seeds): exact-5 accuracy, exact-3 accuracy, macro-F1, Cohen's κ, and against-class F1. **(b)** Exact-5 accuracy per seed (dots; dash = mean). **(c)** Predicted class distribution per method over 560 runs (bars) with the gold-standard distribution (diamonds) — retrieval baselines almost never emit conditional; the full system's distribution tracks the gold standard most closely.
 
-**Figure 3.** Expert blind-review agreement across the five demonstration cases (pre-registered columns pending the four-expert panel; to be added before submission).
+**Figure 3.** Four-expert blinded review of the five demonstration cases (composite propositions). **(a)** Per-case inter-rater agreement (modal-rating share of 4 experts; dashed line = 3/4). The Fleiss κ of −0.09 (marked *) is a small-sample artefact — raw agreement is 17/20. **(b)** Ratings by case and rater (End = endorse, EndO = endorse_option, Cond = conditional, RepO = report_option, Aga = against). The System column shows the system verdict, which matches the expert majority in all four cases with a decisive majority; case 1 was a 2:2 tie (excluded per the pre-registered rule). **(c)** Expert Likert ratings of the system output (clarity, usefulness, recommendation, evidence; uniformly 5 — ceiling).
 
 **Figure 4.** Demonstration cases. **(a)** Consensus rules fired per case, coloured by recommended action. **(b)** Evidence corpus composition (112 consensus statements, 218 literature entries, 20 narrative passages, 7 systematic-review summaries).
 

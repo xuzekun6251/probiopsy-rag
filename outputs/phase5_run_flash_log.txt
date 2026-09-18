@@ -1,0 +1,181 @@
+[run] 112 gold statements x 4 methods x 5 seeds
+[run] resume: 0 predictions already present
+[run] pure_llm seed 0: 10/112 (41s)
+[run] pure_llm seed 0: 20/112 (79s)
+[run] pure_llm seed 0: 30/112 (98s)
+[run] pure_llm seed 0: 40/112 (129s)
+[run] pure_llm seed 0: 50/112 (167s)
+[run] pure_llm seed 0: 60/112 (201s)
+[run] pure_llm seed 0: 70/112 (231s)
+[run] pure_llm seed 0: 80/112 (266s)
+[run] pure_llm seed 0: 90/112 (301s)
+[run] pure_llm seed 0: 100/112 (333s)
+[run] pure_llm seed 0: 110/112 (364s)
+[run] pure_llm seed 0: DONE 112 items in 453s
+[run] pure_llm seed 1: 10/112 (38s)
+[run] pure_llm seed 1: 20/112 (71s)
+[run] pure_llm seed 1: 30/112 (107s)
+[run] pure_llm seed 1: 40/112 (133s)
+[run] pure_llm seed 1: 50/112 (176s)
+[run] pure_llm seed 1: 60/112 (198s)
+[run] pure_llm seed 1: 70/112 (236s)
+[run] pure_llm seed 1: 80/112 (262s)
+[run] pure_llm seed 1: 90/112 (300s)
+[run] pure_llm seed 1: 100/112 (336s)
+[run] pure_llm seed 1: 110/112 (401s)
+[run] pure_llm seed 1: DONE 112 items in 639s
+[run] pure_llm seed 2: 10/112 (39s)
+[run] pure_llm seed 2: 20/112 (69s)
+[run] pure_llm seed 2: 30/112 (100s)
+[run] pure_llm seed 2: 40/112 (131s)
+[run] pure_llm seed 2: 50/112 (160s)
+[run] pure_llm seed 2: 60/112 (201s)
+[run] pure_llm seed 2: 70/112 (243s)
+[run] pure_llm seed 2: 80/112 (274s)
+[run] pure_llm seed 2: 90/112 (311s)
+[run] pure_llm seed 2: 100/112 (341s)
+[run] pure_llm seed 2: 110/112 (381s)
+[run] pure_llm seed 2: DONE 112 items in 446s
+[run] pure_llm seed 3: 10/112 (44s)
+[run] pure_llm seed 3: 20/112 (72s)
+[run] pure_llm seed 3: 30/112 (105s)
+[run] pure_llm seed 3: 40/112 (131s)
+[run] pure_llm seed 3: 50/112 (163s)
+[run] pure_llm seed 3: 60/112 (197s)
+[run] pure_llm seed 3: 70/112 (223s)
+[run] pure_llm seed 3: 80/112 (253s)
+[run] pure_llm seed 3: 90/112 (288s)
+[run] pure_llm seed 3: 100/112 (325s)
+[run] pure_llm seed 3: 110/112 (358s)
+[run] pure_llm seed 3: DONE 112 items in 631s
+[run] pure_llm seed 4: 10/112 (44s)
+[run] pure_llm seed 4: 20/112 (72s)
+[run] pure_llm seed 4: 30/112 (102s)
+[run] pure_llm seed 4: 40/112 (130s)
+[run] pure_llm seed 4: 50/112 (159s)
+[run] pure_llm seed 4: 60/112 (191s)
+[run] pure_llm seed 4: 70/112 (220s)
+[run] pure_llm seed 4: 80/112 (258s)
+[run] pure_llm seed 4: 90/112 (291s)
+[run] pure_llm seed 4: 100/112 (321s)
+[run] pure_llm seed 4: 110/112 (390s)
+[run] pure_llm seed 4: DONE 112 items in 426s
+[run] naive_rag seed 0: 10/112 (34s)
+[run] naive_rag seed 0: 20/112 (62s)
+[run] naive_rag seed 0: 30/112 (96s)
+[run] naive_rag seed 0: 40/112 (122s)
+[run] naive_rag seed 0: 50/112 (151s)
+[run] naive_rag seed 0: 60/112 (187s)
+[run] naive_rag seed 0: 70/112 (215s)
+[run] naive_rag seed 0: 80/112 (245s)
+[run] naive_rag seed 0: 90/112 (271s)
+[run] naive_rag seed 0: 100/112 (305s)
+[run] naive_rag seed 0: 110/112 (331s)
+[run] naive_rag seed 0: DONE 112 items in 338s
+[run] naive_rag seed 1: 10/112 (36s)
+[run] naive_rag seed 1: 20/112 (65s)
+[run] naive_rag seed 1: 30/112 (94s)
+[run] naive_rag seed 1: 40/112 (123s)
+[run] naive_rag seed 1: 50/112 (152s)
+[llm retry] attempt 1: Connection error.
+[llm retry] attempt 1: Connection error.
+[llm retry] attempt 1: Connection error.
+[run] naive_rag seed 1: 60/112 (20954s)
+[run] naive_rag seed 1: 70/112 (20986s)
+[run] naive_rag seed 1: 80/112 (21014s)
+[run] naive_rag seed 1: 90/112 (21044s)
+[run] naive_rag seed 1: 100/112 (21075s)
+[run] naive_rag seed 1: 110/112 (21103s)
+[run] naive_rag seed 1: DONE 112 items in 21225s
+[run] naive_rag seed 2: 10/112 (35s)
+[run] naive_rag seed 2: 20/112 (64s)
+[run] naive_rag seed 2: 30/112 (92s)
+[run] naive_rag seed 2: 40/112 (122s)
+[run] naive_rag seed 2: 50/112 (151s)
+[run] naive_rag seed 2: 60/112 (183s)
+[run] naive_rag seed 2: 70/112 (214s)
+[run] naive_rag seed 2: 80/112 (242s)
+[run] naive_rag seed 2: 90/112 (270s)
+[run] naive_rag seed 2: 100/112 (301s)
+[run] naive_rag seed 2: 110/112 (330s)
+[run] naive_rag seed 2: DONE 112 items in 336s
+[run] naive_rag seed 3: 10/112 (32s)
+[run] naive_rag seed 3: 20/112 (63s)
+[run] naive_rag seed 3: 30/112 (93s)
+[run] naive_rag seed 3: 40/112 (121s)
+[run] naive_rag seed 3: 50/112 (151s)
+[run] naive_rag seed 3: 60/112 (186s)
+[run] naive_rag seed 3: 70/112 (215s)
+[run] naive_rag seed 3: 80/112 (241s)
+[run] naive_rag seed 3: 90/112 (271s)
+[run] naive_rag seed 3: 100/112 (301s)
+[run] naive_rag seed 3: 110/112 (332s)
+[run] naive_rag seed 3: DONE 112 items in 337s
+[run] naive_rag seed 4: 10/112 (31s)
+[run] naive_rag seed 4: 20/112 (62s)
+[run] naive_rag seed 4: 30/112 (92s)
+[run] naive_rag seed 4: 40/112 (120s)
+[run] naive_rag seed 4: 50/112 (151s)
+[run] naive_rag seed 4: 60/112 (187s)
+[run] naive_rag seed 4: 70/112 (215s)
+[run] naive_rag seed 4: 80/112 (243s)
+[run] naive_rag seed 4: 90/112 (271s)
+[run] naive_rag seed 4: 100/112 (301s)
+[run] naive_rag seed 4: 110/112 (333s)
+[run] naive_rag seed 4: DONE 112 items in 340s
+INFO: [] Loaded graph from D:\Zcode测试文件夹\测试3\data\processed\lightrag_index\graph_chunk_entity_relation.graphml with 1864 nodes, 3078 edges
+INFO:nano-vectordb:Load (1864, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_entities.json'} 1864 data
+INFO:nano-vectordb:Load (3078, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_relationships.json'} 3078 data
+INFO:nano-vectordb:Load (362, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_chunks.json'} 362 data
+INFO: Role LLM Configuration (initialized):
+INFO:  - extract: None/None, host=None, max_async=1, timeout=240
+INFO:  - keyword: None/None, host=None, max_async=1, timeout=240
+INFO:  - query: None/None, host=None, max_async=1, timeout=240
+INFO:  - vlm: None/None, host=None, max_async=1, timeout=240
+INFO: [] Process 11768 KV load full_docs with 357 records
+INFO: [] Process 11768 KV load text_chunks with 362 records
+INFO: [] Process 11768 KV load full_entities with 357 records
+INFO: [] Process 11768 KV load full_relations with 357 records
+INFO: [] Process 11768 KV load entity_chunks with 1864 records
+INFO: [] Process 11768 KV load relation_chunks with 3078 records
+INFO: [] Process 11768 KV load llm_response_cache with 910 records
+INFO: [] Process 11768 doc status load doc_status with 357 records
+INFO: keyword LLM func: 1 new workers initialized (Timeouts: Func: 240s, Worker: 480s, Health Check: 495s)
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:keywords:5c5d5b8189ea3b089afe3762e0715d83
+INFO: Embedding func: 8 new workers initialized (Timeouts: Func: 30s, Worker: 60s, Health Check: 75s)
+INFO: Query nodes: PI-QUAL质量标准, d_mri_quality_check, 共识声明 (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 140 relations
+INFO: Query edges: 前列腺活检决策, MRI序列质量标准, 指南决策支持系统 (top_k:40, cosine:0.2)
+INFO: Global query: 57 entites, 40 relations
+INFO: Raw search results: 87 entities, 169 relations, 0 vector chunks
+INFO: After truncation: 50 entities, 146 relations
+INFO: Selecting 69 from 69 entity-related chunks by vector similarity
+INFO: Find 16 additional chunks in 16 relations (deduplicated 34)
+INFO: Selecting 16 from 16 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 85 -> 85 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 50 entities, 146 relations, 20 chunks
+INFO: Final chunks S+F/O: E3/1 R2/1 E3/2 R1/2 E4/3 R3/3 E3/4 R7/4 E7/5 R1/5 E3/6 R6/6 E3/7 R6/7 E1/8 R1/8 E2/9 R2/9 E2/10 R4/10
+INFO: query LLM func: 1 new workers initialized (Timeouts: Func: 240s, Worker: 480s, Health Check: 495s)
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:query:5ba161cd421f33947f1588cae70f5d05
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: hybrid:keywords:9eacfcb2e0059f47131c6828df119fb8
+INFO: Query nodes: 前列腺穿刺活检, 3T MRI, 1.5T MRI, 多参数MRI, 双参数MRI, d_accept_any_field_strength (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 243 relations
+INFO: Query edges: 前列腺癌诊断, MRI磁场强度要求, 共识声明, 临床决策支持, 指南依从性 (top_k:40, cosine:0.2)
+INFO: Global query: 49 entites, 40 relations
+INFO: Raw search results: 75 entities, 267 relations, 0 vector chunks
+INFO: After truncation: 27 entities, 121 relations
+INFO: Selecting 67 from 108 entity-related chunks by vector similarity
+INFO: Find 70 additional chunks in 41 relations (deduplicated 30)
+INFO: Selecting 70 from 70 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 137 -> 137 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 27 entities, 121 relations, 20 chunks
+INFO: Final chunks S+F/O: E6/1 R1/1 E4/2 R1/2 E4/3 R2/3 E5/4 R1/4 E3/5 R2/5 E3/6 R1/6 E3/7 R1/7 E1/8 R1/8 E1/9 R1/9 E1/10 R1/10

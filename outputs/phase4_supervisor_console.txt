@@ -1,0 +1,1665 @@
+[supervisor 00:06:19] start: processed=238/357 dist={'processed': 238}
+[supervisor 00:06:19] cycle 1: build window 1200s (processed=238)
+[phase4] 357 chunks to insert -> D:\Zcode测试文件夹\测试3\data\processed\lightrag_index
+INFO: [] Loaded graph from D:\Zcode测试文件夹\测试3\data\processed\lightrag_index\graph_chunk_entity_relation.graphml with 1379 nodes, 2237 edges
+INFO:nano-vectordb:Load (1378, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_entities.json'} 1378 data
+INFO:nano-vectordb:Load (2237, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_relationships.json'} 2237 data
+INFO:nano-vectordb:Load (251, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_chunks.json'} 251 data
+INFO: Role LLM Configuration (initialized):
+INFO:  - extract: None/None, host=None, max_async=1, timeout=240
+INFO:  - keyword: None/None, host=None, max_async=1, timeout=240
+INFO:  - query: None/None, host=None, max_async=1, timeout=240
+INFO:  - vlm: None/None, host=None, max_async=1, timeout=240
+INFO: [] Process 37560 KV load full_docs with 260 records
+INFO: [] Process 37560 KV load text_chunks with 251 records
+INFO: [] Process 37560 KV load full_entities with 252 records
+INFO: [] Process 37560 KV load full_relations with 252 records
+INFO: [] Process 37560 KV load entity_chunks with 1380 records
+INFO: [] Process 37560 KV load relation_chunks with 2237 records
+INFO: [] Process 37560 KV load llm_response_cache with 614 records
+INFO: [] Process 37560 doc status load doc_status with 238 records
+WARNING: Duplicate document detected (filename): doc-798bf72bbef6e85702a12d244755171a (unknown_source)
+WARNING: Duplicate document detected (filename): doc-f9150ed5c364505e068e02f241ce317e (unknown_source)
+WARNING: Duplicate document detected (filename): doc-f219e91b367eecc5a42c596e70c7f179 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-fd7929137c6e62ddac119329fe67c06d (unknown_source)
+WARNING: Duplicate document detected (filename): doc-d4711d72b6eda8ce5dff67fbd041ef82 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-0c58d8ac04d5e01b5972ee60186f46c9 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-000640dca24b768fdc8539d38aaafbe7 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-d2d1308fc3c4ee3af1b115b199b868c3 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-f7d30eae4ed4d31e705089ed3120704b (unknown_source)
+WARNING: Duplicate document detected (filename): doc-f87cbdee20e8412639af5264573a9933 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-dedc6211e95a15310bc31f10dacd8902 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-6dbd5168a26ece34a0f996ca7ad65b7b (unknown_source)
+WARNING: Duplicate document detected (filename): doc-58c5d7f5dbd621359a112daa70bd13bc (unknown_source)
+WARNING: Duplicate document detected (filename): doc-2ecbc9de3637ad96ebc2bff4a5cc62b5 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-d4f59a386dd299eb7bea82f3aa0b812b (unknown_source)
+WARNING: Duplicate document detected (filename): doc-f38ea7e8655d767b4ab8a285ef638f1e (unknown_source)
+WARNING: Duplicate document detected (filename): doc-efb3d2f36ef55305c4941ac30bd2658d (unknown_source)
+WARNING: Duplicate document detected (filename): doc-52d45caee5aeaf3068edbdf3e5f1773e (unknown_source)
+WARNING: Duplicate document detected (filename): doc-f11205cf30b73c87f8cf034ab593b30d (unknown_source)
+WARNING: Duplicate document detected (filename): doc-0b493e9f0c069f9f0f53e0ecec2ce203 (unknown_source)
+INFO: Created 20 duplicate document records with track_id: insert_20260916_000624_4489ba7b
+WARNING: No new unique documents were found.
+INFO: No documents to process
+[phase4] inserted 20/357 (20.0 chunks/s, elapsed 0s)
+WARNING: Duplicate document detected (filename): doc-67f89a1ed2f109375143a3ee677dc8ef (unknown_source)
+WARNING: Duplicate document detected (filename): doc-58457c5477c7f844d10d5129456cc00a (unknown_source)
+WARNING: Duplicate document detected (filename): doc-9e282ebcf5183b1e0135df62eff18dc5 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-6ebd293f8e9ddd4a58c236efd6018676 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-a975c6737bc94fcd59cf377f9aacbcc5 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-5930012a13a8364e23561326bf2bab4e (unknown_source)
+WARNING: Duplicate document detected (filename): doc-d23f9a43e58f658d4e840ac71c09cab6 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-c233d9cc9082f91913d387516c3f96f5 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-b5c664d7a3fb2d39990b33a49ec29d61 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-12da2d4ffd1cbe79f6206181eb3c14bf (unknown_source)
+WARNING: Duplicate document detected (filename): doc-ba1cb7a4f1c7102846ffcfbbf8c39dc5 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-75c8a0c6c551965c3929bce8deb31f0a (unknown_source)
+WARNING: Duplicate document detected (filename): doc-aec66cdac3542f1c1858692341613a5c (unknown_source)
+WARNING: Duplicate document detected (filename): doc-2b6fa6ebc3a1c685a037faa58c7eac5a (unknown_source)
+WARNING: Duplicate document detected (filename): doc-e95794db7df4b3c1ad91be87d68e7a3b (unknown_source)
+WARNING: Duplicate document detected (filename): doc-c5cd1d344ea6e5481f1d9a17c76a7d9a (unknown_source)
+WARNING: Duplicate document detected (filename): doc-32d38c06e0208d01e0949809f510e22c (unknown_source)
+WARNING: Duplicate document detected (filename): doc-fdd474dfb959d02ef5d32d78e4a3f8ad (unknown_source)
+WARNING: Duplicate document detected (filename): doc-75bea9e427334ccce289d3e7789d700a (unknown_source)
+WARNING: Duplicate document detected (filename): doc-65955942801b2128bf29a583d36be0ee (unknown_source)
+INFO: Created 20 duplicate document records with track_id: insert_20260916_000624_e5f38c1a
+WARNING: No new unique documents were found.
+INFO: No documents to process
+[phase4] inserted 40/357 (40.0 chunks/s, elapsed 0s)
+WARNING: Duplicate document detected (filename): doc-e4dc0d76f02d11a3058a8c1679eae594 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-85fc75eae8a5e6d0c9dfc1989bc66e97 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-6c5dd5c488b1467566798fcdde18c5e2 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-d30eb0f7a0c93dcac636c211967f2be0 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-78692296558ddf86471e5825567c2240 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-21d7f21024054e080d3a44609649daa2 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-89bcb24ed25024d2f0b6116ffdcce2fa (unknown_source)
+WARNING: Duplicate document detected (filename): doc-beaa23d2a6fd071abe2622e349f58e31 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-0bc46a5a1f2941e32b214b8fee62755c (unknown_source)
+WARNING: Duplicate document detected (filename): doc-bd9ccd65796d98b492f9092efe3d17de (unknown_source)
+WARNING: Duplicate document detected (filename): doc-fe804636e126805957615534f7d95eb8 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-9f6f4bda65af5cc921e432e8483db1f7 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-7b4da81be06ac8ada6747ed7f8a8403b (unknown_source)
+WARNING: Duplicate document detected (filename): doc-0caa6602b801f6b53b3b3c27e10ff378 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-edcb244e1fae3476ec4aefee7464af1a (unknown_source)
+WARNING: Duplicate document detected (filename): doc-a360f6a716e4ece4c5fdd7443ff6e3c0 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-431b27c0eb6e732bda92119a172e8017 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-3273caff8bb91c99b5bb1260b80a95a2 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-6f4a08a0d97783eb42a1e83dc9b84cf5 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-dbed3a7626cd7403e6d11c4ef8ba2d4e (unknown_source)
+INFO: Created 20 duplicate document records with track_id: insert_20260916_000624_953bb2f6
+WARNING: No new unique documents were found.
+INFO: No documents to process
+[phase4] inserted 60/357 (60.0 chunks/s, elapsed 0s)
+WARNING: Duplicate document detected (filename): doc-c478da90632dd464363e0c09fe7ab5e3 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-e32e7e109154ba815b001a65129ae6ac (unknown_source)
+WARNING: Duplicate document detected (filename): doc-9a17cb339979ef427bdd6c335ea5b916 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-928a45fe7fe2f84ebb970e8b27048144 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-26bfd25128c40dae0a614969c31ed30d (unknown_source)
+WARNING: Duplicate document detected (filename): doc-355bf6b7f00572f2023e4eb25d4e47c4 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-cedd3853bf6697bae3178622adbd0bcd (unknown_source)
+WARNING: Duplicate document detected (filename): doc-a1d1f1ccc54aafb35b2dc2ea06267af0 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-3d051c2bbad659c10ed3f927ec48b823 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-be3bb6b07c6197b9a788026ef7303bfa (unknown_source)
+WARNING: Duplicate document detected (filename): doc-10675d4e6246a01b39960b86fc56e10b (unknown_source)
+WARNING: Duplicate document detected (filename): doc-6a112366ec65e6379ff2f980ae134b75 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-84ca95cf92a70a1236c52fd138d6e1fb (unknown_source)
+WARNING: Duplicate document detected (filename): doc-77dd2874ce9c1444f35897f96bf0a7ee (unknown_source)
+WARNING: Duplicate document detected (filename): doc-4c6f88122acf1efd311a9016da2f4339 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-b006e285490580fca3beb1914f36cd17 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-f604e63356e8b1c2efdeb4a2df8399d8 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-8e7f31c889cb68ba70b87a0129b06f3b (unknown_source)
+WARNING: Duplicate document detected (filename): doc-1771d14c6db3aa1f871431b9130cca7f (unknown_source)
+WARNING: Duplicate document detected (filename): doc-0d49371b7e8e1ff996ccd0e27304e839 (unknown_source)
+INFO: Created 20 duplicate document records with track_id: insert_20260916_000624_39e3a8e1
+WARNING: No new unique documents were found.
+INFO: No documents to process
+[phase4] inserted 80/357 (80.0 chunks/s, elapsed 0s)
+WARNING: Duplicate document detected (filename): doc-d937d81c808770de2386fa4b1dce4ef5 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-1d03532095034e56b74318c2cc547508 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-561906757ebf7da97d70c2bcfd399194 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-f3955accbf48c25ab0388b543dc18d5d (unknown_source)
+WARNING: Duplicate document detected (filename): doc-9f3366fd343a1ea5d355cf5de83e6a8a (unknown_source)
+WARNING: Duplicate document detected (filename): doc-c168e810f3fdabb18e35b8dcc56283ff (unknown_source)
+WARNING: Duplicate document detected (filename): doc-7551f1423c6d0d268b29ed3e5657d2a4 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-84087549746a88af8fe31ce378eb5782 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-9ef610f5f46449d11299f81477bddeca (unknown_source)
+WARNING: Duplicate document detected (filename): doc-5810c1a6b806dd1bcc70ddbb0b09e805 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-7b58f6022683fc5a64de2b564f4de2d5 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-334878a4ab1ca973e495785af2b9fd86 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-e8d46380e3c1e65ba8f640cb50107ad1 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-b12eb590daf00e06269017159a190f69 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-d2851cb91078b18c8f301917369e8869 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-7613ecd30ef4557360e8c9e46b8f6ac3 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-928ef23d58095d183261393214029b59 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-beebdc119758f1879d27f73edd734374 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-447193117fac3e5e7b43b9180bac86ff (unknown_source)
+WARNING: Duplicate document detected (filename): doc-f24f67b3a7065beb2c62a878f90b9efb (unknown_source)
+INFO: Created 20 duplicate document records with track_id: insert_20260916_000624_a7ce158b
+WARNING: No new unique documents were found.
+INFO: No documents to process
+[phase4] inserted 100/357 (100.0 chunks/s, elapsed 0s)
+WARNING: Duplicate document detected (filename): doc-bc97445fb955a0a5780581c40c99fcfb (unknown_source)
+WARNING: Duplicate document detected (filename): doc-11be9b9f1716f2e491444b7d8f3e3593 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-13d55cbb268aabaa08592d9992b98665 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-113b20f53cf7fd71a0786ee870e63341 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-c644f48cb784c5f9874bb22e12ff65f5 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-a8d73963903e80d819dd11e77f316b85 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-146ddcae12333590135cfa32fc691eab (unknown_source)
+WARNING: Duplicate document detected (filename): doc-973326a5033a8925243fdb7c24d58026 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-385fb24a25b2e9c25e921330202b5e54 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-2fbda8b7947e1b29f7340f19c7bc8871 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-ccb4e1166e6280ae85474d8a8ff12cbc (unknown_source)
+WARNING: Duplicate document detected (filename): doc-1e3b2c61483117d2b596cd915a16efb3 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-db82708fd63d35c5f11f1f5a1552566d (unknown_source)
+WARNING: Duplicate document detected (filename): doc-6d0a85fad0ec82871deea45c1c33c29a (unknown_source)
+WARNING: Duplicate document detected (filename): doc-813c81ccbcafa63dd9511e7835b53e82 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-9f03b9044567b59cbd46a677a1e8db11 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-497b7249228ecc2076bbaf2dff05a878 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-ccfc9d26fd519858d7f18cb84836ffcc (unknown_source)
+WARNING: Duplicate document detected (filename): doc-fa047e17290b02f1a470f881206ecef6 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-d9978895af2b40f14ccdaa99ac045760 (unknown_source)
+INFO: Created 20 duplicate document records with track_id: insert_20260916_000624_b0e4f50c
+WARNING: No new unique documents were found.
+INFO: No documents to process
+[phase4] inserted 120/357 (120.0 chunks/s, elapsed 0s)
+WARNING: Duplicate document detected (filename): doc-66c98a80cd6ab050c84a70f2af8fc995 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-504b96af36d98ab9832b3fecc5ac62e6 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-ea3f8edc38b186871bb731222c17117d (unknown_source)
+WARNING: Duplicate document detected (filename): doc-36dd7b03288f47d9166c1d5c6fe3297c (unknown_source)
+WARNING: Duplicate document detected (filename): doc-d50a8fbda0b8a5c56ce9e9bee074d44b (unknown_source)
+WARNING: Duplicate document detected (filename): doc-f3de0a02e02ae4fcb2408e15eefae6fa (unknown_source)
+WARNING: Duplicate document detected (filename): doc-756c2c9fa967b1e95161933c15920c0c (unknown_source)
+WARNING: Duplicate document detected (filename): doc-850c4e93717f9e63c974df5ceaf6c510 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-2f81dc9be2de5c8460fb9b5fd70f3cc5 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-ec743c101fc7dd6869d658641af11077 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-0719c9e7479f5ff9e7d9f0965fb270ee (unknown_source)
+WARNING: Duplicate document detected (filename): doc-86586ca85d6330c0df543f215a74dd82 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-bba3ef7c0b8c7e45e53cadcb5671cda0 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-078c228341897eb6a478c316499d2e49 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-fd6b14e543c6131994ac7d637440a0e7 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-72b3301ad9a3087566c71e1cff56b35d (unknown_source)
+WARNING: Duplicate document detected (filename): doc-3f60a2d1a89f8f10fc65f5fb5c275bf9 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-33bce714330ed056e5aef625c5d8ae90 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-376bcd828daf5c1361ed8c45c0c16658 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-8d93665a7bdee4fe0ad0e7abbb93a8be (unknown_source)
+INFO: Created 20 duplicate document records with track_id: insert_20260916_000624_aa976abe
+WARNING: No new unique documents were found.
+INFO: No documents to process
+[phase4] inserted 140/357 (140.0 chunks/s, elapsed 0s)
+WARNING: Duplicate document detected (filename): doc-126126b213438b665cd46746beaab4e9 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-864bc8f3098aec463b1eb996cb6a73aa (unknown_source)
+WARNING: Duplicate document detected (filename): doc-4046425356ddbb7737904f3fc4f5885b (unknown_source)
+WARNING: Duplicate document detected (filename): doc-a3776d77dba6b108dbf4cdca97f564b9 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-70494f2a8576c16c451d99508a5d71c8 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-225fd50765590e0b2fb9c10b5dee213d (unknown_source)
+WARNING: Duplicate document detected (filename): doc-6f116c58f9b9e6b99e37a8de421b4f36 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-ba9e154ff98b7d1cd92e4db3ec59c86b (unknown_source)
+WARNING: Duplicate document detected (filename): doc-e67748d7c95b129ca4fdde1ef44fd33c (unknown_source)
+WARNING: Duplicate document detected (filename): doc-c31aad6d5e56105fb2a3c3121d05d548 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-ac30e95cf9073a1fa5a5f21cc984f7ab (unknown_source)
+WARNING: Duplicate document detected (filename): doc-11ecf3cb1641306581202be4a16ff909 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-1fbae82a93df06f81d131b6626022550 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-a0d98038277148b8d11ffdae082d4854 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-98f0f77fda876a329838b432cff80df2 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-b2310463ce95f90f61ee4bee143da7f2 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-cf230203a52b15e1158f2a24b2890196 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-195ebdd3c3f948feaa05cd4ab49484a5 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-acdd7b28ae102bca75595bc6882b3afe (unknown_source)
+WARNING: Duplicate document detected (filename): doc-14fda205f9531e516ed66b8b987c87c4 (unknown_source)
+INFO: Created 20 duplicate document records with track_id: insert_20260916_000624_5d06b151
+WARNING: No new unique documents were found.
+INFO: No documents to process
+[phase4] inserted 160/357 (160.0 chunks/s, elapsed 0s)
+WARNING: Duplicate document detected (filename): doc-9a40406fe6ce3294e3211bdfc5cca071 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-af32372f5430c17ac9db214413900be4 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-a18c3568c55a8c9c9b5d6f2fd96bba20 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-a58ede18528dda6e1488357c1f5f020c (unknown_source)
+WARNING: Duplicate document detected (filename): doc-01a60f8a65059a8e2ef95a65607f65c5 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-2277190bb2980be13d9c90f9e66ec00d (unknown_source)
+WARNING: Duplicate document detected (filename): doc-d760a9f0c976cd426a0abe666e3c63c2 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-9f6ec3dc892d1bbdc1b2c2fe71b4860f (unknown_source)
+WARNING: Duplicate document detected (filename): doc-a8e038c2e4322309820b6450a55159b7 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-b7ebe74ae717446fc9debb099a4ef5e9 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-c39031d9f1c8e9797a8389639360193e (unknown_source)
+WARNING: Duplicate document detected (filename): doc-a1c92111eb4b041d17f893789eca42e8 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-13dda1a63ba55e4daeb80d1eb13bf381 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-0d38d95708c8d451ca2cd0e0756917ed (unknown_source)
+WARNING: Duplicate document detected (filename): doc-b5516e8298c191507b5fbf9f9af30396 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-4656fa028eb724ea1bc33b92c178820f (unknown_source)
+WARNING: Duplicate document detected (filename): doc-ba8fdb9b62f6adc6c30e09c6bde754dd (unknown_source)
+WARNING: Duplicate document detected (filename): doc-63d83e0e24a001b1923f0b8300030a78 (unknown_source)
+INFO: Created 18 duplicate document records with track_id: insert_20260916_000624_8aa7d829
+INFO: Processing 2 document(s)
+INFO: Parsing (native): doc-8040da882d81e41e5129a244dd52f42d
+INFO: Parsing (native): doc-4069e39adb1872e94514b74cd3ff4cfd
+INFO: Extracting stage 1/2: unknown_source
+INFO: Processing d-id: doc-8040da882d81e41e5129a244dd52f42d
+INFO: Chunking F(legacy): size=1200, split_only=False, overlap=100, doc_id: doc-8040da882d81e41e5129a244dd52f42d
+INFO: Extracting stage 2/2: unknown_source
+INFO: Processing d-id: doc-4069e39adb1872e94514b74cd3ff4cfd
+INFO: Chunking F(legacy): size=1200, split_only=False, overlap=100, doc_id: doc-4069e39adb1872e94514b74cd3ff4cfd
+INFO: Chunk 1 of 1 extracted 12 Ent + 13 Rel doc-8040da882d81e41e5129a244dd52f42d-chunk-000
+INFO: Merging stage 1/2: unknown_source
+INFO: Phase 0: Writing recovery indexes for doc-8040da882d81e41e5129a244dd52f42d: 12 candidate entities, 13 candidate relations
+INFO: Chunk 1 of 1 extracted 9 Ent + 10 Rel doc-4069e39adb1872e94514b74cd3ff4cfd-chunk-000
+INFO: Merging stage 2/2: unknown_source
+INFO: Phase 0: Writing recovery indexes for doc-4069e39adb1872e94514b74cd3ff4cfd: 9 candidate entities, 10 candidate relations
+INFO: Phase 1: Processing 12 entities from doc-8040da882d81e41e5129a244dd52f42d (async: 2)
+INFO: Merged: `Marra G` | 1+0 (dd 1)
+INFO: Merged: `Bazzurro F` | 1+0 (dd 1)
+INFO: Merged: `Dematteis A` | 1+0 (dd 1)
+INFO: Merged: `Transperineal Versus Transrectal Biopsy for Prostate Cancer Diagnosis: A Systematic Review and Meta-Analysis of Randomized Controlled Trials` | 1+0 (dd 1)
+INFO: Merged: `Eur Urol Oncol` | 5+0 (dd 1)
+INFO: Merged: `Transperineal Biopsy` | 5+0 (dd 1)
+INFO: Merged: `Transrectal Biopsy` | 5+0 (dd 1)
+INFO: Merged: `Prostate Cancer Diagnosis` | 1+1
+INFO: Merged: `Systematic Review` | 5+0 (dd 1)
+INFO: Merged: `Meta-Analysis` | 3+0 (dd 1)
+INFO: Merged: `Randomized Controlled Trials` | 1+0 (dd 1)
+INFO: extract LLM func: 1 new workers initialized (Timeouts: Func: 240s, Worker: 480s, Health Check: 495s)
+ERROR: extract LLM func: Error in decorated function for task 2272092176464_193111.3850033: LLM call exceeded 90s budget (hang suspected)
+ERROR: Error processing entity `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+INFO: Phase 1: Processing 9 entities from doc-4069e39adb1872e94514b74cd3ff4cfd (async: 2)
+ERROR: Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 119, in llm_model_func
+    resp = fut.result(timeout=budget)
+  File "D:\Python\Lib\concurrent\futures\_base.py", line 458, in result
+    raise TimeoutError()
+TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3750, in _locked_process_entity_name
+    entity_data = await _merge_nodes_then_upsert(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<12 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 2622, in _merge_nodes_then_upsert
+    description, llm_was_used = await _handle_entity_relation_summary(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 455, in _handle_entity_relation_summary
+    final_summary = await _summarize_descriptions(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 611, in _summarize_descriptions
+    summary, _ = await use_llm_func_with_cache(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 5282, in use_llm_func_with_cache
+    res: str = await use_llm_func(
+               ^^^^^^^^^^^^^^^^^^^
+        safe_user_prompt, system_prompt=safe_system_prompt, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 2393, in wait_func
+    result = await future
+             ^^^^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 1464, in worker
+    result = await asyncio.wait_for(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+        exec_task, timeout=max_execution_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\asyncio\tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 121, in llm_model_func
+    raise RuntimeError(
+        f"LLM call exceeded {budget:.0f}s budget (hang suspected)"
+    )
+RuntimeError: LLM call exceeded 90s budget (hang suspected)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\pipeline.py", line 5487, in process_single_document
+    await merge_nodes_and_edges(
+    ...<20 lines>...
+    )
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3805, in merge_nodes_and_edges
+    processed_entities = await wait_tasks_with_drain(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        entity_tasks, context=f"entity merge {doc_id}"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4361, in wait_tasks_with_drain
+    raise first_exception
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4316, in wait_tasks_with_drain
+    results.append(task.result())
+                   ~~~~~~~~~~~^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3789, in _locked_process_entity_name
+    raise prefixed_exception from e
+RuntimeError: `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+
+ERROR: Merging stage failed in document 1/2: unknown_source
+INFO: Merged: `TRANSLATE` | 1+0 (dd 1)
+INFO: Merged: `Bryant RJ` | 1+0 (dd 1)
+INFO: Merged: `Marian IR` | 1+0 (dd 1)
+INFO:openai._base_client:Retrying request in 0.438063 seconds
+ERROR: extract LLM func: Error in decorated function for task 2272091683344_193201.5842069: LLM call exceeded 90s budget (hang suspected)
+ERROR: Error processing entity `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+ERROR: Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 119, in llm_model_func
+    resp = fut.result(timeout=budget)
+  File "D:\Python\Lib\concurrent\futures\_base.py", line 458, in result
+    raise TimeoutError()
+TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3750, in _locked_process_entity_name
+    entity_data = await _merge_nodes_then_upsert(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<12 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 2622, in _merge_nodes_then_upsert
+    description, llm_was_used = await _handle_entity_relation_summary(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 455, in _handle_entity_relation_summary
+    final_summary = await _summarize_descriptions(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 611, in _summarize_descriptions
+    summary, _ = await use_llm_func_with_cache(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 5282, in use_llm_func_with_cache
+    res: str = await use_llm_func(
+               ^^^^^^^^^^^^^^^^^^^
+        safe_user_prompt, system_prompt=safe_system_prompt, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 2393, in wait_func
+    result = await future
+             ^^^^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 1464, in worker
+    result = await asyncio.wait_for(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+        exec_task, timeout=max_execution_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\asyncio\tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 121, in llm_model_func
+    raise RuntimeError(
+        f"LLM call exceeded {budget:.0f}s budget (hang suspected)"
+    )
+RuntimeError: LLM call exceeded 90s budget (hang suspected)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\pipeline.py", line 5487, in process_single_document
+    await merge_nodes_and_edges(
+    ...<20 lines>...
+    )
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3805, in merge_nodes_and_edges
+    processed_entities = await wait_tasks_with_drain(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        entity_tasks, context=f"entity merge {doc_id}"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4361, in wait_tasks_with_drain
+    raise first_exception
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4316, in wait_tasks_with_drain
+    results.append(task.result())
+                   ~~~~~~~~~~~^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3789, in _locked_process_entity_name
+    raise prefixed_exception from e
+RuntimeError: `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+
+ERROR: Merging stage failed in document 2/2: unknown_source
+INFO: Enqueued document processing pipeline stopped
+[phase4] inserted 180/357 (1.0 chunks/s, elapsed 181s)
+WARNING: Duplicate document detected (filename): doc-563c59bc6fc7b7261078dcfd38bbd5a5 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-9b5b16934f542bc2f7095f8badcf7746 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-c849b6d907ec8ea399437efdcb8fb18d (unknown_source)
+WARNING: Duplicate document detected (filename): doc-78daaa2108c155fc74e8b3d4d0d9009b (unknown_source)
+WARNING: Duplicate document detected (filename): doc-2061a3dff7e5ebace6e3783f01258227 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-0cc11f506faf81b5ed29a20cbe70ae68 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-b6643b64619f48c54dc161d21f321fb0 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-5c92553654c758378b068a550628218c (unknown_source)
+WARNING: Duplicate document detected (filename): doc-8d5905e05ce36ff88f37f874f9b77496 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-9283a229a77503fa3fdd0e8cc928c492 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-a6d918bb8b610f2a653088a713fd2f46 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-37120301bcea69f53f38d7d630833d6b (unknown_source)
+WARNING: Duplicate document detected (filename): doc-646973a1a406c7b304e62a818d7753d4 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-e7ba18165b9f8a54940f37d2c099abe3 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-8cd4a8851b180a8c72b81c5b9990cc56 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-1654b479e5154a55b9d4669402a97e0c (unknown_source)
+WARNING: Duplicate document detected (filename): doc-e0f1eeb34d5f9bbb07d9d1d3abafefa1 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-ba1fc4cd587237579518239ed1dd6985 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-d659457b8349ada72b39e90a10d227c7 (unknown_source)
+INFO: Created 19 duplicate document records with track_id: insert_20260916_000925_2bdb9d43
+INFO:openai._base_client:Retrying request in 0.453351 seconds
+INFO: Processing 1 document(s)
+INFO: Parsing (native): doc-62c516a1b4696fd974bb84c590cad961
+INFO: Extracting stage 1/1: unknown_source
+INFO: Processing d-id: doc-62c516a1b4696fd974bb84c590cad961
+INFO: Chunking F(legacy): size=1200, split_only=False, overlap=100, doc_id: doc-62c516a1b4696fd974bb84c590cad961
+INFO: Chunk 1 of 1 extracted 7 Ent + 6 Rel doc-62c516a1b4696fd974bb84c590cad961-chunk-000
+INFO: Merging stage 1/1: unknown_source
+INFO: Phase 0: Writing recovery indexes for doc-62c516a1b4696fd974bb84c590cad961: 7 candidate entities, 6 candidate relations
+INFO: Phase 1: Processing 7 entities from doc-62c516a1b4696fd974bb84c590cad961 (async: 2)
+INFO: Merged: `Pan-Asian Adapted ESMO Clinical Practice Guidelines` | 2+0 (dd 1)
+INFO: Merged: `Prostate Cancer` | 2+1
+INFO: Merged: `ESMO Open` | 2+0 (dd 1)
+INFO: Merged: `Kanesvaran R` | 2+0 (dd 1)
+INFO: Merged: `Castro E` | 2+0 (dd 1)
+INFO: Merged: `Wong A` | 2+0 (dd 1)
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+ERROR: extract LLM func: Error in decorated function for task 2272142057984_193291.7855211: LLM call exceeded 90s budget (hang suspected)
+ERROR: Error processing entity `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+ERROR: Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 119, in llm_model_func
+    resp = fut.result(timeout=budget)
+  File "D:\Python\Lib\concurrent\futures\_base.py", line 458, in result
+    raise TimeoutError()
+TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3750, in _locked_process_entity_name
+    entity_data = await _merge_nodes_then_upsert(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<12 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 2622, in _merge_nodes_then_upsert
+    description, llm_was_used = await _handle_entity_relation_summary(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 455, in _handle_entity_relation_summary
+    final_summary = await _summarize_descriptions(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 611, in _summarize_descriptions
+    summary, _ = await use_llm_func_with_cache(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 5282, in use_llm_func_with_cache
+    res: str = await use_llm_func(
+               ^^^^^^^^^^^^^^^^^^^
+        safe_user_prompt, system_prompt=safe_system_prompt, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 2393, in wait_func
+    result = await future
+             ^^^^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 1464, in worker
+    result = await asyncio.wait_for(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+        exec_task, timeout=max_execution_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\asyncio\tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 121, in llm_model_func
+    raise RuntimeError(
+        f"LLM call exceeded {budget:.0f}s budget (hang suspected)"
+    )
+RuntimeError: LLM call exceeded 90s budget (hang suspected)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\pipeline.py", line 5487, in process_single_document
+    await merge_nodes_and_edges(
+    ...<20 lines>...
+    )
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3805, in merge_nodes_and_edges
+    processed_entities = await wait_tasks_with_drain(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        entity_tasks, context=f"entity merge {doc_id}"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4361, in wait_tasks_with_drain
+    raise first_exception
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4316, in wait_tasks_with_drain
+    results.append(task.result())
+                   ~~~~~~~~~~~^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3789, in _locked_process_entity_name
+    raise prefixed_exception from e
+RuntimeError: `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+
+ERROR: Merging stage failed in document 1/1: unknown_source
+INFO: Enqueued document processing pipeline stopped
+[phase4] inserted 200/357 (0.7 chunks/s, elapsed 271s)
+WARNING: Duplicate document detected (filename): doc-ff583f618abbcb137e9eaa43e1a13e86 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-70d2272af8ee596ea203865a1a87af88 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-cd7d799a0e405bf641c4db39476eb49e (unknown_source)
+WARNING: Duplicate document detected (filename): doc-6373cd3cace0e08f823373a90a68a8ad (unknown_source)
+WARNING: Duplicate document detected (filename): doc-e167c8ce298f593ba4bbd45d9384ab95 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-42fea41b8742e2b62f52ee55f391a957 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-b60185c7b02faba4120b799a1f9d597e (unknown_source)
+WARNING: Duplicate document detected (filename): doc-059dabc9dd7be96c69d2ee1344779a24 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-12d49804d29076cd0fdc16349fe91a9f (unknown_source)
+WARNING: Duplicate document detected (filename): doc-28e97670f70643026ae43f6f8a859ec6 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-ca70bf268a8c194b66e52e4f35419eca (unknown_source)
+WARNING: Duplicate document detected (filename): doc-3788ec2ad5965e3cc1d04b5f2517dbd7 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-81758d0d8a27d70e7bc64b5061b24c33 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-7c5aa5efdd907e0173eda8395939116e (unknown_source)
+WARNING: Duplicate document detected (filename): doc-3aa458af455ea479fef6b76ab1c127af (unknown_source)
+WARNING: Duplicate document detected (filename): doc-876c17db236ca6768fd9875e5f519681 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-bc38a4e41b6ec9503cd250f3be3767f3 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-4725491de09e4b10f9fd048051c6e714 (unknown_source)
+INFO: Created 18 duplicate document records with track_id: insert_20260916_001055_544a6075
+INFO:openai._base_client:Retrying request in 0.387081 seconds
+INFO: Processing 2 document(s)
+INFO: Parsing (native): doc-9f03acdf94d40e88736ff97932cc7007
+INFO: Parsing (native): doc-3c1ab0b920db8169941ce6d8433f4abf
+INFO: Extracting stage 1/2: unknown_source
+INFO: Processing d-id: doc-9f03acdf94d40e88736ff97932cc7007
+INFO: Chunking F(legacy): size=1200, split_only=False, overlap=100, doc_id: doc-9f03acdf94d40e88736ff97932cc7007
+INFO: Extracting stage 2/2: unknown_source
+INFO: Processing d-id: doc-3c1ab0b920db8169941ce6d8433f4abf
+INFO: Chunking F(legacy): size=1200, split_only=False, overlap=100, doc_id: doc-3c1ab0b920db8169941ce6d8433f4abf
+INFO: Chunk 1 of 1 extracted 10 Ent + 9 Rel doc-9f03acdf94d40e88736ff97932cc7007-chunk-000
+INFO: Merging stage 1/2: unknown_source
+INFO: Phase 0: Writing recovery indexes for doc-9f03acdf94d40e88736ff97932cc7007: 10 candidate entities, 9 candidate relations
+INFO: Chunk 1 of 1 extracted 12 Ent + 11 Rel doc-3c1ab0b920db8169941ce6d8433f4abf-chunk-000
+INFO: Merging stage 2/2: unknown_source
+INFO: Phase 0: Writing recovery indexes for doc-3c1ab0b920db8169941ce6d8433f4abf: 12 candidate entities, 11 candidate relations
+INFO: Phase 1: Processing 10 entities from doc-9f03acdf94d40e88736ff97932cc7007 (async: 2)
+INFO: Merged: `Prognostic Biomarkers Used for Localised Prostate Cancer Management: A Systematic Review` | 1+0 (dd 1)
+INFO: Merged: `Lamy PJ` | 1+0 (dd 1)
+INFO: Merged: `Allory Y` | 1+0 (dd 1)
+INFO: Merged: `Gauchez AS` | 1+0 (dd 1)
+INFO: Merged: `Eur Urol Focus` | 1+0 (dd 1)
+INFO: Merged: `Localised Prostate Cancer` | 1+0 (dd 1)
+INFO: Merged: `Prognostic Biomarkers` | 1+0 (dd 1)
+INFO: Merged: `d_biomarker_gate_bpmri_indeterminate` | 1+0 (dd 1)
+ERROR: extract LLM func: Error in decorated function for task 2272142060448_193382.1702157: LLM call exceeded 90s budget (hang suspected)
+ERROR: Error processing entity `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+ERROR: Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 119, in llm_model_func
+    resp = fut.result(timeout=budget)
+  File "D:\Python\Lib\concurrent\futures\_base.py", line 458, in result
+    raise TimeoutError()
+TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3750, in _locked_process_entity_name
+    entity_data = await _merge_nodes_then_upsert(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<12 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 2622, in _merge_nodes_then_upsert
+    description, llm_was_used = await _handle_entity_relation_summary(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 455, in _handle_entity_relation_summary
+    final_summary = await _summarize_descriptions(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 611, in _summarize_descriptions
+    summary, _ = await use_llm_func_with_cache(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 5282, in use_llm_func_with_cache
+    res: str = await use_llm_func(
+               ^^^^^^^^^^^^^^^^^^^
+        safe_user_prompt, system_prompt=safe_system_prompt, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 2393, in wait_func
+    result = await future
+             ^^^^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 1464, in worker
+    result = await asyncio.wait_for(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+        exec_task, timeout=max_execution_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\asyncio\tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 121, in llm_model_func
+    raise RuntimeError(
+        f"LLM call exceeded {budget:.0f}s budget (hang suspected)"
+    )
+RuntimeError: LLM call exceeded 90s budget (hang suspected)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\pipeline.py", line 5487, in process_single_document
+    await merge_nodes_and_edges(
+    ...<20 lines>...
+    )
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3805, in merge_nodes_and_edges
+    processed_entities = await wait_tasks_with_drain(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        entity_tasks, context=f"entity merge {doc_id}"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4361, in wait_tasks_with_drain
+    raise first_exception
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4316, in wait_tasks_with_drain
+    results.append(task.result())
+                   ~~~~~~~~~~~^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3789, in _locked_process_entity_name
+    raise prefixed_exception from e
+RuntimeError: `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+
+ERROR: Merging stage failed in document 1/2: unknown_source
+INFO:openai._base_client:Retrying request in 0.402029 seconds
+INFO: Phase 1: Processing 12 entities from doc-3c1ab0b920db8169941ce6d8433f4abf (async: 2)
+INFO: Merged: `Borkowetz A` | 1+0 (dd 1)
+INFO: Merged: `Hadaschik B` | 1+0 (dd 1)
+INFO: Merged: `Platzek I` | 1+0 (dd 1)
+INFO: Merged: `Prospective Comparison of Transperineal Magnetic Resonance Imaging/Ultrasonography Fusion Biopsy and Transrectal Systematic Biopsy in Biopsy-Naive Patients` | 1+0 (dd 1)
+INFO: Merged: `BJU Int` | 3+0 (dd 1)
+INFO: Merged: `Transperineal Magnetic Resonance Imaging/Ultrasonography Fusion Biopsy` | 1+0 (dd 1)
+INFO: Merged: `Transrectal Systematic Biopsy` | 1+0 (dd 1)
+INFO:openai._base_client:Retrying request in 0.421402 seconds
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+ERROR: extract LLM func: Error in decorated function for task 2272142063440_193472.2352334: LLM call exceeded 90s budget (hang suspected)
+ERROR: Error processing entity `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+ERROR: Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 119, in llm_model_func
+    resp = fut.result(timeout=budget)
+  File "D:\Python\Lib\concurrent\futures\_base.py", line 458, in result
+    raise TimeoutError()
+TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3750, in _locked_process_entity_name
+    entity_data = await _merge_nodes_then_upsert(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<12 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 2622, in _merge_nodes_then_upsert
+    description, llm_was_used = await _handle_entity_relation_summary(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 455, in _handle_entity_relation_summary
+    final_summary = await _summarize_descriptions(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 611, in _summarize_descriptions
+    summary, _ = await use_llm_func_with_cache(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 5282, in use_llm_func_with_cache
+    res: str = await use_llm_func(
+               ^^^^^^^^^^^^^^^^^^^
+        safe_user_prompt, system_prompt=safe_system_prompt, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 2393, in wait_func
+    result = await future
+             ^^^^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 1464, in worker
+    result = await asyncio.wait_for(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+        exec_task, timeout=max_execution_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\asyncio\tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 121, in llm_model_func
+    raise RuntimeError(
+        f"LLM call exceeded {budget:.0f}s budget (hang suspected)"
+    )
+RuntimeError: LLM call exceeded 90s budget (hang suspected)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\pipeline.py", line 5487, in process_single_document
+    await merge_nodes_and_edges(
+    ...<20 lines>...
+    )
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3805, in merge_nodes_and_edges
+    processed_entities = await wait_tasks_with_drain(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        entity_tasks, context=f"entity merge {doc_id}"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4361, in wait_tasks_with_drain
+    raise first_exception
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4316, in wait_tasks_with_drain
+    results.append(task.result())
+                   ~~~~~~~~~~~^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3789, in _locked_process_entity_name
+    raise prefixed_exception from e
+RuntimeError: `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+
+ERROR: Merging stage failed in document 2/2: unknown_source
+INFO:openai._base_client:Retrying request in 0.442283 seconds
+INFO: Enqueued document processing pipeline stopped
+[phase4] inserted 220/357 (0.5 chunks/s, elapsed 452s)
+WARNING: Duplicate document detected (filename): doc-6eef7813c9403ec8ee529493458a65ce (unknown_source)
+WARNING: Duplicate document detected (filename): doc-71a97901e53a2340d164c786cc48c132 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-a1e3d875a32df232844e1c7160fadca2 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-d2d6cda8d9288c404e3cc0bbc24b9a32 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-1a6abc0faf26616e967fe9bfd6fed5b3 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-84ed78d2ba257d0a065a034cea7bf8f5 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-93105b6d6958ebb26b10974f64765618 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-9549c805ff88203490fa120e5b7952e8 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-4b4e9f114bb5d36821cfa436a4cb577e (unknown_source)
+WARNING: Duplicate document detected (filename): doc-82f2346e29f6936d8da03518e6cdb584 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-d27fd5c78c305f95972ada3ac50297bb (unknown_source)
+WARNING: Duplicate document detected (filename): doc-1696d53a8784c4aaebf0928ac21befbf (unknown_source)
+WARNING: Duplicate document detected (filename): doc-2e2e5e927138aedb8feabba2cdf021f2 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-d91b184c31e52a09d35ba008ad6b94b4 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-8ee9c79f9840ab3bbcc25491e2cd5a71 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-aad16fefc0c11c917fc6ac296fc9fe2e (unknown_source)
+WARNING: Duplicate document detected (filename): doc-bb3eec1a2a9b985e0e0da08312e478f7 (unknown_source)
+INFO: Created 17 duplicate document records with track_id: insert_20260916_001355_f7589d78
+INFO: Processing 3 document(s)
+INFO: Parsing (native): doc-83a839878a1673e5f3b25537ea3435e4
+INFO: Parsing (native): doc-e38e6f391922c0ae39a8decb7b430e58
+INFO: Parsing (native): doc-32850a2577ea4d346a5a829d3761b24a
+INFO: Extracting stage 1/3: unknown_source
+INFO: Processing d-id: doc-83a839878a1673e5f3b25537ea3435e4
+INFO: Chunking F(legacy): size=1200, split_only=False, overlap=100, doc_id: doc-83a839878a1673e5f3b25537ea3435e4
+INFO: Extracting stage 2/3: unknown_source
+INFO: Processing d-id: doc-e38e6f391922c0ae39a8decb7b430e58
+INFO: Extracting stage 3/3: unknown_source
+INFO: Processing d-id: doc-32850a2577ea4d346a5a829d3761b24a
+INFO: Chunking F(legacy): size=1200, split_only=False, overlap=100, doc_id: doc-e38e6f391922c0ae39a8decb7b430e58
+INFO: Chunking F(legacy): size=1200, split_only=False, overlap=100, doc_id: doc-32850a2577ea4d346a5a829d3761b24a
+INFO: Chunk 1 of 1 extracted 10 Ent + 10 Rel doc-83a839878a1673e5f3b25537ea3435e4-chunk-000
+INFO: Merging stage 1/3: unknown_source
+INFO: Phase 0: Writing recovery indexes for doc-83a839878a1673e5f3b25537ea3435e4: 10 candidate entities, 10 candidate relations
+INFO: Chunk 1 of 1 extracted 7 Ent + 6 Rel doc-e38e6f391922c0ae39a8decb7b430e58-chunk-000
+INFO: Chunk 1 of 1 extracted 7 Ent + 8 Rel doc-32850a2577ea4d346a5a829d3761b24a-chunk-000
+INFO: Merging stage 2/3: unknown_source
+INFO: Merging stage 3/3: unknown_source
+INFO: Phase 0: Writing recovery indexes for doc-e38e6f391922c0ae39a8decb7b430e58: 7 candidate entities, 6 candidate relations
+INFO: Phase 0: Writing recovery indexes for doc-32850a2577ea4d346a5a829d3761b24a: 7 candidate entities, 8 candidate relations
+INFO: Phase 1: Processing 10 entities from doc-83a839878a1673e5f3b25537ea3435e4 (async: 2)
+INFO: Merged: `Sonmez G` | 1+0 (dd 1)
+INFO: Merged: `Demirtas T` | 1+0 (dd 1)
+INFO: Merged: `Tombul ST` | 1+0 (dd 1)
+INFO: Merged: `Ozturk F` | 1+0 (dd 1)
+INFO: Merged: `Demirtas A` | 1+0 (dd 1)
+INFO: Merged: `What Is The Ideal Number Of Biopsy Cores Per Lesion In Targeted Prostate Biopsy` | 1+0 (dd 1)
+INFO: Merged: `Prostate Int` | 1+0 (dd 1)
+INFO: Merged: `Targeted Prostate Biopsy` | 1+0 (dd 1)
+INFO: Merged: `d_tbx_min3_cores` | 1+0 (dd 1)
+ERROR: extract LLM func: Error in decorated function for task 2272143543824_193562.9184317: LLM call exceeded 90s budget (hang suspected)
+ERROR: Error processing entity `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+ERROR: Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 119, in llm_model_func
+    resp = fut.result(timeout=budget)
+  File "D:\Python\Lib\concurrent\futures\_base.py", line 458, in result
+    raise TimeoutError()
+TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3750, in _locked_process_entity_name
+    entity_data = await _merge_nodes_then_upsert(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<12 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 2622, in _merge_nodes_then_upsert
+    description, llm_was_used = await _handle_entity_relation_summary(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 455, in _handle_entity_relation_summary
+    final_summary = await _summarize_descriptions(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 611, in _summarize_descriptions
+    summary, _ = await use_llm_func_with_cache(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 5282, in use_llm_func_with_cache
+    res: str = await use_llm_func(
+               ^^^^^^^^^^^^^^^^^^^
+        safe_user_prompt, system_prompt=safe_system_prompt, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 2393, in wait_func
+    result = await future
+             ^^^^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 1464, in worker
+    result = await asyncio.wait_for(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+        exec_task, timeout=max_execution_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\asyncio\tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 121, in llm_model_func
+    raise RuntimeError(
+        f"LLM call exceeded {budget:.0f}s budget (hang suspected)"
+    )
+RuntimeError: LLM call exceeded 90s budget (hang suspected)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\pipeline.py", line 5487, in process_single_document
+    await merge_nodes_and_edges(
+    ...<20 lines>...
+    )
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3805, in merge_nodes_and_edges
+    processed_entities = await wait_tasks_with_drain(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        entity_tasks, context=f"entity merge {doc_id}"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4361, in wait_tasks_with_drain
+    raise first_exception
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4316, in wait_tasks_with_drain
+    results.append(task.result())
+                   ~~~~~~~~~~~^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3789, in _locked_process_entity_name
+    raise prefixed_exception from e
+RuntimeError: `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+
+ERROR: Merging stage failed in document 1/3: unknown_source
+INFO:openai._base_client:Retrying request in 0.492283 seconds
+INFO: Phase 1: Processing 7 entities from doc-e38e6f391922c0ae39a8decb7b430e58 (async: 2)
+INFO: Phase 1: Processing 7 entities from doc-32850a2577ea4d346a5a829d3761b24a (async: 2)
+INFO: Merged: `Cetin S` | 1+0 (dd 1)
+INFO: Merged: `Huseyinli A` | 1+0 (dd 1)
+INFO: Merged: `Value of Increasing Biopsy Cores per Target with Cognitive MRI-targeted Transrectal US Prostate Biopsy` | 1+0 (dd 1)
+INFO: Merged: `Zhang M` | 1+0 (dd 1)
+INFO: Merged: `Koparal MY` | 1+0 (dd 1)
+INFO: Merged: `How Many Cores Should Be Taken From Each Region of Interest When Performing a Targeted Transrectal Prostate Biopsy?` | 1+0 (dd 1)
+INFO: Merged: `Milot L` | 1+0 (dd 1)
+INFO: Merged: `Khalvati F` | 1+0 (dd 1)
+INFO: Merged: `Prostate International` | 1+0 (dd 1)
+INFO: Merged: `Targeted Transrectal Prostate Biopsy` | 1+0 (dd 1)
+INFO: Merged: `Cognitive MRI-targeted Transrectal US Prostate Biopsy` | 1+0 (dd 1)
+INFO: Merged: `Minimum Three Biopsy Cores per Target` | 1+0 (dd 1)
+INFO:openai._base_client:Retrying request in 0.469412 seconds
+ERROR: extract LLM func: Error in decorated function for task 2272143548928_193653.033269: LLM call exceeded 90s budget (hang suspected)
+ERROR: Error processing entity `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+ERROR: Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 119, in llm_model_func
+    resp = fut.result(timeout=budget)
+  File "D:\Python\Lib\concurrent\futures\_base.py", line 458, in result
+    raise TimeoutError()
+TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3750, in _locked_process_entity_name
+    entity_data = await _merge_nodes_then_upsert(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<12 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 2622, in _merge_nodes_then_upsert
+    description, llm_was_used = await _handle_entity_relation_summary(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 455, in _handle_entity_relation_summary
+    final_summary = await _summarize_descriptions(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 611, in _summarize_descriptions
+    summary, _ = await use_llm_func_with_cache(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 5282, in use_llm_func_with_cache
+    res: str = await use_llm_func(
+               ^^^^^^^^^^^^^^^^^^^
+        safe_user_prompt, system_prompt=safe_system_prompt, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 2393, in wait_func
+    result = await future
+             ^^^^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 1464, in worker
+    result = await asyncio.wait_for(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+        exec_task, timeout=max_execution_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\asyncio\tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 121, in llm_model_func
+    raise RuntimeError(
+        f"LLM call exceeded {budget:.0f}s budget (hang suspected)"
+    )
+RuntimeError: LLM call exceeded 90s budget (hang suspected)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\pipeline.py", line 5487, in process_single_document
+    await merge_nodes_and_edges(
+    ...<20 lines>...
+    )
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3805, in merge_nodes_and_edges
+    processed_entities = await wait_tasks_with_drain(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        entity_tasks, context=f"entity merge {doc_id}"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4361, in wait_tasks_with_drain
+    raise first_exception
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4316, in wait_tasks_with_drain
+    results.append(task.result())
+                   ~~~~~~~~~~~^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3789, in _locked_process_entity_name
+    raise prefixed_exception from e
+RuntimeError: `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+
+ERROR: Merging stage failed in document 3/3: unknown_source
+INFO:openai._base_client:Retrying request in 0.376536 seconds
+INFO:openai._base_client:Retrying request in 0.382849 seconds
+ERROR: extract LLM func: Error in decorated function for task 2272143546992_193743.073856: LLM call exceeded 90s budget (hang suspected)
+ERROR: Error processing entity `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+ERROR: Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 119, in llm_model_func
+    resp = fut.result(timeout=budget)
+  File "D:\Python\Lib\concurrent\futures\_base.py", line 458, in result
+    raise TimeoutError()
+TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3750, in _locked_process_entity_name
+    entity_data = await _merge_nodes_then_upsert(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<12 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 2622, in _merge_nodes_then_upsert
+    description, llm_was_used = await _handle_entity_relation_summary(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 455, in _handle_entity_relation_summary
+    final_summary = await _summarize_descriptions(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 611, in _summarize_descriptions
+    summary, _ = await use_llm_func_with_cache(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 5282, in use_llm_func_with_cache
+    res: str = await use_llm_func(
+               ^^^^^^^^^^^^^^^^^^^
+        safe_user_prompt, system_prompt=safe_system_prompt, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 2393, in wait_func
+    result = await future
+             ^^^^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 1464, in worker
+    result = await asyncio.wait_for(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+        exec_task, timeout=max_execution_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\asyncio\tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 121, in llm_model_func
+    raise RuntimeError(
+        f"LLM call exceeded {budget:.0f}s budget (hang suspected)"
+    )
+RuntimeError: LLM call exceeded 90s budget (hang suspected)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\pipeline.py", line 5487, in process_single_document
+    await merge_nodes_and_edges(
+    ...<20 lines>...
+    )
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3805, in merge_nodes_and_edges
+    processed_entities = await wait_tasks_with_drain(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        entity_tasks, context=f"entity merge {doc_id}"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4361, in wait_tasks_with_drain
+    raise first_exception
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4316, in wait_tasks_with_drain
+    results.append(task.result())
+                   ~~~~~~~~~~~^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3789, in _locked_process_entity_name
+    raise prefixed_exception from e
+RuntimeError: `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+
+ERROR: Merging stage failed in document 2/3: unknown_source
+INFO: Enqueued document processing pipeline stopped
+[phase4] inserted 240/357 (0.3 chunks/s, elapsed 722s)
+WARNING: Duplicate document detected (filename): doc-3a52176cac45b1d7f4dcd9a6b54146ee (unknown_source)
+WARNING: Duplicate document detected (filename): doc-13b52be8d356175f33a16d7be86498c4 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-358ba6ad212942b4f7765c2149e1dca6 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-ba4a56226b36a326faf0784bc43dd5f8 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-4b7fcb1d5b5cfb50ee9f2ffbdc415c97 (unknown_source)
+WARNING: Duplicate document detected (filename): doc-802628dbe2bb1e14ce9b2c952b9c78e6 (unknown_source)
+INFO: Created 6 duplicate document records with track_id: insert_20260916_001826_09b6472d
+INFO:openai._base_client:Retrying request in 0.402120 seconds
+INFO: Processing 14 document(s)
+INFO: Parsing (native): doc-f55c34d01fd024a26e318e81058de4ad
+INFO: Parsing (native): doc-11ab0fa007e0454bbdd5e7f755b9599f
+INFO: Parsing (native): doc-37a67b94a72a834b4e8f0527fae4804a
+INFO: Parsing (native): doc-2a074e6c25ef3a1192f96e36a104d25b
+INFO: Parsing (native): doc-a06955b804c1fc48f9ff50d73310dc20
+INFO: Parsing (native): doc-7da277130a6d2039f08117c733911483
+INFO: Parsing (native): doc-1fc29f53ef6b0032b1d36df15dcbb28a
+INFO: Parsing (native): doc-006f52ced9d797e0ab559840e84dbc4e
+INFO: Parsing (native): doc-c5653523d9562edc5dc5e4e447bae2fb
+INFO: Parsing (native): doc-079ce5bca55715b69817320f033d65f7
+INFO: Extracting stage 1/14: unknown_source
+INFO: Processing d-id: doc-f55c34d01fd024a26e318e81058de4ad
+INFO: Extracting stage 2/14: unknown_source
+INFO: Processing d-id: doc-11ab0fa007e0454bbdd5e7f755b9599f
+INFO: Chunking F(legacy): size=1200, split_only=False, overlap=100, doc_id: doc-f55c34d01fd024a26e318e81058de4ad
+INFO: Chunking F(legacy): size=1200, split_only=False, overlap=100, doc_id: doc-11ab0fa007e0454bbdd5e7f755b9599f
+INFO: Extracting stage 3/14: unknown_source
+INFO: Processing d-id: doc-37a67b94a72a834b4e8f0527fae4804a
+INFO: Chunking F(legacy): size=1200, split_only=False, overlap=100, doc_id: doc-37a67b94a72a834b4e8f0527fae4804a
+INFO: Chunk 1 of 1 extracted 10 Ent + 13 Rel doc-f55c34d01fd024a26e318e81058de4ad-chunk-000
+INFO: Chunk 1 of 1 extracted 9 Ent + 10 Rel doc-11ab0fa007e0454bbdd5e7f755b9599f-chunk-000
+INFO: Merging stage 1/14: unknown_source
+INFO: Merging stage 2/14: unknown_source
+INFO: Phase 0: Writing recovery indexes for doc-f55c34d01fd024a26e318e81058de4ad: 10 candidate entities, 13 candidate relations
+INFO: Phase 0: Writing recovery indexes for doc-11ab0fa007e0454bbdd5e7f755b9599f: 9 candidate entities, 10 candidate relations
+INFO: Chunk 1 of 1 extracted 11 Ent + 12 Rel doc-37a67b94a72a834b4e8f0527fae4804a-chunk-000
+INFO: Merging stage 3/14: unknown_source
+INFO: Phase 0: Writing recovery indexes for doc-37a67b94a72a834b4e8f0527fae4804a: 11 candidate entities, 12 candidate relations
+INFO: Parsing (native): doc-fe3a107e3a24b3a45435106b8fad6239
+INFO: Parsing (native): doc-80ddc6b7d55311b82501bd46e6b78a02
+INFO: Parsing (native): doc-98b9e290f5705d9f225dcf8b97f262ec
+INFO: Parsing (native): doc-a23856cca1db4c6c2aa59d22894aa383
+INFO: Phase 1: Processing 10 entities from doc-f55c34d01fd024a26e318e81058de4ad (async: 2)
+INFO: Merged: `Urology` | 2+1
+INFO: Merged: `Clinically Significant Prostate Cancer` | 4+1
+INFO: Phase 1: Processing 9 entities from doc-11ab0fa007e0454bbdd5e7f755b9599f (async: 2)
+INFO:openai._base_client:Retrying request in 0.385956 seconds
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+ERROR: extract LLM func: Error in decorated function for task 2272142057984_193834.1426961: LLM call exceeded 90s budget (hang suspected)
+ERROR: Error processing entity `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+ERROR: Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 119, in llm_model_func
+    resp = fut.result(timeout=budget)
+  File "D:\Python\Lib\concurrent\futures\_base.py", line 458, in result
+    raise TimeoutError()
+TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3750, in _locked_process_entity_name
+    entity_data = await _merge_nodes_then_upsert(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<12 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 2622, in _merge_nodes_then_upsert
+    description, llm_was_used = await _handle_entity_relation_summary(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 455, in _handle_entity_relation_summary
+    final_summary = await _summarize_descriptions(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 611, in _summarize_descriptions
+    summary, _ = await use_llm_func_with_cache(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 5282, in use_llm_func_with_cache
+    res: str = await use_llm_func(
+               ^^^^^^^^^^^^^^^^^^^
+        safe_user_prompt, system_prompt=safe_system_prompt, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 2393, in wait_func
+    result = await future
+             ^^^^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 1464, in worker
+    result = await asyncio.wait_for(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+        exec_task, timeout=max_execution_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\asyncio\tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 121, in llm_model_func
+    raise RuntimeError(
+        f"LLM call exceeded {budget:.0f}s budget (hang suspected)"
+    )
+RuntimeError: LLM call exceeded 90s budget (hang suspected)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\pipeline.py", line 5487, in process_single_document
+    await merge_nodes_and_edges(
+    ...<20 lines>...
+    )
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3805, in merge_nodes_and_edges
+    processed_entities = await wait_tasks_with_drain(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        entity_tasks, context=f"entity merge {doc_id}"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4361, in wait_tasks_with_drain
+    raise first_exception
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4316, in wait_tasks_with_drain
+    results.append(task.result())
+                   ~~~~~~~~~~~^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3789, in _locked_process_entity_name
+    raise prefixed_exception from e
+RuntimeError: `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+
+ERROR: Merging stage failed in document 1/14: unknown_source
+INFO:openai._base_client:Retrying request in 0.419769 seconds
+INFO: Merged: `BMC Urol` | 1+1
+INFO: Merged: `Prostate` | 2+1
+INFO: Phase 1: Processing 11 entities from doc-37a67b94a72a834b4e8f0527fae4804a (async: 2)
+INFO: Merged: `Koparal MY` | 1+1
+INFO:openai._base_client:Retrying request in 0.418072 seconds
+INFO:openai._base_client:Retrying request in 0.408160 seconds
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+ERROR: extract LLM func: Error in decorated function for task 2272142057632_193924.2507768: LLM call exceeded 90s budget (hang suspected)
+ERROR: Error processing entity `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+ERROR: Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 119, in llm_model_func
+    resp = fut.result(timeout=budget)
+  File "D:\Python\Lib\concurrent\futures\_base.py", line 458, in result
+    raise TimeoutError()
+TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3750, in _locked_process_entity_name
+    entity_data = await _merge_nodes_then_upsert(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<12 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 2622, in _merge_nodes_then_upsert
+    description, llm_was_used = await _handle_entity_relation_summary(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 455, in _handle_entity_relation_summary
+    final_summary = await _summarize_descriptions(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 611, in _summarize_descriptions
+    summary, _ = await use_llm_func_with_cache(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 5282, in use_llm_func_with_cache
+    res: str = await use_llm_func(
+               ^^^^^^^^^^^^^^^^^^^
+        safe_user_prompt, system_prompt=safe_system_prompt, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 2393, in wait_func
+    result = await future
+             ^^^^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 1464, in worker
+    result = await asyncio.wait_for(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+        exec_task, timeout=max_execution_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\asyncio\tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 121, in llm_model_func
+    raise RuntimeError(
+        f"LLM call exceeded {budget:.0f}s budget (hang suspected)"
+    )
+RuntimeError: LLM call exceeded 90s budget (hang suspected)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\pipeline.py", line 5487, in process_single_document
+    await merge_nodes_and_edges(
+    ...<20 lines>...
+    )
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3805, in merge_nodes_and_edges
+    processed_entities = await wait_tasks_with_drain(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        entity_tasks, context=f"entity merge {doc_id}"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4361, in wait_tasks_with_drain
+    raise first_exception
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4316, in wait_tasks_with_drain
+    results.append(task.result())
+                   ~~~~~~~~~~~^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3789, in _locked_process_entity_name
+    raise prefixed_exception from e
+RuntimeError: `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+
+ERROR: Merging stage failed in document 2/14: unknown_source
+INFO: Merged: `Prostate` | 3+1
+INFO: Extracting stage 4/14: unknown_source
+INFO: Processing d-id: doc-2a074e6c25ef3a1192f96e36a104d25b
+INFO: Chunking F(legacy): size=1200, split_only=False, overlap=100, doc_id: doc-2a074e6c25ef3a1192f96e36a104d25b
+INFO:openai._base_client:Retrying request in 0.491210 seconds
+INFO:openai._base_client:Retrying request in 0.443413 seconds
+ERROR: extract LLM func: Error in decorated function for task 2272143555264_194014.3766658: LLM call exceeded 90s budget (hang suspected)
+ERROR: Error processing entity `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+ERROR: Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 119, in llm_model_func
+    resp = fut.result(timeout=budget)
+  File "D:\Python\Lib\concurrent\futures\_base.py", line 458, in result
+    raise TimeoutError()
+TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3750, in _locked_process_entity_name
+    entity_data = await _merge_nodes_then_upsert(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<12 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 2622, in _merge_nodes_then_upsert
+    description, llm_was_used = await _handle_entity_relation_summary(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 455, in _handle_entity_relation_summary
+    final_summary = await _summarize_descriptions(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 611, in _summarize_descriptions
+    summary, _ = await use_llm_func_with_cache(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 5282, in use_llm_func_with_cache
+    res: str = await use_llm_func(
+               ^^^^^^^^^^^^^^^^^^^
+        safe_user_prompt, system_prompt=safe_system_prompt, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 2393, in wait_func
+    result = await future
+             ^^^^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 1464, in worker
+    result = await asyncio.wait_for(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+        exec_task, timeout=max_execution_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\asyncio\tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 121, in llm_model_func
+    raise RuntimeError(
+        f"LLM call exceeded {budget:.0f}s budget (hang suspected)"
+    )
+RuntimeError: LLM call exceeded 90s budget (hang suspected)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\pipeline.py", line 5487, in process_single_document
+    await merge_nodes_and_edges(
+    ...<20 lines>...
+    )
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3805, in merge_nodes_and_edges
+    processed_entities = await wait_tasks_with_drain(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        entity_tasks, context=f"entity merge {doc_id}"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4361, in wait_tasks_with_drain
+    raise first_exception
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4316, in wait_tasks_with_drain
+    results.append(task.result())
+                   ~~~~~~~~~~~^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3789, in _locked_process_entity_name
+    raise prefixed_exception from e
+RuntimeError: `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+
+ERROR: Merging stage failed in document 3/14: unknown_source
+INFO: Extracting stage 5/14: unknown_source
+INFO: Processing d-id: doc-a06955b804c1fc48f9ff50d73310dc20
+INFO: Chunking F(legacy): size=1200, split_only=False, overlap=100, doc_id: doc-a06955b804c1fc48f9ff50d73310dc20
+INFO:openai._base_client:Retrying request in 0.406563 seconds
+INFO: Chunk 1 of 1 extracted 11 Ent + 12 Rel doc-2a074e6c25ef3a1192f96e36a104d25b-chunk-000
+INFO: Merging stage 4/14: unknown_source
+INFO: Phase 0: Writing recovery indexes for doc-2a074e6c25ef3a1192f96e36a104d25b: 11 candidate entities, 12 candidate relations
+INFO: Extracting stage 6/14: unknown_source
+INFO: Processing d-id: doc-7da277130a6d2039f08117c733911483
+INFO: Chunking F(legacy): size=1200, split_only=False, overlap=100, doc_id: doc-7da277130a6d2039f08117c733911483
+INFO: Chunk 1 of 1 extracted 10 Ent + 11 Rel doc-a06955b804c1fc48f9ff50d73310dc20-chunk-000
+INFO: Merging stage 5/14: unknown_source
+INFO: Phase 0: Writing recovery indexes for doc-a06955b804c1fc48f9ff50d73310dc20: 10 candidate entities, 11 candidate relations
+INFO: Chunk 1 of 1 extracted 14 Ent + 16 Rel doc-7da277130a6d2039f08117c733911483-chunk-000
+INFO: Merging stage 6/14: unknown_source
+INFO: Phase 0: Writing recovery indexes for doc-7da277130a6d2039f08117c733911483: 14 candidate entities, 16 candidate relations
+INFO: Phase 1: Processing 11 entities from doc-2a074e6c25ef3a1192f96e36a104d25b (async: 2)
+INFO: Merged: `Peters M` | 1+1
+INFO: Merged: `Transperineal Prostate Biopsy` | 6+1
+INFO: Merged: `Micro-Ultrasound` | 6+1
+INFO: Merged: `mpMRI` | 1+1
+INFO:openai._base_client:Retrying request in 0.472867 seconds
+INFO:openai._base_client:Retrying request in 0.459001 seconds
+ERROR: extract LLM func: Error in decorated function for task 2272144458512_194104.7534599: LLM call exceeded 90s budget (hang suspected)
+ERROR: Error processing entity `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+ERROR: Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 119, in llm_model_func
+    resp = fut.result(timeout=budget)
+  File "D:\Python\Lib\concurrent\futures\_base.py", line 458, in result
+    raise TimeoutError()
+TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3750, in _locked_process_entity_name
+    entity_data = await _merge_nodes_then_upsert(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<12 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 2622, in _merge_nodes_then_upsert
+    description, llm_was_used = await _handle_entity_relation_summary(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 455, in _handle_entity_relation_summary
+    final_summary = await _summarize_descriptions(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 611, in _summarize_descriptions
+    summary, _ = await use_llm_func_with_cache(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 5282, in use_llm_func_with_cache
+    res: str = await use_llm_func(
+               ^^^^^^^^^^^^^^^^^^^
+        safe_user_prompt, system_prompt=safe_system_prompt, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 2393, in wait_func
+    result = await future
+             ^^^^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 1464, in worker
+    result = await asyncio.wait_for(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+        exec_task, timeout=max_execution_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\asyncio\tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 121, in llm_model_func
+    raise RuntimeError(
+        f"LLM call exceeded {budget:.0f}s budget (hang suspected)"
+    )
+RuntimeError: LLM call exceeded 90s budget (hang suspected)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\pipeline.py", line 5487, in process_single_document
+    await merge_nodes_and_edges(
+    ...<20 lines>...
+    )
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3805, in merge_nodes_and_edges
+    processed_entities = await wait_tasks_with_drain(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        entity_tasks, context=f"entity merge {doc_id}"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4361, in wait_tasks_with_drain
+    raise first_exception
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4316, in wait_tasks_with_drain
+    results.append(task.result())
+                   ~~~~~~~~~~~^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3789, in _locked_process_entity_name
+    raise prefixed_exception from e
+RuntimeError: `ProBIOPSY`: LLM call exceeded 90s budget (hang suspected)
+
+ERROR: Merging stage failed in document 4/14: unknown_source
+INFO: Phase 1: Processing 10 entities from doc-a06955b804c1fc48f9ff50d73310dc20 (async: 2)
+INFO: Merged: `Transperineal Biopsy` | 5+1
+INFO: Merged: `Transrectal Biopsy` | 5+1
+INFO:openai._base_client:Retrying request in 0.403135 seconds
+INFO: Merged: `Prostate Cancer` | 3+1
+INFO:openai._base_client:Retrying request in 0.451821 seconds
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:openai._base_client:Retrying request in 0.429482 seconds
+INFO:openai._base_client:Retrying request in 0.461813 seconds
+INFO:openai._base_client:Retrying request in 0.493063 seconds
+INFO:openai._base_client:Retrying request in 0.483118 seconds
+INFO:openai._base_client:Retrying request in 0.456517 seconds
+INFO:openai._base_client:Retrying request in 0.430052 seconds
+ERROR: extract LLM func: Error in decorated function for task 2272144461504_194194.9113087: LLM degraded: [llm error] Connection error.
+ERROR: Error processing entity `ProBIOPSY`: LLM degraded: [llm error] Connection error.
+INFO: Extracting stage 7/14: unknown_source
+INFO: Processing d-id: doc-1fc29f53ef6b0032b1d36df15dcbb28a
+ERROR: Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3750, in _locked_process_entity_name
+    entity_data = await _merge_nodes_then_upsert(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<12 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 2622, in _merge_nodes_then_upsert
+    description, llm_was_used = await _handle_entity_relation_summary(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 455, in _handle_entity_relation_summary
+    final_summary = await _summarize_descriptions(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 611, in _summarize_descriptions
+    summary, _ = await use_llm_func_with_cache(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 5282, in use_llm_func_with_cache
+    res: str = await use_llm_func(
+               ^^^^^^^^^^^^^^^^^^^
+        safe_user_prompt, system_prompt=safe_system_prompt, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 2393, in wait_func
+    result = await future
+             ^^^^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 1464, in worker
+    result = await asyncio.wait_for(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+        exec_task, timeout=max_execution_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Python\Lib\asyncio\tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "D:\Zcode测试文件夹\测试3\src\probiopsy_rag_agent\lightrag_adapter.py", line 131, in llm_model_func
+    raise RuntimeError(f"LLM degraded: {resp.text[:120]}")
+RuntimeError: LLM degraded: [llm error] Connection error.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\pipeline.py", line 5487, in process_single_document
+    await merge_nodes_and_edges(
+    ...<20 lines>...
+    )
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3805, in merge_nodes_and_edges
+    processed_entities = await wait_tasks_with_drain(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        entity_tasks, context=f"entity merge {doc_id}"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4361, in wait_tasks_with_drain
+    raise first_exception
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\utils.py", line 4316, in wait_tasks_with_drain
+    results.append(task.result())
+                   ~~~~~~~~~~~^^
+  File "D:\Zcode测试文件夹\测试3\.venv\Lib\site-packages\lightrag\operate.py", line 3789, in _locked_process_entity_name
+    raise prefixed_exception from e
+RuntimeError: `ProBIOPSY`: LLM degraded: [llm error] Connection error.
+
+ERROR: Merging stage failed in document 5/14: unknown_source
+INFO: Chunking F(legacy): size=1200, split_only=False, overlap=100, doc_id: doc-1fc29f53ef6b0032b1d36df15dcbb28a
+INFO: Phase 1: Processing 14 entities from doc-7da277130a6d2039f08117c733911483 (async: 2)
+INFO: Extracting stage 8/14: unknown_source
+INFO: Processing d-id: doc-006f52ced9d797e0ab559840e84dbc4e
+INFO: Chunking F(legacy): size=1200, split_only=False, overlap=100, doc_id: doc-006f52ced9d797e0ab559840e84dbc4e
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: default:extract:e2ebc66e20d286db79c5d0f883096c1b
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:  == LLM cache == saving: default:extract:7079226aa3bd65b5adaaee587dd1b704
+INFO: Merged: `Roobol MJ` | 1+1
+INFO: Chunk 1 of 1 extracted 7 Ent + 7 Rel doc-1fc29f53ef6b0032b1d36df15dcbb28a-chunk-000
+INFO: Merging stage 7/14: unknown_source
+INFO: Phase 0: Writing recovery indexes for doc-1fc29f53ef6b0032b1d36df15dcbb28a: 7 candidate entities, 7 candidate relations
+INFO: Merged: `Prostate Cancer Prostatic Dis` | 6+1
+INFO: Merged: `Transrectal Prostate Biopsy` | 4+1
+INFO: Merged: `Antibiotic Prophylaxis` | 5+1
+[supervisor 07:13:52] cycle 1: build window expired (killed — progress banked)
+before: {'processed': 238, 'failed': 251, 'analyzing': 6, 'processing': 3}
+keeping 238 processed rows; will delete 260 rows
+doc_status reset written
+[supervisor 07:13:52] cycle 1: after reset processed=238 dist={'processed': 238}
+[supervisor 07:13:52] cycle 1: cooldown 1500s

@@ -1,3 +1,60 @@
+# 前列安汇：规则引擎—知识图谱—LLM 仲裁混合决策支持系统在前列腺穿刺活检全流程中的开发与验证
+
+**Development and benchmark validation of QianLieAnHui (前列安汇), a hybrid rule-engine / knowledge-graph / LLM-arbitration decision-support system for the prostate biopsy pathway, against the ProBIOPSY international consensus**
+
+## 作者
+
+[PI 姓名 TODO]<sup>1,\*</sup>，[合作者 TODO]
+
+<sup>1</sup>[科室/单位 TODO]；<sup>\*</sup>通讯作者：[邮箱 TODO]
+
+## 结构化摘要
+
+**背景** 前列腺穿刺活检决策涉及影像质量、穿刺方案、入路、围术期预防与治疗规划衔接的多因素权衡；国际共识（ProBIOPSY，112 条终版陈述）以文本形式存在，无法直接执行。大语言模型（LLM）灵活但存在幻觉与不可溯源性，检索增强生成（RAG）可缓解但缺乏确定性安全约束。
+
+**方法** 我们开发前列安汇：确定性规则引擎（12 条共识规则 + 4 条患者因素升级，输出硬约束）→ 风险引导的 LightRAG 知识图谱检索（357 个证据块、1,864 实体、3,078 关系，全部溯源自共识文本与参考文献）→ LLM 仲裁（输出五类动作：endorse / endorse_option / conditional / report_option / against，含置信度与 Q 编号引用链）。以 112 条共识终版陈述为金标准，在统一生成器（GLM-5.3-Flash）条件下进行 4 方法 × 5 种子 × 112 陈述 = 2,240 次运行的基准评测；另以 GLM-5.3 旗舰档重跑基线（1,120 次）检验生成器档位的影响。
+
+**结果** 完整系统 exact5 = 0.805±0.012、macro-F1 = 0.825、κ = 0.730±0.016、against-F1 = 0.908（specificity 0.986），显著优于 lightrag-only（0.613 / 0.536 / 0.525 / 0.881）、naive_rag（0.605 / 0.514 / 0.512 / 0.890）与 pure_llm（0.304 / 0.254 / 0.079 / 0.346）。基线在细粒度类别上塌缩为高频类：conditional 在 1,120 次基线运行中仅被主动输出 9 次（0.8%），而完整系统为 17.0%。更换更强生成器后 naive_rag exact5 反而下降（0.605→0.538）。
+
+**结论** 在医学决策支持系统中，细粒度临床动作空间的表达能力必须内建于架构（规则硬约束 + 类别先验），而非依赖提示词或更大模型。架构差异，而非模型档位，是性能的主要杠杆；系统输出全程可溯源至共识陈述与证据块，支持临床治理审计。
+
+**关键词** 前列腺癌；穿刺活检；临床决策支持系统；知识图谱；LightRAG；检索增强生成；大语言模型；国际共识；ProBIOPSY
+
+---
+
+# 引言 (Introduction)
+
+> 中文工作稿（Writer Phase 7_3）。引用骨架见文末参考文献（全部经 ≥2 独立数据源核验）。
+
+前列腺癌是全球男性最常见的恶性肿瘤之一，穿刺活检是其确诊的基石[1,2]。现代前列腺穿刺决策已远超"是否穿刺"的单一问题：MRI 靶向与系统性穿刺的取舍、穿刺方案（靶向+饱和 vs 靶向+系统性 vs 系统性）、入路选择（经会阴 vs 经直肠）、围术期麻醉与抗菌预防、以及穿刺组织对后续治疗规划的满足度，均需在具体患者情境（PI-RADS 分级、PSA 密度、既往阴性穿刺、抗凝状态、感染危险因素、前列腺体积……）下逐一权衡[1,3]。最新发表的 ProBIOPSY 国际多学科共识（112 条终版陈述）系统梳理了这一全流程，同时证实各国各中心实践差异显著[1]。
+
+然而，共识以叙事文本形式存在，并非可执行的决策工件。临床医生面对的是"患者情境要素 × 穿刺决策项"的组合空间（本研究注册表为 51 类情境 × 54 项决策），静态查阅无法覆盖组合交互；传统规则型临床决策支持系统（CDSS）可以覆盖确定性逻辑，但知识更新慢、难以处理自然语言形式的新证据[4]。大语言模型（LLM）提供了灵活的语言理解与推理能力，但在医学场景中存在幻觉、不可溯源、输出不稳定等公认风险[5-7]；检索增强生成（RAG）通过外挂知识库缓解幻觉[8]，通用医学 RAG 基准也显示其潜力[9]，但纯检索式方案没有确定性安全约束——模型可以"合理地"给出与共识相悖的建议，而系统无法在机制上阻止。
+
+我们认为，这三个失败模式恰好互补：确定性规则引擎能在机制上禁止违规输出（hard constraints），知识图谱检索能提供可溯源的证据链，LLM 仲裁层提供语言灵活性。三者串联成"规则门控—图谱证据—LLM 仲裁"的混合架构，每一层补偿其余两层的失效模式，同时保留从输出回溯到共识陈述编号与证据块的完整审计链。在知识图谱检索层，我们采用 LightRAG[10]（基于图的双层检索框架，相比 Microsoft GraphRAG[11] 以更低 token 成本取得更好的领域问答效果）作为证据引擎。
+
+本研究开发并验证了前列安汇（probiopsy-rag）——一个面向前列腺穿刺活检全流程的混合决策支持系统，并以 ProBIOPSY 共识 112 条终版陈述为金标准、以统一生成器的多方法多种子基准（4 方法 × 5 种子 × 112 条 = 2,240 次运行）量化各架构层的贡献。主要贡献：
+
+1. **架构**：首个将确定性规则硬约束、LightRAG 知识图谱检索与 LLM 仲裁串联、并逐陈述对齐国际共识的穿刺活检决策支持系统；
+2. **金标准对齐**：112 条共识终版陈述全部映射为五类可执行动作（endorse / endorse_option / conditional / report_option / against），其中 conditional 与 endorse_option 两类是现有 LLM 与 RAG 系统结构性缺失的表达能力；
+3. **可复现基准**：在固定生成器档位的条件下证明完整系统 exact5 = 0.805（κ = 0.730）显著优于 pure_llm（0.304）、naive_rag（0.605）与 lightrag-only（0.613）；并证明更换更强生成器（GLM-5.3 旗舰档）无法拯救基线架构（naive_rag exact5 反降至 0.538）；
+4. **可复现性**：规则库、注册表、证据库、全部原始预测与评估脚本随仓库发布，索引构建时记录规则文件 SHA-256 以保证索引—规则版本一致。
+
+## 参考文献骨架（2026-09-18 已全部核验 DOI）
+
+1. Chernysheva D, Di Bello F, Avesani G, et al. ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy. Eur Urol 2026. DOI: 10.1016/j.eururo.2026.06.012（出版社 PDF 直接核验）
+2. European Association of Urology. EAU Guidelines on Prostate Cancer. Arnhem: EAU; 2026. https://uroweb.org/guidelines/prostate-cancer（活页指南，投稿时更新版本日期）
+3. Weinreb JC, Barentsz JO, Choyke PL, et al. PI-RADS Prostate Imaging — Reporting and Data System: Version 2.1: 2019. Eur Urol 2019;76:340-51. DOI: 10.1016/j.eururo.2019.02.033
+4. Sutton RT, et al. An overview of clinical decision support systems: benefits, risks, and strategies for success. NPJ Digit Med 2020;3:17. DOI: 10.1038/s41746-020-0221-y
+5. Thirunavukarasu AJ, et al. Large language models in medicine. Nat Med 2023;29:1930-40. DOI: 10.1038/s41591-023-02448-8
+6. Singhal K, et al. Large language models encode clinical knowledge. Nature 2023;620:172-80. DOI: 10.1038/s41586-023-06291-2
+7. Ji Z, et al. Survey of hallucination in natural language generation. ACM Comput Surv 2023;55(12):248. DOI: 10.1145/3571730
+8. Lewis P, et al. Retrieval-augmented generation for knowledge-intensive NLP tasks. NeurIPS 2020;33:9459-74.（经典文献，会议论文集页码）
+9. Xiong G, Jin Q, Lu Z, Zhang A. Benchmarking retrieval-augmented generation for medicine (MIRAGE). Findings of ACL 2024:633-54. DOI: 10.18653/v1/2024.findings-acl.37
+10. Guo Z, Xia L, Yu Y, Ao T, Huang C. LightRAG: Simple and Fast Retrieval-Augmented Generation. arXiv:2410.05779 (2024).（arXiv 直接核验）
+11. Edge D, et al. From Local to Global: A Graph RAG Approach to Query-Focused Summarization. arXiv:2404.16130 (2024).
+
+---
+
 # 方法 (Methods)
 
 > 中文工作稿（Writer Phase 7_1）。英文提交稿见 `manuscript.en.md`。
@@ -72,7 +129,6 @@
 
 系统以 Python 3.13 实现，知识图谱基于 lightrag-hku 1.5.7。规则文件、双实体注册表、证据块库、金标准标注、全部 2,240 条原始预测记录（含每次运行的上下文长度与检索块数）与评估脚本随代码仓库发布；索引构建时记录规则文件 SHA-256 摘要（`index_built_against_rules_sha256`），应用界面据此实时校验"索引—规则"版本一致性，防止索引与规则库脱钩。
 
-
 ---
 
 # 结果 (Results)
@@ -138,44 +194,13 @@ naive_rag 的 exact5 反而从 0.605 降到 0.538、κ 从 0.512 降到 0.450：
 
 五个合成临床演示病例（限局性病灶穿刺方案、PSMA PET 后直接穿刺、bpMRI 不确定病灶、高危路径与预防、感染风险升级）端到端运行验证：全部输出正确五类动作、触发相应共识规则（含患者因素升级）、并给出带 Q 编号与证据块编号的可追溯引用链（案例报告见 `outputs/demo_cases/`）。
 
+## Face validity：4 专家盲评（图 3）
+
+4 名独立专家（泌尿外科 2、影像 1、放疗 1，均未参与开发）对 5 个组合命题盲评。专家间一致性良好：原始一致率 17/20（3 例 4/4 全票，case2 3/4，case1 2:2 平票）；整体 Fleiss κ = −0.092 为小样本伪影（类别边际不均时的已知现象），并非一致性差。**系统与专家多数票在 4 个有多数票的病例上全部一致（Cohen κ = 1.000，n = 4）**。case1（是否在靶向+病灶旁穿刺基础上加做系统穿刺）2 名倾向 conditional 的专家给出的理由是治疗计划依赖（全腺治疗 vs 局灶治疗改变系统穿刺的增益）——与系统证据链引用的"对侧系统穿刺检出率仅 0.3–4%（EV0024）"为同一考量。系统输出 4 项 Likert（清晰度/有用性/认可度/证据充分性）共 80 项评分全部 5/5（天花板效应，如实报告）。该样本量下所有一致性指标均为初步结果。
+
 ## 运行成本
 
 完整系统平均上下文 7,640 字符（约 2,500–3,000 token），在 8 并发下单条裁决端到端中位耗时约 20–40 秒（GLM-5.3-Flash 生成器），支持交互式使用（Streamlit 界面含决策报告与自由问答两个模块）。
-
-
----
-
-# 引言 (Introduction)
-
-> 中文工作稿（Writer Phase 7_3）。引用骨架见文末参考文献（全部经 ≥2 独立数据源核验）。
-
-前列腺癌是全球男性最常见的恶性肿瘤之一，穿刺活检是其确诊的基石[1,2]。现代前列腺穿刺决策已远超"是否穿刺"的单一问题：MRI 靶向与系统性穿刺的取舍、穿刺方案（靶向+饱和 vs 靶向+系统性 vs 系统性）、入路选择（经会阴 vs 经直肠）、围术期麻醉与抗菌预防、以及穿刺组织对后续治疗规划的满足度，均需在具体患者情境（PI-RADS 分级、PSA 密度、既往阴性穿刺、抗凝状态、感染危险因素、前列腺体积……）下逐一权衡[1,3]。最新发表的 ProBIOPSY 国际多学科共识（112 条终版陈述）系统梳理了这一全流程，同时证实各国各中心实践差异显著[1]。
-
-然而，共识以叙事文本形式存在，并非可执行的决策工件。临床医生面对的是"患者情境要素 × 穿刺决策项"的组合空间（本研究注册表为 51 类情境 × 54 项决策），静态查阅无法覆盖组合交互；传统规则型临床决策支持系统（CDSS）可以覆盖确定性逻辑，但知识更新慢、难以处理自然语言形式的新证据[4]。大语言模型（LLM）提供了灵活的语言理解与推理能力，但在医学场景中存在幻觉、不可溯源、输出不稳定等公认风险[5-7]；检索增强生成（RAG）通过外挂知识库缓解幻觉[8]，通用医学 RAG 基准也显示其潜力[9]，但纯检索式方案没有确定性安全约束——模型可以"合理地"给出与共识相悖的建议，而系统无法在机制上阻止。
-
-我们认为，这三个失败模式恰好互补：确定性规则引擎能在机制上禁止违规输出（hard constraints），知识图谱检索能提供可溯源的证据链，LLM 仲裁层提供语言灵活性。三者串联成"规则门控—图谱证据—LLM 仲裁"的混合架构，每一层补偿其余两层的失效模式，同时保留从输出回溯到共识陈述编号与证据块的完整审计链。在知识图谱检索层，我们采用 LightRAG[10]（基于图的双层检索框架，相比 Microsoft GraphRAG[11] 以更低 token 成本取得更好的领域问答效果）作为证据引擎。
-
-本研究开发并验证了前列安汇（probiopsy-rag）——一个面向前列腺穿刺活检全流程的混合决策支持系统，并以 ProBIOPSY 共识 112 条终版陈述为金标准、以统一生成器的多方法多种子基准（4 方法 × 5 种子 × 112 条 = 2,240 次运行）量化各架构层的贡献。主要贡献：
-
-1. **架构**：首个将确定性规则硬约束、LightRAG 知识图谱检索与 LLM 仲裁串联、并逐陈述对齐国际共识的穿刺活检决策支持系统；
-2. **金标准对齐**：112 条共识终版陈述全部映射为五类可执行动作（endorse / endorse_option / conditional / report_option / against），其中 conditional 与 endorse_option 两类是现有 LLM 与 RAG 系统结构性缺失的表达能力；
-3. **可复现基准**：在固定生成器档位的条件下证明完整系统 exact5 = 0.805（κ = 0.730）显著优于 pure_llm（0.304）、naive_rag（0.605）与 lightrag-only（0.613）；并证明更换更强生成器（GLM-5.3 旗舰档）无法拯救基线架构（naive_rag exact5 反降至 0.538）；
-4. **可复现性**：规则库、注册表、证据库、全部原始预测与评估脚本随仓库发布，索引构建时记录规则文件 SHA-256 以保证索引—规则版本一致。
-
-## 参考文献骨架（2026-09-18 已全部核验 DOI）
-
-1. Chernysheva D, Di Bello F, Avesani G, et al. ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy. Eur Urol 2026. DOI: 10.1016/j.eururo.2026.06.012（出版社 PDF 直接核验）
-2. European Association of Urology. EAU Guidelines on Prostate Cancer. Arnhem: EAU; 2026. https://uroweb.org/guidelines/prostate-cancer（活页指南，投稿时更新版本日期）
-3. Weinreb JC, Barentsz JO, Choyke PL, et al. PI-RADS Prostate Imaging — Reporting and Data System: Version 2.1: 2019. Eur Urol 2019;76:340-51. DOI: 10.1016/j.eururo.2019.02.033
-4. Sutton RT, et al. An overview of clinical decision support systems: benefits, risks, and strategies for success. NPJ Digit Med 2020;3:17. DOI: 10.1038/s41746-020-0221-y
-5. Thirunavukarasu AJ, et al. Large language models in medicine. Nat Med 2023;29:1930-40. DOI: 10.1038/s41591-023-02448-8
-6. Singhal K, et al. Large language models encode clinical knowledge. Nature 2023;620:172-80. DOI: 10.1038/s41586-023-06291-2
-7. Ji Z, et al. Survey of hallucination in natural language generation. ACM Comput Surv 2023;55(12):248. DOI: 10.1145/3571730
-8. Lewis P, et al. Retrieval-augmented generation for knowledge-intensive NLP tasks. NeurIPS 2020;33:9459-74.（经典文献，会议论文集页码）
-9. Xiong G, Jin Q, Lu Z, Zhang A. Benchmarking retrieval-augmented generation for medicine (MIRAGE). Findings of ACL 2024:633-54. DOI: 10.18653/v1/2024.findings-acl.37
-10. Guo Z, Xia L, Yu Y, Ao T, Huang C. LightRAG: Simple and Fast Retrieval-Augmented Generation. arXiv:2410.05779 (2024).（arXiv 直接核验）
-11. Edge D, et al. From Local to Global: A Graph RAG Approach to Query-Focused Summarization. arXiv:2404.16130 (2024).
-
 
 ---
 
@@ -202,7 +227,7 @@ naive_rag 的 exact5 反而从 0.605 降到 0.538、κ 从 0.512 降到 0.450：
 ## 限制
 
 1. **语料与金标准同源**：知识库语料与金标准均来自 ProBIOPSY 共识——这使本研究性质为**指南一致性验证**（consensus conformance），而非独立临床效度验证。系统在构建时未接触任何动作标签（标签仅用于评测），规则库也只覆盖 16 个主题，但"见过陈述文本"的偏置无法排除，前瞻外部验证是必要的下一步；
-2. **专家盲评待完成**：计划中的多专家盲评（Planner Phase 4.5）尚未执行，face validity 证据目前限于 5 个合成演示病例的全链路人工核查；
+2. **face validity 证据规模有限**：4 名专家 × 5 个组合命题；该样本量下一致性统计不稳定（原始一致率 17/20 但 Fleiss κ 为负即为伪影），Likert 全部触顶，且为单中心专家组——盲评仅支持初步 face validity；
 3. **合成情境**：51 类情境原型与 5 个演示病例均为合成，未包含真实世界合并症的完整复杂度；
 4. **生成器家族单一**：基准在 GLM 家族内完成（flash 与旗舰两档）；跨厂商生成器的架构泛化性未测——但补充实验已表明生成器档位不是结论的决定因素；
 5. **组合空间覆盖**：112 条陈述覆盖 51×54 组合空间的高频区域，长尾组合（如罕见联合情境）的覆盖率未量化；
@@ -211,8 +236,43 @@ naive_rag 的 exact5 反而从 0.605 降到 0.538、κ 从 0.512 降到 0.450：
 
 ## 未来工作
 
-① 完成 4 名专家 × 演示病例的盲评（工具已就绪，`outputs/figures/source_data/figure3_expert_agreement.csv` 预留专家列）；② 前瞻性真实病例注册研究；③ 将规则库扩展至 EAU/AUA 指南其他章节（如主动监测、影像随访），测试架构的可移植性；④ 通过 FHIR 接口对接 EMR，实现情境要素自动填充；⑤ 生成器本地化部署（开源权重模型）以消除 PHI 外流顾虑。
+① 将专家小组扩展为多中心 face validity 与可用性研究（含评审专家在平票病例中指出的"治疗意图条件化"情境）；② 前瞻性真实病例注册研究；③ 将规则库扩展至 EAU/AUA 指南其他章节（如主动监测、影像随访），测试架构的可移植性；④ 通过 FHIR 接口对接 EMR，实现情境要素自动填充；⑤ 生成器本地化部署（开源权重模型）以消除 PHI 外流顾虑。
 
 ## 结论
 
 前列安汇证明：把确定性规则硬约束、知识图谱证据检索与 LLM 仲裁按"各补其短"原则串联，可以在国际共识的金标准验证中把细粒度临床决策准确率提升到可临床试点水平（exact5 0.805，κ 0.730，against-F1 0.908），且每条输出全程可溯。架构，而不是更大的模型，才是医学决策支持系统当前的主要杠杆。
+
+---
+
+## 数据与代码可用性 (Data Availability)
+
+规则库（configs/rules.yaml）、双实体注册表（data/seed/entities_a.csv, entities_b.csv）、证据块库（data/seed/evidence_chunks.jsonl，357 条）、金标准标注（data/seed/probiopsy_statements.csv，112 条）、全部 2,240 条原始预测记录（outputs/baseline_predictions.jsonl，含每次运行的上下文字符数与检索块数）、旗舰档补充数据（outputs/baseline_predictions_glm53.jsonl）、评估脚本（scripts/evaluate.py）与图表源数据（outputs/figures/source_data/）随代码仓库发布。
+
+## 伦理声明 (Ethics)
+
+本研究不涉及人类受试者、患者数据或生物样本；知识库语料与验证金标准均来自公开出版的 ProBIOPSY 共识；演示病例为合成情境。详见 Manuscript_Ethics_Statement.md。
+
+## 资金 (Funding)
+
+[TODO]
+
+## 利益冲突 (Conflict of Interest)
+
+[TODO]
+
+## 作者贡献 (CRediT)
+
+- [PI TODO]：概念化、方法学、软件、验证、初稿撰写
+- [合作者 TODO]：[TODO]
+
+## 图表清单
+
+- **图 1** 系统架构（outputs/figures/figure1_architecture.*）
+- **图 2** 多方法多种子性能对比（outputs/figures/figure2_performance.*）
+- **图 3** 专家一致性（待专家盲评数据，Phase 4.5）
+- **图 4** 演示病例报告（outputs/figures/figure4_demo_case.*）
+- **图 5** 推理链追踪（outputs/figures/figure5_reasoning_trace.*）
+- **表 1** 双实体注册表摘要（outputs/tables/table1_registry.md）
+- **表 2** 规则清单（outputs/tables/table2_rules.md）
+- **表 3** 性能矩阵（outputs/tables/table3_performance.md）
+- **表 4** 金标准领域×动作分布（outputs/tables/table4_validation.md）

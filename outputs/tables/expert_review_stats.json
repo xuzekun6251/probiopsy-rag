@@ -1,0 +1,67 @@
+{
+  "n_cases": 5,
+  "n_experts": 4,
+  "per_case_expert_ratings": {
+    "case1_unifocal_scheme": [
+      "conditional",
+      "conditional",
+      "against",
+      "against"
+    ],
+    "case2_psma_pet_upfront": [
+      "report_option",
+      "against",
+      "against",
+      "against"
+    ],
+    "case3_bpmri_indeterminate": [
+      "endorse",
+      "endorse",
+      "endorse",
+      "endorse"
+    ],
+    "case4_advanced_route_prophylaxis": [
+      "endorse",
+      "endorse",
+      "endorse",
+      "endorse"
+    ],
+    "case5_infection_risk_escalation": [
+      "endorse_option",
+      "endorse_option",
+      "endorse_option",
+      "endorse_option"
+    ]
+  },
+  "expert_majority": {
+    "case1_unifocal_scheme": "split",
+    "case2_psma_pet_upfront": "against",
+    "case3_bpmri_indeterminate": "endorse",
+    "case4_advanced_route_prophylaxis": "endorse",
+    "case5_infection_risk_escalation": "endorse_option"
+  },
+  "system_output": {
+    "case1_unifocal_scheme": "against",
+    "case2_psma_pet_upfront": "against",
+    "case3_bpmri_indeterminate": "endorse",
+    "case4_advanced_route_prophylaxis": "endorse",
+    "case5_infection_risk_escalation": "endorse_option"
+  },
+  "per_case_raw_agreement": {
+    "case1_unifocal_scheme": "2/4",
+    "case2_psma_pet_upfront": "3/4",
+    "case3_bpmri_indeterminate": "4/4",
+    "case4_advanced_route_prophylaxis": "4/4",
+    "case5_infection_risk_escalation": "4/4"
+  },
+  "fleiss_kappa_overall": -0.092,
+  "cohen_kappa_system_vs_majority": 1.0,
+  "cohen_kappa_n_pairs": 4,
+  "cohen_kappa_raw_agreement": 1.0,
+  "likert_mean": {
+    "likert_clarity": 5.0,
+    "likert_usefulness": 5.0,
+    "likert_recommendation": 5.0,
+    "likert_evidence": 5.0
+  }
+}

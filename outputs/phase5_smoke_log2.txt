@@ -1,0 +1,716 @@
+[run] 8 gold statements x 4 methods x 5 seeds
+[run] resume: 118 predictions already present
+[run] pure_llm seed 0: complete, skipping
+[run] pure_llm seed 1: complete, skipping
+[run] pure_llm seed 2: complete, skipping
+[run] pure_llm seed 3: complete, skipping
+[run] pure_llm seed 4: complete, skipping
+[run] naive_rag seed 0: complete, skipping
+[run] naive_rag seed 1: complete, skipping
+[run] naive_rag seed 2: complete, skipping
+[run] naive_rag seed 3: complete, skipping
+[run] naive_rag seed 4: complete, skipping
+INFO: [] Loaded graph from D:\Zcode测试文件夹\测试3\data\processed\lightrag_index\graph_chunk_entity_relation.graphml with 1864 nodes, 3078 edges
+INFO:nano-vectordb:Load (1864, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_entities.json'} 1864 data
+INFO:nano-vectordb:Load (3078, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_relationships.json'} 3078 data
+INFO:nano-vectordb:Load (362, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_chunks.json'} 362 data
+INFO: Role LLM Configuration (initialized):
+INFO:  - extract: None/None, host=None, max_async=1, timeout=240
+INFO:  - keyword: None/None, host=None, max_async=1, timeout=240
+INFO:  - query: None/None, host=None, max_async=1, timeout=240
+INFO:  - vlm: None/None, host=None, max_async=1, timeout=240
+INFO: [] Process 18964 KV load full_docs with 357 records
+INFO: [] Process 18964 KV load text_chunks with 362 records
+INFO: [] Process 18964 KV load full_entities with 357 records
+INFO: [] Process 18964 KV load full_relations with 357 records
+INFO: [] Process 18964 KV load entity_chunks with 1864 records
+INFO: [] Process 18964 KV load relation_chunks with 3078 records
+INFO: [] Process 18964 KV load llm_response_cache with 933 records
+INFO: [] Process 18964 doc status load doc_status with 357 records
+INFO: Embedding func: 8 new workers initialized (Timeouts: Func: 30s, Worker: 60s, Health Check: 75s)
+INFO: Query nodes: bpMRI, mpMRI, 前列腺活检, 组织化筛查, 共识声明, d_bpmri_acceptable, quality_adequate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 596 relations
+INFO: Query edges: 前列腺活检决策, 前列腺癌诊断, 磁共振成像检查选择, 癌症筛查, 临床决策支持系统, 指南依从性 (top_k:40, cosine:0.2)
+INFO: Global query: 50 entites, 40 relations
+INFO: Raw search results: 76 entities, 611 relations, 0 vector chunks
+INFO: After truncation: 26 entities, 97 relations
+INFO: Selecting 65 from 145 entity-related chunks by vector similarity
+INFO: Find 76 additional chunks in 48 relations (deduplicated 30)
+INFO: Selecting 76 from 76 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 141 -> 141 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 26 entities, 97 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R1/1 E3/2 R1/2 E4/3 R1/3 E1/4 R1/4 E3/5 R2/5 E2/6 R1/6 E2/7 R1/7 E2/8 R3/8 E2/9 R2/9 E1/10 R2/10
+INFO:  == LLM cache == Query cache hit, using cached response as query result
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+[run] lightrag seed 0: DONE 1 items in 4s
+[run] lightrag seed 1: complete, skipping
+[run] lightrag seed 2: complete, skipping
+[run] lightrag seed 3: complete, skipping
+INFO: [] Loaded graph from D:\Zcode测试文件夹\测试3\data\processed\lightrag_index\graph_chunk_entity_relation.graphml with 1864 nodes, 3078 edges
+INFO:nano-vectordb:Load (1864, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_entities.json'} 1864 data
+INFO:nano-vectordb:Load (3078, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_relationships.json'} 3078 data
+INFO:nano-vectordb:Load (362, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_chunks.json'} 362 data
+INFO: Role LLM Configuration (initialized):
+INFO:  - extract: None/None, host=None, max_async=1, timeout=240
+INFO:  - keyword: None/None, host=None, max_async=1, timeout=240
+INFO:  - query: None/None, host=None, max_async=1, timeout=240
+INFO:  - vlm: None/None, host=None, max_async=1, timeout=240
+INFO: Embedding func: 8 new workers initialized (Timeouts: Func: 30s, Worker: 60s, Health Check: 75s)
+INFO: Query nodes: PI-QUAL, MRI序列, MRI质量检查, d_mri_quality_check (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 164 relations
+INFO: Query edges: 前列腺活检决策, 影像质量标准, 决策支持系统, 指南遵循, 共识声明 (top_k:40, cosine:0.2)
+INFO: Global query: 48 entites, 40 relations
+INFO: Raw search results: 84 entities, 198 relations, 0 vector chunks
+INFO: After truncation: 29 entities, 122 relations
+INFO: Selecting 72 from 259 entity-related chunks by vector similarity
+INFO: Find 55 additional chunks in 38 relations (deduplicated 49)
+INFO: Selecting 55 from 55 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 127 -> 127 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 29 entities, 122 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R3/1 E4/2 R2/2 E4/3 R3/3 E5/4 R1/4 E7/5 R2/5 E3/6 R1/6 E3/7 R5/7 E1/8 R2/8 E1/9 R2/9 E1/10 R1/10
+INFO:  == LLM cache == Query cache hit, using cached response as query result
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+[run] lightrag seed 4: DONE 1 items in 6s
+INFO: [] Loaded graph from D:\Zcode测试文件夹\测试3\data\processed\lightrag_index\graph_chunk_entity_relation.graphml with 1864 nodes, 3078 edges
+INFO:nano-vectordb:Load (1864, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_entities.json'} 1864 data
+INFO:nano-vectordb:Load (3078, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_relationships.json'} 3078 data
+INFO:nano-vectordb:Load (362, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_chunks.json'} 362 data
+INFO: Role LLM Configuration (initialized):
+INFO:  - extract: None/None, host=None, max_async=1, timeout=240
+INFO:  - keyword: None/None, host=None, max_async=1, timeout=240
+INFO:  - query: None/None, host=None, max_async=1, timeout=240
+INFO:  - vlm: None/None, host=None, max_async=1, timeout=240
+INFO: Embedding func: 8 new workers initialized (Timeouts: Func: 30s, Worker: 60s, Health Check: 75s)
+INFO: Query nodes: 前列腺活检, 3T MRI, 1.5T MRI, 多参数MRI, 双参数MRI, 磁场强度, d_accept_any_field_strength, quality_adequate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 242 relations
+INFO: Query edges: 前列腺活检决策, 前列腺癌诊断, 磁共振成像磁场强度要求, 临床决策支持系统, 指南依从性, 共识声明评估 (top_k:40, cosine:0.2)
+INFO: Global query: 55 entites, 40 relations
+INFO: Raw search results: 79 entities, 263 relations, 0 vector chunks
+INFO: After truncation: 28 entities, 112 relations
+INFO: Selecting 70 from 87 entity-related chunks by vector similarity
+INFO: Find 65 additional chunks in 33 relations (deduplicated 40)
+INFO: Selecting 65 from 65 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 135 -> 135 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 28 entities, 112 relations, 20 chunks
+INFO: Final chunks S+F/O: E6/1 R1/1 E4/2 R1/2 E4/3 R2/3 E4/4 R2/4 E3/5 R1/5 E3/6 R3/6 E3/7 R1/7 E1/8 R4/8 E1/9 R1/9 E3/10 R1/10
+INFO: Query nodes: PI-QUAL, MRI序列, MRI质量检查, d_mri_quality_check (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 161 relations
+INFO: Query edges: 前列腺活检决策, 影像质量标准, 决策支持系统, 指南遵循, 共识声明 (top_k:40, cosine:0.2)
+INFO: Global query: 50 entites, 40 relations
+INFO: Raw search results: 86 entities, 195 relations, 0 vector chunks
+INFO: After truncation: 27 entities, 121 relations
+INFO: Selecting 67 from 259 entity-related chunks by vector similarity
+INFO: Find 61 additional chunks in 39 relations (deduplicated 44)
+INFO: Selecting 61 from 61 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 128 -> 128 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 27 entities, 121 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R3/1 E4/2 R2/2 E4/3 R3/3 E5/4 R1/4 E6/5 R1/5 E3/6 R1/6 E3/7 R2/7 E1/8 R1/8 E1/9 R1/9 E1/10 R1/10
+INFO: Query nodes: PI-QUAL V.2, PI-QUAL评分, MRI序列, d_use_piqual_v2, 前列腺活检 (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 151 relations
+INFO: Query edges: 前列腺活检决策, 影像质量标准, 决策支持系统, 指南依从性, 共识声明 (top_k:40, cosine:0.2)
+INFO: Global query: 48 entites, 40 relations
+INFO: Raw search results: 81 entities, 177 relations, 0 vector chunks
+INFO: After truncation: 27 entities, 142 relations
+INFO: Selecting 67 from 261 entity-related chunks by vector similarity
+INFO: Find 29 additional chunks in 25 relations (deduplicated 21)
+INFO: Selecting 29 from 29 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 96 -> 96 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 27 entities, 142 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R1/1 E4/2 R1/2 E6/3 R2/3 E4/4 R1/4 E6/5 R1/5 E4/6 R2/6 E1/7 R1/7 E5/8 R5/8 E2/9 R3/9 E1/10 R4/10
+INFO: Query nodes: bpMRI, mpMRI, d_bpmri_acceptable, quality_adequate, 图像质量, endorse, endorse_option, conditional, report_option, against (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 203 relations
+INFO: Query edges: 前列腺癌诊断, 前列腺活检决策, 决策支持系统, 指南依从, 临床共识声明, 医学影像检查 (top_k:40, cosine:0.2)
+INFO: Global query: 45 entites, 40 relations
+INFO: Raw search results: 77 entities, 233 relations, 0 vector chunks
+INFO: After truncation: 29 entities, 116 relations
+INFO: Selecting 72 from 92 entity-related chunks by vector similarity
+INFO: Find 59 additional chunks in 30 relations (deduplicated 49)
+INFO: Selecting 59 from 59 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 131 -> 131 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 29 entities, 116 relations, 20 chunks
+INFO: Final chunks S+F/O: E5/1 R1/1 E4/2 R1/2 E3/3 R1/3 E4/4 R2/4 E4/5 R1/5 E3/6 R2/6 E1/7 R1/7 E4/8 R3/8 E1/9 R1/9 E2/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO: Query nodes: mpMRI, bpMRI, 多参数磁共振成像, 双参数磁共振成像, 前列腺活检, 机会性筛查, opportunistic_screening, d_bpmri_acceptable, quality_adequate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 325 relations
+INFO: Query edges: 前列腺活检决策, 前列腺癌诊断, 决策支持系统, 指南依从性, 磁共振成像方案选择, 早期癌症筛查, 共识声明 (top_k:40, cosine:0.2)
+INFO: Global query: 49 entites, 40 relations
+INFO: Raw search results: 74 entities, 339 relations, 0 vector chunks
+INFO: After truncation: 25 entities, 134 relations
+INFO: Selecting 62 from 118 entity-related chunks by vector similarity
+INFO: Find 50 additional chunks in 43 relations (deduplicated 44)
+INFO: Selecting 50 from 50 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 112 -> 112 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 25 entities, 134 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R1/1 E4/2 R1/2 E5/3 R1/3 E4/4 R1/4 E4/5 R1/5 E1/6 R1/6 E2/7 R1/7 E6/8 R1/8 E1/9 R2/9 E1/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO: Query nodes: bpMRI, mpMRI, 前列腺活检, 组织化筛查, 共识声明, d_bpmri_acceptable, quality_adequate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 596 relations
+INFO: Query edges: 前列腺活检决策, 前列腺癌诊断, 磁共振成像检查选择, 癌症筛查, 临床决策支持系统, 指南依从性 (top_k:40, cosine:0.2)
+INFO: Global query: 50 entites, 40 relations
+INFO: Raw search results: 76 entities, 611 relations, 0 vector chunks
+INFO: After truncation: 26 entities, 97 relations
+INFO: Selecting 65 from 103 entity-related chunks by vector similarity
+INFO: Find 73 additional chunks in 41 relations (deduplicated 33)
+INFO: Selecting 73 from 73 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 138 -> 138 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 26 entities, 97 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R1/1 E3/2 R2/2 E4/3 R1/3 E3/4 R1/4 E1/5 R1/5 E2/6 R1/6 E2/7 R2/7 E2/8 R1/8 E2/9 R3/9 E1/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO: Query nodes: 前列腺活检, MRI, 多发可见病灶, d_report_max3_lesions, multiple_lesions, 最多报告3个病灶 (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 193 relations
+INFO: Query edges: 前列腺活检决策, 共识声明, 决策支持系统, 指南依从性, MRI病灶报告, 临床决策行动 (top_k:40, cosine:0.2)
+INFO: Global query: 55 entites, 40 relations
+INFO: Raw search results: 89 entities, 222 relations, 0 vector chunks
+INFO: After truncation: 28 entities, 107 relations
+INFO: Selecting 70 from 126 entity-related chunks by vector similarity
+INFO: Find 59 additional chunks in 38 relations (deduplicated 56)
+INFO: Selecting 59 from 59 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 129 -> 129 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 28 entities, 107 relations, 20 chunks
+INFO: Final chunks S+F/O: E1/1 R1/1 E2/2 R5/2 E1/3 R1/3 E1/4 R2/4 E1/5 R1/5 E1/6 R1/6 E1/7 R1/7 E1/8 R1/8 E1/9 R1/9 E1/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO: Query nodes: bpMRI, 双参数MRI, 前列腺外周带病变, 对比增强MRI序列, 不确定病变, d_contrast_mri_for_pz_indeterminate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 210 relations
+INFO: Query edges: 前列腺活检决策, 活检指征, 临床决策支持系统, 指南依从性, 医学共识声明, 影像学不确定病变评估 (top_k:40, cosine:0.2)
+INFO: Global query: 50 entites, 40 relations
+INFO: Raw search results: 73 entities, 231 relations, 0 vector chunks
+INFO: After truncation: 30 entities, 107 relations
+INFO: Selecting 60 from 60 entity-related chunks by vector similarity
+INFO: Find 72 additional chunks in 30 relations (deduplicated 43)
+INFO: Selecting 72 from 72 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 132 -> 132 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 30 entities, 107 relations, 20 chunks
+INFO: Final chunks S+F/O: E6/1 R1/1 E4/2 R1/2 E3/3 R1/3 E8/4 R3/4 E4/5 R3/5 E3/6 R1/6 E3/7 R1/7 E3/8 R2/8 E4/9 R1/9 E4/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+[run] probiopsy-rag seed 0: DONE 8 items in 117s
+INFO: [] Loaded graph from D:\Zcode测试文件夹\测试3\data\processed\lightrag_index\graph_chunk_entity_relation.graphml with 1864 nodes, 3078 edges
+INFO:nano-vectordb:Load (1864, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_entities.json'} 1864 data
+INFO:nano-vectordb:Load (3078, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_relationships.json'} 3078 data
+INFO:nano-vectordb:Load (362, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_chunks.json'} 362 data
+INFO: Role LLM Configuration (initialized):
+INFO:  - extract: None/None, host=None, max_async=1, timeout=240
+INFO:  - keyword: None/None, host=None, max_async=1, timeout=240
+INFO:  - query: None/None, host=None, max_async=1, timeout=240
+INFO:  - vlm: None/None, host=None, max_async=1, timeout=240
+INFO: Embedding func: 8 new workers initialized (Timeouts: Func: 30s, Worker: 60s, Health Check: 75s)
+INFO: Query nodes: 前列腺活检, 3T MRI, 1.5T MRI, 多参数MRI, 双参数MRI, 磁场强度, d_accept_any_field_strength, quality_adequate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 230 relations
+INFO: Query edges: 前列腺活检决策, 前列腺癌诊断, 磁共振成像磁场强度要求, 临床决策支持系统, 指南依从性, 共识声明评估 (top_k:40, cosine:0.2)
+INFO: Global query: 55 entites, 40 relations
+INFO: Raw search results: 79 entities, 251 relations, 0 vector chunks
+INFO: After truncation: 28 entities, 113 relations
+INFO: Selecting 70 from 87 entity-related chunks by vector similarity
+INFO: Find 65 additional chunks in 33 relations (deduplicated 39)
+INFO: Selecting 65 from 65 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 135 -> 135 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 28 entities, 113 relations, 20 chunks
+INFO: Final chunks S+F/O: E6/1 R1/1 E4/2 R1/2 E4/3 R2/3 E4/4 R2/4 E3/5 R1/5 E3/6 R3/6 E3/7 R1/7 E1/8 R4/8 E1/9 R1/9 E3/10 R1/10
+INFO: Query nodes: PI-QUAL, MRI序列, MRI质量检查, d_mri_quality_check (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 161 relations
+INFO: Query edges: 前列腺活检决策, 影像质量标准, 决策支持系统, 指南遵循, 共识声明 (top_k:40, cosine:0.2)
+INFO: Global query: 48 entites, 40 relations
+INFO: Raw search results: 84 entities, 195 relations, 0 vector chunks
+INFO: After truncation: 29 entities, 122 relations
+INFO: Selecting 72 from 259 entity-related chunks by vector similarity
+INFO: Find 56 additional chunks in 38 relations (deduplicated 48)
+INFO: Selecting 56 from 56 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 128 -> 128 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 29 entities, 122 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R3/1 E4/2 R2/2 E4/3 R3/3 E5/4 R1/4 E7/5 R1/5 E3/6 R1/6 E3/7 R2/7 E1/8 R5/8 E1/9 R2/9 E1/10 R2/10
+INFO: Query nodes: PI-QUAL V.2, PI-QUAL评分, MRI序列, d_use_piqual_v2, 前列腺活检 (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 151 relations
+INFO: Query edges: 前列腺活检决策, 影像质量标准, 决策支持系统, 指南依从性, 共识声明 (top_k:40, cosine:0.2)
+INFO: Global query: 49 entites, 40 relations
+INFO: Raw search results: 81 entities, 177 relations, 0 vector chunks
+INFO: After truncation: 27 entities, 142 relations
+INFO: Selecting 67 from 261 entity-related chunks by vector similarity
+INFO: Find 29 additional chunks in 26 relations (deduplicated 21)
+INFO: Selecting 29 from 29 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 96 -> 96 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 27 entities, 142 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R1/1 E4/2 R1/2 E6/3 R2/3 E4/4 R1/4 E6/5 R1/5 E4/6 R2/6 E1/7 R1/7 E5/8 R5/8 E2/9 R3/9 E1/10 R4/10
+INFO: Query nodes: bpMRI, mpMRI, d_bpmri_acceptable, quality_adequate, 图像质量, endorse, endorse_option, conditional, report_option, against (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 203 relations
+INFO: Query edges: 前列腺癌诊断, 前列腺活检决策, 决策支持系统, 指南依从, 临床共识声明, 医学影像检查 (top_k:40, cosine:0.2)
+INFO: Global query: 45 entites, 40 relations
+INFO: Raw search results: 77 entities, 233 relations, 0 vector chunks
+INFO: After truncation: 30 entities, 116 relations
+INFO: Selecting 75 from 92 entity-related chunks by vector similarity
+INFO: Find 59 additional chunks in 30 relations (deduplicated 49)
+INFO: Selecting 59 from 59 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 134 -> 134 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 30 entities, 116 relations, 20 chunks
+INFO: Final chunks S+F/O: E5/1 R1/1 E4/2 R1/2 E3/3 R1/3 E4/4 R2/4 E3/5 R1/5 E4/6 R2/6 E1/7 R1/7 E4/8 R3/8 E1/9 R1/9 E2/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO: Query nodes: mpMRI, bpMRI, 多参数磁共振成像, 双参数磁共振成像, 前列腺活检, 机会性筛查, opportunistic_screening, d_bpmri_acceptable, quality_adequate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 325 relations
+INFO: Query edges: 前列腺活检决策, 前列腺癌诊断, 决策支持系统, 指南依从性, 磁共振成像方案选择, 早期癌症筛查, 共识声明 (top_k:40, cosine:0.2)
+INFO: Global query: 49 entites, 40 relations
+INFO: Raw search results: 74 entities, 339 relations, 0 vector chunks
+INFO: After truncation: 25 entities, 134 relations
+INFO: Selecting 62 from 118 entity-related chunks by vector similarity
+INFO: Find 50 additional chunks in 43 relations (deduplicated 44)
+INFO: Selecting 50 from 50 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 112 -> 112 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 25 entities, 134 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R1/1 E4/2 R1/2 E5/3 R1/3 E4/4 R1/4 E4/5 R1/5 E1/6 R1/6 E6/7 R1/7 E2/8 R1/8 E1/9 R2/9 E1/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO: Query nodes: bpMRI, mpMRI, 前列腺活检, 组织化筛查, 共识声明, d_bpmri_acceptable, quality_adequate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 596 relations
+INFO: Query edges: 前列腺活检决策, 前列腺癌诊断, 磁共振成像检查选择, 癌症筛查, 临床决策支持系统, 指南依从性 (top_k:40, cosine:0.2)
+INFO: Global query: 50 entites, 40 relations
+INFO: Raw search results: 77 entities, 612 relations, 0 vector chunks
+INFO: After truncation: 25 entities, 97 relations
+INFO: Selecting 62 from 145 entity-related chunks by vector similarity
+INFO: Find 75 additional chunks in 48 relations (deduplicated 29)
+INFO: Selecting 75 from 75 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 137 -> 137 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 25 entities, 97 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R1/1 E3/2 R1/2 E4/3 R1/3 E3/4 R1/4 E1/5 R2/5 E2/6 R1/6 E2/7 R3/7 E2/8 R1/8 E2/9 R2/9 E1/10 R2/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO: Query nodes: 前列腺活检, MRI, 多发可见病灶, d_report_max3_lesions, multiple_lesions, 最多报告3个病灶 (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 198 relations
+INFO: Query edges: 前列腺活检决策, 共识声明, 决策支持系统, 指南依从性, MRI病灶报告, 临床决策行动 (top_k:40, cosine:0.2)
+INFO: Global query: 55 entites, 40 relations
+INFO: Raw search results: 89 entities, 227 relations, 0 vector chunks
+INFO: After truncation: 28 entities, 106 relations
+INFO: Selecting 70 from 126 entity-related chunks by vector similarity
+INFO: Find 59 additional chunks in 38 relations (deduplicated 56)
+INFO: Selecting 59 from 59 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 129 -> 129 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 28 entities, 106 relations, 20 chunks
+INFO: Final chunks S+F/O: E1/1 R1/1 E2/2 R5/2 E1/3 R1/3 E1/4 R2/4 E1/5 R1/5 E1/6 R1/6 E1/7 R1/7 E1/8 R1/8 E1/9 R1/9 E1/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO: Query nodes: bpMRI, 双参数MRI, 前列腺外周带病变, 对比增强MRI序列, 不确定病变, d_contrast_mri_for_pz_indeterminate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 210 relations
+INFO: Query edges: 前列腺活检决策, 活检指征, 临床决策支持系统, 指南依从性, 医学共识声明, 影像学不确定病变评估 (top_k:40, cosine:0.2)
+INFO: Global query: 51 entites, 40 relations
+INFO: Raw search results: 74 entities, 232 relations, 0 vector chunks
+INFO: After truncation: 30 entities, 103 relations
+INFO: Selecting 60 from 60 entity-related chunks by vector similarity
+INFO: Find 72 additional chunks in 30 relations (deduplicated 43)
+INFO: Selecting 72 from 72 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 132 -> 132 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 30 entities, 103 relations, 20 chunks
+INFO: Final chunks S+F/O: E6/1 R1/1 E4/2 R1/2 E3/3 R1/3 E4/4 R3/4 E8/5 R1/5 E3/6 R3/6 E3/7 R1/7 E3/8 R2/8 E4/9 R1/9 E4/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:openai._base_client:Retrying request in 0.398451 seconds
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+[run] probiopsy-rag seed 1: DONE 8 items in 193s
+INFO: [] Loaded graph from D:\Zcode测试文件夹\测试3\data\processed\lightrag_index\graph_chunk_entity_relation.graphml with 1864 nodes, 3078 edges
+INFO:nano-vectordb:Load (1864, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_entities.json'} 1864 data
+INFO:nano-vectordb:Load (3078, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_relationships.json'} 3078 data
+INFO:nano-vectordb:Load (362, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_chunks.json'} 362 data
+INFO: Role LLM Configuration (initialized):
+INFO:  - extract: None/None, host=None, max_async=1, timeout=240
+INFO:  - keyword: None/None, host=None, max_async=1, timeout=240
+INFO:  - query: None/None, host=None, max_async=1, timeout=240
+INFO:  - vlm: None/None, host=None, max_async=1, timeout=240
+INFO: Embedding func: 8 new workers initialized (Timeouts: Func: 30s, Worker: 60s, Health Check: 75s)
+INFO: Query nodes: 前列腺活检, 3T MRI, 1.5T MRI, 多参数MRI, 双参数MRI, 磁场强度, d_accept_any_field_strength, quality_adequate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 234 relations
+INFO: Query edges: 前列腺活检决策, 前列腺癌诊断, 磁共振成像磁场强度要求, 临床决策支持系统, 指南依从性, 共识声明评估 (top_k:40, cosine:0.2)
+INFO: Global query: 55 entites, 40 relations
+INFO: Raw search results: 78 entities, 254 relations, 0 vector chunks
+INFO: After truncation: 28 entities, 112 relations
+INFO: Selecting 70 from 87 entity-related chunks by vector similarity
+INFO: Find 67 additional chunks in 35 relations (deduplicated 37)
+INFO: Selecting 67 from 67 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 137 -> 137 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 28 entities, 112 relations, 20 chunks
+INFO: Final chunks S+F/O: E6/1 R1/1 E4/2 R1/2 E4/3 R2/3 E4/4 R2/4 E3/5 R1/5 E3/6 R3/6 E3/7 R1/7 E1/8 R4/8 E1/9 R1/9 E3/10 R1/10
+INFO: Query nodes: PI-QUAL, MRI序列, MRI质量检查, d_mri_quality_check (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 164 relations
+INFO: Query edges: 前列腺活检决策, 影像质量标准, 决策支持系统, 指南遵循, 共识声明 (top_k:40, cosine:0.2)
+INFO: Global query: 47 entites, 40 relations
+INFO: Raw search results: 83 entities, 198 relations, 0 vector chunks
+INFO: After truncation: 29 entities, 121 relations
+INFO: Selecting 72 from 259 entity-related chunks by vector similarity
+INFO: Find 56 additional chunks in 38 relations (deduplicated 48)
+INFO: Selecting 56 from 56 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 128 -> 128 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 29 entities, 121 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R3/1 E4/2 R2/2 E4/3 R3/3 E5/4 R1/4 E7/5 R1/5 E3/6 R1/6 E3/7 R2/7 E1/8 R5/8 E1/9 R2/9 E1/10 R2/10
+INFO: Query nodes: PI-QUAL V.2, PI-QUAL评分, MRI序列, d_use_piqual_v2, 前列腺活检 (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 151 relations
+INFO: Query edges: 前列腺活检决策, 影像质量标准, 决策支持系统, 指南依从性, 共识声明 (top_k:40, cosine:0.2)
+INFO: Global query: 48 entites, 40 relations
+INFO: Raw search results: 81 entities, 177 relations, 0 vector chunks
+INFO: After truncation: 27 entities, 142 relations
+INFO: Selecting 67 from 261 entity-related chunks by vector similarity
+INFO: Find 27 additional chunks in 23 relations (deduplicated 23)
+INFO: Selecting 27 from 27 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 94 -> 94 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 27 entities, 142 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R1/1 E4/2 R1/2 E6/3 R1/3 E4/4 R2/4 E6/5 R1/5 E4/6 R5/6 E1/7 R4/7 E5/8 R3/8 E2/9 R8/9 E1/10 R3/10
+INFO: Query nodes: bpMRI, mpMRI, d_bpmri_acceptable, quality_adequate, 图像质量, endorse, endorse_option, conditional, report_option, against (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 203 relations
+INFO: Query edges: 前列腺癌诊断, 前列腺活检决策, 决策支持系统, 指南依从, 临床共识声明, 医学影像检查 (top_k:40, cosine:0.2)
+INFO: Global query: 45 entites, 40 relations
+INFO: Raw search results: 77 entities, 233 relations, 0 vector chunks
+INFO: After truncation: 30 entities, 116 relations
+INFO: Selecting 75 from 92 entity-related chunks by vector similarity
+INFO: Find 59 additional chunks in 30 relations (deduplicated 49)
+INFO: Selecting 59 from 59 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 134 -> 134 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 30 entities, 116 relations, 20 chunks
+INFO: Final chunks S+F/O: E5/1 R1/1 E4/2 R1/2 E3/3 R1/3 E4/4 R2/4 E4/5 R1/5 E3/6 R2/6 E1/7 R1/7 E4/8 R3/8 E1/9 R1/9 E2/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO: Query nodes: mpMRI, bpMRI, 多参数磁共振成像, 双参数磁共振成像, 前列腺活检, 机会性筛查, opportunistic_screening, d_bpmri_acceptable, quality_adequate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 325 relations
+INFO: Query edges: 前列腺活检决策, 前列腺癌诊断, 决策支持系统, 指南依从性, 磁共振成像方案选择, 早期癌症筛查, 共识声明 (top_k:40, cosine:0.2)
+INFO: Global query: 49 entites, 40 relations
+INFO: Raw search results: 74 entities, 339 relations, 0 vector chunks
+INFO: After truncation: 25 entities, 134 relations
+INFO: Selecting 62 from 118 entity-related chunks by vector similarity
+INFO: Find 51 additional chunks in 44 relations (deduplicated 43)
+INFO: Selecting 51 from 51 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 113 -> 113 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 25 entities, 134 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R1/1 E4/2 R1/2 E5/3 R1/3 E4/4 R1/4 E4/5 R1/5 E1/6 R1/6 E2/7 R1/7 E6/8 R1/8 E1/9 R1/9 E1/10 R2/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO: Query nodes: bpMRI, mpMRI, 前列腺活检, 组织化筛查, 共识声明, d_bpmri_acceptable, quality_adequate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 594 relations
+INFO: Query edges: 前列腺活检决策, 前列腺癌诊断, 磁共振成像检查选择, 癌症筛查, 临床决策支持系统, 指南依从性 (top_k:40, cosine:0.2)
+INFO: Global query: 50 entites, 40 relations
+INFO: Raw search results: 76 entities, 609 relations, 0 vector chunks
+INFO: After truncation: 26 entities, 97 relations
+INFO: Selecting 65 from 145 entity-related chunks by vector similarity
+INFO: Find 76 additional chunks in 48 relations (deduplicated 30)
+INFO: Selecting 76 from 76 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 141 -> 141 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 26 entities, 97 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R1/1 E3/2 R1/2 E4/3 R1/3 E3/4 R1/4 E1/5 R2/5 E2/6 R1/6 E2/7 R1/7 E2/8 R3/8 E2/9 R2/9 E1/10 R2/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO: Query nodes: 前列腺活检, MRI, 多发可见病灶, d_report_max3_lesions, multiple_lesions, 最多报告3个病灶 (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 193 relations
+INFO: Query edges: 前列腺活检决策, 共识声明, 决策支持系统, 指南依从性, MRI病灶报告, 临床决策行动 (top_k:40, cosine:0.2)
+INFO: Global query: 54 entites, 40 relations
+INFO: Raw search results: 88 entities, 222 relations, 0 vector chunks
+INFO: After truncation: 28 entities, 100 relations
+INFO: Selecting 70 from 126 entity-related chunks by vector similarity
+INFO: Find 62 additional chunks in 37 relations (deduplicated 54)
+INFO: Selecting 62 from 62 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 132 -> 132 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 28 entities, 100 relations, 20 chunks
+INFO: Final chunks S+F/O: E1/1 R1/1 E2/2 R1/2 E1/3 R1/3 E1/4 R5/4 E1/5 R1/5 E1/6 R1/6 E1/7 R2/7 E1/8 R1/8 E1/9 R1/9 E1/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO: Query nodes: bpMRI, 双参数MRI, 前列腺外周带病变, 对比增强MRI序列, 不确定病变, d_contrast_mri_for_pz_indeterminate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 210 relations
+INFO: Query edges: 前列腺活检决策, 活检指征, 临床决策支持系统, 指南依从性, 医学共识声明, 影像学不确定病变评估 (top_k:40, cosine:0.2)
+INFO: Global query: 52 entites, 40 relations
+INFO: Raw search results: 74 entities, 231 relations, 0 vector chunks
+INFO: After truncation: 30 entities, 107 relations
+INFO: Selecting 60 from 60 entity-related chunks by vector similarity
+INFO: Find 73 additional chunks in 31 relations (deduplicated 43)
+INFO: Selecting 73 from 73 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 133 -> 133 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 30 entities, 107 relations, 20 chunks
+INFO: Final chunks S+F/O: E6/1 R1/1 E4/2 R1/2 E3/3 R1/3 E8/4 R3/4 E4/5 R1/5 E3/6 R3/6 E3/7 R1/7 E3/8 R2/8 E4/9 R1/9 E4/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+[run] probiopsy-rag seed 2: DONE 8 items in 106s
+INFO: [] Loaded graph from D:\Zcode测试文件夹\测试3\data\processed\lightrag_index\graph_chunk_entity_relation.graphml with 1864 nodes, 3078 edges
+INFO:nano-vectordb:Load (1864, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_entities.json'} 1864 data
+INFO:nano-vectordb:Load (3078, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_relationships.json'} 3078 data
+INFO:nano-vectordb:Load (362, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_chunks.json'} 362 data
+INFO: Role LLM Configuration (initialized):
+INFO:  - extract: None/None, host=None, max_async=1, timeout=240
+INFO:  - keyword: None/None, host=None, max_async=1, timeout=240
+INFO:  - query: None/None, host=None, max_async=1, timeout=240
+INFO:  - vlm: None/None, host=None, max_async=1, timeout=240
+INFO: Embedding func: 8 new workers initialized (Timeouts: Func: 30s, Worker: 60s, Health Check: 75s)
+INFO: Query nodes: 前列腺活检, 3T MRI, 1.5T MRI, 多参数MRI, 双参数MRI, 磁场强度, d_accept_any_field_strength, quality_adequate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 230 relations
+INFO: Query edges: 前列腺活检决策, 前列腺癌诊断, 磁共振成像磁场强度要求, 临床决策支持系统, 指南依从性, 共识声明评估 (top_k:40, cosine:0.2)
+INFO: Global query: 55 entites, 40 relations
+INFO: Raw search results: 79 entities, 251 relations, 0 vector chunks
+INFO: After truncation: 28 entities, 113 relations
+INFO: Selecting 70 from 87 entity-related chunks by vector similarity
+INFO: Find 66 additional chunks in 34 relations (deduplicated 38)
+INFO: Selecting 66 from 66 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 136 -> 136 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 28 entities, 113 relations, 20 chunks
+INFO: Final chunks S+F/O: E6/1 R1/1 E4/2 R1/2 E4/3 R2/3 E4/4 R2/4 E3/5 R1/5 E3/6 R3/6 E3/7 R1/7 E1/8 R4/8 E1/9 R1/9 E3/10 R1/10
+INFO: Query nodes: PI-QUAL, MRI序列, MRI质量检查, d_mri_quality_check (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 161 relations
+INFO: Query edges: 前列腺活检决策, 影像质量标准, 决策支持系统, 指南遵循, 共识声明 (top_k:40, cosine:0.2)
+INFO: Global query: 50 entites, 40 relations
+INFO: Raw search results: 86 entities, 195 relations, 0 vector chunks
+INFO: After truncation: 27 entities, 121 relations
+INFO: Selecting 67 from 259 entity-related chunks by vector similarity
+INFO: Find 61 additional chunks in 39 relations (deduplicated 44)
+INFO: Selecting 61 from 61 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 128 -> 128 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 27 entities, 121 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R3/1 E4/2 R2/2 E4/3 R3/3 E5/4 R1/4 E6/5 R2/5 E3/6 R1/6 E3/7 R1/7 E1/8 R1/8 E1/9 R1/9 E1/10 R1/10
+INFO: Query nodes: PI-QUAL V.2, PI-QUAL评分, MRI序列, d_use_piqual_v2, 前列腺活检 (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 151 relations
+INFO: Query edges: 前列腺活检决策, 影像质量标准, 决策支持系统, 指南依从性, 共识声明 (top_k:40, cosine:0.2)
+INFO: Global query: 48 entites, 40 relations
+INFO: Raw search results: 81 entities, 177 relations, 0 vector chunks
+INFO: After truncation: 27 entities, 142 relations
+INFO: Selecting 67 from 261 entity-related chunks by vector similarity
+INFO: Find 28 additional chunks in 24 relations (deduplicated 22)
+INFO: Selecting 28 from 28 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 95 -> 95 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 27 entities, 142 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R1/1 E4/2 R1/2 E6/3 R1/3 E4/4 R1/4 E6/5 R2/5 E4/6 R1/6 E1/7 R5/7 E5/8 R3/8 E1/9 R4/9 E2/10 R8/10
+INFO: Query nodes: bpMRI, mpMRI, d_bpmri_acceptable, quality_adequate, 图像质量, endorse, endorse_option, conditional, report_option, against (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 203 relations
+INFO: Query edges: 前列腺癌诊断, 前列腺活检决策, 决策支持系统, 指南依从, 临床共识声明, 医学影像检查 (top_k:40, cosine:0.2)
+INFO: Global query: 45 entites, 40 relations
+INFO: Raw search results: 77 entities, 233 relations, 0 vector chunks
+INFO: After truncation: 29 entities, 116 relations
+INFO: Selecting 72 from 92 entity-related chunks by vector similarity
+INFO: Find 59 additional chunks in 30 relations (deduplicated 49)
+INFO: Selecting 59 from 59 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 131 -> 131 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 29 entities, 116 relations, 20 chunks
+INFO: Final chunks S+F/O: E5/1 R1/1 E4/2 R1/2 E3/3 R1/3 E4/4 R2/4 E4/5 R1/5 E3/6 R2/6 E1/7 R1/7 E4/8 R3/8 E1/9 R1/9 E2/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO: Query nodes: mpMRI, bpMRI, 多参数磁共振成像, 双参数磁共振成像, 前列腺活检, 机会性筛查, opportunistic_screening, d_bpmri_acceptable, quality_adequate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 325 relations
+INFO: Query edges: 前列腺活检决策, 前列腺癌诊断, 决策支持系统, 指南依从性, 磁共振成像方案选择, 早期癌症筛查, 共识声明 (top_k:40, cosine:0.2)
+INFO: Global query: 49 entites, 40 relations
+INFO: Raw search results: 74 entities, 339 relations, 0 vector chunks
+INFO: After truncation: 27 entities, 134 relations
+INFO: Selecting 67 from 109 entity-related chunks by vector similarity
+INFO: Find 42 additional chunks in 35 relations (deduplicated 52)
+INFO: Selecting 42 from 42 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 109 -> 109 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 27 entities, 134 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R1/1 E4/2 R2/2 E5/3 R1/3 E4/4 R1/4 E4/5 R1/5 E1/6 R1/6 E6/7 R1/7 E2/8 R1/8 E1/9 R1/9 E1/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO: Query nodes: bpMRI, mpMRI, 前列腺活检, 组织化筛查, 共识声明, d_bpmri_acceptable, quality_adequate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 596 relations
+INFO: Query edges: 前列腺活检决策, 前列腺癌诊断, 磁共振成像检查选择, 癌症筛查, 临床决策支持系统, 指南依从性 (top_k:40, cosine:0.2)
+INFO: Global query: 50 entites, 40 relations
+INFO: Raw search results: 76 entities, 611 relations, 0 vector chunks
+INFO: After truncation: 26 entities, 97 relations
+INFO: Selecting 65 from 145 entity-related chunks by vector similarity
+INFO: Find 77 additional chunks in 49 relations (deduplicated 29)
+INFO: Selecting 77 from 77 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 142 -> 142 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 26 entities, 97 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R1/1 E3/2 R1/2 E4/3 R1/3 E3/4 R1/4 E1/5 R2/5 E2/6 R1/6 E2/7 R3/7 E2/8 R1/8 E2/9 R2/9 E1/10 R2/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO: Query nodes: 前列腺活检, MRI, 多发可见病灶, d_report_max3_lesions, multiple_lesions, 最多报告3个病灶 (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 193 relations
+INFO: Query edges: 前列腺活检决策, 共识声明, 决策支持系统, 指南依从性, MRI病灶报告, 临床决策行动 (top_k:40, cosine:0.2)
+INFO: Global query: 54 entites, 40 relations
+INFO: Raw search results: 88 entities, 222 relations, 0 vector chunks
+INFO: After truncation: 28 entities, 100 relations
+INFO: Selecting 70 from 126 entity-related chunks by vector similarity
+INFO: Find 62 additional chunks in 37 relations (deduplicated 54)
+INFO: Selecting 62 from 62 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 132 -> 132 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 28 entities, 100 relations, 20 chunks
+INFO: Final chunks S+F/O: E1/1 R1/1 E2/2 R1/2 E1/3 R1/3 E1/4 R5/4 E1/5 R1/5 E1/6 R1/6 E1/7 R2/7 E1/8 R1/8 E1/9 R1/9 E1/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO: Query nodes: bpMRI, 双参数MRI, 前列腺外周带病变, 对比增强MRI序列, 不确定病变, d_contrast_mri_for_pz_indeterminate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 210 relations
+INFO: Query edges: 前列腺活检决策, 活检指征, 临床决策支持系统, 指南依从性, 医学共识声明, 影像学不确定病变评估 (top_k:40, cosine:0.2)
+INFO: Global query: 50 entites, 40 relations
+INFO: Raw search results: 73 entities, 231 relations, 0 vector chunks
+INFO: After truncation: 30 entities, 107 relations
+INFO: Selecting 60 from 60 entity-related chunks by vector similarity
+INFO: Find 72 additional chunks in 30 relations (deduplicated 43)
+INFO: Selecting 72 from 72 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 132 -> 132 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 30 entities, 107 relations, 20 chunks
+INFO: Final chunks S+F/O: E6/1 R1/1 E4/2 R1/2 E3/3 R1/3 E8/4 R3/4 E4/5 R3/5 E3/6 R1/6 E3/7 R1/7 E3/8 R2/8 E4/9 R1/9 E4/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+[run] probiopsy-rag seed 3: DONE 8 items in 59s
+INFO: [] Loaded graph from D:\Zcode测试文件夹\测试3\data\processed\lightrag_index\graph_chunk_entity_relation.graphml with 1864 nodes, 3078 edges
+INFO:nano-vectordb:Load (1864, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_entities.json'} 1864 data
+INFO:nano-vectordb:Load (3078, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_relationships.json'} 3078 data
+INFO:nano-vectordb:Load (362, 2048) data
+INFO:nano-vectordb:Init {'embedding_dim': 2048, 'metric': 'cosine', 'storage_file': 'D:\\Zcode测试文件夹\\测试3\\data\\processed\\lightrag_index\\vdb_chunks.json'} 362 data
+INFO: Role LLM Configuration (initialized):
+INFO:  - extract: None/None, host=None, max_async=1, timeout=240
+INFO:  - keyword: None/None, host=None, max_async=1, timeout=240
+INFO:  - query: None/None, host=None, max_async=1, timeout=240
+INFO:  - vlm: None/None, host=None, max_async=1, timeout=240
+INFO: Embedding func: 8 new workers initialized (Timeouts: Func: 30s, Worker: 60s, Health Check: 75s)
+INFO: Query nodes: 前列腺活检, 3T MRI, 1.5T MRI, 多参数MRI, 双参数MRI, 磁场强度, d_accept_any_field_strength, quality_adequate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 234 relations
+INFO: Query edges: 前列腺活检决策, 前列腺癌诊断, 磁共振成像磁场强度要求, 临床决策支持系统, 指南依从性, 共识声明评估 (top_k:40, cosine:0.2)
+INFO: Global query: 55 entites, 40 relations
+INFO: Raw search results: 79 entities, 255 relations, 0 vector chunks
+INFO: After truncation: 28 entities, 113 relations
+INFO: Selecting 70 from 87 entity-related chunks by vector similarity
+INFO: Find 65 additional chunks in 33 relations (deduplicated 39)
+INFO: Selecting 65 from 65 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 135 -> 135 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 28 entities, 113 relations, 20 chunks
+INFO: Final chunks S+F/O: E6/1 R1/1 E4/2 R1/2 E4/3 R2/3 E4/4 R2/4 E3/5 R1/5 E3/6 R3/6 E3/7 R1/7 E1/8 R4/8 E1/9 R1/9 E3/10 R1/10
+INFO: Query nodes: PI-QUAL, MRI序列, MRI质量检查, d_mri_quality_check (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 164 relations
+INFO: Query edges: 前列腺活检决策, 影像质量标准, 决策支持系统, 指南遵循, 共识声明 (top_k:40, cosine:0.2)
+INFO: Global query: 48 entites, 40 relations
+INFO: Raw search results: 84 entities, 198 relations, 0 vector chunks
+INFO: After truncation: 29 entities, 122 relations
+INFO: Selecting 72 from 259 entity-related chunks by vector similarity
+INFO: Find 55 additional chunks in 38 relations (deduplicated 49)
+INFO: Selecting 55 from 55 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 127 -> 127 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 29 entities, 122 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R3/1 E4/2 R2/2 E4/3 R3/3 E5/4 R1/4 E7/5 R1/5 E3/6 R5/6 E3/7 R2/7 E1/8 R2/8 E1/9 R1/9 E1/10 R2/10
+INFO: Query nodes: PI-QUAL V.2, PI-QUAL评分, MRI序列, d_use_piqual_v2, 前列腺活检 (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 151 relations
+INFO: Query edges: 前列腺活检决策, 影像质量标准, 决策支持系统, 指南依从性, 共识声明 (top_k:40, cosine:0.2)
+INFO: Global query: 49 entites, 40 relations
+INFO: Raw search results: 81 entities, 177 relations, 0 vector chunks
+INFO: After truncation: 27 entities, 142 relations
+INFO: Selecting 67 from 261 entity-related chunks by vector similarity
+INFO: Find 29 additional chunks in 26 relations (deduplicated 21)
+INFO: Selecting 29 from 29 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 96 -> 96 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 27 entities, 142 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R1/1 E4/2 R1/2 E6/3 R2/3 E4/4 R1/4 E6/5 R1/5 E4/6 R2/6 E1/7 R1/7 E5/8 R5/8 E2/9 R3/9 E1/10 R4/10
+INFO: Query nodes: bpMRI, mpMRI, d_bpmri_acceptable, quality_adequate, 图像质量, endorse, endorse_option, conditional, report_option, against (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 203 relations
+INFO: Query edges: 前列腺癌诊断, 前列腺活检决策, 决策支持系统, 指南依从, 临床共识声明, 医学影像检查 (top_k:40, cosine:0.2)
+INFO: Global query: 45 entites, 40 relations
+INFO: Raw search results: 77 entities, 233 relations, 0 vector chunks
+INFO: After truncation: 34 entities, 116 relations
+INFO: Selecting 85 from 96 entity-related chunks by vector similarity
+INFO: Find 58 additional chunks in 29 relations (deduplicated 50)
+INFO: Selecting 58 from 58 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 143 -> 143 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 34 entities, 116 relations, 20 chunks
+INFO: Final chunks S+F/O: E5/1 R1/1 E4/2 R1/2 E3/3 R1/3 E4/4 R2/4 E4/5 R1/5 E3/6 R2/6 E1/7 R1/7 E5/8 R3/8 E1/9 R1/9 E2/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO: Query nodes: mpMRI, bpMRI, 多参数磁共振成像, 双参数磁共振成像, 前列腺活检, 机会性筛查, opportunistic_screening, d_bpmri_acceptable, quality_adequate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 325 relations
+INFO: Query edges: 前列腺活检决策, 前列腺癌诊断, 决策支持系统, 指南依从性, 磁共振成像方案选择, 早期癌症筛查, 共识声明 (top_k:40, cosine:0.2)
+INFO: Global query: 49 entites, 40 relations
+INFO: Raw search results: 74 entities, 339 relations, 0 vector chunks
+INFO: After truncation: 27 entities, 134 relations
+INFO: Selecting 67 from 108 entity-related chunks by vector similarity
+INFO: Find 41 additional chunks in 34 relations (deduplicated 53)
+INFO: Selecting 41 from 41 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 108 -> 108 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 27 entities, 134 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R1/1 E4/2 R2/2 E5/3 R1/3 E5/4 R1/4 E4/5 R1/5 E1/6 R1/6 E2/7 R1/7 E6/8 R1/8 E1/9 R1/9 E1/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO: Query nodes: bpMRI, mpMRI, 前列腺活检, 组织化筛查, 共识声明, d_bpmri_acceptable, quality_adequate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 599 relations
+INFO: Query edges: 前列腺活检决策, 前列腺癌诊断, 磁共振成像检查选择, 癌症筛查, 临床决策支持系统, 指南依从性 (top_k:40, cosine:0.2)
+INFO: Global query: 50 entites, 40 relations
+INFO: Raw search results: 77 entities, 615 relations, 0 vector chunks
+INFO: After truncation: 25 entities, 97 relations
+INFO: Selecting 62 from 103 entity-related chunks by vector similarity
+INFO: Find 74 additional chunks in 42 relations (deduplicated 32)
+INFO: Selecting 74 from 74 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 136 -> 136 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 25 entities, 97 relations, 20 chunks
+INFO: Final chunks S+F/O: E4/1 R1/1 E3/2 R2/2 E4/3 R1/3 E3/4 R1/4 E1/5 R1/5 E2/6 R1/6 E2/7 R2/7 E2/8 R1/8 E2/9 R3/9 E1/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO: Query nodes: 前列腺活检, MRI, 多发可见病灶, d_report_max3_lesions, multiple_lesions, 最多报告3个病灶 (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 193 relations
+INFO: Query edges: 前列腺活检决策, 共识声明, 决策支持系统, 指南依从性, MRI病灶报告, 临床决策行动 (top_k:40, cosine:0.2)
+INFO: Global query: 55 entites, 40 relations
+INFO: Raw search results: 89 entities, 222 relations, 0 vector chunks
+INFO: After truncation: 28 entities, 107 relations
+INFO: Selecting 70 from 126 entity-related chunks by vector similarity
+INFO: Find 59 additional chunks in 38 relations (deduplicated 56)
+INFO: Selecting 59 from 59 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 129 -> 129 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 28 entities, 107 relations, 20 chunks
+INFO: Final chunks S+F/O: E1/1 R1/1 E2/2 R5/2 E1/3 R1/3 E1/4 R2/4 E1/5 R1/5 E1/6 R1/6 E1/7 R1/7 E1/8 R1/8 E1/9 R1/9 E1/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO: Query nodes: bpMRI, 双参数MRI, 前列腺外周带病变, 对比增强MRI序列, 不确定病变, d_contrast_mri_for_pz_indeterminate (top_k:40, cosine:0.2)
+INFO: Local query: 40 entites, 210 relations
+INFO: Query edges: 前列腺活检决策, 活检指征, 临床决策支持系统, 指南依从性, 医学共识声明, 影像学不确定病变评估 (top_k:40, cosine:0.2)
+INFO: Global query: 50 entites, 40 relations
+INFO: Raw search results: 73 entities, 231 relations, 0 vector chunks
+INFO: After truncation: 30 entities, 107 relations
+INFO: Selecting 60 from 60 entity-related chunks by vector similarity
+INFO: Find 72 additional chunks in 30 relations (deduplicated 43)
+INFO: Selecting 72 from 72 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 132 -> 132 (deduplicated 0)
+WARNING: Rerank is enabled but no rerank model is configured. Please set up a rerank model or set enable_rerank=False in query parameters.
+INFO: Final context: 30 entities, 107 relations, 20 chunks
+INFO: Final chunks S+F/O: E6/1 R1/1 E4/2 R1/2 E3/3 R1/3 E4/4 R3/4 E8/5 R1/5 E3/6 R1/6 E3/7 R3/7 E3/8 R2/8 E4/9 R1/9 E4/10 R1/10
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx2:HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+[run] probiopsy-rag seed 4: DONE 8 items in 96s
+[run] all done -> D:\Zcode测试文件夹\测试3\outputs\baseline_predictions.jsonl
