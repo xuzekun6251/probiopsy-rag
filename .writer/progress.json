@@ -1,19 +1,21 @@
 {
   "sections": {
     "01_methods": "complete",
-    "02_results": "complete",
+    "02_results": "complete (revised: residual-errors subsection, paired stats, S-table refs)",
     "03_introduction": "complete",
-    "04_discussion": "complete",
+    "04_discussion": "complete (revised: conditional-weakness limitation added)",
     "manuscript_zh": "complete",
-    "manuscript_en": "complete",
-    "figures": "complete (fig1/2/4/5 rendered from real data; fig3 pending expert panel)",
-    "tables": "complete (table1-4 csv+md)"
+    "manuscript_en": "complete (internal-review revision: abstract 248 words, figure legends, ethics self-contained)",
+    "figures": "complete (fig1/2/4/5 rendered from real data; fig2 now a/b/c; fig3 pending expert panel)",
+    "tables": "complete (table1-4 csv+md + internal_review_stats.json)",
+    "supplementary": "complete (S1 confusion+stats, S2 flagship, S3 case reports, S4 runtime, S5 prompts)",
+    "internal_review": "complete (peer-review skill simulation; M1-M6 fixed, minor 1-10 addressed or tracked)"
   },
   "pending": [
     "expert blind review data (planner phase 4.5) -> figure3 + face validity section",
-    "reference QC for refs 2-9, 11 (nature-academic-search, DOI verification)",
-    "cover letter / highlights / graphical abstract (phase 7_8)",
-    "PI name / affiliation / funding / COI TODOs"
+    "PI name / affiliation / funding / COI TODOs",
+    "GitHub repo + Zenodo DOI (data availability)",
+    "ref 1 volume/pages check at submission time (in press)"
   ],
   "updated": "2026-09-18"
 }

@@ -113,12 +113,12 @@ def fig2() -> None:
     summary = json.loads((ROOT / "outputs" / "evaluation_summary.json").read_text(encoding="utf-8"))
     methods = [("pure_llm", "pure_llm"), ("naive_rag", "naive_rag"),
                ("lightrag", "LightRAG-only"), ("probiopsy-rag", "QianLieAnHui (full)")]
-    metrics = [("exact5", "Exact-5 acc"), ("exact3", "Exact-3 acc"),
+    metrics = [("exact5", "Exact-5\nacc"), ("exact3", "Exact-3\nacc"),
                ("macro_f1", "Macro-F1"), ("kappa", "Cohen's κ"),
                ("against_f1", "Against-F1")]
 
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7.0, 2.9),
-                                   gridspec_kw={"width_ratios": [3, 2]})
+    fig, (ax1, ax2, ax3) = plt.subplots(
+        1, 3, figsize=(7.6, 2.9), gridspec_kw={"width_ratios": [3, 1.5, 2.1]})
     # (a) grouped bars with SD error bars
     n_m, n_met = len(methods), len(metrics)
     bw = 0.8 / n_m
@@ -154,6 +154,35 @@ def fig2() -> None:
     ax2.set_ylim(0, 1.0)
     ax2.set_title("(b) Exact-5 per seed (dash = mean)", fontsize=7)
     ax2.spines[["top", "right"]].set_visible(False)
+
+    # (c) predicted class distribution per method (counts over 560 runs),
+    #     gold-standard counts overlaid as black diamonds
+    import csv
+    dist = {}
+    with open(ROOT / "outputs" / "figures" / "source_data" /
+              "figure2_pred_distribution.csv", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            dist[row["action"]] = row
+    classes = ["endorse", "endorse_option", "conditional", "report_option", "against"]
+    class_lbl = ["endorse", "endorse_\noption", "conditional", "report_\noption",
+                 "against"]
+    n_c = len(classes)
+    bw = 0.8 / n_m
+    for j, (mid, label) in enumerate(methods):
+        col = "probiopsy_rag" if mid == "probiopsy-rag" else mid
+        counts = [int(dist[c][col]) for c in classes]
+        xs = [i + j * bw - 0.4 + bw / 2 for i in range(n_c)]
+        ax3.bar(xs, counts, bw, color=C_METH[mid], label=label)
+    gold = [int(dist[c]["gold_standard"]) for c in classes]
+    ax3.scatter(range(n_c), gold, marker="D", s=10, color="#222222", zorder=5,
+                label="gold standard")
+    ax3.set_xticks(range(n_c))
+    ax3.set_xticklabels(class_lbl, fontsize=5.6)
+    ax3.set_ylabel("Predictions (of 560 runs)")
+    ax3.legend(fontsize=5.2, frameon=False, loc="upper right",
+               bbox_to_anchor=(1.02, 1.04))
+    ax3.set_title("(c) Predicted class distribution", fontsize=7)
+    ax3.spines[["top", "right"]].set_visible(False)
     fig.tight_layout()
     _export(fig, "figure2_performance")
 

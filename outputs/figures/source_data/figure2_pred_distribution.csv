@@ -1,0 +1,6 @@
+action,gold_standard,pure_llm,naive_rag,lightrag,probiopsy_rag
+endorse,190,254,175,162,280
+endorse_option,35,90,60,68,38
+conditional,185,14,6,3,95
+report_option,25,28,165,168,32
+against,125,174,154,159,115

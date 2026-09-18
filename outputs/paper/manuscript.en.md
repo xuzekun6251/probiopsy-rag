@@ -8,21 +8,21 @@
 
 <sup>\*</sup> Corresponding author: [email TODO]
 
-**Keywords:** prostate cancer; prostate biopsy; clinical decision support; knowledge graph; LightRAG; retrieval-augmented generation; large language models; international consensus; ProBIOPSY
+**Keywords:** prostate cancer; prostate biopsy; clinical decision support; knowledge graph; LightRAG; retrieval-augmented generation; large language models; ProBIOPSY
 
-**Word count:** abstract 272 / main text ~3,900
+**Word count:** abstract 248 / main text ~2,950 (excl. tables, legends, references)
 
 ---
 
 ## Abstract
 
-**Background:** Prostate biopsy decisions require weighing MRI quality, biopsy schemes, routes, perioperative prophylaxis, and treatment-planning requirements in patient-specific contexts. The ProBIOPSY international consensus distilled this pathway into 112 final statements, but a consensus document is not an executable decision artifact. Large language models (LLMs) offer flexible reasoning yet hallucinate and cannot trace outputs to sources; retrieval-augmented generation (RAG) mitigates hallucination but provides no deterministic safety guarantees.
+**Background:** Prostate biopsy decisions must weigh patient-specific MRI quality, biopsy scheme, route, prophylaxis, and treatment-planning needs. The ProBIOPSY consensus (112 final statements) codifies this pathway but is not an executable decision artifact. Large language models (LLMs) hallucinate and lack traceability; retrieval-augmented generation (RAG) mitigates hallucination but provides no deterministic safety guarantees.
 
-**Methods:** We developed QianLieAnHui, a three-layer hybrid system: (1) a deterministic rule engine (12 consensus rules plus 4 patient-factor escalation rules) that emits hard constraints; (2) risk-guided evidence retrieval over a LightRAG knowledge graph (357 evidence chunks; 1,864 entities; 3,078 relations, all traceable to the consensus text and its reference list); and (3) an LLM arbiter that outputs one of five executable actions — endorse, endorse_option, conditional, report_option, against — with confidence and statement-level citations. We benchmarked four methods × five seeds × 112 gold-standard statements (2,240 runs) with a single fixed generator (GLM-5.3-Flash) so that inter-method differences isolate architectural contributions, and re-ran baseline methods with the flagship GLM-5.3 tier (1,120 runs) as a generator-robustness experiment.
+**Methods:** We developed QianLieAnHui, a three-layer hybrid: (1) a deterministic rule engine (12 consensus + 4 patient-factor escalation rules) emitting hard constraints; (2) risk-guided retrieval over a LightRAG knowledge graph (357 evidence chunks, 1,864 entities, 3,078 relations, traceable to the consensus); (3) an LLM arbiter emitting one of five executable actions with statement-level citations. Four methods × five seeds × 112 statements (2,240 runs) were benchmarked with one fixed generator (GLM-5.3-Flash), isolating architectural contributions; baselines were re-run with flagship GLM-5.3 (1,120 runs).
 
-**Results:** The full system achieved exact-5-class accuracy 0.805 ± 0.012 (mean ± SD over seeds), macro-F1 0.825 ± 0.022, Cohen's κ 0.730 ± 0.016, and against-class F1 0.908 ± 0.023 (specificity 0.986 ± 0.010), versus the strongest baseline, LightRAG-only (0.613, 0.536, 0.525, 0.881), naive lexical RAG (0.605, 0.514, 0.512, 0.890), and pure LLM (0.304, 0.254, 0.079, 0.346). Baselines collapsed onto frequent classes: conditional was actively emitted in only 9 of 1,120 baseline runs (0.8%) versus 17.0% for the full system. Upgrading the generator did not rescue the naive-RAG architecture (exact-5 0.605 → 0.538).
+**Results:** The full system achieved exact-5 accuracy 0.805±0.012 (±SD over 5 seeds), Cohen's κ 0.730±0.016, and against-class F1 0.908±0.023, versus strongest baseline LightRAG-only (0.613, 0.536, 0.525, 0.881), naive RAG (0.605, 0.514, 0.512, 0.890), and pure LLM (0.304, 0.254, 0.079, 0.346); all differences significant (FDR-adjusted p ≤ 0.001). Retrieval baselines collapsed onto frequent classes (conditional: 9 of 1,120 runs, 0.8%, versus 17.0% for the full system). Upgrading the generator did not rescue naive RAG (0.605→0.538).
 
-**Conclusions:** Fine-grained clinical action-space competence must be built into the architecture — rule-level priors and hard constraints — rather than delegated to prompting or larger models. Architecture, not generator tier, was the dominant lever; every output traces to consensus statements and evidence chunks, supporting clinical governance audits.
+**Conclusions:** Fine-grained action-space competence must be built into the architecture—rule-level priors and hard constraints—not delegated to prompting or larger models. Architecture, not generator tier, was the dominant lever; every output traces to consensus statements and evidence chunks, supporting clinical governance audits.
 
 ---
 
@@ -37,7 +37,7 @@ These failure modes are complementary. A deterministic rule engine can mechanica
 We developed and validated QianLieAnHui (前列安汇; "probiopsy-rag"), a hybrid decision-support system for the prostate biopsy pathway, and quantified each architectural layer's contribution with a multi-method, multi-seed benchmark against the 112 ProBIOPSY final statements. Our contributions are:
 
 1. **Architecture.** To our knowledge the first biopsy-pathway decision-support system chaining deterministic rule hard constraints, LightRAG knowledge-graph retrieval, and LLM arbitration, aligned statement-by-statement with an international consensus.
-2. **Gold-standard alignment.** All 112 final statements mapped to five executable actions (endorse / endorse_option / conditional / report_option / against); we show that conditional and endorse_option — the two nuance-bearing classes — are structurally missing from LLM and RAG baselines.
+2. **Gold-standard alignment.** All 112 final statements mapped to five executable actions (endorse / endorse_option / conditional / report_option / against); we show that the two nuance-bearing classes — conditional and endorse_option — are almost never emitted by retrieval-augmented baselines, and are placed correctly by no baseline method.
 3. **Reproducible benchmark.** With the generator tier held fixed, the full system reached exact-5 0.805 (κ 0.730) versus pure-LLM 0.304, naive RAG 0.605, and LightRAG-only 0.613; upgrading the generator tier did not rescue baseline architectures (naive RAG exact-5 fell to 0.538).
 4. **Reproducibility.** Rules, registries, evidence corpus, all 2,240 raw predictions, and evaluation scripts are released; the index records the rule-file SHA-256 at build time so the app can verify index–rules version integrity.
 
@@ -49,15 +49,15 @@ This is a system-development and benchmark-validation study. It involved no huma
 
 ### Validation set: 112 ProBIOPSY final statements
 
-All 112 final statements of the ProBIOPSY consensus [1] served as the gold standard. Each statement was mapped to an expected system action in a pre-defined five-class taxonomy: **endorse** (support as stated), **endorse_option** (support as one of several acceptable options), **conditional** (support under specified conditions), **report_option** (present as an available pathway without active recommendation), and **against** (recommend against). Statements span three domains: indication (n = 23), procedure (n = 34), and treatment planning (n = 55); 25 statements (22.3%) are against-class, providing a demanding test for systems with optimism bias.
+All 112 final statements of the ProBIOPSY consensus [1] served as the gold standard. Each statement was mapped to an expected system action in a pre-defined five-class taxonomy: **endorse** (support as stated), **endorse_option** (support as one of several acceptable options), **conditional** (support under specified conditions), **report_option** (present as an available pathway without active recommendation), and **against** (recommend against). The gold-standard action distribution is endorse 190, conditional 185, against 125, endorse_option 35, and report_option 25. Statements span three domains: indication (n = 23), procedure (n = 34), and treatment planning (n = 55); 25 statements (22.3%) are against-class, providing a demanding test for systems with optimism bias. The five demonstration vignettes described under Results are synthetic cases built on the same registries and are not part of the 112-statement evaluation set.
 
 ### System architecture
 
-The input is a pair (patient clinical scenario × biopsy decision item); the output is a structured verdict: one of five actions, a confidence value, triggered rules, and citations to numbered consensus statements and evidence chunks.
+The input is a pair (patient clinical scenario × biopsy decision item); the output is a structured verdict: one of five actions, a confidence value, triggered rules, and citations to numbered consensus statements and evidence chunks (Figure 1).
 
-**Input layer: dual registries.** Entity A (patient scenarios) contains 51 archetypes with 49 distinct scenario flags across imaging (PI-RADS grade, mpMRI/bpMRI, field strength, PI-QUAL quality), laboratory markers (PSA, PSA density), history and risk (prior negative biopsy, family history, infection risk factors, anticoagulation), treatment intent, and resource availability. Entity B (decision items) contains 54 items with 20 flags across indication (22), procedure (22), and treatment-planning linkage (10).
+**Input layer: dual registries.** Entity A (patient scenarios) contains 51 archetypes with 49 distinct scenario flags across imaging (PI-RADS grade, mpMRI/bpMRI, field strength, PI-QUAL quality), laboratory markers (PSA, PSA density), history and risk (prior negative biopsy, family history, infection risk factors, anticoagulation), treatment intent, and resource availability (Table 1). Entity B (decision items) contains 54 items with 20 flags across indication (22), procedure (22), and treatment-planning linkage (10).
 
-**Layer 1: deterministic rule engine.** The rule base (YAML) holds 16 rules: 12 consensus rules and 4 patient-factor escalation rules. Each rule specifies trigger flag combinations (Entity A × Entity B flags), severity, mechanism category (imaging pathway, scheme selection, targeted biopsy, perioperative, treatment planning), and recommended action. Matching is fully deterministic — no LLM involved — and produces hard constraints for downstream layers (e.g., a mandatory veto or mandatory escalation), each carrying ProBIOPSY statement numbers (Q-codes) for provenance. Patient-factor rules escalate consensus rules in context (e.g., infection risk factors → prefer transperineal route or augmented prophylaxis; unfit for curative treatment → simplified biopsy scheme).
+**Layer 1: deterministic rule engine.** The rule base (YAML) holds 16 rules: 12 consensus rules and 4 patient-factor escalation rules (Table 2). Each rule specifies trigger flag combinations (Entity A × Entity B flags), severity, mechanism category (imaging pathway, scheme selection, targeted biopsy, perioperative, treatment planning), and recommended action. Matching is fully deterministic — no LLM involved — and produces hard constraints for downstream layers (e.g., a mandatory veto or mandatory escalation), each carrying ProBIOPSY statement numbers (Q-codes) for provenance. Patient-factor rules escalate consensus rules in context (e.g., infection risk factors → prefer transperineal route or augmented prophylaxis; unfit for curative treatment → simplified biopsy scheme).
 
 **Layer 2: risk-guided LightRAG retrieval.** The corpus comprises 357 evidence chunks, all sourced from the ProBIOPSY consensus and its supplementary material: the 112 final statements (evidence level B), 20 narrative passages, 7 systematic-review summaries, and 218 literature entries extracted from the consensus reference lists (level C). The index was built with LightRAG (lightrag-hku 1.5.7); entity and relation extraction used GLM-5.3-Flash, and the vector index used doubao-embedding-vision-251215 (dimension 2,048). The final index contains 1,864 entities and 3,078 relations (~100 MB). The full system performs risk-guided retrieval: rule matches and active decision items drive entity-boosted hybrid queries (vector + graph structure), executed in context-only mode (retrieving entities, relations, and chunks without letting LightRAG generate the answer itself). Graph context is concatenated with lexical evidence (BM25-style scoring with boosts for active decision items and scenario flags) and passed to the arbiter.
 
@@ -77,7 +77,7 @@ Four methods × five seeds (0–4; temperature 0.2) × 112 statements = **2,240 
 
 ### Metrics
 
-Exact-5-class accuracy (primary), exact-3 accuracy (collapsing endorse_option→endorse and report_option→conditional, to expose majority-class inflation), five-class macro-F1, Cohen's κ against the gold standard, and binary against-class sensitivity/specificity/F1. All metrics are reported as mean ± SD over the five seeds. Context characters per run were logged as an efficiency metric.
+Exact-5-class accuracy (primary), exact-3 accuracy (collapsing endorse_option→endorse and report_option→conditional, to expose majority-class inflation), five-class macro-F1, Cohen's κ against the gold standard, and binary against-class sensitivity/specificity/F1. All metrics are reported as mean ± SD over the five seeds. Method differences were assessed with two-sided paired t-tests across seeds (full system vs each baseline; exact-5 and κ; six comparisons), with Benjamini–Hochberg false-discovery-rate correction. Context characters per run were logged as an efficiency metric.
 
 ### Implementation and reproducibility
 
@@ -91,15 +91,19 @@ All 2,240 runs (4 methods × 5 seeds × 112 statements) completed successfully w
 
 ### Headline performance (Table 3, Figure 2)
 
-The full system outperformed all three baselines on every fine-grained metric (Table 3): exact-5 0.805 ± 0.012 versus 0.613 (LightRAG-only), 0.605 (naive RAG), and 0.304 (pure LLM); κ 0.730 ± 0.016 versus 0.525, 0.512, and 0.079; macro-F1 0.825 ± 0.022 versus 0.536, 0.514, and 0.254. Relative to the strongest baseline this is **+19.2 percentage points exact-5 and +0.205 κ**. Seed-to-seed variation was small (exact-5 SD 0.012), indicating the advantage is not a stochastic artifact.
+The full system outperformed all three baselines on every fine-grained metric (Table 3): exact-5 0.805 ± 0.012 versus 0.613 (LightRAG-only), 0.605 (naive RAG), and 0.304 (pure LLM); κ 0.730 ± 0.016 versus 0.525, 0.512, and 0.079; macro-F1 0.825 ± 0.022 versus 0.536, 0.514, and 0.254. Relative to the strongest baseline this is **+19.2 percentage points exact-5 and +0.205 κ**. All six paired seed-level comparisons (full system vs each baseline; exact-5 and κ) remain significant after Benjamini–Hochberg FDR correction (paired t(4) = 8.9–25.3, all adjusted p ≤ 8.9 × 10⁻⁴). Seed-to-seed variation was small (exact-5 SD 0.012), indicating the advantage is not a stochastic artifact.
 
 ### Baselines collapse onto frequent classes (Figure 2C)
 
-The macro-F1 pattern exposes a failure mode invisible to exact-3: both RAG baselines reach high exact-3 accuracy (0.920 / 0.905 — nominally above the full system's 0.823) while their exact-5 (~0.61) and macro-F1 (~0.52) reveal class collapse. Their predicted distributions over 560 runs each concentrate on three frequent classes — LightRAG-only: endorse 162, report_option 168, against 159, endorse_option 68, **conditional 3**; naive RAG: endorse 175, report_option 165, against 154, endorse_option 60, **conditional 6**. The full system uses all five classes substantively: endorse 280, conditional 95, against 115, report_option 32, endorse_option 38. In other words, retrieval-augmented baselines structurally cannot express *conditional endorsement* and *equivalent-option endorsement* — the two actions most critical for nuanced clinical communication — emitting them in 0.5–1.1% of runs versus 17.0% and 6.8% for the full system, and in the right places (κ 0.730 versus ~0.52).
+The macro-F1 pattern exposes a failure mode invisible to exact-3: both RAG baselines reach high exact-3 accuracy (0.920 / 0.905 — nominally above the full system's 0.823) while their exact-5 (~0.61) and macro-F1 (~0.52) reveal class collapse. Their predicted distributions over 560 runs each concentrate on three frequent classes — LightRAG-only: endorse 162, report_option 168, against 159, endorse_option 68, **conditional 3**; naive RAG: endorse 175, report_option 165, against 154, endorse_option 60, **conditional 6** (Figure 2C). Pure LLM emits conditional and endorse_option more often (14 and 90 of 560 runs) but places them almost never correctly (κ 0.079). The full system uses all five classes substantively: endorse 280, conditional 95, against 115, report_option 32, endorse_option 38. In other words, retrieval-augmented baselines almost never express *conditional endorsement* and *equivalent-option endorsement* — the two actions most critical for nuanced clinical communication — emitting them in 0.5–1.1% of runs versus 17.0% and 6.8% for the full system, and no baseline places them in the right places (κ 0.730 versus ~0.52).
 
 ### Against-class behaviour: safe vetoing
 
 Against is the safety-critical class (22.3% of the gold standard). The full system achieved against-F1 0.908 ± 0.023 (sensitivity 0.872 ± 0.018, specificity 0.986 ± 0.010). LightRAG-only reached F1 0.881 with sensitivity 1.000 but specificity only 0.922 — over-calling against — and naive RAG behaved identically (F1 0.890; sens 0.992 / spec 0.931). Pure LLM achieved F1 0.346 (sens 0.416 / spec 0.720). The full system trades a modest sensitivity reduction for near-zero false vetoes, a behavioural difference attributable to hard-constrained arbitration: against is emitted only when rules or evidence explicitly support it.
+
+### Residual errors: conditional endorsement is the hardest class
+
+The full system's aggregated confusion matrix (Supplementary Table S1) shows near-perfect endorsement behaviour (gold endorse: 190/190 correct) but conditional recall of 95/185 (0.51): of the 185 gold-conditional statements, 74 were predicted endorse, 10 report_option, and 6 against. Errors on conditional therefore skew over-permissive — the direction clinical governance is most concerned about — motivating class-specific calibration as future work. Per-domain confusion matrices (Supplementary Table S1) show this pattern is most pronounced in treatment planning, the against-densest domain.
 
 ### Generator tier does not rescue baseline architectures (supplementary experiment)
 
@@ -107,21 +111,21 @@ Re-running pure_llm and naive_rag with the flagship GLM-5.3 tier (1,120 runs) ch
 
 ### Domain breakdown (Table 4)
 
-Against-class density varies sharply by domain (indication 8.7%, procedure 14.7%, treatment planning 32.7%). The full system retains its overall advantage in the against-densest domain; per-domain confusion matrices are provided in the supplementary material.
+Against-class density varies sharply by domain (indication 8.7%, procedure 14.7%, treatment planning 32.7%). The full system retains its overall advantage in the against-densest domain; per-domain confusion matrices are provided in Supplementary Table S1.
 
 ### Demonstration cases (Figures 4, 5)
 
-Five synthetic demonstration vignettes (unifocal-lesion biopsy scheme, upfront biopsy after PSMA PET, indeterminate bpMRI lesions, advanced-disease route and prophylaxis, infection-risk escalation) ran end-to-end, each producing the correct five-class action, the expected consensus rules (including patient-factor escalations), and a citation chain traceable to Q-codes and evidence chunks (case reports in the supplement).
+Five synthetic demonstration vignettes (unifocal-lesion biopsy scheme, upfront biopsy after PSMA PET, indeterminate bpMRI lesions, advanced-disease route and prophylaxis, infection-risk escalation) ran end-to-end, each producing the correct five-class action, the expected consensus rules (including patient-factor escalations), and a citation chain traceable to Q-codes and evidence chunks (case reports in Supplementary S3).
 
 ### Runtime cost
 
-The full system uses a mean of 7,640 characters of context (~2,500–3,000 tokens). With eight concurrent workers and the flash generator, median end-to-end latency per verdict was ~20–40 s; the system supports interactive use (a Streamlit interface with a decision-report module and a free-form RAG question-answering module).
+The full system uses a mean of 7,640 characters of context (~2,500–3,000 tokens). With eight concurrent workers and the flash generator, median end-to-end latency per verdict was ~20–40 s (per-case breakdown: Figure 5A, source data in Supplementary S4). The system supports interactive use (a Streamlit interface with a decision-report module and a free-form RAG question-answering module).
 
 ## Discussion
 
 ### Principal findings
 
-Under a fixed generator, multi-method, multi-seed benchmarking, this study answers a precise question: **performance differences in prostate-biopsy decision support come primarily from architecture, not from the model.** Three evidence chains converge: (i) the full system reached exact-5 0.805 / κ 0.730, +19.2 points over the strongest baseline; (ii) both RAG baselines nominally "beat" the full system on coarse exact-3 accuracy while collapsing onto three frequent classes — conditional was actively emitted 9 times in 1,120 baseline runs (0.8%) versus 17.0% for the full system; and (iii) upgrading the generator tier made naive RAG *worse* (exact-5 0.605 → 0.538). Fine-grained clinical action-space competence must be built into the system architecture — rule-derived class priors and hard constraints — and cannot be prompted back in.
+Under a fixed generator, multi-method, multi-seed benchmarking, this study answers a precise question: **performance differences in prostate-biopsy decision support come primarily from architecture, not from the model.** Three evidence chains converge: (i) the full system reached exact-5 0.805 / κ 0.730, +19.2 points over the strongest baseline; (ii) both RAG baselines nominally "beat" the full system on coarse exact-3 accuracy while collapsing onto three frequent classes — conditional was actively emitted 9 times in 1,120 retrieval-baseline runs (0.8%; pure LLM 14 times in 560) versus 17.0% for the full system; and (iii) upgrading the generator tier made naive RAG *worse* (exact-5 0.605 → 0.538). Fine-grained clinical action-space competence must be built into the system architecture — rule-derived class priors and hard constraints — and cannot be prompted back in.
 
 ### Relation to prior work
 
@@ -133,7 +137,7 @@ The system is not designed to replace clinician judgement; its value is governab
 
 ### Limitations
 
-First, **corpus–gold-standard homology**: corpus and gold standard both derive from the ProBIOPSY consensus, so this is a *consensus-conformance* evaluation rather than independent clinical validity; the system never saw action labels during development and the rule base covers only 16 topics, but exposure to statement text cannot be excluded, and prospective external validation is the necessary next step. Second, **the expert blind review is pending** (planned as a multi-expert face-validity panel); current face-validity evidence rests on five fully traced demonstration cases. Third, **synthetic scenarios**: the 51 scenario archetypes and five demonstration cases are synthetic and do not span the full comorbidity complexity of real patients. Fourth, **single generator family**: the benchmark used the GLM family (flash and flagship tiers); cross-vendor generalisation is untested, although the supplement shows generator tier is not the decisive factor. Fifth, **combinatorial coverage**: 112 statements cover the high-frequency region of the 51 × 54 interaction space; long-tail coverage is unquantified. Sixth, **context cost**: the full system's 7,640-character mean context is ~3× the strongest baseline, traded for +19.2 points exact-5; rule-gated short-circuiting (pure-rule combinations skip graph retrieval) can amortise this further. Seventh, **language and region**: the corpus is English, the scenario registry and UI Chinese; cross-lingual transfer is untested.
+First, **corpus–gold-standard homology**: corpus and gold standard both derive from the ProBIOPSY consensus, so this is a *consensus-conformance* evaluation rather than independent clinical validity; the system never saw action labels during development and the rule base covers only 16 topics, but exposure to statement text cannot be excluded, and prospective external validation is the necessary next step. Second, **the residual conditional weakness**: conditional recall is 0.51 with an over-permissive error skew (74/185 gold-conditional statements predicted endorse); deployed without the rule layer's hard constraints, such errors would shift towards false endorsement, so class-specific calibration is required before clinical piloting. Third, **the expert blind review is pending** (planned as a multi-expert face-validity panel); current face-validity evidence rests on five fully traced demonstration cases. Fourth, **synthetic scenarios**: the 51 scenario archetypes and five demonstration cases are synthetic and do not span the full comorbidity complexity of real patients. Fifth, **single generator family**: the benchmark used the GLM family (flash and flagship tiers); cross-vendor generalisation is untested, although the supplement shows generator tier is not the decisive factor. Sixth, **combinatorial coverage**: 112 statements cover the high-frequency region of the 51 × 54 interaction space; long-tail coverage is unquantified. Seventh, **context cost**: the full system's 7,640-character mean context is ~3× the strongest baseline, traded for +19.2 points exact-5; rule-gated short-circuiting (pure-rule combinations skip graph retrieval) can amortise this further. Eighth, **language and region**: the corpus is English, the scenario registry and UI Chinese; cross-lingual transfer is untested.
 
 ### Future work
 
@@ -149,7 +153,19 @@ The rule base (configs/rules.yaml), both registries (entities_a.csv, entities_b.
 
 ## Ethics statement
 
-No human participants, patient data, or biological samples were involved; the corpus and gold standard derive from the published ProBIOPSY consensus; demonstration cases are synthetic. See Manuscript_Ethics_Statement.md.
+No human participants, patient data, or biological samples were involved. The evidence corpus and gold standard derive solely from the published ProBIOPSY consensus and its supplementary material; all demonstration cases are synthetic vignettes constructed by the study team. No patient-identifiable data were transmitted to third-party model APIs. Institutional review board approval was therefore not required; the assessment is documented in the project ethics file accompanying the repository.
+
+## Figure legends
+
+**Figure 1.** System architecture. Patient scenario and decision item flow through (1) a deterministic rule engine (12 consensus rules + 4 patient-factor escalation rules) emitting hard constraints, (2) risk-guided retrieval over the LightRAG knowledge graph fused with lexical evidence, and (3) an LLM arbiter producing a five-class action verdict with citations and a rule-enforced constraint check.
+
+**Figure 2.** Multi-seed benchmark (4 methods × 5 seeds × 112 statements). **(a)** Core metrics by method (mean ± SD across 5 seeds): exact-5 accuracy, exact-3 accuracy, macro-F1, Cohen's κ, and against-class F1. **(b)** Exact-5 accuracy per seed (dots; dash = mean). **(c)** Predicted class distribution per method over 560 runs (bars) with the gold-standard distribution (diamonds) — retrieval baselines almost never emit conditional; the full system's distribution tracks the gold standard most closely.
+
+**Figure 3.** Expert blind-review agreement across the five demonstration cases (pre-registered columns pending the four-expert panel; to be added before submission).
+
+**Figure 4.** Demonstration cases. **(a)** Consensus rules fired per case, coloured by recommended action. **(b)** Evidence corpus composition (112 consensus statements, 218 literature entries, 20 narrative passages, 7 systematic-review summaries).
+
+**Figure 5.** Runtime and knowledge-graph statistics. **(a)** End-to-end latency per demonstration case (log scale), split into the rule-engine layer (red) and the remaining pipeline (grey). **(b)** Top-12 knowledge-graph edge weights by relation type.
 
 ## Funding
 
