@@ -4,9 +4,9 @@
 
 ## 作者
 
-[PI 姓名 TODO]<sup>1,\*</sup>，[合作者 TODO]
+徐泽坤<sup>1,\*</sup>
 
-<sup>1</sup>[科室/单位 TODO]；<sup>\*</sup>通讯作者：[邮箱 TODO]
+<sup>1</sup>泌尿外科，浙江大学附属金华医院；<sup>\*</sup>通讯作者：xuzekunurology@163.com
 
 ## 结构化摘要
 

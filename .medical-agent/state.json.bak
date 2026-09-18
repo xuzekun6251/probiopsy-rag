@@ -18,7 +18,8 @@
     "writer.start",
     "writer.phase7",
     "writer.phase8",
-    "writer.internal_review"
+    "writer.internal_review",
+    "writer.expert_review"
   ],
   "in_progress": null,
   "blocked": [],
@@ -99,6 +100,11 @@
     {
       "date": "2026-09-18",
       "event": "peer-review 自审模拟完成: 6 major + 10 minor 发现; 已修复 (配对t检验BH-FDR、混淆矩阵披露、panel C、图例、摘要248词、补充材料S1-S5)",
+      "skill": "medical-agent"
+    },
+    {
+      "date": "2026-09-18",
+      "event": "专家盲评完成: 4专家x5命题; Cohen κ(系统vs多数票)=1.0 (n=4, case1 2:2平票按预注册剔除); Fleiss κ=-0.092 如实披露为小样本伪影; Likert 80项全部5/5; 图3已渲染, face validity 段已写入中英文稿件, Limitations/Future work/伦理声明同步更新",
       "skill": "medical-agent"
     }
   ]

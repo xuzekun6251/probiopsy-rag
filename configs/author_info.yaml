@@ -7,14 +7,14 @@
 # ============================================================================
 
 pi:
-  name_en: ""          # 拼音，姓大写，如: ZHANG San
-  name_zh: ""          # 中文，如: 张三
-  title: ""            # 如: 主任医师 / Associate Professor / Professor
-  department: ""       # 如: 泌尿外科 (Department of Urology)
-  department_en: ""    # 如: Department of Urology
-  institution: ""      # 中文单位，如: XX大学附属第一医院
-  institution_en: ""   # 英文单位，如: First Affiliated Hospital of XX University
-  email: ""            # 通讯作者邮箱
+  name_en: "XU Zekun"          # 拼音，姓大写，如: ZHANG San
+  name_zh: "徐泽坤"          # 中文，如: 张三
+  title: "主治医师"            # 如: 主任医师 / Associate Professor / Professor
+  department: "泌尿外科"       # 如: 泌尿外科 (Department of Urology)
+  department_en: "Department of Urology"    # 如: Department of Urology
+  institution: "浙江大学附属金华医院"      # 中文单位，如: XX大学附属第一医院
+  institution_en: "Affiliated Jinhua Hospital, Zhejiang University School of Medicine"   # 英文单位，如: First Affiliated Hospital of XX University
+  email: "xuzekunurology@163.com"            # 通讯作者邮箱
 
 # 合作者（没有就留空列表）。每人一行，contribution 写 CRediT 角色，如:
 #   Writing - review & editing / Data curation / Investigation / Supervision
@@ -28,12 +28,12 @@ coauthors: []
 #    contribution: "Investigation, Writing - review & editing"
 
 funding:
-  en: ""   # 完整英文声明，如: This work was supported by the National Natural Science Foundation of China (Grant No. 8XXXXXXX). 若无资助填: This research received no external funding.
-  zh: ""   # 中文声明，如: 国家自然科学基金资助项目（8XXXXXXX）。若无填: 本研究未接受外部资助。
+  en: "This research received no external funding"   # 完整英文声明，如: This work was supported by the National Natural Science Foundation of China (Grant No. 8XXXXXXX). 若无资助填: This research received no external funding.
+  zh: "本研究未接受外部资助"   # 中文声明，如: 国家自然科学基金资助项目（8XXXXXXX）。若无填: 本研究未接受外部资助。
 
 coi:
-  en: ""   # 如: The authors declare no conflicts of interest.
-  zh: ""   # 如: 所有作者声明无利益冲突。
+  en: "The authors declare no conflicts of interest."   # 如: The authors declare no conflicts of interest.
+  zh: "所有作者声明无利益冲突。"   # 如: 所有作者声明无利益冲突。
 
 # ── 以下两项在完成 GitHub/Zenodo 发布后回填（见 docs/publish_github_zenodo.md）──
 github_repo: ""      # 如: https://github.com/yourname/probiopsy-rag

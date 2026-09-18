@@ -14,4 +14,4 @@
 
 **Third-party services.** Entity/relation extraction and arbitration used Zhipu GLM-5.3 / GLM-5.3-Flash via API (https://open.bigmodel.cn, accessed September 2026); embeddings used doubao-embedding-vision-251215 (Volcengine Ark). No patient-identifiable data were transmitted to any service.
 
-**Licensing.** Code under [MIT TODO]; data files under [CC BY 4.0 TODO]. The ProBIOPSY consensus text remains © Elsevier; only statement numbers and short locators are redistributed.
+**Licensing.** Code under MIT; data files under CC BY 4.0. The ProBIOPSY consensus text remains © Elsevier; only statement numbers and short locators are redistributed.

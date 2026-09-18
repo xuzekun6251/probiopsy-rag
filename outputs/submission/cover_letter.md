@@ -22,14 +22,14 @@ We are pleased to submit our manuscript, "QianLieAnHui: development and benchmar
 **Declarations:**
 - All authors have read and approved the manuscript.
 - The work is original, not under review elsewhere, and not previously published.
-- Ethics: no human participants, patient data, or biological samples were involved; corpus and gold standard derive from the published ProBIOPSY consensus; demonstration cases are synthetic.
+- Ethics: the computational evaluation involved no patient data or biological samples (corpus and gold standard derive from the published ProBIOPSY consensus; demonstration cases are synthetic); the four-expert blinded review used anonymous, voluntary participation with no identifiable data.
 - Data and code will be available upon publication via GitHub + Zenodo (rules, registries, evidence corpus, all 2,240 raw predictions, evaluation scripts).
 
 Thank you for your consideration. We look forward to your response.
 
 Sincerely,
 
-[PI Name TODO]
-[Title TODO]
-[Department, Institution TODO]
-[Email TODO]
+XU Zekun
+Attending Physician
+Department of Urology, Affiliated Jinhua Hospital, Zhejiang University School of Medicine
+xuzekunurology@163.com

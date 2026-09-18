@@ -33,6 +33,12 @@ coauthors = INFO.get("coauthors") or []
 funding = INFO.get("funding") or {}
 coi = INFO.get("coi") or {}
 
+# cover letter is in English — map common Chinese titles; pass through anything else
+TITLE_EN = {"主治医师": "Attending Physician", "副主任医师": "Associate Chief Physician",
+            "主任医师": "Chief Physician", "教授": "Professor", "副教授": "Associate Professor",
+            "研究员": "Professor", "副研究员": "Associate Professor"}
+title_en = TITLE_EN.get((pi.get("title") or "").strip(), pi.get("title", ""))
+
 # ---- build affiliation numbering (en + zh)
 affs_en, affs_zh, aff_of = [], [], {}
 def aff_number(dept_en, inst_en, dept_zh, inst_zh):
@@ -82,7 +88,7 @@ replacements = {
     ],
     ROOT / "outputs" / "submission" / "cover_letter.md": [
         ("[PI Name TODO]\n[Title TODO]\n[Department, Institution TODO]\n[Email TODO]",
-         f'{pi["name_en"]}\n{pi.get("title", "")}\n'
+         f'{pi["name_en"]}\n{title_en}\n'
          f'{pi["department_en"]}, {pi["institution_en"]}\n{pi["email"]}'),
         ("Ethics: no human participants, patient data, or biological samples were involved; corpus and gold standard derive from the published ProBIOPSY consensus; demonstration cases are synthetic.",
          "Ethics: the computational evaluation involved no patient data or biological samples (corpus and gold standard derive from the published ProBIOPSY consensus; demonstration cases are synthetic); the four-expert blinded review used anonymous, voluntary participation with no identifiable data."),

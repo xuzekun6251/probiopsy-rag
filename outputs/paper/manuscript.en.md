@@ -2,11 +2,11 @@
 
 **Running title:** A hybrid rule engine–knowledge graph–LLM system for prostate biopsy decisions
 
-[PI Name TODO]<sup>1,\*</sup>, [co-authors TODO]
+XU Zekun<sup>1,\*</sup>
 
-<sup>1</sup> [Department / Institution TODO]
+<sup>1</sup> Department of Urology, Affiliated Jinhua Hospital, Zhejiang University School of Medicine.
 
-<sup>\*</sup> Corresponding author: [email TODO]
+<sup>\*</sup> Corresponding author: xuzekunurology@163.com
 
 **Keywords:** prostate cancer; prostate biopsy; clinical decision support; knowledge graph; LightRAG; retrieval-augmented generation; large language models; ProBIOPSY
 
@@ -177,15 +177,15 @@ No patient data or biological samples were involved. The evidence corpus and gol
 
 ## Funding
 
-[TODO]
+This research received no external funding
 
 ## Conflicts of interest
 
-[TODO]
+The authors declare no conflicts of interest.
 
 ## CRediT author contributions
 
-[PI TODO]: Conceptualization, Methodology, Software, Validation, Writing – original draft. [Co-authors TODO]: [TODO].
+XU Zekun: Conceptualization, Methodology, Software, Validation, Writing – original draft.
 
 ## References
 
