@@ -5,7 +5,7 @@ description = "前列安汇: a rule-based decision support framework for LightRA
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [{ name = "前列安汇 Team" }]
-license = { text = "Apache-2.0" }
+license = { text = "MIT" }
 dependencies = [
     "pydantic>=2.0",
     "pyyaml>=6.0",

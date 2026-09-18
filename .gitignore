@@ -22,6 +22,7 @@ env/
 # Data and outputs (large/regenerable)
 data/raw/
 data/processed/
+data/_local_only/
 outputs/figures/*.png
 outputs/figures/*.pdf
 outputs/paper/*.pdf

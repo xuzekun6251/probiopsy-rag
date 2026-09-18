@@ -1,0 +1,40 @@
+# ============================================================================
+# 作者信息登记表 —— 唯一需要你填的文件
+# 填完后运行:  .venv\Scripts\python.exe scripts\apply_author_info.py
+# 它会自动替换 manuscript.en.md / 00_front_zh.md / cover_letter.md /
+# data_availability.md / LICENSE / .zenodo.json 中的全部 TODO，并重拼中文稿 + 重建投稿 zip
+# 引号内不要留空格开头；不用的选填项留空即可
+# ============================================================================
+
+pi:
+  name_en: ""          # 拼音，姓大写，如: ZHANG San
+  name_zh: ""          # 中文，如: 张三
+  title: ""            # 如: 主任医师 / Associate Professor / Professor
+  department: ""       # 如: 泌尿外科 (Department of Urology)
+  department_en: ""    # 如: Department of Urology
+  institution: ""      # 中文单位，如: XX大学附属第一医院
+  institution_en: ""   # 英文单位，如: First Affiliated Hospital of XX University
+  email: ""            # 通讯作者邮箱
+
+# 合作者（没有就留空列表）。每人一行，contribution 写 CRediT 角色，如:
+#   Writing - review & editing / Data curation / Investigation / Supervision
+coauthors: []
+#  - name_en: "LI Si"
+#    name_zh: "李四"
+#    department: "影像科"
+#    department_en: "Department of Radiology"
+#    institution: "XX大学附属第一医院"
+#    institution_en: "First Affiliated Hospital of XX University"
+#    contribution: "Investigation, Writing - review & editing"
+
+funding:
+  en: ""   # 完整英文声明，如: This work was supported by the National Natural Science Foundation of China (Grant No. 8XXXXXXX). 若无资助填: This research received no external funding.
+  zh: ""   # 中文声明，如: 国家自然科学基金资助项目（8XXXXXXX）。若无填: 本研究未接受外部资助。
+
+coi:
+  en: ""   # 如: The authors declare no conflicts of interest.
+  zh: ""   # 如: 所有作者声明无利益冲突。
+
+# ── 以下两项在完成 GitHub/Zenodo 发布后回填（见 docs/publish_github_zenodo.md）──
+github_repo: ""      # 如: https://github.com/yourname/probiopsy-rag
+zenodo_doi: ""       # 如: 10.5281/zenodo.1XXXXXXXX

@@ -1,0 +1,30 @@
+{
+  "title": "QianLieAnHui (probiopsy-rag): a hybrid rule-engine, knowledge-graph, and LLM-arbitration decision-support system for the prostate biopsy pathway, validated against the ProBIOPSY consensus",
+  "description": "Code, rule registries, evidence corpus, benchmark predictions (4 methods x 5 seeds x 112 consensus statements = 2,240 runs), and evaluation scripts for a hybrid decision-support system combining a 16-rule deterministic engine, risk-guided LightRAG knowledge-graph retrieval (357 evidence chunks, 1,864 entities, 3,078 relations), and an LLM arbiter emitting five executable actions. Validated statement-by-statement against the ProBIOPSY international consensus (Chernysheva et al., European Urology, 2026, doi:10.1016/j.eururo.2026.06.012).",
+  "creators": [
+    {
+      "name": "[PI Name TODO]",
+      "affiliation": "[Institution TODO]"
+    }
+  ],
+  "license": "mit",
+  "upload_type": "software",
+  "access_right": "open",
+  "keywords": [
+    "prostate biopsy",
+    "clinical decision support",
+    "knowledge graph",
+    "retrieval-augmented generation",
+    "large language model",
+    "ProBIOPSY consensus"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.1016/j.eururo.2026.06.012",
+      "relation": "isDerivedFrom",
+      "resource_type": "journal-article"
+    }
+  ],
+  "communities": [],
+  "notes": "Data files under data/seed/ and data/evidence/ derive from the ProBIOPSY consensus (c) Elsevier and are additionally subject to the source article's license."
+}
