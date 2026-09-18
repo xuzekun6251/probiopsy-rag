@@ -4,6 +4,10 @@
 > **请先完成第一部分全部 5 例后，再翻阅第二部分**（第二部分展示系统输出，提前查看会使您的第一部分作答失效）。
 > 评审为匿名（仅以专家 1–4 编号）、自愿参加，结果仅以汇总形式用于学术研究，不涉及任何患者个人信息（全部病例为合成教学病例）。
 
+**评审对象说明**：每个病例给出若干**陈述句式决策项**（①②③…）。您需要评审的命题是：
+**「同时采纳该病例的全部决策项所构成的组合方案」**（即 ①＋②＋…）。
+第一部分请您对这一组合命题给出自己的推荐动作；第二部分将展示系统 A 对**同一组合命题**的总体判定。
+
 ## 五类处置动作定义（第一部分作答用）
 
 - **endorse** — 完全支持（按陈述原样支持）
@@ -21,15 +25,22 @@
 
 ---
 
-# 第一部分（请先完成本部分）
+# 第一部分（请先完成本部分；本部分不展示任何系统输出）
 
 ## 病例 1：单发病灶穿刺方案 (Unifocal lesion: TBx+PLBx vs add SBx)
 
-**病例摘要**：62 岁男性，3T mpMRI（图像质量合格）示外周带单发 9 mm PI-RADS 4 病灶。问题：①穿刺方案是否应为「靶向穿刺＋病灶旁穿刺」；②是否应在此基础上加做完整系统性穿刺。
+**病例摘要**：62 岁男性，3T mpMRI（图像质量合格）示外周带单发 9 mm PI-RADS 4 病灶。
 
 *Original question:* For a 62-year-old man with a single 9 mm PI-RADS 4 peripheral-zone lesion on adequate-quality 3T mpMRI, should the biopsy scheme be targeted biopsy plus perilesional biopsy, and should a full systematic biopsy be added?
 
-**您的推荐动作（五选一，请勾选）：**
+**决策项（陈述句）：**
+
+- ① 穿刺方案采用「靶向穿刺＋病灶旁穿刺」（针对单发可视病灶）；
+- ② 在此基础上加做完整系统性穿刺。
+
+**待评审命题**：同时采纳 ①＋② 所构成的组合方案。
+
+**您对该组合命题的推荐动作（五选一，请勾选）：**
 
 - [ ] endorse — 完全支持（按陈述原样支持）
 - [ ] endorse_option — 支持为可接受选项之一（等同选项）
@@ -41,11 +52,17 @@
 
 ## 病例 2：PSMA PET 替代 MRI 先行 (PSMA PET instead of MRI upfront)
 
-**病例摘要**：穿刺初诊男性，PSA 升高、临床怀疑度高。问题：是否应首选 PSMA PET-CT（而非 MRI）作为前列腺穿刺前的一线影像学检查。
+**病例摘要**：穿刺初诊男性，PSA 升高、临床怀疑度高。
 
 *Original question:* For a biopsy-naive man with elevated PSA and high clinical suspicion, should PSMA PET-CT be preferred over MRI as the primary imaging test before prostate biopsy?
 
-**您的推荐动作（五选一，请勾选）：**
+**决策项（陈述句）：**
+
+- ① 以 PSMA PET-CT 替代 MRI，作为前列腺穿刺前的一线影像学检查。
+
+**待评审命题**：同时采纳 ① 所构成的组合方案。
+
+**您对该组合命题的推荐动作（五选一，请勾选）：**
 
 - [ ] endorse — 完全支持（按陈述原样支持）
 - [ ] endorse_option — 支持为可接受选项之一（等同选项）
@@ -57,11 +74,19 @@
 
 ## 病例 3：bpMRI 不确定病灶处理 (Indeterminate bpMRI lesion workup)
 
-**病例摘要**：bpMRI（图像质量合格）示外周带 PI-RADS 3（不确定性）病灶。问题：①是否应以 PSA 密度作为穿刺决策的门槛；②是否应将增强 MRI 或计划性随访影像作为辅助检查手段。
+**病例摘要**：bpMRI（图像质量合格）示外周带 PI-RADS 3（不确定性）病灶。
 
 *Original question:* For a man with an indeterminate (PI-RADS 3) peripheral-zone lesion on adequate-quality bpMRI, should PSA density be used to gate the biopsy decision, and should contrast-enhanced MRI or scheduled follow-up imaging be used as ancillary workup?
 
-**您的推荐动作（五选一，请勾选）：**
+**决策项（陈述句）：**
+
+- ① 以 PSA 密度作为该类病灶穿刺决策的门槛；
+- ② 对该类病灶加做增强 MRI 序列；
+- ③ 对该类病灶安排计划性随访影像。
+
+**待评审命题**：同时采纳 ①＋②＋③ 所构成的组合方案。
+
+**您对该组合命题的推荐动作（五选一，请勾选）：**
 
 - [ ] endorse — 完全支持（按陈述原样支持）
 - [ ] endorse_option — 支持为可接受选项之一（等同选项）
@@ -73,11 +98,19 @@
 
 ## 病例 4：晚期疾病穿刺方案与路线 (Advanced disease: reduced SBx, TP route, no ABx)
 
-**病例摘要**：疑似局部晚期疾病、不适合根治性治疗的患者。问题：①系统性穿刺是否可减至最多 6 针；②是否采用经会阴路径且不加用抗生素预防。
+**病例摘要**：疑似局部晚期疾病、不适合根治性治疗的患者。
 
 *Original question:* For a man with suspected locally advanced disease who is unfit for curative treatment, should systematic biopsy be reduced to a maximum of 6 cores, and should a transperineal route without antibiotic prophylaxis be used?
 
-**您的推荐动作（五选一，请勾选）：**
+**决策项（陈述句）：**
+
+- ① 对疑似局部晚期疾病和/或不适合根治性治疗者，系统性穿刺减至最多 6 针；
+- ② 以经会阴路径作为标准穿刺路径；
+- ③ 无感染危险因素时，经会阴穿刺不加用抗生素预防。
+
+**待评审命题**：同时采纳 ①＋②＋③ 所构成的组合方案。
+
+**您对该组合命题的推荐动作（五选一，请勾选）：**
 
 - [ ] endorse — 完全支持（按陈述原样支持）
 - [ ] endorse_option — 支持为可接受选项之一（等同选项）
@@ -89,11 +122,18 @@
 
 ## 病例 5：感染风险患者因素升级 (Patient-factor escalation: infection risk)
 
-**病例摘要**：存在感染危险因素、拟行重复前列腺穿刺的患者。问题：①是否应首选经会阴路径；②若采用经直肠入路，是否应强化抗生素预防。
+**病例摘要**：存在感染危险因素、拟行重复前列腺穿刺的患者。
 
 *Original question:* For a man with infection risk factors undergoing repeat prostate biopsy, should the transperineal route be preferred, and should antibiotic prophylaxis be augmented if transrectal access is used?
 
-**您的推荐动作（五选一，请勾选）：**
+**决策项（陈述句）：**
+
+- ① 以经会阴路径作为标准穿刺路径；
+- ② 若经直肠入路不可避免，则强化抗生素预防。
+
+**待评审命题**：同时采纳 ①＋② 所构成的组合方案。
+
+**您对该组合命题的推荐动作（五选一，请勾选）：**
 
 - [ ] endorse — 完全支持（按陈述原样支持）
 - [ ] endorse_option — 支持为可接受选项之一（等同选项）
@@ -107,10 +147,10 @@
 
 # 第二部分（第一部分全部完成后作答）
 
-以下为「系统 A」对上述 5 个病例的输出（动作、置信度、依据、引用）。
+以下为「系统 A」对上述 5 个病例**同一组合命题**的总体判定（动作、置信度、依据、引用）。
 请逐例对系统输出进行 Likert 1–5 评分。
 
-## 病例 1：系统 A 输出
+## 病例 1：系统 A 对组合方案（①＋②）的判定
 
 **系统动作**：against　**置信度**：0.9
 
@@ -124,7 +164,7 @@
 - likert_evidence（证据充分性：所引用的共识条目/证据是否足以支撑该结论）：1　2　3　4　5
 - 备注（选填）：______________________________________________
 
-## 病例 2：系统 A 输出
+## 病例 2：系统 A 对组合方案（①）的判定
 
 **系统动作**：against　**置信度**：0.99
 
@@ -138,7 +178,7 @@
 - likert_evidence（证据充分性：所引用的共识条目/证据是否足以支撑该结论）：1　2　3　4　5
 - 备注（选填）：______________________________________________
 
-## 病例 3：系统 A 输出
+## 病例 3：系统 A 对组合方案（①＋②＋③）的判定
 
 **系统动作**：endorse　**置信度**：0.85
 
@@ -152,7 +192,7 @@
 - likert_evidence（证据充分性：所引用的共识条目/证据是否足以支撑该结论）：1　2　3　4　5
 - 备注（选填）：______________________________________________
 
-## 病例 4：系统 A 输出
+## 病例 4：系统 A 对组合方案（①＋②＋③）的判定
 
 **系统动作**：endorse　**置信度**：0.9
 
@@ -166,7 +206,7 @@
 - likert_evidence（证据充分性：所引用的共识条目/证据是否足以支撑该结论）：1　2　3　4　5
 - 备注（选填）：______________________________________________
 
-## 病例 5：系统 A 输出
+## 病例 5：系统 A 对组合方案（①＋②）的判定
 
 **系统动作**：endorse_option　**置信度**：0.85
 
