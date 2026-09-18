@@ -61,3 +61,24 @@ LLM_MIN_INTERVAL=10  LIGHTRAG_MAX_ASYNC=1  LLM_HTTP_TIMEOUT=150  LLM_CALL_BUDGET
 python scripts/build_lightrag_index.py           # resume runs; reset_doc_status between attempts
 # observed steady state: ~1.4 docs/min (extraction 15-45 s + merge calls at 10 s spacing)
 ```
+
+## Benchmark generator tier (Phase 5)
+
+The 4-method × 5-seed benchmark (2,240 items) uses **`glm-5.3-flash` as the
+single generator for ALL methods** (`HUANYU_BULK_MODEL` env override,
+`LLM_MIN_INTERVAL=3`, 8 workers) — measured ~15.7 items/min vs ~0.3-1.5
+items/min for `glm-5.3`, whose thinking latency on evidence-heavy prompts
+(2-8 k tokens in) reaches 200-600 s/call under server congestion, which made
+the flagship infeasible for the two retrieval-heavy methods (lightrag
+query-gen, probiopsy-rag arbiter). A fixed fast-tier generator across all
+methods isolates the retrieval/decision-layer contribution, which is the
+comparison the paper makes. Supplementary robustness data: `pure_llm` and
+`naive_rag` were additionally completed on the `glm-5.3` flagship
+(1,222 records, `outputs/baseline_predictions_glm53.jsonl`) under the same
+protocol before the tier switch.
+
+Caveat learned while switching: LightRAG's LLM response cache is keyed by
+prompt hash only (no model identity), so cached `:query:`/`:keywords:`
+entries from a flagship run would silently serve stale flagship answers to a
+flash run — such entries must be purged from `kv_store_llm_response_cache.json`
+when the generator changes.

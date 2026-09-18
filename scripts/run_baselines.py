@@ -70,6 +70,27 @@ def load_env() -> None:
             os.environ.setdefault(key.strip(), val.strip())
 
 
+# worker-thread-local LightRAG adapters: the adapter serializes all queries
+# through ONE event-loop queue, so sharing one instance across worker threads
+# caps the lightrag/probiopsy methods at single-threaded speed. Independent
+# per-worker instances (LLM cache disabled) run fully parallel.
+_ADAPTERS: dict[int, "LightRAGAdapter"] = {}
+_ADAPTERS_LOCK = threading.Lock()
+
+
+def get_lightrag(ctx) -> "LightRAGAdapter":
+    key = threading.get_ident()
+    with _ADAPTERS_LOCK:
+        live = {t.ident for t in threading.enumerate()}
+        for dead in [k for k in _ADAPTERS if k not in live]:
+            _ADAPTERS.pop(dead, None)  # released pool thread; GC takes the index
+        ad = _ADAPTERS.get(key)
+        if ad is None:
+            ad = ctx["lightrag_factory"]()
+            _ADAPTERS[key] = ad
+        return ad
+
+
 def build_question(row: dict) -> str:
     flags = (row.get("scenario_flags") or "").replace("|", ", ")
     return (
@@ -124,7 +145,7 @@ def run_naive_rag(row, question, ctx) -> tuple:
 
 
 def run_lightrag(row, question, ctx) -> tuple:
-    adapter: LightRAGAdapter = ctx["lightrag"]
+    adapter: LightRAGAdapter = get_lightrag(ctx)
     # aquery returns None if the query-gen content came back null (observed
     # once on a cold process: GLM thinking exhausted the content budget and
     # LightRAG's role wrapper propagated None) — normalize to "" so the
@@ -149,7 +170,7 @@ def run_lightrag(row, question, ctx) -> tuple:
 
 def run_probiopsy_rag(row, question, ctx) -> tuple:
     agent: SafetyAgent = ctx["agent"]
-    adapter: LightRAGAdapter = ctx["lightrag"]
+    adapter: LightRAGAdapter = get_lightrag(ctx)
     rules = ctx["rules"]
     items = ctx["items"]
     pfrs = ctx["pfrs"]
@@ -235,7 +256,10 @@ def main() -> int:
             client = LLMClient(provider="deepseek", temperature=args.temperature)
             ctx: dict = {"client": client}
             if method in ("lightrag", "probiopsy-rag"):
-                ctx["lightrag"] = LightRAGAdapter(working_dir=str(INDEX_DIR))
+                # factory; adapters are built per worker thread (get_lightrag)
+                ctx["lightrag_factory"] = lambda: LightRAGAdapter(
+                    working_dir=str(INDEX_DIR), enable_llm_cache=False
+                )
             if method == "probiopsy-rag":
                 ctx["agent"] = SafetyAgent(client=LLMClient(provider="deepseek", temperature=0.0))
                 ctx["rules"], ctx["items"], ctx["pfrs"] = rules, items, pfrs

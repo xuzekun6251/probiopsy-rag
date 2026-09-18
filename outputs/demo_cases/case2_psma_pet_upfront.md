@@ -2,7 +2,7 @@
 
 **Scenario**: 68-year-old biopsy-naive man, PSA 9.1 ng/mL, high clinical suspicion. The centre offers PSMA PET-CT and considers skipping MRI.
 
-**case_id**: `case2_psma_pet_upfront` · elapsed 0.0s · graph no
+**case_id**: `case2_psma_pet_upfront` · elapsed 19.0s · graph yes
 
 ## 前列安汇 decision report
 
@@ -10,11 +10,11 @@
 
 **Patient scenario flags:** imaging_available, psa_elevated, psma_pet_available, suspicion_high
 
-### Verdict: 有条件考虑 (Conditional / neither)
+### Verdict: 不推荐 (Consensus against)
 
-rule-only mode (no LLM arbiter) — verdict class not determined
+ProBIOPSY Q17 (median 2, consensus disagree) explicitly rejects preferring PSMA PET over MRI for primary prostate cancer diagnosis in biopsy-naive men. MRI remains the upfront triage test; PSMA PET-CT is only an ancillary option after negative MRI with persistent suspicion (Q19, median 8).
 
-*Confidence:* 0.00
+*Confidence:* 0.99
 
 ### Triggered consensus rules
 
@@ -28,6 +28,10 @@ rule-only mode (no LLM arbiter) — verdict class not determined
 - [EV0044|B_consensus|Table 1 (Q18)] (score 11.25)
 - [EV0009|D_review|Main text / results_d1_novel] (score 10.90)
 - [EV0022|D_review|SM2 / sm2_d1_biomarkers] (score 8.44)
+
+### Citations
+
+Q17, Q19, EV0043, EV0045, EV0009
 
 ---
 *Decision support only — not a substitute for clinical judgement. Verdicts trace to ProBIOPSY consensus statements (Eur Urol 2026).*

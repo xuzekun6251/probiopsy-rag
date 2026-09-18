@@ -24,13 +24,18 @@
     "HARD: the consensus ENDORSES 'd_psad_gate_bpmri_indeterminate' (Use PSA density to gate biopsy for indeterminate bpMRI lesion) — do not reject it outright."
   ],
   "verdict": {
-    "action": "conditional",
-    "confidence": 0.0,
-    "rationale": "rule-only mode (no LLM arbiter) — verdict class not determined",
-    "citations": [],
-    "degraded": true
+    "action": "endorse",
+    "confidence": 0.85,
+    "rationale": "PSAD gating for indeterminate bpMRI lesions reached consensus agreement (Q11, median 7); contrast-enhanced MRI for peripheral-zone indeterminate lesions (Q10a, median 7) and follow-up imaging (Q10b, median 8) both achieved consensus agreement. All components of the decision are endorsed; contrast MRI and follow-up are endorsed ancillary alternatives.",
+    "citations": [
+      "Q11",
+      "Q10a",
+      "Q10b",
+      "EV0008",
+      "EV0035"
+    ]
   },
-  "elapsed_s": 0.0,
+  "elapsed_s": 64.16,
   "lexical_top": [
     {
       "evidence_id": "EV0008",

@@ -25,13 +25,17 @@
     "HARD: the consensus ENDORSES 'd_scheme_unifocal_tbx_plbx' (Unifocal visible lesion: targeted biopsy + perilesional biopsy) — do not reject it outright."
   ],
   "verdict": {
-    "action": "conditional",
-    "confidence": 0.0,
-    "rationale": "rule-only mode (no LLM arbiter) — verdict class not determined",
-    "citations": [],
-    "degraded": true
+    "action": "against",
+    "confidence": 0.9,
+    "rationale": "For a unifocal visible lesion, consensus endorses targeted+perilesional biopsy (Q43 median 7, agree) but rejects adding full systematic biopsy (Q45 median 3, disagree); contralateral systematic yield is only 0.3-4% (EV0024). Recommend TBx+PLBx alone, against the combined scheme.",
+    "citations": [
+      "Q43",
+      "Q45",
+      "Q44a",
+      "EV0024"
+    ]
   },
-  "elapsed_s": 0.0,
+  "elapsed_s": 52.9,
   "lexical_top": [
     {
       "evidence_id": "EV0024",

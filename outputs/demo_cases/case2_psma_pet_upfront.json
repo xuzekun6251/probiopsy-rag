@@ -18,13 +18,18 @@
     "HARD: the consensus explicitly REJECTS 'd_reject_psma_pet_upfront' (Do NOT prefer PSMA PET over MRI for primary PCa diagnosis) — do not endorse it."
   ],
   "verdict": {
-    "action": "conditional",
-    "confidence": 0.0,
-    "rationale": "rule-only mode (no LLM arbiter) — verdict class not determined",
-    "citations": [],
-    "degraded": true
+    "action": "against",
+    "confidence": 0.99,
+    "rationale": "ProBIOPSY Q17 (median 2, consensus disagree) explicitly rejects preferring PSMA PET over MRI for primary prostate cancer diagnosis in biopsy-naive men. MRI remains the upfront triage test; PSMA PET-CT is only an ancillary option after negative MRI with persistent suspicion (Q19, median 8).",
+    "citations": [
+      "Q17",
+      "Q19",
+      "EV0043",
+      "EV0045",
+      "EV0009"
+    ]
   },
-  "elapsed_s": 0.0,
+  "elapsed_s": 18.96,
   "lexical_top": [
     {
       "evidence_id": "EV0045",

@@ -2,7 +2,7 @@
 
 **Scenario**: 66-year-old man with prior prostatitis and recent hospitalisation (infection risk factors, Q62 catalogue), undergoing repeat biopsy after a prior negative biopsy with persisting suspicion.
 
-**case_id**: `case5_infection_risk_escalation` · elapsed 0.0s · graph no
+**case_id**: `case5_infection_risk_escalation` · elapsed 47.4s · graph yes
 
 ## 前列安汇 decision report
 
@@ -10,11 +10,11 @@
 
 **Patient scenario flags:** infection_risk_factor, prior_negative_biopsy, psa_elevated
 
-### Verdict: 有条件考虑 (Conditional / neither)
+### Verdict: 推荐选项 (SOQ-endorsed option)
 
-rule-only mode (no LLM arbiter) — verdict class not determined
+Q58 SOQ consensus (97%) endorses the transperineal route as standard; hard constraints mandate endorsement. With infection risk factors, Q62 still permits prophylaxis for transperineal. If transrectal access is unavoidable, Q63 reached no consensus; augmented prophylaxis was the 67% majority choice — report alongside.
 
-*Confidence:* 0.00
+*Confidence:* 0.85
 
 ### Triggered consensus rules
 
@@ -32,6 +32,10 @@ rule-only mode (no LLM arbiter) — verdict class not determined
 - [EV0083|B_consensus|Table 2 (Q62)] (score 10.25)
 - [EV0324|C_rct_meta|SM2 ref 62] (score 9.03)
 - [EV0325|C_rct_meta|SM2 ref 63] (score 5.57)
+
+### Citations
+
+Q58, Q62, Q63, EV0013, EV0083, EV0084
 
 ---
 *Decision support only — not a substitute for clinical judgement. Verdicts trace to ProBIOPSY consensus statements (Eur Urol 2026).*

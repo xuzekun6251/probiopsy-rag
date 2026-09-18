@@ -55,6 +55,7 @@ class LightRAGAdapter:
         chat_client: LLMClient | None = None,
         embed_client: ArkVisionEmbedding | None = None,
         language: str = "Chinese",
+        enable_llm_cache: bool = True,
     ) -> None:
         # lazy import: lightrag-hku is a heavy dep; keep import error informative
         try:
@@ -154,6 +155,11 @@ class LightRAGAdapter:
             llm_model_max_async=int(os.getenv("LIGHTRAG_MAX_ASYNC", "1")),
             embedding_func=embedding_func,
             addon_params={"language": language},
+            # benchmark mode: per-worker instances must not share the on-disk
+            # LLM response cache (concurrent whole-file rewrites corrupt it);
+            # disabling the cache also removes prompt-hash-only keying, which
+            # ignores the generator model identity.
+            enable_llm_cache=enable_llm_cache,
         )
         self._initialized = False
 

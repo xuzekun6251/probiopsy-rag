@@ -2,7 +2,7 @@
 
 **Scenario**: 77-year-old man, PSA 54 ng/mL, suspected locally advanced disease, unfit for curative treatment. No infection risk factors.
 
-**case_id**: `case4_advanced_route_prophylaxis` · elapsed 0.0s · graph no
+**case_id**: `case4_advanced_route_prophylaxis` · elapsed 31.7s · graph yes
 
 ## 前列安汇 decision report
 
@@ -10,11 +10,11 @@
 
 **Patient scenario flags:** advanced_disease, locally_advanced_suspected, psa_gt_50, unfit_curative
 
-### Verdict: 有条件考虑 (Conditional / neither)
+### Verdict: 推荐 (Consensus endorse)
 
-rule-only mode (no LLM arbiter) — verdict class not determined
+Q57 (median 8, consensus agree) endorses reducing systematic biopsy to max 6 cores for suspected locally advanced disease (DRE and/or PSA>50) or unfitness for curative treatment. Q58 (97%) endorses transperineal as standard route; Q62 (88%) supports omitting antibiotic prophylaxis for transperineal biopsy absent infection risk factors.
 
-*Confidence:* 0.00
+*Confidence:* 0.90
 
 ### Triggered consensus rules
 
@@ -33,6 +33,10 @@ rule-only mode (no LLM arbiter) — verdict class not determined
 - [EV0013|D_review|Main text / results_d2_route] (score 9.54)
 - [EV0324|C_rct_meta|SM2 ref 62] (score 7.36)
 - [EV0084|B_consensus|Table 2 (Q63)] (score 6.30)
+
+### Citations
+
+Q57, Q58, Q62, EV0079, EV0013, EV0320
 
 ---
 *Decision support only — not a substitute for clinical judgement. Verdicts trace to ProBIOPSY consensus statements (Eur Urol 2026).*

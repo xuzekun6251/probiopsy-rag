@@ -2,7 +2,7 @@
 
 **Scenario**: 71-year-old man, PSA 4.8 ng/mL, PSA density 0.12. bpMRI with adequate quality shows a PI-RADS 3 peripheral-zone lesion; mpMRI is unavailable.
 
-**case_id**: `case3_bpmri_indeterminate` · elapsed 0.0s · graph no
+**case_id**: `case3_bpmri_indeterminate` · elapsed 64.2s · graph yes
 
 ## 前列安汇 decision report
 
@@ -10,11 +10,11 @@
 
 **Patient scenario flags:** bpmri, indeterminate_lesion, pirads_3, psa_elevated, psad_high, quality_adequate
 
-### Verdict: 有条件考虑 (Conditional / neither)
+### Verdict: 推荐 (Consensus endorse)
 
-rule-only mode (no LLM arbiter) — verdict class not determined
+PSAD gating for indeterminate bpMRI lesions reached consensus agreement (Q11, median 7); contrast-enhanced MRI for peripheral-zone indeterminate lesions (Q10a, median 7) and follow-up imaging (Q10b, median 8) both achieved consensus agreement. All components of the decision are endorsed; contrast MRI and follow-up are endorsed ancillary alternatives.
 
-*Confidence:* 0.00
+*Confidence:* 0.85
 
 ### Triggered consensus rules
 
@@ -30,6 +30,10 @@ rule-only mode (no LLM arbiter) — verdict class not determined
 - [EV0288|C_rct_meta|SM2 ref 7] (score 10.16)
 - [EV0022|D_review|SM2 / sm2_d1_biomarkers] (score 9.19)
 - [EV0036|B_consensus|Table 1 (Q10b)] (score 7.72)
+
+### Citations
+
+Q11, Q10a, Q10b, EV0008, EV0035
 
 ---
 *Decision support only — not a substitute for clinical judgement. Verdicts trace to ProBIOPSY consensus statements (Eur Urol 2026).*

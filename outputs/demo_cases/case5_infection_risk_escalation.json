@@ -22,13 +22,19 @@
     "HARD: the consensus ENDORSES 'd_route_transperineal' (Use transperineal approach as standard route) — do not reject it outright."
   ],
   "verdict": {
-    "action": "conditional",
-    "confidence": 0.0,
-    "rationale": "rule-only mode (no LLM arbiter) — verdict class not determined",
-    "citations": [],
-    "degraded": true
+    "action": "endorse_option",
+    "confidence": 0.85,
+    "rationale": "Q58 SOQ consensus (97%) endorses the transperineal route as standard; hard constraints mandate endorsement. With infection risk factors, Q62 still permits prophylaxis for transperineal. If transrectal access is unavoidable, Q63 reached no consensus; augmented prophylaxis was the 67% majority choice — report alongside.",
+    "citations": [
+      "Q58",
+      "Q62",
+      "Q63",
+      "EV0013",
+      "EV0083",
+      "EV0084"
+    ]
   },
-  "elapsed_s": 0.0,
+  "elapsed_s": 47.4,
   "lexical_top": [
     {
       "evidence_id": "EV0013",

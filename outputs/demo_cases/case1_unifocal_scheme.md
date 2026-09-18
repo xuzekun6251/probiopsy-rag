@@ -2,7 +2,7 @@
 
 **Scenario**: 62-year-old man, PSA 6.2 ng/mL. 3T mpMRI with adequate image quality (PI-QUAL v2 = 3) shows a single 9 mm PI-RADS 4 lesion in the left peripheral zone.
 
-**case_id**: `case1_unifocal_scheme` · elapsed 0.0s · graph no
+**case_id**: `case1_unifocal_scheme` · elapsed 52.9s · graph yes
 
 ## 前列安汇 decision report
 
@@ -10,11 +10,11 @@
 
 **Patient scenario flags:** lesion_small, mpmri, mri_3t, pirads_4_5, psa_elevated, pz_lesion, quality_adequate, unifocal, visible_lesion
 
-### Verdict: 有条件考虑 (Conditional / neither)
+### Verdict: 不推荐 (Consensus against)
 
-rule-only mode (no LLM arbiter) — verdict class not determined
+For a unifocal visible lesion, consensus endorses targeted+perilesional biopsy (Q43 median 7, agree) but rejects adding full systematic biopsy (Q45 median 3, disagree); contralateral systematic yield is only 0.3-4% (EV0024). Recommend TBx+PLBx alone, against the combined scheme.
 
-*Confidence:* 0.00
+*Confidence:* 0.90
 
 ### Triggered consensus rules
 
@@ -29,6 +29,10 @@ rule-only mode (no LLM arbiter) — verdict class not determined
 - [EV0027|D_review|SM2 / sm2_d3_planning] (score 4.38)
 - [EV0075|B_consensus|Table 2 (Q54)] (score 4.02)
 - [EV0014|D_review|Main text / results_d3_focal] (score 3.72)
+
+### Citations
+
+Q43, Q45, Q44a, EV0024
 
 ---
 *Decision support only — not a substitute for clinical judgement. Verdicts trace to ProBIOPSY consensus statements (Eur Urol 2026).*
