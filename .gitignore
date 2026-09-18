@@ -26,7 +26,6 @@ data/_local_only/
 outputs/figures/*.png
 outputs/figures/*.pdf
 outputs/paper/*.pdf
-outputs/baseline_predictions*.jsonl
 
 # OS
 .DS_Store

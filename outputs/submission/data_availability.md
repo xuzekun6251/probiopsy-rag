@@ -14,4 +14,4 @@
 
 **Third-party services.** Entity/relation extraction and arbitration used Zhipu GLM-5.3 / GLM-5.3-Flash via API (https://open.bigmodel.cn, accessed September 2026); embeddings used doubao-embedding-vision-251215 (Volcengine Ark). No patient-identifiable data were transmitted to any service.
 
-**Licensing.** Code under MIT; data files under CC BY 4.0. The ProBIOPSY consensus text remains © Elsevier; only statement numbers and short locators are redistributed.
+**Licensing.** Code under MIT. Data files derived from the ProBIOPSY consensus (`data/seed/`, `data/evidence/`) are redistributed under the source article's Creative Commons Attribution (CC BY 4.0) license (© the consensus authors; Chernysheva et al., 2026, doi:10.1016/j.eururo.2026.06.012) — statement text is reproduced verbatim, without modification, with attribution. All other data files are released under CC BY 4.0.

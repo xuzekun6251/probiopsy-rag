@@ -30,7 +30,10 @@ git status --short
 
 ---
 
-## 2. 版权决策点：ProBIOPSY 原文能否随仓库公开？⚠️ 必做
+## 2. 版权决策点：ProBIOPSY 原文能否随仓库公开？✅ 已核实（2026-09）：原文为 **CC BY**
+
+> **结论：无需脱敏，原样发布。** 署名要素已在三处落实：`data_availability.md`（Licensing 段）、`LICENSE`（third-party notice）、`.zenodo.json`（notes），均注明 CC BY 4.0、verbatim 未修改、来源 DOI。`data/processed/`（含共识文本的 LightRAG 索引）本就在 `.gitignore` 中不会上传。
+> 以下表格保留作背景与备查：
 
 `data/seed/probiopsy_statements.csv` 含 `statement_text_en` 列（共识原文全文），`data/evidence/` 及 LightRAG 索引亦含共识文本。这些内容的版权属于 Elsevier，**是否可再分发取决于原文的 OA 许可证**：
 

@@ -68,17 +68,13 @@ Build the corpus and run the benchmark:
 
 ## Data provenance and copyright
 
-All gold-standard content derives from the ProBIOPSY consensus (© Elsevier). **Before making a fork of this repository public, read [`docs/publish_github_zenodo.md`](docs/publish_github_zenodo.md)** — depending on the source article's license you may need to run:
-
-```bash
-.venv\Scripts\python scripts\scrub_statement_text.py scrub   # strip consensus text; keep ids/labels/locators
-```
+All gold-standard content derives from the ProBIOPSY consensus, which is published Open Access under a **CC BY 4.0** license. Consensus text in `data/seed/` and `data/evidence/` is redistributed **verbatim, without modification, with attribution** (see [LICENSE](LICENSE)). If you extend the corpus with differently licensed guideline text, verify redistribution rights first (see [`docs/publish_github_zenodo.md`](docs/publish_github_zenodo.md)); `scripts/scrub_statement_text.py` can strip consensus text if ever needed.
 
 No patient data, biological samples, or identifiable human data are used; the expert review was anonymous and voluntary.
 
 ## License
 
-Code: MIT (see [LICENSE](LICENSE)). Data files under `data/seed/` and `data/evidence/` are additionally subject to the ProBIOPSY article's license (© Elsevier).
+Code: MIT (see [LICENSE](LICENSE)). Data files under `data/seed/` and `data/evidence/`: CC BY 4.0, inherited from the ProBIOPSY consensus article.
 
 ## Citation
 

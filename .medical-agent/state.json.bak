@@ -19,7 +19,8 @@
     "writer.phase7",
     "writer.phase8",
     "writer.internal_review",
-    "writer.expert_review"
+    "writer.expert_review",
+    "writer.submission_kit"
   ],
   "in_progress": null,
   "blocked": [],
@@ -105,6 +106,11 @@
     {
       "date": "2026-09-18",
       "event": "专家盲评完成: 4专家x5命题; Cohen κ(系统vs多数票)=1.0 (n=4, case1 2:2平票按预注册剔除); Fleiss κ=-0.092 如实披露为小样本伪影; Likert 80项全部5/5; 图3已渲染, face validity 段已写入中英文稿件, Limitations/Future work/伦理声明同步更新",
+      "skill": "medical-agent"
+    },
+    {
+      "date": "2026-09-18",
+      "event": "Submission completion kit: configs/author_info.yaml + apply_author_info.py one-fill propagation (verified dummy run), README rewrite, MIT LICENSE, .zenodo.json, docs/publish_github_zenodo.md checklist, scrub_statement_text.py copyright option; commit b6cc33c. Remaining user actions: fill yaml -> apply script -> license badge check -> GitHub push -> Zenodo DOI -> refill",
       "skill": "medical-agent"
     }
   ]

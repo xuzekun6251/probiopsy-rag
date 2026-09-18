@@ -23,8 +23,9 @@ SOFTWARE.
 ---
 
 Third-party content notice: files under data/seed/ and data/evidence/ contain
-text derived from the ProBIOPSY international consensus (Chernysheva et al.,
-European Urology, 2026, doi:10.1016/j.eururo.2026.06.012), © Elsevier.
-Redistribution of those data files is subject to the license of the source
-article — see docs/publish_github_zenodo.md before making this repository
-public. The MIT license above covers the code and non-derived files only.
+text from the ProBIOPSY international consensus (Chernysheva et al.,
+European Urology, 2026, doi:10.1016/j.eururo.2026.06.012), which is published
+Open Access under a Creative Commons Attribution (CC BY 4.0) license. Those
+data files are redistributed verbatim, without modification, under the same
+CC BY 4.0 license with attribution. The MIT license above covers the code and
+all other files.

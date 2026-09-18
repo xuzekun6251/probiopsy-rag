@@ -26,5 +26,5 @@
     }
   ],
   "communities": [],
-  "notes": "Data files under data/seed/ and data/evidence/ derive from the ProBIOPSY consensus (c) Elsevier and are additionally subject to the source article's license."
+  "notes": "Data files under data/seed/ and data/evidence/ contain text from the ProBIOPSY consensus (Chernysheva et al., Eur Urol 2026, doi:10.1016/j.eururo.2026.06.012), published Open Access under a CC BY 4.0 license; they are redistributed verbatim, without modification, with attribution."
 }
