@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "01_methods": "complete",
+    "02_results": "complete",
+    "03_introduction": "complete",
+    "04_discussion": "complete",
+    "manuscript_zh": "complete",
+    "manuscript_en": "complete",
+    "figures": "complete (fig1/2/4/5 rendered from real data; fig3 pending expert panel)",
+    "tables": "complete (table1-4 csv+md)"
+  },
+  "pending": [
+    "expert blind review data (planner phase 4.5) -> figure3 + face validity section",
+    "reference QC for refs 2-9, 11 (nature-academic-search, DOI verification)",
+    "cover letter / highlights / graphical abstract (phase 7_8)",
+    "PI name / affiliation / funding / COI TODOs"
+  ],
+  "updated": "2026-09-18"
+}

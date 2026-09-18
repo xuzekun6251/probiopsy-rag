@@ -1,0 +1,11 @@
+case_id,step_id,layer,step_label,duration_ms,input_summary,output_summary
+case1_unifocal_scheme,1,rule_engine,match consensus rules (flags × decision items),0.0,9 flags × 2 items,1 rule(s) fired
+case1_unifocal_scheme,2,llm_arbiter,full decision pass (rule gate + retrieval + GLM arbitration),52900.0,1 rule(s) + graph & lexical evidence,"action=against, confidence=0.9"
+case2_psma_pet_upfront,1,rule_engine,match consensus rules (flags × decision items),0.0,4 flags × 1 items,1 rule(s) fired
+case2_psma_pet_upfront,2,llm_arbiter,full decision pass (rule gate + retrieval + GLM arbitration),18960.0,1 rule(s) + graph & lexical evidence,"action=against, confidence=0.99"
+case3_bpmri_indeterminate,1,rule_engine,match consensus rules (flags × decision items),0.0,6 flags × 3 items,1 rule(s) fired
+case3_bpmri_indeterminate,2,llm_arbiter,full decision pass (rule gate + retrieval + GLM arbitration),64160.0,1 rule(s) + graph & lexical evidence,"action=endorse, confidence=0.85"
+case4_advanced_route_prophylaxis,1,rule_engine,match consensus rules (flags × decision items),0.0,4 flags × 3 items,3 rule(s) fired
+case4_advanced_route_prophylaxis,2,llm_arbiter,full decision pass (rule gate + retrieval + GLM arbitration),31690.0,3 rule(s) + graph & lexical evidence,"action=endorse, confidence=0.9"
+case5_infection_risk_escalation,1,rule_engine,match consensus rules (flags × decision items),0.0,3 flags × 2 items,3 rule(s) fired
+case5_infection_risk_escalation,2,llm_arbiter,full decision pass (rule gate + retrieval + GLM arbitration),47400.0,3 rule(s) + graph & lexical evidence,"action=endorse_option, confidence=0.85"

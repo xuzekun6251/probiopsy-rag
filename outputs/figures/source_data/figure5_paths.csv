@@ -1,0 +1,41 @@
+source_node,target_node,weight,path_type
+Targeted Biopsy,Unifocal Visible MRI Lesion,30.0,knowledge_graph_edge
+ProBIOPSY,Targeted Biopsy,23.0,knowledge_graph_edge
+Targeted Biopsy,Contralateral Biopsy,18.0,knowledge_graph_edge
+Targeted Biopsy,ROI,17.0,knowledge_graph_edge
+Targeted Biopsy,Bilateral Visible MRI Lesion,17.0,knowledge_graph_edge
+MRI,Unifocal Visible MRI Lesion,16.0,knowledge_graph_edge
+Targeted Biopsy,Systematic Biopsy,14.0,knowledge_graph_edge
+Targeted Biopsy,Lymphadenectomy,14.0,knowledge_graph_edge
+Targeted Biopsy,ADT Length Planning,12.0,knowledge_graph_edge
+Targeted Biopsy,Bilateral Systematic Biopsy,12.0,knowledge_graph_edge
+Targeted Biopsy,Whole Gland Radiotherapy,11.0,knowledge_graph_edge
+Targeted Biopsy,Focal Radiotherapy Boost,11.0,knowledge_graph_edge
+Targeted Biopsy,Bilateral Visible MRI Lesions,10.0,knowledge_graph_edge
+Targeted Biopsy,Nerve-Sparing Surgical Planning,9.0,knowledge_graph_edge
+Targeted Biopsy,MRI,8.0,knowledge_graph_edge
+ProBIOPSY,Prostate Biopsy,7.0,knowledge_graph_edge
+Targeted Biopsy,ProBIOPSY Evidence,7.0,knowledge_graph_edge
+Targeted Biopsy,Biopsy Of Area Around The ROI,7.0,knowledge_graph_edge
+Targeted Biopsy,Nerve Sparing Surgical Planning,7.0,knowledge_graph_edge
+bpMRI,Indeterminate Lesion,7.0,knowledge_graph_edge
+ProBIOPSY,bpMRI,6.0,knowledge_graph_edge
+Targeted Biopsy,Region Of Interest,6.0,knowledge_graph_edge
+mpMRI,Indeterminate Lesion,6.0,knowledge_graph_edge
+MRI,Bilateral Visible MRI Lesions,6.0,knowledge_graph_edge
+Indeterminate Lesion,Biopsy,6.0,knowledge_graph_edge
+ProBIOPSY,D. Chernysheva,5.0,knowledge_graph_edge
+ProBIOPSY,F. Di Bello,5.0,knowledge_graph_edge
+ProBIOPSY,G. Avesani,5.0,knowledge_graph_edge
+ProBIOPSY,European Urology,5.0,knowledge_graph_edge
+Targeted Biopsy,Focal Treatment Planning,5.0,knowledge_graph_edge
+Prostate Cancer,MRI,5.0,knowledge_graph_edge
+bpMRI,mpMRI,5.0,knowledge_graph_edge
+bpMRI,Prostate Cancer Diagnosis,5.0,knowledge_graph_edge
+ProBIOPSY,Perilesional Biopsy,4.0,knowledge_graph_edge
+ProBIOPSY,Systematic Biopsy,4.0,knowledge_graph_edge
+ProBIOPSY,Contralateral Biopsy,4.0,knowledge_graph_edge
+Targeted Biopsy,Biopsy of the Area Around the ROI,4.0,knowledge_graph_edge
+Targeted Biopsy,Multifocal Bilateral Visible MRI Lesions,4.0,knowledge_graph_edge
+PSA Density,Biopsy,4.0,knowledge_graph_edge
+Likert Score,Expert Panel,4.0,knowledge_graph_edge

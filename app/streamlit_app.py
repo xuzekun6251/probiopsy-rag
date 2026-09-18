@@ -118,17 +118,27 @@ def read_state() -> dict:
 
 
 def index_freshness() -> tuple[str, str]:
-    """Compare rules.yaml mtime with the index graphml mtime."""
+    """Integrity check: live rules.yaml sha256 vs the sha recorded at index build."""
+    import hashlib
     rules = PROJECT_ROOT / "configs" / "rules.yaml"
     graphml = Path(INDEX_DIR) / "graph_chunk_entity_relation.graphml"
     if not graphml.exists():
         return ("stale_not_built", "LightRAG 索引未构建（先跑 Phase 4 build）")
+    if not rules.exists():
+        return ("unknown", "找不到 configs/rules.yaml")
+    progress = _load_json(PROJECT_ROOT / ".executor" / "progress.json") or {}
+    recorded = ((progress.get("phases") or {}).get("phase6") or {}).get(
+        "index_built_against_rules_sha256")
+    if not recorded:
+        return ("unknown", "构建记录缺少 index_built_against_rules_sha256（旧版 progress.json）")
     try:
-        if rules.stat().st_mtime > graphml.stat().st_mtime:
-            return ("stale_rules_changed", "rules.yaml 晚于索引构建，建议重建")
+        live_sha = hashlib.sha256(rules.read_bytes()).hexdigest()
     except OSError:
-        return ("unknown", "无法比较文件时间")
-    return ("fresh", "索引晚于 rules.yaml 最后修改，可放心问答")
+        return ("unknown", "无法读取 rules.yaml")
+    if live_sha != recorded:
+        return ("stale_rules_changed",
+                f"rules.yaml 与索引构建时的 sha256 不一致（当前 {live_sha[:12]}…），建议重建")
+    return ("fresh", f"rules.yaml sha256 校验一致（{live_sha[:12]}…），索引与规则版本匹配")
 
 
 def render_stat_card(label: str, value: str, accent: str = "#111827") -> None:

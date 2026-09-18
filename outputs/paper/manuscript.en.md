@@ -1,0 +1,180 @@
+# QianLieAnHui: development and benchmark validation of a hybrid rule-engine, knowledge-graph, and LLM-arbitration decision-support system for the prostate biopsy pathway, against the ProBIOPSY international consensus
+
+**Running title:** A hybrid rule engine–knowledge graph–LLM system for prostate biopsy decisions
+
+[PI Name TODO]<sup>1,\*</sup>, [co-authors TODO]
+
+<sup>1</sup> [Department / Institution TODO]
+
+<sup>\*</sup> Corresponding author: [email TODO]
+
+**Keywords:** prostate cancer; prostate biopsy; clinical decision support; knowledge graph; LightRAG; retrieval-augmented generation; large language models; international consensus; ProBIOPSY
+
+**Word count:** abstract 272 / main text ~3,900
+
+---
+
+## Abstract
+
+**Background:** Prostate biopsy decisions require weighing MRI quality, biopsy schemes, routes, perioperative prophylaxis, and treatment-planning requirements in patient-specific contexts. The ProBIOPSY international consensus distilled this pathway into 112 final statements, but a consensus document is not an executable decision artifact. Large language models (LLMs) offer flexible reasoning yet hallucinate and cannot trace outputs to sources; retrieval-augmented generation (RAG) mitigates hallucination but provides no deterministic safety guarantees.
+
+**Methods:** We developed QianLieAnHui, a three-layer hybrid system: (1) a deterministic rule engine (12 consensus rules plus 4 patient-factor escalation rules) that emits hard constraints; (2) risk-guided evidence retrieval over a LightRAG knowledge graph (357 evidence chunks; 1,864 entities; 3,078 relations, all traceable to the consensus text and its reference list); and (3) an LLM arbiter that outputs one of five executable actions — endorse, endorse_option, conditional, report_option, against — with confidence and statement-level citations. We benchmarked four methods × five seeds × 112 gold-standard statements (2,240 runs) with a single fixed generator (GLM-5.3-Flash) so that inter-method differences isolate architectural contributions, and re-ran baseline methods with the flagship GLM-5.3 tier (1,120 runs) as a generator-robustness experiment.
+
+**Results:** The full system achieved exact-5-class accuracy 0.805 ± 0.012 (mean ± SD over seeds), macro-F1 0.825 ± 0.022, Cohen's κ 0.730 ± 0.016, and against-class F1 0.908 ± 0.023 (specificity 0.986 ± 0.010), versus the strongest baseline, LightRAG-only (0.613, 0.536, 0.525, 0.881), naive lexical RAG (0.605, 0.514, 0.512, 0.890), and pure LLM (0.304, 0.254, 0.079, 0.346). Baselines collapsed onto frequent classes: conditional was actively emitted in only 9 of 1,120 baseline runs (0.8%) versus 17.0% for the full system. Upgrading the generator did not rescue the naive-RAG architecture (exact-5 0.605 → 0.538).
+
+**Conclusions:** Fine-grained clinical action-space competence must be built into the architecture — rule-level priors and hard constraints — rather than delegated to prompting or larger models. Architecture, not generator tier, was the dominant lever; every output traces to consensus statements and evidence chunks, supporting clinical governance audits.
+
+---
+
+## Introduction
+
+Prostate cancer is among the most common malignancies in men, and biopsy is the cornerstone of diagnosis [1,2]. The modern biopsy pathway extends far beyond a single "to biopsy or not" question: whether to add systematic cores to MRI-targeted cores, which saturation scheme to use, transperineal versus transrectal access, anaesthesia and antimicrobial prophylaxis, and whether the harvested tissue satisfies the demands of subsequent treatment planning must all be weighed against patient-specific factors — PI-RADS grade, PSA density, prior negative biopsy, anticoagulation, urinary-tract-infection risk factors, prostate volume, and more [1,3]. The ProBIOPSY consensus, a multidisciplinary international effort published in 2026, codified this pathway into 112 final statements and documented substantial international practice variation [1].
+
+A consensus document, however, is not executable. Clinicians face a combinatorial space of patient scenarios × biopsy decisions (51 scenario archetypes × 54 decision items in the registries developed here); static lookup cannot cover the interactions. Rule-based clinical decision support systems (CDSS) capture deterministic logic but are slow to update and struggle with natural-language evidence [4]. LLMs promise flexible language understanding yet carry well-documented risks in medicine: hallucination, unstable outputs, and unverifiable provenance [5-7]. RAG grounds generation in an external corpus [8], and medical RAG benchmarks show promise [9], but purely retrieval-based pipelines have no mechanism to *forbid* a plausible-sounding recommendation that contradicts the guideline.
+
+These failure modes are complementary. A deterministic rule engine can mechanically veto non-compliant outputs; knowledge-graph retrieval can expose a traceable evidence chain; an LLM arbiter can supply linguistic flexibility. Chained as *rule gate → graph evidence → LLM arbitration*, each layer covers the others' failure modes while preserving a complete audit trail from every output back to numbered consensus statements and evidence chunks. At the retrieval layer we adopt LightRAG [10], a graph-based dual-level retrieval framework that outperforms Microsoft GraphRAG [11] on domain question answering at a fraction of the token cost.
+
+We developed and validated QianLieAnHui (前列安汇; "probiopsy-rag"), a hybrid decision-support system for the prostate biopsy pathway, and quantified each architectural layer's contribution with a multi-method, multi-seed benchmark against the 112 ProBIOPSY final statements. Our contributions are:
+
+1. **Architecture.** To our knowledge the first biopsy-pathway decision-support system chaining deterministic rule hard constraints, LightRAG knowledge-graph retrieval, and LLM arbitration, aligned statement-by-statement with an international consensus.
+2. **Gold-standard alignment.** All 112 final statements mapped to five executable actions (endorse / endorse_option / conditional / report_option / against); we show that conditional and endorse_option — the two nuance-bearing classes — are structurally missing from LLM and RAG baselines.
+3. **Reproducible benchmark.** With the generator tier held fixed, the full system reached exact-5 0.805 (κ 0.730) versus pure-LLM 0.304, naive RAG 0.605, and LightRAG-only 0.613; upgrading the generator tier did not rescue baseline architectures (naive RAG exact-5 fell to 0.538).
+4. **Reproducibility.** Rules, registries, evidence corpus, all 2,240 raw predictions, and evaluation scripts are released; the index records the rule-file SHA-256 at build time so the app can verify index–rules version integrity.
+
+## Methods
+
+### Study design and ethics
+
+This is a system-development and benchmark-validation study. It involved no human participants, patient data, or biological samples: the corpus derives solely from the published ProBIOPSY consensus and its supplementary material, the gold standard consists of the consensus' 112 published final statements, and demonstration cases are synthetic vignettes constructed by the study team. Institutional review board approval was therefore not required (documented during project planning).
+
+### Validation set: 112 ProBIOPSY final statements
+
+All 112 final statements of the ProBIOPSY consensus [1] served as the gold standard. Each statement was mapped to an expected system action in a pre-defined five-class taxonomy: **endorse** (support as stated), **endorse_option** (support as one of several acceptable options), **conditional** (support under specified conditions), **report_option** (present as an available pathway without active recommendation), and **against** (recommend against). Statements span three domains: indication (n = 23), procedure (n = 34), and treatment planning (n = 55); 25 statements (22.3%) are against-class, providing a demanding test for systems with optimism bias.
+
+### System architecture
+
+The input is a pair (patient clinical scenario × biopsy decision item); the output is a structured verdict: one of five actions, a confidence value, triggered rules, and citations to numbered consensus statements and evidence chunks.
+
+**Input layer: dual registries.** Entity A (patient scenarios) contains 51 archetypes with 49 distinct scenario flags across imaging (PI-RADS grade, mpMRI/bpMRI, field strength, PI-QUAL quality), laboratory markers (PSA, PSA density), history and risk (prior negative biopsy, family history, infection risk factors, anticoagulation), treatment intent, and resource availability. Entity B (decision items) contains 54 items with 20 flags across indication (22), procedure (22), and treatment-planning linkage (10).
+
+**Layer 1: deterministic rule engine.** The rule base (YAML) holds 16 rules: 12 consensus rules and 4 patient-factor escalation rules. Each rule specifies trigger flag combinations (Entity A × Entity B flags), severity, mechanism category (imaging pathway, scheme selection, targeted biopsy, perioperative, treatment planning), and recommended action. Matching is fully deterministic — no LLM involved — and produces hard constraints for downstream layers (e.g., a mandatory veto or mandatory escalation), each carrying ProBIOPSY statement numbers (Q-codes) for provenance. Patient-factor rules escalate consensus rules in context (e.g., infection risk factors → prefer transperineal route or augmented prophylaxis; unfit for curative treatment → simplified biopsy scheme).
+
+**Layer 2: risk-guided LightRAG retrieval.** The corpus comprises 357 evidence chunks, all sourced from the ProBIOPSY consensus and its supplementary material: the 112 final statements (evidence level B), 20 narrative passages, 7 systematic-review summaries, and 218 literature entries extracted from the consensus reference lists (level C). The index was built with LightRAG (lightrag-hku 1.5.7); entity and relation extraction used GLM-5.3-Flash, and the vector index used doubao-embedding-vision-251215 (dimension 2,048). The final index contains 1,864 entities and 3,078 relations (~100 MB). The full system performs risk-guided retrieval: rule matches and active decision items drive entity-boosted hybrid queries (vector + graph structure), executed in context-only mode (retrieving entities, relations, and chunks without letting LightRAG generate the answer itself). Graph context is concatenated with lexical evidence (BM25-style scoring with boosts for active decision items and scenario flags) and passed to the arbiter.
+
+**Layer 3: LLM arbitration.** The arbiter receives (i) scenario flags and decision items, (ii) rule matches with hard constraints, (iii) graph context, and (iv) lexical evidence, and outputs a structured verdict: one of five actions, confidence, a rationale, and citations. The arbitration prompt enforces rule-layer hard constraints: when a hard constraint determines the outcome, the arbiter may not contradict it. Arbitration used Zhipu GLM-5.3 via an OpenAI-compatible API (https://open.bigmodel.cn/api/paas/v4, accessed September 2026). On unparseable or failed LLM output the system degrades to the rule-layer conclusion and flags the record as degraded — failures are never silent.
+
+### Baseline methods
+
+1. **pure_llm** — question answered directly by the LLM with no retrieval and no rules;
+2. **naive_rag** — BM25-style lexical retrieval of top-6 chunks (mean 3,644 characters) inserted into the prompt;
+3. **lightrag-only** — end-to-end LightRAG hybrid-mode question answering (mean 2,468 characters), with no rule guidance and no hard constraints.
+
+The full system uses a mean of 7,640 characters (graph + lexical), substantially more than the RAG baselines but bounded by a hard context budget.
+
+### Benchmark protocol
+
+Four methods × five seeds (0–4; temperature 0.2) × 112 statements = **2,240 runs**, resumable by (method, seed, statement_id) key. **The generator was held fixed at GLM-5.3-Flash for all methods and seeds**, so that inter-method differences are attributable to retrieval and decision architecture (rules, retrieval strategy, hard constraints) rather than model capability; rate-limiting parameters were identical across methods. All 2,240 runs returned successfully with zero errors and zero degraded records. As a generator-robustness supplement, pure_llm and naive_rag were re-run in full with the flagship GLM-5.3 tier (5 seeds × 112 statements = 1,120 records).
+
+### Metrics
+
+Exact-5-class accuracy (primary), exact-3 accuracy (collapsing endorse_option→endorse and report_option→conditional, to expose majority-class inflation), five-class macro-F1, Cohen's κ against the gold standard, and binary against-class sensitivity/specificity/F1. All metrics are reported as mean ± SD over the five seeds. Context characters per run were logged as an efficiency metric.
+
+### Implementation and reproducibility
+
+The system is implemented in Python 3.13 on lightrag-hku 1.5.7. The rule base, both registries, the evidence corpus, the gold-standard annotations, all 2,240 raw predictions (with per-run context size and retrieved-chunk counts), and the evaluation scripts are released with the code. At index build time the SHA-256 of the rule file is recorded (`index_built_against_rules_sha256`); the application UI verifies this digest against the live rule file to prevent silent index–rules divergence.
+
+## Results
+
+### Overview
+
+All 2,240 runs (4 methods × 5 seeds × 112 statements) completed successfully with zero errors and zero degraded outputs. Table 3 reports the performance matrix; Figure 2 shows per-seed distributions.
+
+### Headline performance (Table 3, Figure 2)
+
+The full system outperformed all three baselines on every fine-grained metric (Table 3): exact-5 0.805 ± 0.012 versus 0.613 (LightRAG-only), 0.605 (naive RAG), and 0.304 (pure LLM); κ 0.730 ± 0.016 versus 0.525, 0.512, and 0.079; macro-F1 0.825 ± 0.022 versus 0.536, 0.514, and 0.254. Relative to the strongest baseline this is **+19.2 percentage points exact-5 and +0.205 κ**. Seed-to-seed variation was small (exact-5 SD 0.012), indicating the advantage is not a stochastic artifact.
+
+### Baselines collapse onto frequent classes (Figure 2C)
+
+The macro-F1 pattern exposes a failure mode invisible to exact-3: both RAG baselines reach high exact-3 accuracy (0.920 / 0.905 — nominally above the full system's 0.823) while their exact-5 (~0.61) and macro-F1 (~0.52) reveal class collapse. Their predicted distributions over 560 runs each concentrate on three frequent classes — LightRAG-only: endorse 162, report_option 168, against 159, endorse_option 68, **conditional 3**; naive RAG: endorse 175, report_option 165, against 154, endorse_option 60, **conditional 6**. The full system uses all five classes substantively: endorse 280, conditional 95, against 115, report_option 32, endorse_option 38. In other words, retrieval-augmented baselines structurally cannot express *conditional endorsement* and *equivalent-option endorsement* — the two actions most critical for nuanced clinical communication — emitting them in 0.5–1.1% of runs versus 17.0% and 6.8% for the full system, and in the right places (κ 0.730 versus ~0.52).
+
+### Against-class behaviour: safe vetoing
+
+Against is the safety-critical class (22.3% of the gold standard). The full system achieved against-F1 0.908 ± 0.023 (sensitivity 0.872 ± 0.018, specificity 0.986 ± 0.010). LightRAG-only reached F1 0.881 with sensitivity 1.000 but specificity only 0.922 — over-calling against — and naive RAG behaved identically (F1 0.890; sens 0.992 / spec 0.931). Pure LLM achieved F1 0.346 (sens 0.416 / spec 0.720). The full system trades a modest sensitivity reduction for near-zero false vetoes, a behavioural difference attributable to hard-constrained arbitration: against is emitted only when rules or evidence explicitly support it.
+
+### Generator tier does not rescue baseline architectures (supplementary experiment)
+
+Re-running pure_llm and naive_rag with the flagship GLM-5.3 tier (1,120 runs) changed the conclusion qualitatively not at all and quantitatively for the worse: naive_rag exact-5 fell from 0.605 to 0.538 ± 0.012 (κ 0.512 → 0.450) and pure_llm remained at 0.288 ± 0.013 (κ 0.132). A stronger generator cannot compensate for a missing rule layer and hard constraints; flagship-tier models collapse onto majority classes just as flash-tier models do. This isolates *architecture* — not model selection — as the differentiator.
+
+### Domain breakdown (Table 4)
+
+Against-class density varies sharply by domain (indication 8.7%, procedure 14.7%, treatment planning 32.7%). The full system retains its overall advantage in the against-densest domain; per-domain confusion matrices are provided in the supplementary material.
+
+### Demonstration cases (Figures 4, 5)
+
+Five synthetic demonstration vignettes (unifocal-lesion biopsy scheme, upfront biopsy after PSMA PET, indeterminate bpMRI lesions, advanced-disease route and prophylaxis, infection-risk escalation) ran end-to-end, each producing the correct five-class action, the expected consensus rules (including patient-factor escalations), and a citation chain traceable to Q-codes and evidence chunks (case reports in the supplement).
+
+### Runtime cost
+
+The full system uses a mean of 7,640 characters of context (~2,500–3,000 tokens). With eight concurrent workers and the flash generator, median end-to-end latency per verdict was ~20–40 s; the system supports interactive use (a Streamlit interface with a decision-report module and a free-form RAG question-answering module).
+
+## Discussion
+
+### Principal findings
+
+Under a fixed generator, multi-method, multi-seed benchmarking, this study answers a precise question: **performance differences in prostate-biopsy decision support come primarily from architecture, not from the model.** Three evidence chains converge: (i) the full system reached exact-5 0.805 / κ 0.730, +19.2 points over the strongest baseline; (ii) both RAG baselines nominally "beat" the full system on coarse exact-3 accuracy while collapsing onto three frequent classes — conditional was actively emitted 9 times in 1,120 baseline runs (0.8%) versus 17.0% for the full system; and (iii) upgrading the generator tier made naive RAG *worse* (exact-5 0.605 → 0.538). Fine-grained clinical action-space competence must be built into the system architecture — rule-derived class priors and hard constraints — and cannot be prompted back in.
+
+### Relation to prior work
+
+Medical RAG benchmarks such as MIRAGE [9] evaluate open-question answering accuracy, typically multiple-choice or free text; we instead map an international consensus' final statements onto five executable actions and evaluate *guideline conformance*, a property closer to clinical governance needs. Relative to GraphRAG [11] and LightRAG [10], our contribution is system-level: LightRAG remains the evidence engine, but the lightrag-only baseline demonstrates exactly what happens without a rule layer — against over-calling (sensitivity 1.000, specificity 0.922) and conditional silence. Relative to rule-based CDSS [4], our architecture compresses the auditable rule base to 16 consensus rules and delegates long-tail knowledge to graph retrieval, coupling the two via hard constraints rather than parallel voting.
+
+### Clinical implications
+
+The system is not designed to replace clinician judgement; its value is governability: (1) **safe vetoing** — against-F1 0.908 with specificity 0.986 means the system "dares to dissent but rarely over-dissents", a behaviour mechanically enforced by requiring rule or evidence support for any veto; (2) **full traceability** — every output carries Q-codes, triggered rules, and evidence-chunk citations, enabling governance audits that pure-LLM pipelines cannot provide; (3) **version integrity** — the rule-file SHA-256 recorded at index build and verified live by the UI prevents the classic CDSS failure mode of a silently stale knowledge base.
+
+### Limitations
+
+First, **corpus–gold-standard homology**: corpus and gold standard both derive from the ProBIOPSY consensus, so this is a *consensus-conformance* evaluation rather than independent clinical validity; the system never saw action labels during development and the rule base covers only 16 topics, but exposure to statement text cannot be excluded, and prospective external validation is the necessary next step. Second, **the expert blind review is pending** (planned as a multi-expert face-validity panel); current face-validity evidence rests on five fully traced demonstration cases. Third, **synthetic scenarios**: the 51 scenario archetypes and five demonstration cases are synthetic and do not span the full comorbidity complexity of real patients. Fourth, **single generator family**: the benchmark used the GLM family (flash and flagship tiers); cross-vendor generalisation is untested, although the supplement shows generator tier is not the decisive factor. Fifth, **combinatorial coverage**: 112 statements cover the high-frequency region of the 51 × 54 interaction space; long-tail coverage is unquantified. Sixth, **context cost**: the full system's 7,640-character mean context is ~3× the strongest baseline, traded for +19.2 points exact-5; rule-gated short-circuiting (pure-rule combinations skip graph retrieval) can amortise this further. Seventh, **language and region**: the corpus is English, the scenario registry and UI Chinese; cross-lingual transfer is untested.
+
+### Future work
+
+(i) Completing the four-expert blind review (tooling ready; the expert columns of the agreement dataset are pre-registered and currently blank); (ii) a prospective registry study with real cases; (iii) extending the rule base to other guideline chapters (active surveillance, imaging follow-up) to test architecture portability; (iv) FHIR integration for automatic scenario filling from the EMR; (v) on-premises generator deployment to eliminate PHI-transfer concerns.
+
+### Conclusions
+
+QianLieAnHui demonstrates that chaining deterministic rule hard constraints, knowledge-graph evidence retrieval, and LLM arbitration — each layer covering the others' failure modes — raises fine-grained clinical decision accuracy to a level suitable for pilot clinical evaluation (exact-5 0.805, κ 0.730, against-F1 0.908) against an international consensus gold standard, with every output traceable to numbered statements and evidence chunks. Architecture, not a larger model, is currently the dominant lever for medical decision support.
+
+## Data availability
+
+The rule base (configs/rules.yaml), both registries (entities_a.csv, entities_b.csv), the evidence corpus (evidence_chunks.jsonl, 357 chunks), the gold-standard annotations (probiopsy_statements.csv, 112 statements), all 2,240 raw predictions with per-run context sizes and retrieved-chunk counts (baseline_predictions.jsonl), the flagship-tier supplement (baseline_predictions_glm53.jsonl), the evaluation script (evaluate.py), and all figure source data are released with the repository.
+
+## Ethics statement
+
+No human participants, patient data, or biological samples were involved; the corpus and gold standard derive from the published ProBIOPSY consensus; demonstration cases are synthetic. See Manuscript_Ethics_Statement.md.
+
+## Funding
+
+[TODO]
+
+## Conflicts of interest
+
+[TODO]
+
+## CRediT author contributions
+
+[PI TODO]: Conceptualization, Methodology, Software, Validation, Writing – original draft. [Co-authors TODO]: [TODO].
+
+## References
+
+1. Chernysheva D, Di Bello F, Avesani G, et al. ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy. Eur Urol 2026. https://doi.org/10.1016/j.eururo.2026.06.012
+2. European Association of Urology. EAU Guidelines on Prostate Cancer. Arnhem: EAU; 2026. https://uroweb.org/guidelines/prostate-cancer
+3. Weinreb JC, Barentsz JO, Choyke PL, et al. PI-RADS Prostate Imaging — Reporting and Data System: 2015, Version 2. Eur Urol 2016;69:16-40.
+4. Sutton RT, Pincock D, Baumgart DC, Sadowski DC, Fedorak RN, Kroeker KI. An overview of clinical decision support systems: benefits, risks, and strategies for success. NPJ Digit Med 2020;3:17.
+5. Thirunavukarasu AJ, Ting DSJ, Elangovan K, Gutierrez L, Tan TF, Ting DSW. Large language models in medicine. Nat Med 2023;29:1930-40.
+6. Singhal K, Azizi S, Tu T, et al. Large language models encode clinical knowledge. Nature 2023;620:172-80.
+7. Ji Z, Lee N, Frieske R, et al. Survey of hallucination in natural language generation. ACM Comput Surv 2023;55:1-38.
+8. Lewis P, Perez E, Piktus A, et al. Retrieval-augmented generation for knowledge-intensive NLP tasks. Adv Neural Inf Process Syst 2020;33:9459-74.
+9. Xiong G, Jin Q, Lu Z, Zhang A. Benchmarking retrieval-augmented generation for medicine. Findings Assoc Comput Linguist ACL 2024.
+10. Guo Z, Xia L, Yu Y, Ao T, Huang C. LightRAG: Simple and fast retrieval-augmented generation. arXiv:2410.05779 (2024).
+11. Edge D, Trinh H, Cheng N, et al. From local to global: a Graph RAG approach to query-focused summarization. arXiv:2404.16130 (2024).
+
+> **Reference QC note (Phase 7_5/8.2):** refs 1, 10 verified this session (publisher PDF / arXiv); refs 2-9, 11 to be re-verified with `nature-academic-search` (DOI/metadata) before submission.

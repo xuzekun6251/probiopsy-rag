@@ -563,11 +563,11 @@ patient_clinical_scenario_id,patient_clinical_scenario_name,aliases,category,act
 
 （待 Phase 1 完成后填充）
 
-### 15.3 论文标题（候选）
+### 15.3 论文标题（候选）——Writer 阶段已定稿
 
-1. 前列安汇: a rule-based decision support framework for LightRAG混合决策支持系统:患者临床情境×穿刺决策项 screening
-2. Development and validation of a knowledge-graph-augmented LightRAG混合决策支持系统:患者临床情境×穿刺决策项 screening system
-3. A pharmacological rule-based clinical decision support system for LightRAG混合决策支持系统:患者临床情境×穿刺决策项
+1. **QianLieAnHui: development and benchmark validation of a hybrid rule-engine, knowledge-graph, and LLM-arbitration decision-support system for the prostate biopsy pathway, against the ProBIOPSY international consensus**（主选，中文题见 outputs/paper/00_front_zh.md）
+2. Architecture, not model scale: a rule-gated LightRAG decision-support system validated statement-by-statement against the ProBIOPSY consensus (112 statements)
+3. Safe vetoing with full traceability: hybrid rule engine + knowledge-graph retrieval + LLM arbitration for prostate biopsy decisions
 
 ---
 

@@ -1,0 +1,6 @@
+component,layer,inputs,outputs,source_code_file
+normalize,deterministic,patient scenario + decision item + free-text factors,normalized flag set (Entity A flags × Entity B flags) + patient factors,src/probiopsy_rag_agent/normalize.py
+rule_engine,deterministic,normalized flags × decision items,matched consensus rules + patient-factor escalations + hard constraints,src/probiopsy_rag_agent/risk_rules.py; configs/rules.yaml (16 rules)
+evidence_store,retrieval,question + entity boosts,top-k lexical evidence chunks (BM25-style scoring),src/probiopsy_rag_agent/evidence_store.py; data/seed/evidence_chunks.jsonl (n=357)
+lightrag_kg,retrieval,question (risk-guided),"knowledge-graph context: entities, relations, chunks (mode=hybrid, context-only)",src/probiopsy_rag_agent/lightrag_adapter.py; data/processed/lightrag_index
+llm_arbiter,arbitration,rules hard constraints + graph context + lexical evidence,5-class action verdict + confidence + rationale + statement citations,src/probiopsy_rag_agent/safety_agent.py; src/probiopsy_rag_agent/llm_client.py
