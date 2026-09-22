@@ -41,7 +41,7 @@
 
 ## 参考文献骨架（2026-09-18 已全部核验 DOI）
 
-1. Chernysheva D, Di Bello F, Avesani G, et al. ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy. Eur Urol 2026. DOI: 10.1016/j.eururo.2026.06.012（出版社 PDF 直接核验）
+1. Chernysheva D, Di Bello F, Avesani G, et al. ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy. Eur Urol 2026;90(3):212–224. DOI: 10.1016/j.eururo.2026.06.012（Crossref 元数据核验，2026-09-22）
 2. European Association of Urology. EAU Guidelines on Prostate Cancer. Arnhem: EAU; 2026. https://uroweb.org/guidelines/prostate-cancer（活页指南，投稿时更新版本日期）
 3. Weinreb JC, Barentsz JO, Choyke PL, et al. PI-RADS Prostate Imaging — Reporting and Data System: Version 2.1: 2019. Eur Urol 2019;76:340-51. DOI: 10.1016/j.eururo.2019.02.033
 4. Sutton RT, et al. An overview of clinical decision support systems: benefits, risks, and strategies for success. NPJ Digit Med 2020;3:17. DOI: 10.1038/s41746-020-0221-y
@@ -246,30 +246,29 @@ naive_rag 的 exact5 反而从 0.605 降到 0.538、κ 从 0.512 降到 0.450：
 
 ## 数据与代码可用性 (Data Availability)
 
-规则库（configs/rules.yaml）、双实体注册表（data/seed/entities_a.csv, entities_b.csv）、证据块库（data/seed/evidence_chunks.jsonl，357 条）、金标准标注（data/seed/probiopsy_statements.csv，112 条）、全部 2,240 条原始预测记录（outputs/baseline_predictions.jsonl，含每次运行的上下文字符数与检索块数）、旗舰档补充数据（outputs/baseline_predictions_glm53.jsonl）、评估脚本（scripts/evaluate.py）与图表源数据（outputs/figures/source_data/）随代码仓库发布。
+规则库（configs/rules.yaml）、双实体注册表（data/seed/entities_a.csv, entities_b.csv）、证据块库（data/seed/evidence_chunks.jsonl，357 条）、金标准标注（data/seed/probiopsy_statements.csv，112 条）、全部 2,240 条原始预测记录（outputs/baseline_predictions.jsonl，含每次运行的上下文字符数与检索块数）、旗舰档补充数据（outputs/baseline_predictions_glm53.jsonl）、评估脚本（scripts/evaluate.py）与图表源数据（outputs/figures/source_data/）随代码仓库发布：https://github.com/xuzekun6251/probiopsy-rag（Zenodo 归档：[Zenodo DOI 待发布后回填]）。
 
 ## 伦理声明 (Ethics)
 
-本研究不涉及人类受试者、患者数据或生物样本；知识库语料与验证金标准均来自公开出版的 ProBIOPSY 共识；演示病例为合成情境。详见 Manuscript_Ethics_Statement.md。
+本研究的计算评估不涉及患者数据或生物样本：知识库语料与验证金标准均来自公开出版的 ProBIOPSY 共识，演示病例为合成情境；四专家盲评为匿名、自愿参与，不含任何可识别个人信息。详见 Manuscript_Ethics_Statement.md。
 
 ## 资金 (Funding)
 
-[TODO]
+本研究未接受外部资助
 
 ## 利益冲突 (Conflict of Interest)
 
-[TODO]
+所有作者声明无利益冲突。
 
 ## 作者贡献 (CRediT)
 
-- [PI TODO]：概念化、方法学、软件、验证、初稿撰写
-- [合作者 TODO]：[TODO]
+- 徐泽坤：概念化、方法学、软件、验证、初稿撰写
 
 ## 图表清单
 
 - **图 1** 系统架构（outputs/figures/figure1_architecture.*）
 - **图 2** 多方法多种子性能对比（outputs/figures/figure2_performance.*）
-- **图 3** 专家一致性（待专家盲评数据，Phase 4.5）
+- **图 3** 四专家盲评一致性（outputs/figures/figure3_expert_agreement.*）
 - **图 4** 演示病例报告（outputs/figures/figure4_demo_case.*）
 - **图 5** 推理链追踪（outputs/figures/figure5_reasoning_trace.*）
 - **表 1** 双实体注册表摘要（outputs/tables/table1_registry.md）

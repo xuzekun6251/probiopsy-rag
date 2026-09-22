@@ -22,7 +22,8 @@
     "writer.expert_review",
     "writer.submission_kit",
     "writer.author_info_applied",
-    "writer.license_confirmed"
+    "writer.license_confirmed",
+    "writer.github_published"
   ],
   "in_progress": null,
   "blocked": [],
@@ -123,6 +124,11 @@
     {
       "date": "2026-09-18",
       "event": "User verified ProBIOPSY article is CC BY: no scrub needed; licensing wording synced in data_availability.md / LICENSE third-party notice / .zenodo.json notes / README; checklist step 2 marked resolved; baseline_predictions*.jsonl un-ignored (2,240+1,122 raw predictions promised in data availability, 0.6MB total); zip rebuilt; commit b87b3aa",
+      "skill": "medical-agent"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "GitHub published: PAT stored via credential manager (no plaintext residue), 5 oversized TIFFs purged from history via filter-branch (repo 440MB->2.76MiB), *.tiff gitignored, master pushed to github.com/xuzekun6251/probiopsy-rag, tag v1.0.0 pushed, Release v1.0.0 created via API (id 393724113) after user enabled Zenodo-GitHub integration; awaiting Zenodo DOI backfill",
       "skill": "medical-agent"
     }
   ]
