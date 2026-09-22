@@ -24,7 +24,8 @@
     "writer.author_info_applied",
     "writer.license_confirmed",
     "writer.github_published",
-    "writer.zenodo_doi_minted"
+    "writer.zenodo_doi_minted",
+    "writer.docx_converted"
   ],
   "in_progress": null,
   "blocked": [],
@@ -135,6 +136,11 @@
     {
       "date": "2026-09-22",
       "event": "Zenodo DOI minted via REST API after GitHub integration failed server-side: 10.5281/zenodo.22898439 (RDM API, v1.0.1 snapshot, 2.9MB archive, MIT, creator XU Zekun, related_identifier isDerivedFrom ProBIOPSY doi:10.1016/j.eururo.2026.06.012). Backfilled into author_info.yaml, data_availability.md (en+zh), README bibtex; Release v1.0.1 notes patched with DOI; orphan drafts 22898373/22898427 deleted; zip rebuilt 28 files. Push retrying in background (network)",
+      "skill": "medical-agent"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "Journal-format Word manuscript generated: outputs/submission/manuscript.en.docx (A4, Times 12pt double-spaced, 38 true heading styles, 5 figures embedded below legends, superscript author line, hanging-indent references, Elsevier AI declaration included); verified programmatically; docx added to submission zip (29 files); export_manuscript_docx.py is the permanent re-run tool",
       "skill": "medical-agent"
     }
   ]

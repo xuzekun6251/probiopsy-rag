@@ -1,0 +1,158 @@
+{
+  "bray_globocan": {
+    "doi": "10.3322/caac.21834",
+    "text": "Bray F, Laversanne M, Sung H, et al. Global cancer statistics 2022: GLOBOCAN estimates of incidence and mortality worldwide for 36 cancers in 185 countries. CA A Cancer J Clinicians. 2024;74(3):229-263. https://doi.org/10.3322/caac.21834"
+  },
+  "cao_china": {
+    "doi": "10.1097/CM9.0000000000001474",
+    "text": "Cao W, Chen HD, Yu YW, Li N, Chen WQ. Changing profiles of cancer burden worldwide and in China: a secondary analysis of the global cancer statistics 2020. Chinese Medical Journal. 2021;134(7):783-791. https://doi.org/10.1097/cm9.0000000000001474"
+  },
+  "schroder_erspc": {
+    "doi": "10.1056/NEJMoa1113135",
+    "text": "Schröder FH, Hugosson J, Roobol MJ, et al. Prostate-Cancer Mortality at 11 Years of Follow-up. N Engl J Med. 2012;366(11):981-990. https://doi.org/10.1056/nejmoa1113135"
+  },
+  "probiopsy": {
+    "doi": "10.1016/j.eururo.2026.06.012",
+    "text": "Chernysheva D, Di Bello F, Avesani G, et al. ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy. European Urology. 2026;90(3):212-224. https://doi.org/10.1016/j.eururo.2026.06.012"
+  },
+  "tracy_addsyst": {
+    "doi": "10.1016/j.urolonc.2020.09.019",
+    "text": "Tracy CR, Flynn KJ, Sjoberg DD, Gellhaus PT, Metz CM, Ehdaie B. Optimizing MRI-targeted prostate biopsy: the diagnostic benefit of additional targeted biopsy cores. Urologic Oncology: Seminars and Original Investigations. 2021;39(3):193.e1-193.e6. https://doi.org/10.1016/j.urolonc.2020.09.019"
+  },
+  "deng_eclinm": {
+    "doi": "10.1016/j.eclinm.2025.103630",
+    "text": "Deng R, Shang J, Wu J, et al. A head-to-head comparison of sextant-systematic biopsy vs. extended-systematic biopsy for prostate cancer diagnosis in the era of MRI-targeted biopsy: SEXTANT-PRO non-inferiority randomized clinical trial. eClinicalMedicine. 2025;90:103630. https://doi.org/10.1016/j.eclinm.2025.103630"
+  },
+  "loeb_comp": {
+    "doi": "10.1016/j.eururo.2013.05.049",
+    "text": "Loeb S, Vellekoop A, Ahmed HU, et al. Systematic Review of Complications of Prostate Biopsy. European Urology. 2013;64(6):876-892. https://doi.org/10.1016/j.eururo.2013.05.049"
+  },
+  "nam_admissions": {
+    "doi": "10.1016/j.juro.2009.11.043",
+    "text": "Nam RK, Saskin R, Lee Y, et al. Increasing Hospital Admission Rates for Urological Complications After Transrectal Ultrasound Guided Prostate Biopsy. Journal of Urology. 2010;183(3):963-969. https://doi.org/10.1016/j.juro.2009.11.043"
+  },
+  "eau_guideline": {
+    "text": "European Association of Urology. EAU Guidelines on Prostate Cancer. Arnhem: European Association of Urology; 2026. https://uroweb.org/guidelines/prostate-cancer (living guideline, accessed September 2026)."
+  },
+  "pirads": {
+    "doi": "10.1016/j.eururo.2019.02.033",
+    "text": "Turkbey B, Rosenkrantz AB, Haider MA, et al. Prostate Imaging Reporting and Data System Version 2.1: 2019 Update of Prostate Imaging Reporting and Data System Version 2. European Urology. 2019;76(3):340-351. https://doi.org/10.1016/j.eururo.2019.02.033"
+  },
+  "giganti_piqua": {
+    "doi": "10.1016/j.euo.2020.06.007",
+    "text": "Giganti F, Allen C, Emberton M, Moore CM, Kasivisvanathan V. Prostate Imaging Quality (PI-QUAL): A New Quality Control Scoring System for Multiparametric Magnetic Resonance Imaging of the Prostate from the PRECISION trial. European Urology Oncology. 2020;3(5):615-619. https://doi.org/10.1016/j.euo.2020.06.007"
+  },
+  "yusim_psad": {
+    "doi": "10.1038/s41598-020-76786-9",
+    "text": "Yusim I, Krenawi M, Mazor E, Novack V, Mabjeesh NJ. The use of prostate specific antigen density to predict clinically significant prostate cancer. Sci Rep. 2020;10(1):20015. https://doi.org/10.1038/s41598-020-76786-9"
+  },
+  "ahmed_promis": {
+    "doi": "10.1016/S0140-6736(16)32401-1",
+    "text": "Ahmed HU, El-Shater Bosaily A, Brown LC, et al. Diagnostic accuracy of multi-parametric MRI and TRUS biopsy in prostate cancer (PROMIS): a paired validating confirmatory study. The Lancet. 2017;389(10071):815-822. https://doi.org/10.1016/s0140-6736(16)32401-1"
+  },
+  "ahdoot_nejm": {
+    "doi": "10.1056/NEJMoa1910038",
+    "text": "Ahdoot M, Wilbur AR, Reese SE, et al. MRI-Targeted, Systematic, and Combined Biopsy for Prostate Cancer Diagnosis. N Engl J Med. 2020;382(10):917-928. https://doi.org/10.1056/nejmoa1910038"
+  },
+  "klotz_jamaoncol": {
+    "doi": "10.1001/jamaoncol.2020.7589",
+    "text": "Klotz L, Chin J, Black PC, et al. Comparison of Multiparametric Magnetic Resonance Imaging–Targeted Biopsy With Systematic Transrectal Ultrasonography Biopsy for Biopsy-Naive Men at Risk for Prostate Cancer: A Phase 3 Randomized Clinical Trial. JAMA Oncol. 2021;7(4):534. https://doi.org/10.1001/jamaoncol.2020.7589"
+  },
+  "elkhoury": {
+    "doi": "10.1001/jamasurg.2019.1734",
+    "text": "Elkhoury FF, Felker ER, Kwan L, et al. Comparison of Targeted vs Systematic Prostate Biopsy in Men Who Are Biopsy Naive: The Prospective Assessment of Image Registration in the Diagnosis of Prostate Cancer (PAIREDCAP) Study. JAMA Surg. 2019;154(9):811. https://doi.org/10.1001/jamasurg.2019.1734"
+  },
+  "costa_euo": {
+    "doi": "10.1016/j.euo.2018.08.022",
+    "text": "Costa DN, Goldberg K, Leon ADD, et al. Magnetic Resonance Imaging–guided In-bore and Magnetic Resonance Imaging-transrectal Ultrasound Fusion Targeted Prostate Biopsies: An Adjusted Comparison of Clinically Significant Prostate Cancer Detection Rate. European Urology Oncology. 2019;2(4):397-404. https://doi.org/10.1016/j.euo.2018.08.022"
+  },
+  "hao_outdated": {
+    "doi": "10.1109/ICDE48307.2020.00196",
+    "text": "Hao S, Chai C, Li G, Tang N, Wang N, Yu X. Outdated Fact Detection in Knowledge Bases. In: 2020 IEEE 36th International Conference on Data Engineering (ICDE). IEEE; 2020:1890-1893. https://doi.org/10.1109/icde48307.2020.00196"
+  },
+  "ray_alertfatigue": {
+    "doi": "10.1093/jamia/ocag064",
+    "text": "Ray CE, Wilson GM, Hughes AM, et al. Alert fatigue measurement in clinical decision support: a systematic review. Journal of the American Medical Informatics Association. 2026;33(8):1523-1531. https://doi.org/10.1093/jamia/ocag064"
+  },
+  "sutton_cdss": {
+    "doi": "10.1038/s41746-020-0221-y",
+    "text": "Sutton RT, Pincock D, Baumgart DC, Sadowski DC, Fedorak RN, Kroeker KI. An overview of clinical decision support systems: benefits, risks, and strategies for success. npj Digit. Med. 2020;3(1):17. https://doi.org/10.1038/s41746-020-0221-y"
+  },
+  "rajpurkar_ai": {
+    "doi": "10.1038/s41591-021-01614-0",
+    "text": "Rajpurkar P, Chen E, Banerjee O, Topol EJ. AI in health and medicine. Nat Med. 2022;28(1):31-38. https://doi.org/10.1038/s41591-021-01614-0"
+  },
+  "thirunavukarasu": {
+    "doi": "10.1038/s41591-023-02448-8",
+    "text": "Thirunavukarasu AJ, Ting DSJ, Elangovan K, Gutierrez L, Tan TF, Ting DSW. Large language models in medicine. Nat Med. 2023;29(8):1930-1940. https://doi.org/10.1038/s41591-023-02448-8"
+  },
+  "singhal_medpalm": {
+    "doi": "10.1038/s41586-023-06291-2",
+    "text": "Singhal K, Azizi S, Tu T, et al. Large language models encode clinical knowledge. Nature. 2023;620(7972):172-180. https://doi.org/10.1038/s41586-023-06291-2"
+  },
+  "singhal_medpalm2": {
+    "doi": "10.1038/s41591-024-03423-7",
+    "text": "Singhal K, Tu T, Gottweis J, et al. Toward expert-level medical question answering with large language models. Nat Med. 2025;31(3):943-950. https://doi.org/10.1038/s41591-024-03423-7"
+  },
+  "ji_hallucination": {
+    "doi": "10.1145/3571730",
+    "text": "Ji Z, Lee N, Frieske R, et al. Survey of Hallucination in Natural Language Generation. ACM Comput. Surv. 2023;55(12):1-38. https://doi.org/10.1145/3571730"
+  },
+  "fast_guideline": {
+    "doi": "10.1038/s41746-024-01356-6",
+    "text": "Fast D, Adams LC, Busch F, et al. Autonomous medical evaluation for guideline adherence of large language models. npj Digit. Med. 2024;7(1):358. https://doi.org/10.1038/s41746-024-01356-6"
+  },
+  "lewis_rag": {
+    "text": "Lewis P, Perez E, Piktus A, et al. Retrieval-augmented generation for knowledge-intensive NLP tasks. Adv Neural Inf Process Syst. 2020;33:9459-74. arXiv:2005.11401 (verified via arXiv API)."
+  },
+  "xiong_mirage": {
+    "doi": "10.18653/v1/2024.findings-acl.372",
+    "text": "Xiong G, Jin Q, Lu Z, Zhang A. Benchmarking Retrieval-Augmented Generation for Medicine. Findings of the Association for Computational Linguistics ACL 2024. 2024:6233-6251. https://doi.org/10.18653/v1/2024.findings-acl.372"
+  },
+  "pan_roadmap": {
+    "doi": "10.1109/TKDE.2024.3352100",
+    "text": "Pan S, Luo L, Wang Y, Chen C, Wang J, Wu X. Unifying Large Language Models and Knowledge Graphs: A Roadmap. IEEE Trans. Knowl. Data Eng. 2024;36(7):3580-3599. https://doi.org/10.1109/tkde.2024.3352100"
+  },
+  "lightrag": {
+    "text": "Guo Z, Xia L, Yu Y, Ao T, Huang C. LightRAG: simple and fast retrieval-augmented generation. arXiv:2410.05779, 2024 (verified against arXiv listing)."
+  },
+  "graphrag": {
+    "text": "Edge D, Trinh H, Cheng N, et al. From local to global: a Graph RAG approach to query-focused summarization. arXiv:2404.16130, 2024 (verified via arXiv API)."
+  },
+  "epstein_gleason": {
+    "doi": "10.1097/PAS.0000000000000820",
+    "text": "Epstein JI, Amin MB, Reuter VE, Humphrey PA. Contemporary Gleason Grading of Prostatic Carcinoma: An Update With Discussion on Practical Issues to Implement the 2014 International Society of Urological Pathology (ISUP) Consensus Conference on Gleason Grading of Prostatic Carcinoma. American Journal of Surgical Pathology. 2017;41(4):e1-e7. https://doi.org/10.1097/pas.0000000000000820"
+  },
+  "cohen1960": {
+    "doi": "10.1177/001316446002000104",
+    "text": "Cohen J. A Coefficient of Agreement for Nominal Scales. Educational and Psychological Measurement. 1960;20(1):37-46. https://doi.org/10.1177/001316446002000104"
+  },
+  "bh1995": {
+    "doi": "10.1111/j.2517-6161.1995.tb02031.x",
+    "text": "Benjamini Y, Hochberg Y. Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing. Journal of the Royal Statistical Society Series B: Statistical Methodology. 1995;57(1):289-300. https://doi.org/10.1111/j.2517-6161.1995.tb02031.x"
+  },
+  "fleiss1971": {
+    "doi": "10.1037/h0031619",
+    "text": "Fleiss JL. Measuring nominal scale agreement among many raters.. Psychological Bulletin. 1971;76(5):378-382. https://doi.org/10.1037/h0031619"
+  },
+  "feinstein_paradox": {
+    "doi": "10.1016/0895-4356(90)90158-L",
+    "text": "Feinstein AR, Cicchetti DV. High agreement but low Kappa: I. the problems of two paradoxes. Journal of Clinical Epidemiology. 1990;43(6):543-549. https://doi.org/10.1016/0895-4356(90)90158-l"
+  },
+  "ayers_chatbot": {
+    "doi": "10.1001/jamainternmed.2023.1838",
+    "text": "Ayers JW, Poliak A, Dredze M, et al. Comparing Physician and Artificial Intelligence Chatbot Responses to Patient Questions Posted to a Public Social Media Forum. JAMA Intern Med. 2023;183(6):589. https://doi.org/10.1001/jamainternmed.2023.1838"
+  },
+  "decide_ai": {
+    "doi": "10.1136/bmj-2022-070904",
+    "text": "Vasey B, Nagendran M, Campbell B, et al. Reporting guideline for the early stage clinical evaluation of decision support systems driven by artificial intelligence: DECIDE-AI. BMJ. 2022;377:e070904. https://doi.org/10.1136/bmj-2022-070904"
+  },
+  "tripod_ai": {
+    "doi": "10.1136/bmj-2023-078378",
+    "text": "Collins GS, Moons KGM, Dhiman P, et al. TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. BMJ. 2024;385:e078378. https://doi.org/10.1136/bmj-2023-078378"
+  },
+  "alkhanaty_psma": {
+    "doi": "10.1016/j.euf.2026.05.019",
+    "text": "Al-Khanaty A, Hennes D, Hofman MS, et al. Avoiding Prostate Biopsy in Early Prostate Cancer Detection: From Liquid Biopsy to PSMA-PET. European Urology Focus. 2026. https://doi.org/10.1016/j.euf.2026.05.019"
+  }
+}
