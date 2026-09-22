@@ -21,7 +21,8 @@
     "writer.internal_review",
     "writer.expert_review",
     "writer.submission_kit",
-    "writer.author_info_applied"
+    "writer.author_info_applied",
+    "writer.license_confirmed"
   ],
   "in_progress": null,
   "blocked": [],
@@ -117,6 +118,11 @@
     {
       "date": "2026-09-18",
       "event": "User filled configs/author_info.yaml (XU Zekun, Attending Physician, Urology, Affiliated Jinhua Hospital, Zhejiang University School of Medicine; no funding, no COI); apply_author_info.py propagated to manuscript.en.md, 00_front_zh.md, cover_letter.md (title EN mapping added), data_availability.md, LICENSE, .zenodo.json; zh reassembled; zip rebuilt; commit 66f3f27. Remaining: github_repo/zenodo_doi backfill after publication",
+      "skill": "medical-agent"
+    },
+    {
+      "date": "2026-09-18",
+      "event": "User verified ProBIOPSY article is CC BY: no scrub needed; licensing wording synced in data_availability.md / LICENSE third-party notice / .zenodo.json notes / README; checklist step 2 marked resolved; baseline_predictions*.jsonl un-ignored (2,240+1,122 raw predictions promised in data availability, 0.6MB total); zip rebuilt; commit b87b3aa",
       "skill": "medical-agent"
     }
   ]

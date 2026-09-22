@@ -20,7 +20,8 @@
     "writer.phase8",
     "writer.internal_review",
     "writer.expert_review",
-    "writer.submission_kit"
+    "writer.submission_kit",
+    "writer.author_info_applied"
   ],
   "in_progress": null,
   "blocked": [],
@@ -111,6 +112,11 @@
     {
       "date": "2026-09-18",
       "event": "Submission completion kit: configs/author_info.yaml + apply_author_info.py one-fill propagation (verified dummy run), README rewrite, MIT LICENSE, .zenodo.json, docs/publish_github_zenodo.md checklist, scrub_statement_text.py copyright option; commit b6cc33c. Remaining user actions: fill yaml -> apply script -> license badge check -> GitHub push -> Zenodo DOI -> refill",
+      "skill": "medical-agent"
+    },
+    {
+      "date": "2026-09-18",
+      "event": "User filled configs/author_info.yaml (XU Zekun, Attending Physician, Urology, Affiliated Jinhua Hospital, Zhejiang University School of Medicine; no funding, no COI); apply_author_info.py propagated to manuscript.en.md, 00_front_zh.md, cover_letter.md (title EN mapping added), data_availability.md, LICENSE, .zenodo.json; zh reassembled; zip rebuilt; commit 66f3f27. Remaining: github_repo/zenodo_doi backfill after publication",
       "skill": "medical-agent"
     }
   ]
