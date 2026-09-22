@@ -86,6 +86,6 @@ If you use this codebase, please cite the manuscript (see `outputs/paper/manuscr
             decision-support system for the prostate biopsy pathway},
   year   = {2026},
   doi    = {10.5281/zenodo.XXXXXXX},   % fill after Zenodo deposit
-  url    = {https://github.com/<user>/probiopsy-rag}
+  url    = {https://github.com/xuzekun6251/probiopsy-rag}
 }
 ```

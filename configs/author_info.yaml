@@ -36,5 +36,5 @@ coi:
   zh: "所有作者声明无利益冲突。"   # 如: 所有作者声明无利益冲突。
 
 # ── 以下两项在完成 GitHub/Zenodo 发布后回填（见 docs/publish_github_zenodo.md）──
-github_repo: ""      # 如: https://github.com/yourname/probiopsy-rag
+github_repo: "https://github.com/xuzekun6251/probiopsy-rag"      # 如: https://github.com/yourname/probiopsy-rag
 zenodo_doi: ""       # 如: 10.5281/zenodo.1XXXXXXXX

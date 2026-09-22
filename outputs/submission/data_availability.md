@@ -1,6 +1,6 @@
 # Data Availability Statement
 
-**Code.** The complete implementation (rule engine, evidence store, LightRAG adapter, LLM arbiter, Streamlit application, benchmark runner, evaluation scripts, and figure renderers) is available at [GitHub repo TODO] and archived on Zenodo at [DOI TODO] at the time of acceptance.
+**Code.** The complete implementation (rule engine, evidence store, LightRAG adapter, LLM arbiter, Streamlit application, benchmark runner, evaluation scripts, and figure renderers) is available at https://github.com/xuzekun6251/probiopsy-rag and archived on Zenodo at [DOI TODO] at the time of acceptance.
 
 **Data.** All artifacts needed to reproduce the benchmark are released:
 
