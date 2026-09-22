@@ -25,6 +25,7 @@ data/processed/
 data/_local_only/
 outputs/figures/*.png
 outputs/figures/*.pdf
+outputs/figures/*.tiff
 outputs/paper/*.pdf
 
 # OS
