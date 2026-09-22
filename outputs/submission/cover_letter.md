@@ -1,7 +1,7 @@
 # Cover Letter
 
 **To:** The Editor, *European Urology Open Science*
-**Date:** 2026-09-18
+**Date:** 2026-09-22
 **Manuscript title:** QianLieAnHui: development and benchmark validation of a hybrid rule-engine, knowledge-graph, and LLM-arbitration decision-support system for the prostate biopsy pathway, against the ProBIOPSY international consensus
 **Submission type:** Original Research Article (Methods/Technology)
 
