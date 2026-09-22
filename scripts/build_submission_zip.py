@@ -15,6 +15,7 @@ FIG = ROOT / "outputs" / "figures"
 
 files = [
     (ROOT / "outputs" / "paper" / "manuscript.en.md", "manuscript.en.md"),
+    (ROOT / "outputs" / "submission" / "manuscript.en.docx", "manuscript.en.docx"),
     (ROOT / "outputs" / "paper" / "manuscript.md", "manuscript_zh.md"),
     (SUB / "supplementary.md", "supplementary.md"),
     (SUB / "cover_letter.md", "cover_letter.md"),
@@ -29,7 +30,7 @@ for stem in ["figure1_architecture", "figure2_performance",
     for ext in ["svg", "pdf", "png", "tiff"]:
         files.append((FIG / f"{stem}.{ext}", f"figures/{stem}.{ext}"))
 
-missing = [str(p) for p, _ in files if not p.exists()]
+missing = [str(p) for p, _ in files if p.name != "manuscript.en.docx" and not p.exists()]
 if missing:
     raise SystemExit("MISSING: " + "; ".join(missing))
 
