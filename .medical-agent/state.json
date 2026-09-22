@@ -23,7 +23,8 @@
     "writer.submission_kit",
     "writer.author_info_applied",
     "writer.license_confirmed",
-    "writer.github_published"
+    "writer.github_published",
+    "writer.zenodo_doi_minted"
   ],
   "in_progress": null,
   "blocked": [],
@@ -129,6 +130,11 @@
     {
       "date": "2026-09-22",
       "event": "GitHub published: PAT stored via credential manager (no plaintext residue), 5 oversized TIFFs purged from history via filter-branch (repo 440MB->2.76MiB), *.tiff gitignored, master pushed to github.com/xuzekun6251/probiopsy-rag, tag v1.0.0 pushed, Release v1.0.0 created via API (id 393724113) after user enabled Zenodo-GitHub integration; awaiting Zenodo DOI backfill",
+      "skill": "medical-agent"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "Zenodo DOI minted via REST API after GitHub integration failed server-side: 10.5281/zenodo.22898439 (RDM API, v1.0.1 snapshot, 2.9MB archive, MIT, creator XU Zekun, related_identifier isDerivedFrom ProBIOPSY doi:10.1016/j.eururo.2026.06.012). Backfilled into author_info.yaml, data_availability.md (en+zh), README bibtex; Release v1.0.1 notes patched with DOI; orphan drafts 22898373/22898427 deleted; zip rebuilt 28 files. Push retrying in background (network)",
       "skill": "medical-agent"
     }
   ]

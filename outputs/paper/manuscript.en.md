@@ -175,6 +175,10 @@ No patient data or biological samples were involved. The evidence corpus and gol
 
 **Figure 5.** Runtime and knowledge-graph statistics. **(a)** End-to-end latency per demonstration case (log scale), split into the rule-engine layer (red) and the remaining pipeline (grey). **(b)** Top-12 knowledge-graph edge weights by relation type.
 
+## Acknowledgments
+
+The author gratefully thanks the four urology experts who participated in the blinded face-validity review (anonymous by design of the study), and the ProBIOPSY consensus group whose statement-level work made an executable, statement-by-statement validation possible.
+
 ## Funding
 
 This research received no external funding
@@ -186,6 +190,10 @@ The authors declare no conflicts of interest.
 ## CRediT author contributions
 
 XU Zekun: Conceptualization, Methodology, Software, Validation, Writing – original draft.
+
+## Declaration of generative AI and AI-assisted technologies in the writing process
+
+During the preparation of this work the author used large language model tools (GLM; Zhipu AI) in order to assist with software implementation, corpus curation support, and manuscript drafting. After using these tools, the author reviewed and edited all content as needed and takes full responsibility for the content of the published article. The evaluated system itself — including all reported benchmark results — additionally uses LLM components as an object of study, as described in Methods; all quantitative results were produced and verified by deterministic evaluation scripts.
 
 ## References
 
