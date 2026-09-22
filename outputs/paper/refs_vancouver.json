@@ -154,5 +154,8 @@
   "alkhanaty_psma": {
     "doi": "10.1016/j.euf.2026.05.019",
     "text": "Al-Khanaty A, Hennes D, Hofman MS, et al. Avoiding Prostate Biopsy in Early Prostate Cancer Detection: From Liquid Biopsy to PSMA-PET. European Urology Focus. 2026. https://doi.org/10.1016/j.euf.2026.05.019"
+  },
+  "zenodo_deposit": {
+    "text": "XU Z. QianLieAnHui (probiopsy-rag): a hybrid rule-engine, knowledge-graph, and LLM-arbitration decision-support system for the prostate biopsy pathway, validated against the ProBIOPSY consensus [software, version v1.0.1]. Zenodo. 2026. https://doi.org/10.5281/zenodo.22898439 (verified via DataCite API)."
   }
 }

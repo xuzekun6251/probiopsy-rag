@@ -59,6 +59,7 @@ REFDB = {
     "lewis_rag":         {"text": "Lewis P, Perez E, Piktus A, et al. Retrieval-augmented generation for knowledge-intensive NLP tasks. Adv Neural Inf Process Syst. 2020;33:9459-74. arXiv:2005.11401 (verified via arXiv API)."},
     "lightrag":          {"text": "Guo Z, Xia L, Yu Y, Ao T, Huang C. LightRAG: simple and fast retrieval-augmented generation. arXiv:2410.05779, 2024 (verified against arXiv listing)."},
     "graphrag":          {"text": "Edge D, Trinh H, Cheng N, et al. From local to global: a Graph RAG approach to query-focused summarization. arXiv:2404.16130, 2024 (verified via arXiv API)."},
+    "zenodo_deposit":    {"text": "XU Z. QianLieAnHui (probiopsy-rag): a hybrid rule-engine, knowledge-graph, and LLM-arbitration decision-support system for the prostate biopsy pathway, validated against the ProBIOPSY consensus [software, version v1.0.1]. Zenodo. 2026. https://doi.org/10.5281/zenodo.22898439 (verified via DataCite API)."},
 }
 
 MARKER = re.compile(r"\[@((?:@?[a-z0-9_]+)(?:;@?[a-z0-9_]+)*)\]")
@@ -125,9 +126,9 @@ def main():
         raise SystemExit("References heading not found")
 
     # 1. collect markers in order of first appearance
-    markers = list(MARKER.finditer(head))
-    if not markers and ORDER_FILE.exists():
-        # idempotent re-run: numeric citations from a previous pass -> restore markers
+    #    (always restore numeric citations from a previous pass FIRST, so that a
+    #     partially-marked body — old numerics + new [@key] markers — is handled)
+    if ORDER_FILE.exists() and len(json.loads(ORDER_FILE.read_text(encoding="utf-8"))) > 1:
         prev_order = json.loads(ORDER_FILE.read_text(encoding="utf-8"))
 
         def unnum(mch):
@@ -143,8 +144,7 @@ def main():
                     keys.append(prev_order[n - 1])
             return "[@" + ";@".join(keys) + "]"
         head = re.sub(r"\[(\d+(?:[,\-]\d+)*)\]", unnum, head)
-        markers = list(MARKER.finditer(head))
-        print(f"restored {len(markers)} markers from {ORDER_FILE.name}")
+    markers = list(MARKER.finditer(head))
     if not markers:
         raise SystemExit("No [@key] markers found in body")
     order, seen = [], {}
@@ -207,12 +207,12 @@ def main():
     for key in order:
         lines.append(f"{seen[key]}. {refs[key]}")
         lines.append("")
-    qc = ("> **Reference QC:** all 40 references verified programmatically on 2026-09-17 — "
+    qc = ("> **Reference QC:** all 41 references verified programmatically on 2026-09-17 — "
           "DOI-based entries resolved against the Crossref API (api.crossref.org; metadata "
           "auto-generated in `scripts/renumber_refs.py`, cache `outputs/paper/refs_vancouver.json`), "
           "arXiv entries (refs for LightRAG, GraphRAG, Lewis RAG) verified via the arXiv API / "
-          "arXiv listings; the EAU guideline is a living web citation — update edition and "
-          "access date at submission time.")
+          "arXiv listings, the Zenodo software deposit via the DataCite API; the EAU guideline is a "
+          "living web citation — update edition and access date at submission time.")
     lines.append(qc)
     lines.append("")
     out = body.rstrip("\n") + "\n\n" + "\n".join(lines) + "\n"

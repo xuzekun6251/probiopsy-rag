@@ -157,7 +157,7 @@ QianLieAnHui demonstrates that chaining deterministic rule hard constraints, kno
 
 ## Data availability
 
-The rule base (configs/rules.yaml), both registries (entities_a.csv, entities_b.csv), the evidence corpus (evidence_chunks.jsonl, 357 chunks), the gold-standard annotations (probiopsy_statements.csv, 112 statements), all 2,240 raw predictions with per-run context sizes and retrieved-chunk counts (baseline_predictions.jsonl), the flagship-tier supplement (baseline_predictions_glm53.jsonl), the evaluation script (evaluate.py), and all figure source data are released with the repository.
+The rule base (configs/rules.yaml), both registries (entities_a.csv, entities_b.csv), the evidence corpus (evidence_chunks.jsonl, 357 chunks), the gold-standard annotations (probiopsy_statements.csv, 112 statements), all 2,240 raw predictions with per-run context sizes and retrieved-chunk counts (baseline_predictions.jsonl), the flagship-tier supplement (baseline_predictions_glm53.jsonl), the evaluation script (evaluate.py), and all figure source data are released with the repository (https://github.com/xuzekun6251/probiopsy-rag) and archived on Zenodo [41].
 
 ## Ethics statement
 
@@ -277,5 +277,7 @@ During the preparation of this work the author used large language model tools (
 
 40. Al-Khanaty A, Hennes D, Hofman MS, et al. Avoiding Prostate Biopsy in Early Prostate Cancer Detection: From Liquid Biopsy to PSMA-PET. European Urology Focus. 2026. https://doi.org/10.1016/j.euf.2026.05.019
 
-> **Reference QC:** all 40 references verified programmatically on 2026-09-17 — DOI-based entries resolved against the Crossref API (api.crossref.org; metadata auto-generated in `scripts/renumber_refs.py`, cache `outputs/paper/refs_vancouver.json`), arXiv entries (refs for LightRAG, GraphRAG, Lewis RAG) verified via the arXiv API / arXiv listings; the EAU guideline is a living web citation — update edition and access date at submission time.
+41. XU Z. QianLieAnHui (probiopsy-rag): a hybrid rule-engine, knowledge-graph, and LLM-arbitration decision-support system for the prostate biopsy pathway, validated against the ProBIOPSY consensus [software, version v1.0.1]. Zenodo. 2026. https://doi.org/10.5281/zenodo.22898439 (verified via DataCite API).
+
+> **Reference QC:** all 41 references verified programmatically on 2026-09-17 — DOI-based entries resolved against the Crossref API (api.crossref.org; metadata auto-generated in `scripts/renumber_refs.py`, cache `outputs/paper/refs_vancouver.json`), arXiv entries (refs for LightRAG, GraphRAG, Lewis RAG) verified via the arXiv API / arXiv listings, the Zenodo software deposit via the DataCite API; the EAU guideline is a living web citation — update edition and access date at submission time.
 
