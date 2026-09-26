@@ -28,7 +28,9 @@ A four-expert blinded face-validity review (5 composite propositions, two-part b
 ```
 configs/            rules.yaml (16 rules), prompts.yaml, author_info.yaml
 src/probiopsy_rag_agent/   pipeline, rule engine, LightRAG adapter, LLM/embedding clients, schemas
-app/streamlit_app.py       interactive demo (decision report + free-form Q&A)
+app/streamlit_app.py       interactive interface v3: 项目介绍 · 智能问答（证据编号溯源）·
+                           决策评估（三层耗时/置信度仪表盘/引用溯源）· 知识图谱浏览器（pyvis）·
+                           基准结果仪表盘
 scripts/            build & run & evaluate pipeline (see below)
 data/seed/          consensus statements (gold), entity registries, evidence chunks
 data/processed/     LightRAG index (local build artifact)
@@ -63,7 +65,7 @@ Build the corpus and run the benchmark:
 .venv\Scripts\python scripts\run_multiseed.py            # 4 methods × 5 seeds × 112 statements
 .venv\Scripts\python scripts\evaluate.py
 .venv\Scripts\python scripts\run_demo_cases.py           # 5 end-to-end demonstration cases
-.venv\Scripts\streamlit run app\streamlit_app.py         # interactive interface
+.venv\Scripts\streamlit run app\streamlit_app.py         # interactive interface (5 tabs)
 ```
 
 ## Data provenance and copyright

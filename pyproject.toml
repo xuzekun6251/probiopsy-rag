@@ -33,6 +33,7 @@ dev = [
 ]
 streamlit = [
     "streamlit>=1.30",
+    "pyvis>=0.3",  # interactive knowledge-graph browser (tab 4); falls back to matplotlib if missing
 ]
 nature = [
     # Bundled deps for the nature-* skill stack (figure / paper / citation / reader).

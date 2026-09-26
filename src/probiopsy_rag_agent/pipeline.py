@@ -81,6 +81,7 @@ class PipelineResult:
     verdict: dict = field(default_factory=dict)
     elapsed: float = 0.0
     report_md: str = ""
+    timings: dict = field(default_factory=dict)  # {"rule_ms","graph_ms","lexical_ms","arbiter_ms"}
 
 
 def build_question(decision_items: list[str], items: dict[str, DecisionItem],
@@ -104,30 +105,38 @@ def run_pipeline(
     k_lexical: int = 5,
 ) -> PipelineResult:
     t0 = time.time()
+    tc = time.perf_counter
     flags = set(patient_flags)
     item_set = set(decision_items)
 
     # 1) rule engine
+    _t = tc()
     matches = match_rules(assets.rules, flags, item_set, assets.items)
     matches += match_patient_factors(assets.pfrs, flags, item_set, assets.items)
+    rule_ms = (tc() - _t) * 1000
 
     # 2) evidence: graph context (embedding-only) + lexical statement retrieval
     graph_ctx = ""
+    _t = tc()
     if adapter is not None and use_graph:
         try:
             graph_ctx = adapter.query(question, mode="hybrid", only_need_context=True) or ""
         except Exception as e:  # degrade to lexical, never crash the pipeline
             graph_ctx = f"(graph retrieval failed: {e})"
+    graph_ms = (tc() - _t) * 1000
+    _t = tc()
     hits = assets.store.retrieve(
         question, k=k_lexical, boost_entities_b=item_set, boost_entities_a=flags
     )
     lex_ctx = assets.store.pack_context(hits, char_budget=3500)
+    lexical_ms = (tc() - _t) * 1000
     evidence = (
         (graph_ctx[:5500] + "\n\n--- lexical evidence ---\n\n" + lex_ctx)
         if graph_ctx.strip() else lex_ctx
     )
 
     # 3) arbiter
+    _t = tc()
     if agent is not None:
         verdict = agent.decide(question, sorted(flags), matches, evidence)
     else:
@@ -138,6 +147,7 @@ def run_pipeline(
             "citations": [],
             "degraded": True,
         }
+    arbiter_ms = (tc() - _t) * 1000
 
     evidence_lines = [
         f"[{r.chunk.chunk_id}|{r.chunk.level}|{r.chunk.source_locator}] (score {r.score:.2f})"
@@ -154,6 +164,12 @@ def run_pipeline(
         evidence=evidence,
         verdict=verdict,
         elapsed=time.time() - t0,
+        timings={
+            "rule_ms": round(rule_ms, 1),
+            "graph_ms": round(graph_ms, 1),
+            "lexical_ms": round(lexical_ms, 1),
+            "arbiter_ms": round(arbiter_ms, 1),
+        },
     )
     res.report_md = render_report(question, sorted(flags), matches, verdict, evidence_lines)
     return res
