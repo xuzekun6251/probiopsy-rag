@@ -27,51 +27,50 @@ panels:
     layout: full_width_top
     layout_template: hero_schematic_with_quant_row
     content: >-
-      End-to-end pipeline: User input → Entity normalization → Rule engine →
-      Risk-guided LightRAG retrieval → Evidence compression → LLM arbiter →
-      Structured report.
+      Graphical-abstract layout. Top band: ProBIOPSY consensus knowledge base
+      (database icon; 112 statements -> five-class gold standard; 357 evidence
+      chunks; LightRAG KG 1,864 entities / 3,078 relations) with an
+      Unstructured|Structured callout. Left: example query box (unifocal
+      PI-RADS 4 lesion, focal therapy planned; colored keywords). Center: three
+      tinted module regions - (1) deterministic rule engine (12 consensus rules
+      + 4 patient-factor rules -> hard constraints, Q-coded), (2) risk-guided
+      retrieval (LightRAG KG + lexical evidence store -> context-augmented
+      prompt, top-k), (3) LLM arbiter (pretrained GLM-5.3, hard-constrained
+      five-class decoding). Right: structured Output box (action, confidence,
+      rules fired, citations, rationale excerpt). Dashed arrow: hard
+      constraints bypass retrieval and bind the arbiter.
     visual_elements:
       - type: box
-        label: "Entity A + Entity B + Patient factors"
+        label: "ProBIOPSY consensus knowledge base"
+        position: top
+      - type: box
+        label: "Example query (colored keywords)"
         position: left
-      - type: arrow
-        from: "User input"
-        to: "Normalization"
+      - type: region
+        label: "Rule engine (deterministic)"
+        annotation: "hard constraints (Q-coded)"
+      - type: region
+        label: "Risk-guided retrieval"
+        annotation: "context-augmented prompt (top-k)"
+      - type: region
+        label: "LLM arbiter"
+        annotation: "GLM-5.3, hard-constrained decoding"
       - type: box
-        label: "Rule Engine (YAML)"
-        annotation: "22 deterministic rules"
-      - type: box
-        label: "LightRAG retrieval"
-        annotation: "risk-guided, top-k"
-      - type: box
-        label: "LLM Arbiter"
-        annotation: "DeepSeek + GPT-4"
-      - type: box
-        label: "Structured Report"
+        label: "Structured Output"
         position: right
 
-  - id: panel_b_layers
+  - id: panel_b_benchmark_strip
     role: supporting
-    layout: bottom_left
-    layout_template: asymmetric_hero_panel
+    layout: bottom_full_width
+    layout_template: evaluation_strip
     content: >-
-      Three-layer zoom-in: Rule layer (YAML config) + KG layer (LightRAG graph)
-      + Arbiter layer (LLM). Shows traceability chain.
+      Benchmark strip: multi-method evaluation (112 statements x 4 methods
+      x 5 seeds = 2,240 runs, generator held fixed) over the three
+      architectures -> headline results (exact-5 0.805 +- 0.012, Cohen's
+      kappa 0.730, against-F1 0.908; +19.2 pts exact-5 vs strongest baseline).
     visual_elements:
-      - type: layer_diagram
-        layers: [rules, kg, llm_arbiter]
-        annotations: ["deterministic", "traceable", "flexible"]
-
-  - id: panel_c_outputs
-    role: supporting
-    layout: bottom_right
-    layout_template: direct_labels_in_regions
-    content: >-
-      Four output views: clinician card / patient handout / research table /
-      policy brief. All from single inference pass.
-    visual_elements:
-      - type: grid
-        cells: [clinician, patient, research, policy]
+      - type: strip
+        items: ["gold standard", "rule gate + RAG + LLM chips", "results box"]
 
 # ─────────────────────────────────────────────────────────────
 # BACKEND (exclusive — Python only for this figure)
@@ -162,9 +161,9 @@ legend:
   position: below
   font_size_pt: 7
   items:
-    - "Rule layer: 22 deterministic rules in configs/rules.yaml"
-    - "KG layer: LightRAG graph over evidence chunks"
-    - "Arbiter layer: DeepSeek primary, GPT-4 for top-10% high-risk pairs"
+    - "Rule layer: 16 deterministic rules in configs/rules.yaml (12 consensus + 4 patient-factor)"
+    - "KG layer: LightRAG index over 357 evidence chunks (1,864 entities / 3,078 relations)"
+    - "Arbiter layer: GLM-5.3 under hard-constrained five-class decoding"
 
 # ─────────────────────────────────────────────────────────────
 # ACCESSIBILITY

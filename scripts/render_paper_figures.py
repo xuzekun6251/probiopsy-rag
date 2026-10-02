@@ -19,7 +19,13 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
+from matplotlib.patches import (
+    Circle,
+    Ellipse,
+    FancyArrowPatch,
+    FancyBboxPatch,
+    Rectangle,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 FIG = ROOT / "outputs" / "figures"
@@ -49,60 +55,213 @@ def _export(fig, stem: str) -> None:
 
 
 # ------------------------------------------------------------------ Figure 1
+# v3 redesign (graphical-abstract style): knowledge-base band on top, example
+# query / structured output boxes, three tinted module regions, benchmark strip.
 def fig1() -> None:
-    fig, ax = plt.subplots(figsize=(7.0, 3.4))
+    NAVY = "#1F4E79"       # deep content boxes (consensus KB, results)
+    REGION = {             # tinted module regions
+        "rules": ("#EBF2FE", "#5B8FF9"),
+        "kg": ("#E9F9F2", "#3DBC8B"),
+        "llm": ("#FEF4E6", "#E8853D"),
+    }
+    INK = "#1A1A1A"
+
+    fig, ax = plt.subplots(figsize=(7.2, 4.42))
     ax.set_xlim(0, 100)
-    ax.set_ylim(0, 100)
+    ax.set_ylim(0, 61)
     ax.axis("off")
 
-    def box(x, y, w, h, text, fc, ec, fs=7, weight="normal"):
-        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.6",
-                                    fc=fc, ec=ec, lw=0.9))
-        ax.text(x + w / 2, y + h / 2, text, ha="center", va="center",
-                fontsize=fs, fontweight=weight)
+    def rbox(x, y, w, h, fc, ec, lw=0.9, rs=1.2, z=1):
+        ax.add_patch(FancyBboxPatch((x, y), w, h,
+                                    boxstyle=f"round,pad=0.0,rounding_size={rs}",
+                                    fc=fc, ec=ec, lw=lw, zorder=z))
 
-    def arrow(x1, y1, x2, y2):
-        ax.add_patch(FancyArrowPatch((x1, y1), (x2, y2),
-                                     arrowstyle="-|>", mutation_scale=9,
-                                     lw=0.9, color="#4B5563"))
+    def txt(x, y, s, fs=6.0, color="#222222", weight="normal", style="normal",
+            ha="center", va="center", z=3, rotation=0):
+        ax.text(x, y, s, fontsize=fs, color=color, fontweight=weight,
+                fontstyle=style, ha=ha, va=va, zorder=z, rotation=rotation)
 
-    # input column
-    box(2, 38, 17, 24, "Input\nPatient scenario\n(Entity A, 51)\nx\nDecision item\n(Entity B, 54)",
-        "#F3F4F6", "#9CA3AF", 6.5)
-    ax.text(10.5, 66, "flags +\npatient factors", ha="center", fontsize=6, color="#4B5563")
+    def seg(pts, color=INK, lw=2.0, ls="-", head=True, z=2, ms=13):
+        """Polyline through pts; arrowhead on the last segment."""
+        for i in range(len(pts) - 2):
+            ax.plot([pts[i][0], pts[i + 1][0]], [pts[i][1], pts[i + 1][1]],
+                    color=color, lw=lw, ls=ls, solid_capstyle="round", zorder=z)
+        a, b = pts[-2], pts[-1]
+        ax.add_patch(FancyArrowPatch(a, b, arrowstyle="-|>" if head else "-",
+                                     mutation_scale=ms, lw=lw, color=color,
+                                     linestyle=ls, shrinkA=0, shrinkB=0, zorder=z))
 
-    # layer 1 — rules
-    box(30, 76, 42, 16,
-        "Layer 1 — Rule engine (deterministic)\n12 consensus rules + 4 patient-factor rules → hard constraints",
-        "#EFF6FF", C_RULE, 6.8)
-    # layer 2 — retrieval
-    box(30, 46, 42, 16,
-        "Layer 2 — Risk-guided retrieval\nLightRAG KG (1,864 entities / 3,078 relations)\n+ lexical evidence store (357 chunks)",
-        "#ECFDF5", C_KG, 6.8)
-    # layer 3 — arbiter
-    box(30, 16, 42, 16,
-        "Layer 3 — LLM arbiter (GLM-5.3)\nhard constraints + graph + lexical evidence → verdict",
-        "#FFFBEB", C_LLM, 6.8)
-    # output
-    box(80, 16, 18, 16,
-        "Structured verdict\n5-class action\n+ confidence\n+ Q-code & chunk\ncitations",
-        "#F3F4F6", "#111827", 6.2, "bold")
+    def badge(x, y, n, color):
+        ax.add_patch(Circle((x, y), 1.15, fc=color, ec="white", lw=0.8, zorder=4))
+        txt(x, y, str(n), fs=6.6, color="white", weight="bold", z=5)
 
-    arrow(19, 50, 30, 82)          # input -> rules (up to first gate)
-    arrow(51, 76, 51, 62)          # rules -> retrieval
-    arrow(51, 46, 51, 32)          # retrieval -> arbiter
-    arrow(72, 24, 80, 24)          # arbiter -> output
-    # hard constraints bypass arrow
-    ax.add_patch(FancyArrowPatch((72, 84), (89, 84), arrowstyle="-|>",
-                                 mutation_scale=9, lw=0.9, color=C_RULE,
-                                 linestyle=(0, (3, 2))))
-    ax.add_patch(FancyArrowPatch((89, 84), (89, 32), arrowstyle="-",
-                                 lw=0.9, color=C_RULE, linestyle=(0, (3, 2))))
-    ax.text(80.5, 87, "hard constraints (cannot be overridden)", fontsize=5.8, color=C_RULE)
+    def db_icon(cx, cy):
+        for dy in (2.0, 0.0, -2.0):
+            ax.add_patch(Ellipse((cx, cy + dy), 6.0, 1.9, fc=NAVY,
+                                 ec="white", lw=0.7, zorder=3))
+        ax.add_patch(Rectangle((cx - 3.0, cy - 2.0), 6.0, 4.0, fc=NAVY,
+                               ec="none", zorder=2))
 
-    ax.text(24.5, 82, "1", fontsize=8, fontweight="bold", color=C_RULE, ha="center")
-    ax.text(24.5, 52, "2", fontsize=8, fontweight="bold", color=C_KG, ha="center")
-    ax.text(24.5, 22, "3", fontsize=8, fontweight="bold", color="#B45309", ha="center")
+    def doc_icon(x, y, label):
+        rbox(x - 2.0, y - 2.6, 4.0, 5.2, "white", "#5B8FF9", lw=0.7, rs=0.4, z=3)
+        for dy in (1.2, 0.2, -0.8):
+            ax.plot([x - 1.2, x + 1.2], [y + dy, y + dy], color="#B9C6D8",
+                    lw=0.8, zorder=4)
+        txt(x, y - 1.9, label, fs=4.6, color=NAVY, weight="bold", z=4)
+
+    # ── top band: ProBIOPSY consensus knowledge base ─────────────────────
+    db_icon(5.8, 55.3)
+    txt(5.2, 50.4, "ProBIOPSY consensus\nEur Urol 2026 · CC BY 4.0", fs=5.2,
+        color=NAVY, weight="bold")
+    rbox(13.0, 50.0, 34.5, 9.5, NAVY, NAVY, lw=0, rs=1.4)
+    txt(14.5, 57.6, "Consensus-derived knowledge base", fs=6.2, color="white",
+        weight="bold", ha="left")
+    txt(14.5, 55.2, "• 112 statements → five-class gold standard", fs=5.6,
+        color="white", ha="left")
+    txt(14.5, 53.2, "• 357 evidence chunks (B: statements, C: literature)", fs=5.6,
+        color="white", ha="left")
+    txt(14.5, 51.2, "• LightRAG KG: 1,864 entities / 3,078 relations", fs=5.6,
+        color="white", ha="left")
+
+    # unstructured | structured callout (top right)
+    rbox(64.0, 50.0, 34.0, 9.5, "#E8F1FB", "#9DBEDF", lw=0.8, rs=1.2)
+    ax.plot([81.0, 81.0], [50.6, 58.9], color="#7FA6CC", lw=0.8,
+            linestyle=(0, (2.5, 2.5)), zorder=3)
+    txt(72.5, 58.2, "Unstructured", fs=5.8, color=NAVY, weight="bold")
+    doc_icon(72.5, 54.2, "PDF")
+    txt(90.5, 58.2, "Structured", fs=5.8, color=NAVY, weight="bold")
+    doc_icon(90.5, 54.2, "JSON")
+
+    # KB → rules (distillation) and KB → retrieval (index build) elbows
+    seg([(26.0, 50.0), (26.0, 45.7)])
+    txt(27.2, 47.8, "distils 16 rules", fs=5.4, color="#4B5563", ha="left")
+    seg([(47.5, 54.0), (59.2, 54.0), (59.2, 33.8), (54.0, 29.8)],
+        color=NAVY, lw=1.5)
+    txt(54.2, 52.4, "chunks → KG index", fs=5.0, color=NAVY)
+
+    # ── query box (left) ──────────────────────────────────────────────────
+    txt(9.75, 43.2, "Query", fs=7.5, weight="bold", color=INK)
+    rbox(1.5, 19.5, 16.5, 22.0, "white", "#8A94A6", lw=1.1, rs=1.4)
+    txt(9.75, 39.0, "62-year-old man, unifocal", fs=5.6, style="italic",
+        color="#374151")
+    txt(9.75, 36.5, "PI-RADS 4 lesion", fs=5.6, style="italic",
+        color="#D97706", weight="bold")
+    txt(9.75, 34.0, "on 3T mpMRI,", fs=5.6, style="italic", color="#3B82F6",
+        weight="bold")
+    txt(9.75, 31.5, "focal therapy planned —", fs=5.6, style="italic",
+        color="#8B5CF6", weight="bold")
+    txt(9.75, 29.0, "targeted + perilesional", fs=5.6, style="italic",
+        color="#374151")
+    txt(9.75, 26.5, "cores WITHOUT added", fs=5.6, style="italic", color="#374151")
+    txt(9.75, 24.0, "systematic biopsy?", fs=5.6, style="italic", color="#374151")
+    txt(9.75, 17.4, "51 scenarios (A) × 54 items (B)", fs=5.4, color="#6B7280")
+    seg([(18.0, 37.0), (19.9, 37.0)], lw=1.5)
+    seg([(18.0, 23.0), (19.9, 23.0)], lw=1.5)
+
+    # ── region 1: rule engine ────────────────────────────────────────────
+    fc, ec = REGION["rules"]
+    rbox(20.0, 33.0, 38.0, 12.5, fc, ec, lw=1.3, rs=1.8, z=1)
+    badge(22.6, 43.4, 1, ec)
+    txt(24.4, 43.4, "Rule engine — deterministic", fs=6.8, weight="bold",
+        color="#1D4ED8", ha="left")
+    rbox(22.5, 37.4, 15.5, 4.6, "white", "#9DB8E8", lw=0.8, rs=0.9)
+    txt(30.25, 39.7, "12 consensus rules", fs=6.0)
+    rbox(40.0, 37.4, 16.5, 4.6, "white", "#9DB8E8", lw=0.8, rs=0.9)
+    txt(48.25, 39.7, "4 patient-factor rules", fs=6.0)
+    rbox(22.5, 33.8, 34.0, 2.9, "#DBEAFE", C_RULE, lw=0.8, rs=0.8)
+    txt(39.5, 35.25, "hard constraints (Q-coded)", fs=6.0, weight="bold",
+        color="#1D4ED8")
+
+    # ── region 2: risk-guided retrieval ──────────────────────────────────
+    fc, ec = REGION["kg"]
+    rbox(20.0, 15.0, 38.0, 14.6, fc, ec, lw=1.3, rs=1.8, z=1)
+    badge(22.6, 28.0, 2, "#0F9D77")
+    txt(24.4, 28.0, "Risk-guided retrieval", fs=6.8, weight="bold",
+        color="#065F46", ha="left")
+    rbox(22.5, 22.2, 16.0, 4.6, "white", "#8FD4BC", lw=0.8, rs=0.9)
+    txt(30.5, 25.3, "LightRAG KG (semantic)", fs=5.8)
+    txt(30.5, 23.5, "1,864 entities · 3,078 rel.", fs=5.2, color="#6B7280")
+    rbox(40.5, 22.2, 16.0, 4.6, "white", "#8FD4BC", lw=0.8, rs=0.9)
+    txt(48.5, 25.3, "Lexical evidence store", fs=5.8)
+    txt(48.5, 23.5, "357 chunks, entity boosts", fs=5.2, color="#6B7280")
+    rbox(22.5, 15.9, 34.0, 4.4, "white", "#8FD4BC", lw=0.8, rs=0.9)
+    txt(39.5, 18.1, "Context-augmented prompt (top-k)", fs=6.0)
+    seg([(30.5, 22.2), (30.5, 20.4)], color="#0F9D77", lw=1.4, ms=8)
+    seg([(48.5, 22.2), (48.5, 20.4)], color="#0F9D77", lw=1.4, ms=8)
+
+    # ── region 3: LLM arbiter ────────────────────────────────────────────
+    fc, ec = REGION["llm"]
+    rbox(62.0, 15.0, 18.0, 30.5, fc, ec, lw=1.3, rs=1.8, z=1)
+    badge(64.4, 43.4, 3, ec)
+    txt(66.2, 43.4, "LLM arbiter", fs=6.8, weight="bold", color="#B45309",
+        ha="left")
+    rbox(63.6, 35.4, 14.8, 5.6, NAVY, NAVY, lw=0, rs=1.0)
+    txt(71.0, 39.4, "Pretrained GLM-5.3", fs=6.0, color="white", weight="bold")
+    txt(71.0, 37.2, "(thinking model)", fs=5.4, color="#C7DAF0")
+    rbox(63.6, 24.0, 14.8, 7.6, "white", "#E8A96F", lw=0.8, rs=0.9)
+    txt(71.0, 29.6, "Hard-constrained decoding", fs=5.8)
+    txt(71.0, 27.7, "5-class action", fs=5.8, weight="bold", color="#B45309")
+    txt(71.0, 25.8, "+ statement-level citations", fs=5.2, color="#6B7280")
+    seg([(71.0, 35.4), (71.0, 31.7)])
+
+    # main flow: rules → retrieval, retrieval → arbiter, arbiter → output
+    seg([(39.0, 33.0), (39.0, 29.8)], lw=2.0)
+    seg([(58.0, 18.1), (62.0, 18.1)], lw=2.0)
+    txt(60.05, 19.9, "top-k\nevidence", fs=4.8, color="#4B5563")
+
+    # hard-constraint bypass (dashed blue): rules chip → arbiter
+    seg([(56.5, 35.25), (60.3, 35.25), (60.3, 27.8), (62.0, 27.8)],
+        color=C_RULE, lw=1.5, ls=(0, (4, 2.2)))
+    txt(61.25, 31.5, "hard constraints", fs=5.0, color=C_RULE, rotation=90)
+
+    # ── output box (right) ───────────────────────────────────────────────
+    txt(91.0, 46.2, "Output", fs=7.5, weight="bold", color=INK)
+    seg([(80.0, 30.0), (83.0, 30.0)], lw=2.0)
+    rbox(83.0, 15.0, 16.0, 30.0, "white", "#111827", lw=1.2, rs=1.4)
+    rows = [("Action", "conditional", "#D97706", 40.6),
+            ("Confidence", "0.86", "#111827", 37.6),
+            ("Rules", "R07·PF02", "#1D4ED8", 34.6),
+            ("Citations", "Q41·EV0024", "#0F9D77", 31.6)]
+    for lab, val, col, y in rows:
+        txt(84.2, y, lab, fs=5.6, style="italic", color="#374151", ha="left")
+        txt(97.8, y, val, fs=5.6, weight="bold", color=col, ha="right")
+    ax.plot([84.2, 97.7], [29.6, 29.6], color="#D1D5DB", lw=0.7, zorder=3)
+    txt(84.2, 26.8, "Rationale (excerpt)", fs=5.4, style="italic",
+        color="#6B7280", ha="left")
+    txt(84.2, 23.0, "Systematic add-on is\nplan-dependent (contralateral\n"
+        "yield 0.3–4%); endorse TBx\n+ perilesional cores.", fs=5.2,
+        style="italic", color="#374151", ha="left")
+    txt(91.0, 16.6, "verdict ↔ Q-codes + chunks", fs=4.8, color="#6B7280")
+
+    # ── bottom strip: multi-seed benchmark ───────────────────────────────
+    ax.add_patch(Rectangle((2.2, 3.4), 3.2, 4.4, fc="white", ec=NAVY,
+                           lw=0.9, zorder=3))
+    ax.add_patch(Rectangle((3.1, 7.8), 1.4, 1.0, fc=NAVY, ec=NAVY, zorder=3))
+    for dy in (6.3, 5.3, 4.3):
+        ax.plot([3.0, 4.6], [dy, dy], color="#9DBEDF", lw=0.9, zorder=4)
+    txt(3.8, 2.2, "gold", fs=5.0, color="#6B7280")
+    txt(6.6, 8.2, "Multi-method benchmark", fs=6.2, weight="bold", color=INK,
+        ha="left")
+    txt(6.6, 6.2, "112 statements × 4 methods", fs=5.2, color="#374151",
+        ha="left")
+    txt(6.6, 4.4, "× 5 seeds = 2,240 runs", fs=5.2, color="#374151", ha="left")
+    seg([(22.0, 6.2), (23.2, 6.2)], lw=2.0)
+    chips = [("rule gate", "#5B8FF9", 27.0), ("RAG", "#3DBC8B", 36.0),
+             ("LLM", "#E8853D", 44.0)]
+    for lab, col, cx in chips:
+        rbox(cx - 3.6, 4.6, 7.2, 3.2, "white", col, lw=1.1, rs=0.9)
+        txt(cx, 6.2, lab, fs=6.0, weight="bold", color=col)
+    txt(35.5, 3.0, "architectures under test (generator held fixed)",
+        fs=5.0, color="#6B7280")
+    seg([(48.0, 6.2), (51.8, 6.2)], lw=2.0)
+    rbox(52.0, 3.2, 46.0, 7.2, NAVY, NAVY, lw=0, rs=1.2)
+    txt(75.0, 8.7, "exact-5 0.805 ± 0.012 · Cohen's κ 0.730 · against-F1 0.908",
+        fs=6.2, color="white", weight="bold")
+    txt(75.0, 6.4, "+19.2 pts exact-5 vs strongest baseline", fs=5.2,
+        color="#C7DAF0")
+    txt(75.0, 4.6, "architecture — not generator tier — is the dominant lever",
+        fs=5.2, color="#C7DAF0")
+
     _export(fig, "figure1_architecture")
 
 
@@ -364,7 +523,7 @@ def fig3() -> None:
     for yi, c in enumerate(case_ids):
         vals = [rating[(c, e)] for e in (1, 2, 3, 4)] + [system[c]]
         for xi, a in enumerate(vals):
-            ax2.add_patch(plt.Rectangle((xi - 0.46, yi - 0.44), 0.92, 0.88,
+            ax2.add_patch(Rectangle((xi - 0.46, yi - 0.44), 0.92, 0.88,
                                         facecolor=C_ACT[a], edgecolor="white", lw=0.8))
             ax2.text(xi, yi, ACT_ABBR[a], ha="center", va="center",
                      fontsize=5.6, color="#222222")
@@ -374,7 +533,7 @@ def fig3() -> None:
     for s in ax2.spines.values():
         s.set_visible(False)
     ax2.tick_params(left=False)
-    handles = [plt.Rectangle((0, 0), 1, 1, facecolor=C_ACT[a]) for a in ACTIONS]
+    handles = [Rectangle((0, 0), 1, 1, facecolor=C_ACT[a]) for a in ACTIONS]
     ax2.legend(handles, [ACT_ABBR[a] for a in ACTIONS], fontsize=5.2, ncol=5,
                frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.04))
     ax2.set_title("(b) Ratings by case and rater", fontsize=6.6, pad=10)
