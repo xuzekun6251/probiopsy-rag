@@ -42,6 +42,15 @@ REFDB = {
     "decide_ai":         {"doi": "10.1136/bmj-2022-070904"},
     "tripod_ai":         {"doi": "10.1136/bmj-2023-078378"},
     "alkhanaty_psma":    {"doi": "10.1016/j.euf.2026.05.019"},
+    # --- round 6 additions (verified 2026-10-02, Crossref + PubMed E-utilities) ---
+    "aua_part1_2022":    {"doi": "10.1097/ju.0000000000002757"},  # PMID 35536144
+    "aua_amend_2026":    {"doi": "10.1097/ju.0000000000005060"},  # PMID 41988960
+    "borghesi_comp":     {"doi": "10.1016/j.eururo.2016.08.004"},  # PMID 27543165
+    "liss_proph":        {"doi": "10.1016/j.juro.2015.03.110"},  # PMID 25846415
+    "park_pirads_agree": {"doi": "10.1097/ju.0000000000001200"},  # PMID 32552474
+    "epstein_concord":   {"doi": "10.1016/j.eururo.2012.01.050"},  # Eur Urol 61:1019-24
+    "bryant_translate":  {"doi": "10.1016/S1470-2045(25)00100-7"},  # PMID 40139210
+    "yang_tps_meta":     {"doi": "10.1016/j.euros.2025.12.008"},  # PMID 41551330
     "cohen1960":         {"doi": "10.1177/001316446002000104"},
     "fleiss1971":        {"doi": "10.1037/h0031619"},
     "feinstein_paradox": {"doi": "10.1016/0895-4356(90)90158-L"},

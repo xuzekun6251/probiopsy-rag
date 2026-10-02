@@ -157,5 +157,37 @@
   },
   "zenodo_deposit": {
     "text": "XU Z. QianLieAnHui (probiopsy-rag): a hybrid rule-engine, knowledge-graph, and LLM-arbitration decision-support system for the prostate biopsy pathway, validated against the ProBIOPSY consensus [software, version v1.0.1]. Zenodo. 2026. https://doi.org/10.5281/zenodo.22898439 (verified via DataCite API)."
+  },
+  "bryant_translate": {
+    "doi": "10.1016/S1470-2045(25)00100-7",
+    "text": "Bryant RJ, Marian IR, Williams R, et al. Local anaesthetic transperineal biopsy versus transrectal prostate biopsy in prostate cancer detection (TRANSLATE): a multicentre, randomised, controlled trial. The Lancet Oncology. 2025;26(5):583-595. https://doi.org/10.1016/s1470-2045(25)00100-7"
+  },
+  "yang_tps_meta": {
+    "doi": "10.1016/j.euros.2025.12.008",
+    "text": "Yang YJ, Yang EJ, Nguyen TT, Choi SY. Transperineal Versus Transrectal Prostate Biopsy: A Systematic Review and Meta-analysis of Randomized Controlled Trials Across Settings With and Without Magnetic Resonance Imaging Targeting. European Urology Open Science. 2026;83:205-218. https://doi.org/10.1016/j.euros.2025.12.008"
+  },
+  "liss_proph": {
+    "doi": "10.1016/j.juro.2015.03.110",
+    "text": "Liss MA, Kim W, Moskowitz D, Szabo RJ. Comparative Effectiveness of Targeted vs Empirical Antibiotic Prophylaxis to Prevent Sepsis from Transrectal Prostate Biopsy: A Retrospective Analysis. Journal of Urology. 2015;194(2):397-402. https://doi.org/10.1016/j.juro.2015.03.110"
+  },
+  "epstein_concord": {
+    "doi": "10.1016/j.eururo.2012.01.050",
+    "text": "Epstein JI, Feng Z, Trock BJ, Pierorazio PM. Upgrading and Downgrading of Prostate Cancer from Biopsy to Radical Prostatectomy: Incidence and Predictive Factors Using the Modified Gleason Grading System and Factoring in Tertiary Grades. European Urology. 2012;61(5):1019-1024. https://doi.org/10.1016/j.eururo.2012.01.050"
+  },
+  "aua_part1_2022": {
+    "doi": "10.1097/ju.0000000000002757",
+    "text": "Eastham JA, Auffenberg GB, Barocas DA, et al. Clinically Localized Prostate Cancer: AUA/ASTRO Guideline, Part I: Introduction, Risk Assessment, Staging, and Risk-Based Management. Journal of Urology. 2022;208(1):10-18. https://doi.org/10.1097/ju.0000000000002757"
+  },
+  "aua_amend_2026": {
+    "doi": "10.1097/ju.0000000000005060",
+    "text": "Eastham JA, Barocas DA, Chu CE, et al. Clinically Localized Prostate Cancer: AUA/ASTRO Guideline Amendment (2026). J Urol. 2026;216(1):2-11. https://doi.org/10.1097/ju.0000000000005060"
+  },
+  "park_pirads_agree": {
+    "doi": "10.1097/ju.0000000000001200",
+    "text": "Park KJ, Choi SH, Lee JS, Kim JK, Kim MH. Interreader Agreement with Prostate Imaging Reporting and Data System Version 2 for Prostate Cancer Detection: A Systematic Review and Meta-Analysis. Journal of Urology. 2020;204(4):661-670. https://doi.org/10.1097/ju.0000000000001200"
+  },
+  "borghesi_comp": {
+    "doi": "10.1016/j.eururo.2016.08.004",
+    "text": "Borghesi M, Ahmed H, Nam R, et al. Complications After Systematic, Random, and Image-guided Prostate Biopsy. European Urology. 2017;71(3):353-365. https://doi.org/10.1016/j.eururo.2016.08.004"
   }
 }
