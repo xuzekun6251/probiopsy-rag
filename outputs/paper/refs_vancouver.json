@@ -189,5 +189,21 @@
   "borghesi_comp": {
     "doi": "10.1016/j.eururo.2016.08.004",
     "text": "Borghesi M, Ahmed H, Nam R, et al. Complications After Systematic, Random, and Image-guided Prostate Biopsy. European Urology. 2017;71(3):353-365. https://doi.org/10.1016/j.eururo.2016.08.004"
+  },
+  "pulse_af_agent": {
+    "doi": "10.1038/s41746-026-03038-x",
+    "text": "Wang Y, Peng C, Hu R, et al. A knowledge-enhanced domain-aware large language model agent for atrial fibrillation management. npj Digit. Med. 2026. https://doi.org/10.1038/s41746-026-03038-x"
+  },
+  "wang_htn_agent": {
+    "doi": "10.1161/HYPERTENSIONAHA.125.25305",
+    "text": "Wang Y, Tan W, Cheng S, et al. Large Language Model Agent for Managing Patients With Suspected Hypertension. Hypertension. 2026;83(1):212-224. https://doi.org/10.1161/hypertensionaha.125.25305"
+  },
+  "hao_pca_agent": {
+    "doi": "10.1038/s41746-025-02166-0",
+    "text": "Hao Y, Holmes J, Waddle MR, et al. Personalizing prostate cancer education for patients using an EHR-Integrated LLM agent. npj Digit. Med. 2025;8(1):770. https://doi.org/10.1038/s41746-025-02166-0"
+  },
+  "geneagent": {
+    "doi": "10.1038/s41592-025-02748-6",
+    "text": "Wang Z, Jin Q, Wei CH, et al. GeneAgent: self-verification language agent for gene-set analysis using domain databases. Nat Methods. 2025;22(8):1677-1685. https://doi.org/10.1038/s41592-025-02748-6"
   }
 }

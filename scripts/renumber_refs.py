@@ -51,6 +51,11 @@ REFDB = {
     "epstein_concord":   {"doi": "10.1016/j.eururo.2012.01.050"},  # Eur Urol 61:1019-24
     "bryant_translate":  {"doi": "10.1016/S1470-2045(25)00100-7"},  # PMID 40139210
     "yang_tps_meta":     {"doi": "10.1016/j.euros.2025.12.008"},  # PMID 41551330
+    # --- round 7: medical LLM-agent family (verified 2026-10-02, Crossref) ---
+    "pulse_af_agent":    {"doi": "10.1038/s41746-026-03038-x"},  # npj Digit Med, AF agent
+    "wang_htn_agent":    {"doi": "10.1161/HYPERTENSIONAHA.125.25305"},  # Hypertension
+    "hao_pca_agent":     {"doi": "10.1038/s41746-025-02166-0"},  # npj Digit Med, PCa education
+    "geneagent":         {"doi": "10.1038/s41592-025-02748-6"},  # Nat Methods
     "cohen1960":         {"doi": "10.1177/001316446002000104"},
     "fleiss1971":        {"doi": "10.1037/h0031619"},
     "feinstein_paradox": {"doi": "10.1016/0895-4356(90)90158-L"},
@@ -216,9 +221,15 @@ def main():
     for key in order:
         lines.append(f"{seen[key]}. {refs[key]}")
         lines.append("")
-    qc = ("> **Reference QC:** all 41 references verified programmatically on 2026-09-17 — "
+    qc = (f"> **Reference QC:** all {len(order)} references verified programmatically — "
           "DOI-based entries resolved against the Crossref API (api.crossref.org; metadata "
-          "auto-generated in `scripts/renumber_refs.py`, cache `outputs/paper/refs_vancouver.json`), "
+          "auto-generated in `scripts/renumber_refs.py`, cache `outputs/paper/refs_vancouver.json`); "
+          "the round-6 clinical additions (2026-10-02: AUA/ASTRO guideline articles, biopsy "
+          "complications, targeted prophylaxis, transperineal-vs-transrectal trial evidence, "
+          "PI-RADS inter-reader agreement, biopsy-to-prostatectomy concordance) were additionally "
+          "confirmed against PubMed via the NCBI E-utilities API, and the round-7 medical-agent "
+          "positioning additions (PULSE, the hypertension and prostate-cancer agents, GeneAgent) "
+          "via Crossref (PMIDs and DOIs recorded in the verification scripts); "
           "arXiv entries (refs for LightRAG, GraphRAG, Lewis RAG) verified via the arXiv API / "
           "arXiv listings, the Zenodo software deposit via the DataCite API; the EAU guideline is a "
           "living web citation — update edition and access date at submission time.")
