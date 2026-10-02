@@ -113,6 +113,28 @@ def main():
             in_refs = title == "References"
             h = doc.add_heading("", level=1)
             add_runs(h, title)
+        elif ln.startswith("|"):
+            # markdown pipe-table block -> Word table
+            rows = [ln.strip()]
+            while i < len(lines) and lines[i].strip().startswith("|"):
+                rows.append(lines[i].strip())
+                i += 1
+            cells = [[c.strip() for c in r.strip("|").split("|")] for r in rows]
+            cells = [r for r in cells
+                     if not all(set(c) <= set("-: ") for c in r)]  # drop separator
+            if not cells:
+                continue
+            tbl = doc.add_table(rows=len(cells), cols=len(cells[0]))
+            tbl.style = "Table Grid"
+            for ri, row in enumerate(cells):
+                for ci, cell in enumerate(row):
+                    cp = tbl.cell(ri, ci).paragraphs[0]
+                    cp.paragraph_format.line_spacing_rule = WD_LINE_SPACING.SINGLE
+                    add_runs(cp, cell)
+                    for r in cp.runs:
+                        r.font.size = Pt(9)
+                        if ri == 0:
+                            r.bold = True
         elif re.match(r"^\d+\.\s", ln) and in_refs:
             para(doc, ln, hanging=True)
         elif ln.startswith("- "):

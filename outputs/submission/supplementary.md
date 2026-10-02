@@ -223,7 +223,7 @@ Q57 (median 8, consensus agree) endorses reducing systematic biopsy to max 6 cor
 - **route_anaesthesia_prophylaxis** (high) — Default to d_route_transperineal. Use periprostatic nerve block for either route. If the patient carries infection_risk_factor (Q62 catalogue) and a transrectal route is unavoidable, give augmented antibiotic prophylaxis (report as majority position); antibiotic omission is acceptable only for transperineal biopsy without risk factors. *[citations: 10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q58-Q63); 10.1016/j.euo.2026.01.009 (Marra et al., Eur Urol Oncol 2026 — transperineal versus transrectal prostate biopsy: systematic review and meta-analysis of RCTs)]*
   - HARD: the consensus ENDORSES 'd_omit_abx_tp_no_risk' (Omit antibiotic prophylaxis for transperineal biopsy unless infection risk factors present) — do not reject it outright.
   - HARD: the consensus ENDORSES 'd_route_transperineal' (Use transperineal approach as standard route) — do not reject it outright.
-- **PF-unfit_for_curative_treatment** (medium) —  *[citations: ]*
+- **PF-unfit_for_curative_treatment** (medium) —  *[10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statement Q57 — patient-factor escalation of the reduced-systematic-scheme rule]*
   - HARD: the consensus ENDORSES 'd_sbx_reduced_6core_advanced' (Reduce SBx to max 6 cores for suspected locally advanced disease, PSA>50, or unfit for curative treatment) — do not reject it outright.
 
 ### Evidence grounding
@@ -265,9 +265,9 @@ Q58 SOQ consensus (97%) endorses the transperineal route as standard; hard const
 
 - **route_anaesthesia_prophylaxis** (high) — Default to d_route_transperineal. Use periprostatic nerve block for either route. If the patient carries infection_risk_factor (Q62 catalogue) and a transrectal route is unavoidable, give augmented antibiotic prophylaxis (report as majority position); antibiotic omission is acceptable only for transperineal biopsy without risk factors. *[citations: 10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q58-Q63); 10.1016/j.euo.2026.01.009 (Marra et al., Eur Urol Oncol 2026 — transperineal versus transrectal prostate biopsy: systematic review and meta-analysis of RCTs)]*
   - HARD: the consensus ENDORSES 'd_route_transperineal' (Use transperineal approach as standard route) — do not reject it outright.
-- **PF-immunocompromised_or_infection_history** (high) —  *[citations: ]*
+- **PF-immunocompromised_or_infection_history** (high) —  *[10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q58-Q63 — patient-factor escalation of the route/anaesthesia/prophylaxis rule]*
   - HARD: the consensus ENDORSES 'd_route_transperineal' (Use transperineal approach as standard route) — do not reject it outright.
-- **PF-repeat_biopsy_setting** (medium) —  *[citations: ]*
+- **PF-repeat_biopsy_setting** (medium) —  *[10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q58, Q62 — repeat-biopsy setting; patient-factor escalation]*
   - HARD: the consensus ENDORSES 'd_route_transperineal' (Use transperineal approach as standard route) — do not reject it outright.
 
 ### Evidence grounding

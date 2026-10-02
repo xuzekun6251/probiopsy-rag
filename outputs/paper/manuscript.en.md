@@ -57,7 +57,35 @@ The input is a pair (patient clinical scenario × biopsy decision item); the out
 
 **Input layer: dual registries.** Entity A (patient scenarios) contains 51 archetypes with 49 distinct scenario flags across imaging (PI-RADS grade, mpMRI/bpMRI, field strength, PI-QUAL quality [44]), laboratory markers (PSA, PSA density), history and risk (prior negative biopsy, family history, infection risk factors, anticoagulation), treatment intent, and resource availability (Table 1). Entity B (decision items) contains 54 items with 20 flags across indication (22), procedure (22), and treatment-planning linkage (10).
 
+**Table 1.** Dual entity registries: item and flag counts with category breakdown. The full registries are released as `data/seed/entities_a.csv` and `data/seed/entities_b.csv`.
+
+| registry | n_items | n_unique_flags | category_breakdown | source_file |
+|---|---|---|---|---|
+| A_patient_scenarios | 51 | 49 | imaging=17; lab_biomarker=9; clinical=7; history_risk=6; treatment_intent=6; resource_availability=5; demographic=1 | data/seed/entities_a.csv |
+| B_decision_items | 54 | 20 | indication=22; procedure=22; treatment_planning=10 | data/seed/entities_b.csv |
+
 **Layer 1: deterministic rule engine.** The rule base (YAML) holds 16 rules: 12 consensus rules and 4 patient-factor escalation rules (Table 2). Each rule specifies trigger flag combinations (Entity A × Entity B flags), severity, mechanism category (imaging pathway, scheme selection, targeted biopsy, perioperative, treatment planning), and recommended action. Matching is fully deterministic — no LLM involved — and produces hard constraints for downstream layers (e.g., a mandatory veto or mandatory escalation), each carrying ProBIOPSY statement numbers (Q-codes) for provenance. Patient-factor rules escalate consensus rules in context (e.g., infection risk factors → prefer transperineal route or augmented prophylaxis; unfit for curative treatment → simplified biopsy scheme).
+
+**Table 2.** The 16-rule base: 12 consensus rules and 4 patient-factor escalation rules. Trigger-flag counts are per rule set; full trigger definitions, recommended actions, and Q-code citations are released in `configs/rules.yaml`.
+
+| rule_id | rule_set | severity | risk_type | n_trigger_flags_a | n_target_flags_b | rationale_first_sentence |
+|---|---|---|---|---|---|---|
+| mri_acquisition_quality_pathway | consensus | high | imaging_pathway | 5 | 5 | ProBIOPSY consensus: every prostate MRI must be checked against PI-QUAL v2 quality criteria before the biopsy pathway is decided (Q4a median 9, Q4b median 8 — consensus agree); |
+| indeterminate_lesion_ancillary_workup | consensus | medium | ancillary_workup | 8 | 10 | For an indeterminate lesion (PI-RADS 3), ProBIOPSY endorses PSAD as the primary gate to reduce unnecessary biopsies — for bpMRI (Q11 median 7) and even more strongly for mpMRI (Q14 median 8); |
+| negative_mri_high_suspicion_pathway | consensus | high | imaging_pathway | 7 | 4 | ProBIOPSY: when MRI is negative but clinical suspicion remains high (abnormal DRE, persistently elevated PSA, strong family history, Black ethnicity, prior negative biopsy), a 12-core systematic biopsy is still endorsed… |
+| upfront_new_imaging_rejection | consensus | high | imaging_pathway | 3 | 2 | ProBIOPSY explicitly rejects PSMA PET/MRI as an upfront first-line biopsy-decision tool (Q17 median 2 — consensus disagree) and microultrasound as an upfront alternative to prostate MRI (Q20 median 2 — consensus disagree… |
+| ai_mri_lesion_detection_aid | consensus | low | ai_decision_support | 4 | 1 | ProBIOPSY endorses AI software as an aid to MRI lesion detection and characterization, with interpretation remaining the radiologist's responsibility (Q26 median 7 — consensus agree). |
+| advanced_disease_reduced_systematic_scheme | consensus | high | scheme_selection | 4 | 2 | ProBIOPSY endorses a reduced (6-core) systematic scheme in advanced disease, where detection of any grade group confirms management rather than changing mapping precision (Q57 median 8 — consensus agree). |
+| systematic_template_selection | consensus | medium | scheme_selection | 4 | 4 | ProBIOPSY endorses the 12-core systematic template as the standard when systematic cores are indicated (Q52 median 8 — consensus agree) and rejects the classical 6-core sextant template (Q51 median 3), the Ginsburg 4-6 c… |
+| targeted_core_count_adaptation | consensus | low | targeted_bx | 5 | 2 | ProBIOPSY reached no consensus on a fixed targeted-core count: adapting the number of targeted cores to PI-RADS score was 'neither' (Q34 median 6), and the proposed minimum of 3 cores per target failed to reach consensus… |
+| perilesional_plbx_technique | consensus | low | targeted_bx | 5 | 5 | ProBIOPSY adopts the term 'perilesional biopsy' for cores placed just outside the MRI lesion margin (Q37a — SOQ consensus), requires targeted cores to be placed within 10 mm of the lesion (Q38 — SOQ consensus), scales th… |
+| biopsy_scheme_by_lesion_distribution | consensus | medium | scheme_selection | 5 | 5 | ProBIOPSY endorses targeted + perilesional biopsy without contralateral systematic cores for a unifocal lesion (Q43 median 7 — consensus agree) and for multifocal ipsilateral disease reaching bilateral tissue adequacy is… |
+| route_anaesthesia_prophylaxis | consensus | high | perioperative | 4 | 5 | ProBIOPSY endorses the transperineal route as the standard for prostate biopsy (Q58 — SOQ consensus) with periprostatic nerve block for both transrectal (Q59) and transperineal (Q60) approaches (both SOQ consensus). |
+| treatment_planning_tissue_requirements | consensus | high | treatment_planning | 6 | 10 | ProBIOPSY links biopsy scheme to downstream treatment intent: for focal therapy, targeted+perilesional alone is deemed insufficient and contralateral systematic biopsy must be added (Q65 median 7 — consensus agree); |
+| immunocompromised_or_infection_history | patient_factor | high |  | 1 | 2 | Infection risk factors (Q62 catalogue: immunosuppression, prior prostatitis, recent instrumentation, MRSA colonization, etc.) escalate the perioperative rule R11 — prefer the transperineal route and augmented prophylaxis… |
+| unfit_for_curative_treatment | patient_factor | medium |  | 2 | 1 | Patients unfit for curative treatment shift the goal from mapping precision to confirmation — R06 reduced systematic scheme applies. |
+| repeat_biopsy_setting | patient_factor | medium |  | 1 | 2 | Prior negative biopsy with persisting suspicion raises sepsis risk on repeat access and keeps the 12-core template relevant (R03/R11 escalation). |
+| suspicious_dre_without_mri_lesion | patient_factor | medium |  | 1 | 1 | Abnormal DRE with negative MRI keeps clinical suspicion high — systematic 12-core biopsy per R03. |
 
 **Layer 2: risk-guided LightRAG retrieval.** The corpus comprises 357 evidence chunks, all sourced from the ProBIOPSY consensus and its supplementary material: the 112 final statements (evidence level B), 20 narrative passages, 7 systematic-review summaries, and 218 literature entries extracted from the consensus reference lists (level C). The index was built with LightRAG [41] (lightrag-hku 1.5.7); entity and relation extraction used GLM-5.3-Flash, and the vector index used doubao-embedding-vision-251215 (dimension 2,048). The final index contains 1,864 entities and 3,078 relations (~100 MB). The full system performs risk-guided retrieval: rule matches and active decision items drive entity-boosted hybrid queries (vector + graph structure), executed in context-only mode (retrieving entities, relations, and chunks without letting LightRAG generate the answer itself). Graph context is concatenated with lexical evidence (BM25-style scoring with boosts for active decision items and scenario flags) and passed to the arbiter.
 
@@ -94,6 +122,15 @@ The system is implemented in Python 3.13 on lightrag-hku 1.5.7. The rule base, b
 ### Overview
 
 All 2,240 runs (4 methods × 5 seeds × 112 statements) completed successfully with zero errors and zero degraded outputs. Table 3 reports the performance matrix; Figure 2 shows per-seed distributions.
+
+**Table 3.** Benchmark performance matrix: mean ± SD over five seeds (560 runs per method; 2,240 total). Context = mean retrieved characters per run.
+
+| method | exact5 | exact3 | macro_f1 | cohens_kappa | against_sensitivity | against_specificity | against_f1 | mean_context_chars |
+|---|---|---|---|---|---|---|---|---|
+| lightrag | 0.613±0.013 | 0.920±0.013 | 0.536±0.012 | 0.525±0.012 | 1.000±0.000 | 0.922±0.017 | 0.881±0.023 | 2468 |
+| naive_rag | 0.605±0.033 | 0.905±0.013 | 0.514±0.043 | 0.512±0.041 | 0.992±0.018 | 0.931±0.021 | 0.890±0.028 | 3644 |
+| full_system | 0.805±0.012 | 0.823±0.012 | 0.825±0.022 | 0.730±0.016 | 0.872±0.018 | 0.986±0.010 | 0.908±0.023 | 7640 |
+| pure_llm | 0.304±0.039 | 0.370±0.029 | 0.254±0.029 | 0.079±0.053 | 0.416±0.083 | 0.720±0.021 | 0.346±0.053 | 0 |
 
 ### Headline performance (Table 3, Figure 2)
 
