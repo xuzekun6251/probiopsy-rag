@@ -1,6 +1,6 @@
-# QianLieAnHui: development and benchmark validation of a hybrid rule-engine, knowledge-graph, and LLM-arbitration decision-support system for the prostate biopsy pathway, against the ProBIOPSY international consensus
+# QianLieAnHui: development and benchmark validation of a hybrid rule-engine, knowledge-graph, and LLM-arbitration decision-support agent for the prostate biopsy pathway, against the ProBIOPSY international consensus
 
-**Running title:** A hybrid rule engine–knowledge graph–LLM system for prostate biopsy decisions
+**Running title:** A hybrid rule engine–knowledge graph–LLM agent for prostate biopsy decisions
 
 XU Zekun<sup>1,\*</sup>
 
@@ -8,7 +8,7 @@ XU Zekun<sup>1,\*</sup>
 
 <sup>\*</sup> Corresponding author: xuzekunurology@163.com
 
-**Keywords:** prostate cancer; prostate biopsy; clinical decision support; knowledge graph; LightRAG; retrieval-augmented generation; large language models; ProBIOPSY
+**Keywords:** prostate cancer; prostate biopsy; clinical decision support; LLM agent; knowledge graph; LightRAG; retrieval-augmented generation; large language models; ProBIOPSY
 
 **Word count:** abstract 248 / main text ~3,300 (excl. tables, legends, references)
 
@@ -18,9 +18,9 @@ XU Zekun<sup>1,\*</sup>
 
 **Background:** Prostate biopsy decisions must weigh patient-specific MRI quality, biopsy scheme, route, prophylaxis, and treatment-planning needs. The ProBIOPSY consensus (112 final statements) codifies this pathway but is not an executable decision artifact. Large language models (LLMs) hallucinate and lack traceability; retrieval-augmented generation (RAG) mitigates hallucination but provides no deterministic safety guarantees.
 
-**Methods:** We developed QianLieAnHui, a three-layer hybrid: (1) a deterministic rule engine (12 consensus + 4 patient-factor escalation rules, cross-checked against EAU and AUA/ASTRO guidelines) emitting hard constraints; (2) risk-guided retrieval over a LightRAG knowledge graph (357 evidence chunks, 1,864 entities, 3,078 relations, traceable to the consensus); (3) an LLM arbiter emitting one of five executable actions with statement-level citations. Four methods × five seeds × 112 statements (2,240 runs) were benchmarked under one fixed generator (GLM-5.3-Flash); baselines were re-run with flagship-tier GLM-5.3.
+**Methods:** We developed QianLieAnHui, a three-layer decision-support agent: (1) a deterministic rule engine (12 consensus + 4 patient-factor escalation rules, cross-checked against EAU and AUA/ASTRO guidelines) emitting hard constraints; (2) risk-guided retrieval over a LightRAG knowledge graph (357 evidence chunks, 1,864 entities, 3,078 relations, traceable to the consensus); (3) an LLM arbiter emitting one of five executable actions with statement-level citations. Four methods × five seeds × 112 statements (2,240 runs) were benchmarked under one fixed generator (GLM-5.3-Flash); baselines were re-run with flagship-tier GLM-5.3.
 
-**Results:** The full system achieved exact-5 accuracy 0.805±0.012 (±SD over 5 seeds), Cohen's κ 0.730±0.016, and against-class F1 0.908±0.023, versus strongest baseline LightRAG-only (0.613, 0.536, 0.525, 0.881), naive RAG (0.605, 0.514, 0.512, 0.890), and pure LLM (0.304, 0.254, 0.079, 0.346); all differences significant (FDR-adjusted p ≤ 0.001). Retrieval baselines collapsed onto frequent classes (conditional: 0.8% of retrieval-baseline runs versus 17.0% for the full system). Upgrading the generator did not rescue naive RAG (0.605→0.538).
+**Results:** The agent achieved exact-5 accuracy 0.805±0.012 (±SD over 5 seeds), Cohen's κ 0.730±0.016, and against-class F1 0.908±0.023, versus strongest baseline LightRAG-only (0.613, 0.536, 0.525, 0.881), naive RAG (0.605, 0.514, 0.512, 0.890), and pure LLM (0.304, 0.254, 0.079, 0.346); all differences significant (FDR-adjusted p ≤ 0.001). Retrieval baselines collapsed onto frequent classes (conditional: 0.8% of retrieval-baseline runs versus 17.0% for the agent). Upgrading the generator did not rescue naive RAG (0.605→0.538).
 
 **Conclusions:** Fine-grained action-space competence must be built into the architecture—rule-level priors and hard constraints—not delegated to prompting or larger models. Architecture, not generator tier, was the dominant lever; every output traces to consensus statements and evidence chunks, supporting clinical governance audits.
 
