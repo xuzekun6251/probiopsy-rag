@@ -342,7 +342,7 @@ def fig2() -> None:
         ax.tick_params(labelsize=6.2)
 
     fig, (ax1, ax2, ax3) = plt.subplots(
-        1, 3, figsize=(7.6, 3.0), gridspec_kw={"width_ratios": [2.7, 2.0, 2.1]})
+        1, 3, figsize=(7.6, 3.0), gridspec_kw={"width_ratios": [2.7, 2.0, 2.4]})
 
     # (a) grouped bars with SD error bars
     n_m, n_met = len(methods), len(metrics)
@@ -385,7 +385,8 @@ def fig2() -> None:
     style(ax2)
 
     # (c) predicted class distribution per method (counts over 560 runs),
-    #     gold-standard counts overlaid as dark diamonds
+    #     gold-standard counts overlaid as dark diamonds. Horizontal layout:
+    #     full class names on the y-axis, so tick labels never crowd.
     import csv
     dist = {}
     with open(ROOT / "outputs" / "figures" / "source_data" /
@@ -393,25 +394,26 @@ def fig2() -> None:
         for row in csv.DictReader(f):
             dist[row["action"]] = row
     classes = ["endorse", "endorse_option", "conditional", "report_option", "against"]
-    class_lbl = ["endorse", "endorse_\noption", "conditional", "report_\noption",
-                 "against"]
     n_c = len(classes)
-    bw = 0.8 / n_m
+    bh = 0.8 / n_m
     for j, (mid, label) in enumerate(methods):
         col = "probiopsy_rag" if mid == "probiopsy-rag" else mid
         counts = [int(dist[c][col]) for c in classes]
-        xs = [i + j * bw - 0.4 + bw / 2 for i in range(n_c)]
-        ax3.bar(xs, counts, bw * 0.92, color=C_METH[mid], label=label, zorder=3)
+        ys = [i + j * bh - 0.4 + bh / 2 for i in range(n_c)]
+        ax3.barh(ys, counts, bh * 0.92, color=C_METH[mid], label=label, zorder=3)
     gold = [int(dist[c]["gold_standard"]) for c in classes]
-    ax3.scatter(range(n_c), gold, marker="D", s=16, color="#1F2933", zorder=5,
+    ax3.scatter(gold, range(n_c), marker="D", s=16, color="#1F2933", zorder=5,
                 label="gold standard")
-    ax3.set_xticks(range(n_c))
-    ax3.set_xticklabels(class_lbl, fontsize=5.2, rotation=25, ha="right")
-    ax3.set_ylabel("Predictions (of 560 runs)", fontsize=7)
-    ax3.legend(fontsize=5.2, frameon=False, loc="upper right",
-               bbox_to_anchor=(1.02, 1.04))
+    ax3.set_yticks(range(n_c))
+    ax3.set_yticklabels(classes, fontsize=5.8)
+    ax3.invert_yaxis()
+    ax3.set_xlabel("Predictions (of 560 runs)", fontsize=7)
+    ax3.legend(fontsize=5.2, frameon=False, loc="upper center", ncol=2,
+               bbox_to_anchor=(0.5, -0.34))
     ax3.set_title("(c) Predicted vs gold distribution", fontsize=7)
     style(ax3)
+    ax3.grid(axis="x", color="#E5E7EB", lw=0.5, zorder=0)
+    ax3.grid(axis="y", visible=False)
     fig.tight_layout()
     _export(fig, "figure2_performance")
 
