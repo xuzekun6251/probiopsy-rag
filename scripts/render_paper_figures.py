@@ -332,8 +332,8 @@ def fig2() -> None:
     methods = [("pure_llm", "pure LLM"), ("naive_rag", "naive RAG"),
                ("lightrag", "LightRAG-only"), ("probiopsy-rag", "QianLieAnHui (agent)")]
     metrics = [("exact5", "Exact-5\nacc"), ("exact3", "Exact-3\nacc"),
-               ("macro_f1", "Macro-F1"), ("kappa", "Cohen's κ"),
-               ("against_f1", "Against-F1")]
+               ("macro_f1", "Macro-\nF1"), ("kappa", "Cohen's\nκ"),
+               ("against_f1", "Against-\nF1")]
 
     def style(ax):
         ax.spines[["top", "right"]].set_visible(False)
@@ -342,7 +342,7 @@ def fig2() -> None:
         ax.tick_params(labelsize=6.2)
 
     fig, (ax1, ax2, ax3) = plt.subplots(
-        1, 3, figsize=(7.6, 3.0), gridspec_kw={"width_ratios": [3, 1.5, 2.1]})
+        1, 3, figsize=(7.6, 3.0), gridspec_kw={"width_ratios": [2.7, 2.0, 2.1]})
 
     # (a) grouped bars with SD error bars
     n_m, n_met = len(methods), len(metrics)
@@ -377,10 +377,10 @@ def fig2() -> None:
                  va="center", zorder=5)
     ax2.set_xticks(range(n_m))
     ax2.set_xticklabels(["pure\nLLM", "naive\nRAG", "LightRAG\nonly",
-                         "QianLie\nAnHui"], fontsize=6)
+                         "QianLie\nAnHui"], fontsize=5.8)
     ax2.set_ylabel("Exact-5 accuracy", fontsize=7)
     ax2.set_ylim(0.15, 0.92)
-    ax2.set_xlim(-0.5, n_m - 0.15)
+    ax2.set_xlim(-0.55, n_m - 0.45)
     ax2.set_title("(b) Exact-5 per seed (dash = mean)", fontsize=7)
     style(ax2)
 
