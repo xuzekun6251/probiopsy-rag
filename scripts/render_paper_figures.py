@@ -41,8 +41,8 @@ plt.rcParams.update({
 C_RULE = "#5B8FF9"   # layer 1
 C_KG = "#5AD8A6"     # layer 2
 C_LLM = "#F6BD16"    # layer 3
-C_METH = {"pure_llm": "#B8B8B8", "naive_rag": "#9D2933",
-          "lightrag": "#5AD8A6", "probiopsy-rag": "#5B8FF9"}
+C_METH = {"pure_llm": "#B3BAC4", "naive_rag": "#9C8FC7",
+          "lightrag": "#6FBFA4", "probiopsy-rag": "#4E80C8"}
 C_SEV = {"high": "#dc2626", "medium": "#ea580c", "low": "#16a34a"}
 ACTIONS = ["endorse", "endorse_option", "conditional", "report_option", "against"]
 
@@ -329,14 +329,21 @@ def fig1() -> None:
 # ------------------------------------------------------------------ Figure 2
 def fig2() -> None:
     summary = json.loads((ROOT / "outputs" / "evaluation_summary.json").read_text(encoding="utf-8"))
-    methods = [("pure_llm", "pure_llm"), ("naive_rag", "naive_rag"),
-               ("lightrag", "LightRAG-only"), ("probiopsy-rag", "QianLieAnHui (full)")]
+    methods = [("pure_llm", "pure LLM"), ("naive_rag", "naive RAG"),
+               ("lightrag", "LightRAG-only"), ("probiopsy-rag", "QianLieAnHui (agent)")]
     metrics = [("exact5", "Exact-5\nacc"), ("exact3", "Exact-3\nacc"),
                ("macro_f1", "Macro-F1"), ("kappa", "Cohen's κ"),
                ("against_f1", "Against-F1")]
 
+    def style(ax):
+        ax.spines[["top", "right"]].set_visible(False)
+        ax.grid(axis="y", color="#E5E7EB", lw=0.5, zorder=0)
+        ax.set_axisbelow(True)
+        ax.tick_params(labelsize=6.2)
+
     fig, (ax1, ax2, ax3) = plt.subplots(
-        1, 3, figsize=(7.6, 2.9), gridspec_kw={"width_ratios": [3, 1.5, 2.1]})
+        1, 3, figsize=(7.6, 3.0), gridspec_kw={"width_ratios": [3, 1.5, 2.1]})
+
     # (a) grouped bars with SD error bars
     n_m, n_met = len(methods), len(metrics)
     bw = 0.8 / n_m
@@ -345,36 +352,40 @@ def fig2() -> None:
         means = [agg[k]["mean"] for k, _ in metrics]
         sds = [agg[k]["sd"] for k, _ in metrics]
         xs = [i + j * bw - 0.4 + bw / 2 for i in range(n_met)]
-        ax1.bar(xs, means, bw, yerr=sds, capsize=1.6,
+        ax1.bar(xs, means, bw * 0.92, yerr=sds, capsize=1.6,
                 color=C_METH[mid], label=label,
-                error_kw={"lw": 0.7, "elinewidth": 0.7})
+                error_kw={"lw": 0.7, "elinewidth": 0.7, "ecolor": "#6B7280"},
+                zorder=3)
     ax1.set_xticks(range(n_met))
     ax1.set_xticklabels([l for _, l in metrics], fontsize=6.2)
-    ax1.set_ylabel("Score (0–1)")
+    ax1.set_ylabel("Score (0–1)", fontsize=7)
     ax1.set_ylim(0, 1.0)
-    ax1.legend(fontsize=5.8, ncol=4, frameon=False, loc="lower center",
-               bbox_to_anchor=(0.5, 1.02))
-    ax1.set_title("(a) Core metrics by method (mean ± SD, 5 seeds)",
-                  fontsize=7, pad=16)
-    ax1.spines[["top", "right"]].set_visible(False)
+    ax1.legend(fontsize=5.4, ncol=4, frameon=False, loc="lower center",
+               bbox_to_anchor=(0.5, 1.01))
+    ax1.set_title("(a) Core metrics (mean ± SD, 5 seeds)", fontsize=7, pad=14)
+    style(ax1)
 
     # (b) per-seed exact-5 dots + mean dash
     for j, (mid, label) in enumerate(methods):
         seeds = [s["exact5"] for s in summary["methods"][mid]["seeds"]]
         mean = summary["methods"][mid]["aggregate"]["exact5"]["mean"]
-        xs = [j] * len(seeds)
-        ax2.scatter([x + 0.06 for x in xs], seeds, s=9, color=C_METH[mid],
-                    zorder=3, edgecolors="none")
-        ax2.hlines(mean, j - 0.22, j + 0.28, color=C_METH[mid], lw=1.6, zorder=4)
+        offs = [-0.14, -0.07, 0.0, 0.07, 0.14][:len(seeds)]
+        ax2.scatter([j + o for o in offs], seeds, s=14, color=C_METH[mid],
+                    zorder=3, edgecolors="white", linewidths=0.4)
+        ax2.hlines(mean, j - 0.26, j + 0.26, color=C_METH[mid], lw=1.8, zorder=4)
+        ax2.text(j + 0.3, mean, f"{mean:.3f}", fontsize=5.4, color="#4B5563",
+                 va="center", zorder=5)
     ax2.set_xticks(range(n_m))
-    ax2.set_xticklabels(["pure\nLLM", "naive\nRAG", "LightRAG\nonly", "QianLie\nAnHui"], fontsize=6)
-    ax2.set_ylabel("Exact-5 accuracy")
-    ax2.set_ylim(0, 1.0)
+    ax2.set_xticklabels(["pure\nLLM", "naive\nRAG", "LightRAG\nonly",
+                         "QianLie\nAnHui"], fontsize=6)
+    ax2.set_ylabel("Exact-5 accuracy", fontsize=7)
+    ax2.set_ylim(0.15, 0.92)
+    ax2.set_xlim(-0.5, n_m - 0.15)
     ax2.set_title("(b) Exact-5 per seed (dash = mean)", fontsize=7)
-    ax2.spines[["top", "right"]].set_visible(False)
+    style(ax2)
 
     # (c) predicted class distribution per method (counts over 560 runs),
-    #     gold-standard counts overlaid as black diamonds
+    #     gold-standard counts overlaid as dark diamonds
     import csv
     dist = {}
     with open(ROOT / "outputs" / "figures" / "source_data" /
@@ -390,17 +401,17 @@ def fig2() -> None:
         col = "probiopsy_rag" if mid == "probiopsy-rag" else mid
         counts = [int(dist[c][col]) for c in classes]
         xs = [i + j * bw - 0.4 + bw / 2 for i in range(n_c)]
-        ax3.bar(xs, counts, bw, color=C_METH[mid], label=label)
+        ax3.bar(xs, counts, bw * 0.92, color=C_METH[mid], label=label, zorder=3)
     gold = [int(dist[c]["gold_standard"]) for c in classes]
-    ax3.scatter(range(n_c), gold, marker="D", s=10, color="#222222", zorder=5,
+    ax3.scatter(range(n_c), gold, marker="D", s=16, color="#1F2933", zorder=5,
                 label="gold standard")
     ax3.set_xticks(range(n_c))
-    ax3.set_xticklabels(class_lbl, fontsize=5.6)
-    ax3.set_ylabel("Predictions (of 560 runs)")
+    ax3.set_xticklabels(class_lbl, fontsize=5.2, rotation=25, ha="right")
+    ax3.set_ylabel("Predictions (of 560 runs)", fontsize=7)
     ax3.legend(fontsize=5.2, frameon=False, loc="upper right",
                bbox_to_anchor=(1.02, 1.04))
-    ax3.set_title("(c) Predicted class distribution", fontsize=7)
-    ax3.spines[["top", "right"]].set_visible(False)
+    ax3.set_title("(c) Predicted vs gold distribution", fontsize=7)
+    style(ax3)
     fig.tight_layout()
     _export(fig, "figure2_performance")
 
@@ -425,9 +436,15 @@ def fig4() -> None:
         d = json.loads(jp.read_text(encoding="utf-8"))
         cases.append(d)
 
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7.0, 2.7),
+    def style(ax):
+        ax.spines[["top", "right"]].set_visible(False)
+        ax.grid(axis="y", color="#E5E7EB", lw=0.5, zorder=0)
+        ax.set_axisbelow(True)
+        ax.tick_params(labelsize=6.2)
+
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7.0, 2.8),
                                    gridspec_kw={"width_ratios": [1, 1]})
-    # (a) evidence corpus composition (stacked single bar by source_type)
+    # (b) evidence corpus composition (stacked single bar by source_type)
     rows = [json.loads(l) for l in
             (ROOT / "data" / "seed" / "evidence_chunks.jsonl").open(encoding="utf-8") if l.strip()]
     st = Counter(r.get("source_type", "") for r in rows)
@@ -437,38 +454,45 @@ def fig4() -> None:
               "systematic_review_summary": "SR summaries (D)"}
     vals = [(labels.get(k, k), v) for k, v in st.most_common()]
     total = sum(v for _, v in vals)
+    seg_colors = ["#4A7DC4", "#4E9C82", "#C08A3E", "#AEB6C2"]
     y = 0.0
-    colors = ["#5B8FF9", "#5AD8A6", "#F6BD16", "#B8B8B8"]
-    for (lab, v), c in zip(vals, colors):
-        ax2.barh([0], [v], left=[y], color=c, label=f"{lab} (n={v})", height=0.5)
+    for (lab, v), c in zip(vals, seg_colors):
+        ax2.barh([0], [v], left=[y], color=c, label=f"{lab} (n={v})", height=0.42,
+                 zorder=3)
         if v / total > 0.08:
             ax2.text(y + v / 2, 0, str(v), ha="center", va="center", fontsize=6.5,
-                     color="white", fontweight="bold")
+                     color="white", fontweight="bold", zorder=4)
         y += v
     ax2.set_yticks([])
-    ax2.set_xlabel("Evidence chunks (n = 357)")
+    ax2.set_xlabel("Evidence chunks (n = 357)", fontsize=7)
+    ax2.set_xlim(0, total)
     ax2.legend(fontsize=5.8, frameon=False, loc="upper center",
-               bbox_to_anchor=(0.5, -0.28), ncol=2)
+               bbox_to_anchor=(0.5, -0.24), ncol=2)
     ax2.set_title("(b) Evidence corpus composition", fontsize=7)
     ax2.spines[["top", "right", "left"]].set_visible(False)
+    ax2.tick_params(labelsize=6.2)
 
     # (a) demo cases: actions + rules fired count
     case_names = ["Unifocal\nscheme", "PSMA PET\nupfront", "bpMRI\nindeterminate",
                   "Advanced\ndisease", "Infection\nrisk"]
+    act_color = {"against": "#C4624F", "endorse": "#4E9C82",
+                 "endorse_option": "#4A7DC4", "conditional": "#C08A3E"}
+    act_text = {"against": "#8F3E33", "endorse": "#2E6B56",
+                "endorse_option": "#2F548C", "conditional": "#8A5F23"}
     n_rules = [len(d.get("rules_fired") or []) for d in cases]
     actions = [d["verdict"]["action"] for d in cases]
-    colors_a = [C_METH["probiopsy-rag"] if a in ("endorse", "endorse_option")
-                else ("#dc2626" if a == "against" else "#F6BD16") for a in actions]
-    bars = ax1.bar(range(len(cases)), n_rules, color=colors_a, width=0.62)
+    bars = ax1.bar(range(len(cases)), n_rules,
+                   color=[act_color.get(a, "#AEB6C2") for a in actions],
+                   width=0.6, zorder=3)
     for i, (b, a) in enumerate(zip(bars, actions)):
-        ax1.text(b.get_x() + b.get_width() / 2, b.get_height() + 0.06, a,
-                 ha="center", fontsize=5.4, rotation=28, color="#374151")
+        ax1.text(b.get_x() + b.get_width() / 2, b.get_height() + 0.1, a,
+                 ha="center", fontsize=5.4, rotation=25, color=act_text.get(a, "#4B5563"))
     ax1.set_xticks(range(len(cases)))
     ax1.set_xticklabels(case_names, fontsize=6)
-    ax1.set_ylabel("Consensus rules fired")
-    ax1.set_ylim(0, max(n_rules) + 0.9)
+    ax1.set_ylabel("Consensus rules fired", fontsize=7)
+    ax1.set_ylim(0, max(n_rules) + 1.0)
     ax1.set_title("(a) Demo cases: rules fired → verdict action", fontsize=7)
-    ax1.spines[["top", "right"]].set_visible(False)
+    style(ax1)
     fig.tight_layout()
     _export(fig, "figure4_demo_case")
 
@@ -526,9 +550,17 @@ def fig5() -> None:
 # subject, so panel (a) shows raw agreement; the system-vs-majority confusion
 # panel is dropped (n = 4 majority cases after the pre-registered 2:2-tie
 # exclusion — a 5x5 matrix would be vacuous); Likert panel shows means.
-C_ACT = {"endorse": "#5AD8A6", "endorse_option": "#5B8FF9",
-         "conditional": "#F6BD16", "report_option": "#B8B8B8",
-         "against": "#F4664A"}
+# ------------------------------------------------------------------ Figure 3
+# Contract deviation (documented): per-case Fleiss κ is undefined for a single
+# subject, so panel (a) shows raw agreement; the system-vs-majority confusion
+# panel is dropped (n = 4 majority cases after the pre-registered 2:2-tie
+# exclusion — a 5x5 matrix would be vacuous); Likert panel shows means.
+C_ACT = {"endorse": "#4E9C82", "endorse_option": "#4A7DC4",
+         "conditional": "#C08A3E", "report_option": "#AEB6C2",
+         "against": "#C4624F"}
+ACT_TEXT = {"endorse": "white", "endorse_option": "white",
+            "conditional": "#3B2A0F", "report_option": "#374151",
+            "against": "white"}
 ACT_ABBR = {"endorse": "End", "endorse_option": "EndO",
             "conditional": "Cond", "report_option": "RepO", "against": "Aga"}
 CASE_LABELS = {
@@ -550,7 +582,11 @@ def fig3() -> None:
     system = {r["case_id"]: r["system_output"] for r in rows}
 
     fig, (ax1, ax2, ax3) = plt.subplots(
-        1, 3, figsize=(7.6, 2.6), gridspec_kw={"width_ratios": [1.2, 1.7, 1.1]})
+        1, 3, figsize=(7.6, 2.7), gridspec_kw={"width_ratios": [1.2, 1.7, 1.1]})
+
+    def style(ax):
+        ax.spines[["top", "right"]].set_visible(False)
+        ax.tick_params(labelsize=6.2)
 
     # (a) per-case raw agreement (of 4 experts)
     agree = []
@@ -558,20 +594,21 @@ def fig3() -> None:
         cnt = Counter(rating[(c, e)] for e in (1, 2, 3, 4))
         agree.append(cnt.most_common(1)[0][1] / 4)
     y = range(len(case_ids))
-    ax1.barh(y, agree, color=C_KG, height=0.62)
+    ax1.barh(y, agree, color="#6FBFA4", height=0.6, zorder=3)
     for yi, (c, a) in enumerate(zip(case_ids, agree)):
-        ax1.text(a + 0.02, yi, f"{int(a * 4)}/4", va="center", fontsize=5.8)
-    ax1.axvline(0.75, color="#888888", lw=0.7, ls="--")
-    ax1.text(0.755, 4.45, "3/4", fontsize=5.2, color="#666666")
+        ax1.text(a + 0.02, yi, f"{int(a * 4)}/4", va="center", fontsize=5.8,
+                 color="#4B5563")
+    ax1.axvline(0.75, color="#9CA3AF", lw=0.7, ls="--", zorder=2)
+    ax1.text(0.755, 4.55, "3/4", fontsize=5.2, color="#6B7280", va="top")
     ax1.set_yticks(list(y))
     ax1.set_yticklabels([CASE_LABELS[c] for c in case_ids], fontsize=5.6)
     ax1.invert_yaxis()
-    ax1.set_xlim(0, 1.08)
-    ax1.set_xlabel("Modal-rating share (of 4 experts)")
+    ax1.set_xlim(0, 1.12)
+    ax1.set_xlabel("Modal-rating share (of 4 experts)", fontsize=7)
     fk = stats["fleiss_kappa_overall"]
     ax1.set_title(f"(a) Inter-rater agreement\n(raw 17/20; Fleiss κ {fk:.2f}*)",
                   fontsize=6.6)
-    ax1.spines[["top", "right"]].set_visible(False)
+    style(ax1)
 
     # (b) case × rater categorical matrix (experts 1-4 + system)
     col_names = ["Expert 1", "Expert 2", "Expert 3", "Expert 4", "System"]
@@ -579,22 +616,23 @@ def fig3() -> None:
     ax2.set_ylim(-0.5, len(case_ids) - 0.5)
     ax2.invert_yaxis()
     for xi, cn in enumerate(col_names):
-        ax2.text(xi, -0.62, cn, ha="center", fontsize=5.8,
-                 weight="bold" if cn == "System" else "normal")
+        ax2.text(xi, -0.66, cn, ha="center", fontsize=5.8,
+                 weight="bold" if cn == "System" else "normal", color="#1F2937")
     for yi, c in enumerate(case_ids):
         vals = [rating[(c, e)] for e in (1, 2, 3, 4)] + [system[c]]
         for xi, a in enumerate(vals):
-            ax2.add_patch(Rectangle((xi - 0.46, yi - 0.44), 0.92, 0.88,
-                                        facecolor=C_ACT[a], edgecolor="white", lw=0.8))
+            ax2.add_patch(plt.Rectangle((xi - 0.46, yi - 0.44), 0.92, 0.88,
+                                        facecolor=C_ACT[a], edgecolor="white",
+                                        lw=0.8, zorder=2))
             ax2.text(xi, yi, ACT_ABBR[a], ha="center", va="center",
-                     fontsize=5.6, color="#222222")
+                     fontsize=5.6, color=ACT_TEXT[a], zorder=3)
     ax2.set_yticks(range(len(case_ids)))
     ax2.set_yticklabels([CASE_LABELS[c] for c in case_ids], fontsize=5.6)
     ax2.set_xticks([])
     for s in ax2.spines.values():
         s.set_visible(False)
     ax2.tick_params(left=False)
-    handles = [Rectangle((0, 0), 1, 1, facecolor=C_ACT[a]) for a in ACTIONS]
+    handles = [plt.Rectangle((0, 0), 1, 1, facecolor=C_ACT[a]) for a in ACTIONS]
     ax2.legend(handles, [ACT_ABBR[a] for a in ACTIONS], fontsize=5.2, ncol=5,
                frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.04))
     ax2.set_title("(b) Ratings by case and rater", fontsize=6.6, pad=10)
@@ -602,15 +640,16 @@ def fig3() -> None:
     # (c) Likert means (1-5)
     dims = ["clarity", "usefulness", "recommendation", "evidence"]
     means = [stats["likert_mean"][f"likert_{d}"] for d in dims]
-    ax3.bar(range(len(dims)), means, color=C_LLM, width=0.6)
+    ax3.bar(range(len(dims)), means, color="#C08A3E", width=0.55, zorder=3)
     for i, m in enumerate(means):
-        ax3.text(i, m + 0.08, f"{m:.1f}", ha="center", fontsize=5.8)
+        ax3.text(i, m + 0.08, f"{m:.1f}", ha="center", fontsize=5.8,
+                 color="#4B5563")
     ax3.set_xticks(range(len(dims)))
-    ax3.set_xticklabels(dims, fontsize=5.6, rotation=18)
-    ax3.set_ylim(0, 5.5)
-    ax3.set_ylabel("Likert score (1–5)")
-    ax3.set_title("(c) Expert Likert ratings\n(uniform 5/5 — ceiling)", fontsize=6.6)
-    ax3.spines[["top", "right"]].set_visible(False)
+    ax3.set_xticklabels(dims, fontsize=5.6, rotation=18, ha="right")
+    ax3.set_ylim(0, 5.6)
+    ax3.set_ylabel("Likert score (1–5)", fontsize=7)
+    ax3.set_title("(c) Expert Likert ratings\n(uniform 5 — ceiling)", fontsize=6.6)
+    style(ax3)
     fig.tight_layout()
     _export(fig, "figure3_expert_agreement")
 
