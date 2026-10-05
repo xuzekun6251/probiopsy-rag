@@ -56,6 +56,8 @@ REFDB = {
     "wang_htn_agent":    {"doi": "10.1161/HYPERTENSIONAHA.125.25305"},  # Hypertension
     "hao_pca_agent":     {"doi": "10.1038/s41746-025-02166-0"},  # npj Digit Med, PCa education
     "geneagent":         {"doi": "10.1038/s41592-025-02748-6"},  # Nat Methods
+    # --- round 8: Yaoshi-RAG (verified 2026-10-04, Crossref) ---
+    "yaoshi_rag":        {"doi": "10.2196/75279"},  # JMIR Med Inform, TCM UKG+RAG
     "cohen1960":         {"doi": "10.1177/001316446002000104"},
     "fleiss1971":        {"doi": "10.1037/h0031619"},
     "feinstein_paradox": {"doi": "10.1016/0895-4356(90)90158-L"},

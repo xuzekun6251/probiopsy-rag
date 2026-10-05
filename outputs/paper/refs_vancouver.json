@@ -205,5 +205,9 @@
   "geneagent": {
     "doi": "10.1038/s41592-025-02748-6",
     "text": "Wang Z, Jin Q, Wei CH, et al. GeneAgent: self-verification language agent for gene-set analysis using domain databases. Nat Methods. 2025;22(8):1677-1685. https://doi.org/10.1038/s41592-025-02748-6"
+  },
+  "yaoshi_rag": {
+    "doi": "10.2196/75279",
+    "text": "Sha H, Gong F, Liu B, Liu R, Wang H, Wu T. Leveraging Retrieval-Augmented Large Language Models for Dietary Recommendations With Traditional Chinese Medicine’s Medicine Food Homology: Algorithm Development and Validation. JMIR Med Inform. 2025;13:e75279-e75279. https://doi.org/10.2196/75279"
   }
 }
