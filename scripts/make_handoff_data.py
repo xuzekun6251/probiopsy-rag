@@ -81,9 +81,10 @@ def gen_rules() -> None:
     cfg = yaml.safe_load((ROOT / "configs" / "rules.yaml").read_text(encoding="utf-8"))
     rows = []
     for r in cfg.get("rules", []):
+        short = re.sub(r"\s+", " ", (r.get("rationale_short") or "")).strip()
         rows.append([r["id"], "consensus", r.get("severity", ""), r.get("risk_type", ""),
                      len(r.get("entity_a_flags") or []), len(r.get("entity_b_flags") or []),
-                     first_sentence(r.get("rationale", ""))])
+                     short or first_sentence(r.get("rationale", ""))])
     pfr = cfg.get("patient_factor_rules", {})
     pfr_items = (pfr.items() if isinstance(pfr, dict)
                  else enumerate(pfr))
@@ -92,9 +93,10 @@ def gen_rules() -> None:
             r = {"id": rid, **r}
         a_flags = r.get("matching_entity_a_flags") or r.get("entity_a_flags")
         b_flags = r.get("matching_entity_b_flags") or r.get("entity_b_flags")
+        short = re.sub(r"\s+", " ", (r.get("rationale_short") or "")).strip()
         rows.append([r["id"], "patient_factor", r.get("severity", ""), r.get("risk_type", ""),
                      len(a_flags or []), len(b_flags or []),
-                     first_sentence(r.get("rationale", ""))])
+                     short or first_sentence(r.get("rationale", ""))])
     write_csv(TABLES / "rule_list.csv",
               ["rule_id", "rule_set", "severity", "risk_type", "n_trigger_flags_a",
                "n_target_flags_b", "rationale_first_sentence"], rows)

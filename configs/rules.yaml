@@ -39,6 +39,12 @@ rules:
     risk_type: imaging_pathway
     entity_a_flags: [bpmri, mpmri, mri_15t, mri_3t, quality_inadequate]
     entity_b_flags: [d_mri_driven_pathway, d_accept_any_field_strength, d_mri_quality_check, d_use_piqual_v2, d_bpmri_acceptable]
+    rationale_short: >-
+      Every prostate MRI must be checked against PI-QUAL v2 quality criteria before the
+      biopsy pathway is decided (Q4a median 9, Q4b median 8 — consensus agree); a
+      quality-assured scan — 1.5T or 3T, biparametric without routine contrast-enhanced
+      sequences — is acceptable (Q1, Q5-Q7 median 8), and MRI that fails quality standards
+      must not gate the biopsy decision.
     rationale: >
       ProBIOPSY consensus: every prostate MRI must be checked against PI-QUAL v2 quality
       criteria before the biopsy pathway is decided (Q4a median 9, Q4b median 8 — consensus
@@ -61,6 +67,11 @@ rules:
     risk_type: ancillary_workup
     entity_a_flags: [indeterminate_lesion, pirads_3, psad_intermediate, psad_intermediate_high, psad_high, risk_calculator_available, biomarker_available, contrast_mri_available]
     entity_b_flags: [d_contrast_mri_for_pz_indeterminate, d_followup_indeterminate_bpmri, d_psad_gate_bpmri_indeterminate, d_psad_gate_mpmri_indeterminate, d_riskcalc_gate_bpmri_indeterminate, d_riskcalc_gate_mpmri_indeterminate, d_biomarker_gate_bpmri_indeterminate, d_biomarker_gate_mpmri_indeterminate, d_psma_pet_indeterminate_ancillary, d_reject_microultrasound_indeterminate]
+    rationale_short: >-
+      For an indeterminate lesion (PI-RADS 3), ProBIOPSY endorses PSAD as the primary gate to
+      reduce unnecessary biopsies — for bpMRI (Q11 median 7) and even more strongly for mpMRI
+      (Q14 median 8) — whereas PSMA PET and microultrasound remain conditional options rather
+      than standard workup (Q18, Q21).
     rationale: >
       For an indeterminate lesion (PI-RADS 3), ProBIOPSY endorses PSAD as the primary gate to
       reduce unnecessary biopsies — for bpMRI (Q11 median 7) and even more strongly for mpMRI
@@ -87,6 +98,11 @@ rules:
     risk_type: imaging_pathway
     entity_a_flags: [negative_mri, suspicion_high, psa_elevated, dre_positive, family_history, black_ethnicity, prior_negative_biopsy]
     entity_b_flags: [d_sbx_negative_mri_high_suspicion, d_psma_pet_negative_mri_ancillary, d_reject_microultrasound_negative_mri, d_sbx_12core_template]
+    rationale_short: >-
+      When MRI is negative but clinical suspicion remains high (abnormal DRE, persistently
+      elevated PSA, strong family history, Black ethnicity, or prior negative biopsy), a
+      12-core systematic biopsy is still endorsed (Q25 median 7 — consensus agree; Q55a
+      median 7) and PSMA PET may serve as an ancillary test (Q19 median 8 — consensus agree).
     rationale: >
       ProBIOPSY: when MRI is negative but clinical suspicion remains high (abnormal DRE,
       persistently elevated PSA, strong family history, Black ethnicity, prior negative
@@ -107,6 +123,11 @@ rules:
     risk_type: imaging_pathway
     entity_a_flags: [psma_pet_available, microultrasound_available, imaging_available]
     entity_b_flags: [d_reject_psma_pet_upfront, d_reject_microultrasound_upfront]
+    rationale_short: >-
+      ProBIOPSY explicitly rejects PSMA PET/MRI as an upfront first-line biopsy-decision tool
+      (Q17 median 2 — consensus disagree) and microultrasound as an upfront alternative to
+      prostate MRI (Q20 median 2 — consensus disagree); both modalities have defined ancillary
+      niches but must not replace quality-assured MRI at triage.
     rationale: >
       ProBIOPSY explicitly rejects PSMA PET/MRI as an upfront first-line biopsy-decision tool
       (Q17 median 2 — consensus disagree) and microultrasound as an upfront alternative to
@@ -126,6 +147,10 @@ rules:
     risk_type: ai_decision_support
     entity_a_flags: [ai_software_available, bpmri, mpmri, visible_lesion]
     entity_b_flags: [d_ai_mri_lesion_aid]
+    rationale_short: >-
+      ProBIOPSY endorses AI software as an aid to MRI lesion detection and characterization,
+      with interpretation remaining the radiologist's responsibility (Q26 median 7 —
+      consensus agree).
     rationale: >
       ProBIOPSY endorses AI software as an aid to MRI lesion detection and characterization,
       with interpretation remaining the radiologist's responsibility (Q26 median 7 — consensus
@@ -148,6 +173,10 @@ rules:
     risk_type: scheme_selection
     entity_a_flags: [advanced_disease, unfit_curative, locally_advanced_suspected, psa_gt_50]
     entity_b_flags: [d_sbx_reduced_6core_advanced, d_reject_saturation_bx]
+    rationale_short: >-
+      ProBIOPSY endorses a reduced (6-core) systematic scheme in advanced disease, where
+      detection of any grade group confirms management rather than changing mapping precision
+      (Q57 median 8 — consensus agree).
     rationale: >
       ProBIOPSY endorses a reduced (6-core) systematic scheme in advanced disease, where
       detection of any grade group confirms management rather than changing mapping precision
@@ -167,6 +196,11 @@ rules:
     risk_type: scheme_selection
     entity_a_flags: [psa_elevated, dre_positive, prior_negative_biopsy, visible_lesion]
     entity_b_flags: [d_sbx_12core_template, d_reject_sextant_template, d_reject_ginsburg_template, d_reject_saturation_bx]
+    rationale_short: >-
+      ProBIOPSY endorses the 12-core systematic template as the standard when systematic cores
+      are indicated (Q52 median 8 — consensus agree) and rejects the classical 6-core sextant
+      template (Q51 median 3), the Ginsburg 4-6 core template (Q53 median 3) and saturation
+      biopsy (Q54 median 2) — all by consensus disagree.
     rationale: >
       ProBIOPSY endorses the 12-core systematic template as the standard when systematic cores
       are indicated (Q52 median 8 — consensus agree) and rejects the classical 6-core sextant
@@ -186,6 +220,11 @@ rules:
     risk_type: targeted_bx
     entity_a_flags: [visible_lesion, pirads_4_5, pirads_3, pz_lesion, lesion_small]
     entity_b_flags: [d_tbx_cores_adapt_pirads, d_tbx_min3_cores]
+    rationale_short: >-
+      ProBIOPSY reached no consensus on a fixed targeted-core count: adapting the number of
+      targeted cores to PI-RADS score was rated 'neither' (Q34 median 6) and the proposed
+      minimum of 3 cores per target failed to reach consensus in both rounds (Q35, Q36), so
+      the system reports core count as an open option rather than enforcing a fixed number.
     rationale: >
       ProBIOPSY reached no consensus on a fixed targeted-core count: adapting the number of
       targeted cores to PI-RADS score was 'neither' (Q34 median 6), and the proposed minimum of
@@ -206,6 +245,12 @@ rules:
     risk_type: targeted_bx
     entity_a_flags: [visible_lesion, unifocal, multifocal_ipsilateral, lesion_large, lesion_small]
     entity_b_flags: [d_adopt_term_perilesional, d_plbx_within_10mm, d_plbx_count_by_lesion_size, d_plbx_2cores_small_lesion, d_plbx_max2cores_large_lesion]
+    rationale_short: >-
+      ProBIOPSY adopts the term 'perilesional biopsy' for cores placed just outside the MRI
+      lesion margin (Q37a — SOQ consensus), requires targeted cores to be placed within 10 mm
+      of the lesion (Q38 — SOQ consensus) and scales the number of perilesional cores to
+      lesion size (Q39 median 7 — consensus agree), with a maximum of 2 cores per large
+      lesion (Q41 — SOQ consensus).
     rationale: >
       ProBIOPSY adopts the term 'perilesional biopsy' for cores placed just outside the MRI
       lesion margin (Q37a — SOQ consensus), requires targeted cores to be placed within 10 mm
@@ -231,6 +276,12 @@ rules:
     risk_type: scheme_selection
     entity_a_flags: [unifocal, multifocal_ipsilateral, multifocal_bilateral, multiple_lesions, visible_lesion]
     entity_b_flags: [d_scheme_unifocal_tbx_plbx, d_scheme_unifocal_add_contralateral, d_scheme_unifocal_add_sbx, d_scheme_ipsilateral_multifocal, d_scheme_bilateral_tbx_plbx]
+    rationale_short: >-
+      For a unifocal lesion, ProBIOPSY endorses targeted + perilesional biopsy without
+      contralateral systematic cores (Q43 median 7 — consensus agree) and bilateral
+      targeted+perilesional schemes for multifocal bilateral disease (Q49 median 7 —
+      consensus agree), while adding full systematic biopsy to a targeted+perilesional scheme
+      is rejected (Q45 median 3 — consensus disagree).
     rationale: >
       ProBIOPSY endorses targeted + perilesional biopsy without contralateral systematic cores
       for a unifocal lesion (Q43 median 7 — consensus agree) and for multifocal ipsilateral
@@ -254,6 +305,10 @@ rules:
     risk_type: perioperative
     entity_a_flags: [infection_risk_factor, prior_negative_biopsy, unfit_curative, advanced_disease]
     entity_b_flags: [d_route_transperineal, d_pnb_tr, d_pnb_tp, d_omit_abx_tp_no_risk, d_augmented_abx_tr]
+    rationale_short: >-
+      ProBIOPSY endorses the transperineal route as the standard for prostate biopsy (Q58 —
+      SOQ consensus) with periprostatic nerve block for both transrectal (Q59) and
+      transperineal (Q60) approaches (both SOQ consensus).
     rationale: >
       ProBIOPSY endorses the transperineal route as the standard for prostate biopsy (Q58 —
       SOQ consensus) with periprostatic nerve block for both transrectal (Q59) and transperineal
@@ -279,6 +334,12 @@ rules:
     risk_type: treatment_planning
     entity_a_flags: [intent_focal_therapy, intent_nerve_sparing, intent_plnd, intent_whole_gland_rt, intent_focal_boost, intent_adt_duration]
     entity_b_flags: [d_tp_focal_add_contralateral, d_tp_focal_tbx_only_not_enough, d_tp_nss_unifocal_tbx_plbx, d_tp_nss_bilateral_tbx_adequate, d_tp_plnd_unifocal_no_consensus, d_tp_plnd_bilateral_tbx_plbx, d_tp_wg_rt_tbx_plbx, d_tp_focal_boost_tbx_plbx, d_tp_adt_duration_tbx_plbx, d_tp_reject_adding_systematic_universal]
+    rationale_short: >-
+      ProBIOPSY links biopsy scheme to downstream treatment intent: for focal therapy,
+      targeted+perilesional alone is deemed insufficient and contralateral systematic biopsy
+      must be added (Q65 median 7 — consensus agree), whereas nerve sparing, whole-gland
+      radiotherapy, focal boost and ADT-duration planning are adequately served by
+      targeted+perilesional schemes (Q67, Q70, Q79, Q85, Q88, Q91, Q94 median 7-8).
     rationale: >
       ProBIOPSY links biopsy scheme to downstream treatment intent: for focal therapy,
       targeted+perilesional alone is deemed insufficient and contralateral systematic biopsy
@@ -309,19 +370,23 @@ patient_factor_rules:
     severity: high
     matching_entity_a_flags: [infection_risk_factor]
     matching_entity_b_flags: [d_route_transperineal, d_augmented_abx_tr]
+    rationale_short: "Infection risk factors (Q62 catalogue: immunosuppression, prior prostatitis, recent instrumentation, MRSA colonization) escalate the perioperative rule R11 — prefer the transperineal route and augmented prophylaxis when transrectal access is unavoidable."
     rationale: "Infection risk factors (Q62 catalogue: immunosuppression, prior prostatitis, recent instrumentation, MRSA colonization, etc.) escalate the perioperative rule R11 — prefer the transperineal route and augmented prophylaxis when transrectal access is unavoidable."
   unfit_for_curative_treatment:
     severity: medium
     matching_entity_a_flags: [unfit_curative, advanced_disease]
     matching_entity_b_flags: [d_sbx_reduced_6core_advanced]
+    rationale_short: "Patients unfit for curative treatment shift the goal from mapping precision to confirmation — R06 reduced systematic scheme applies."
     rationale: "Patients unfit for curative treatment shift the goal from mapping precision to confirmation — R06 reduced systematic scheme applies."
   repeat_biopsy_setting:
     severity: medium
     matching_entity_a_flags: [prior_negative_biopsy]
     matching_entity_b_flags: [d_route_transperineal, d_sbx_12core_template]
+    rationale_short: "Prior negative biopsy with persisting suspicion raises sepsis risk on repeat access and keeps the 12-core template relevant (R03/R11 escalation)."
     rationale: "Prior negative biopsy with persisting suspicion raises sepsis risk on repeat access and keeps the 12-core template relevant (R03/R11 escalation)."
   suspicious_dre_without_mri_lesion:
     severity: medium
     matching_entity_a_flags: [dre_positive]
     matching_entity_b_flags: [d_sbx_negative_mri_high_suspicion]
+    rationale_short: "Abnormal DRE with negative MRI keeps clinical suspicion high — systematic 12-core biopsy per R03."
     rationale: "Abnormal DRE with negative MRI keeps clinical suspicion high — systematic 12-core biopsy per R03."
