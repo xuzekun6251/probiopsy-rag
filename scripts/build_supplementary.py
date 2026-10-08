@@ -160,6 +160,29 @@ if ws.exists():
                      f"(rated {r['action_choice']}): {r['note'].strip()}")
     L.append("")
 
+# ---------------------------------------------------------------- S7
+L.append("## S7. Patient-education mode: verbatim consultations")
+L.append("")
+L.append("**Design.** The education mode reuses the frozen 357-chunk benchmark corpus")
+L.append("and knowledge-graph retrieval (context-only), keyword-matches the patient's")
+L.append("question against a curated, source-traceable patient-education fact base")
+L.append("(`data/seed/patient_education_facts.csv`, ten entries covering biopsy sampling")
+L.append("logic, biopsy indication, benign reports, HGPIN, ASAP, pain and anaesthesia,")
+L.append("preparation, post-biopsy warning signs, result interpretation, and shared")
+L.append("decision-making), and generates one lay-language Chinese answer with a")
+L.append("safety-netting paragraph and an explicit referral to the treating clinician.")
+L.append("The mode is not part of the 2,240-run benchmark. Transcripts below are")
+L.append("verbatim; matched fact ids are shown per consultation.")
+L.append("")
+edu_dir = ROOT / "outputs" / "demo_cases" / "patient_edu"
+if edu_dir.exists():
+    for md in sorted(edu_dir.glob("patient_edu_q*.md")):
+        L.append(md.read_text(encoding="utf-8").rstrip())
+        L.append("")
+else:
+    L.append("(no patient-education transcripts found)")
+    L.append("")
+
 dest = OUT / "submission" / "supplementary.md"
 dest.write_text("\n".join(L) + "\n", encoding="utf-8")
 print("written", dest, len("\n".join(L)), "chars")

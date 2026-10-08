@@ -28,7 +28,7 @@ A four-expert blinded face-validity review (5 composite propositions, two-part b
 ```
 configs/            rules.yaml (16 rules), prompts.yaml, author_info.yaml
 src/probiopsy_rag_agent/   pipeline, rule engine, LightRAG adapter, LLM/embedding clients, schemas
-app/streamlit_app.py       interactive interface v3: 项目介绍 · 智能问答（证据编号溯源）·
+app/streamlit_app.py       interactive interface v3: 项目介绍 · 智能问答（医生循证/患者教育双模式，证据编号溯源）·
                            决策评估（三层耗时/置信度仪表盘/引用溯源）· 知识图谱浏览器（pyvis）·
                            基准结果仪表盘
 scripts/            build & run & evaluate pipeline (see below)

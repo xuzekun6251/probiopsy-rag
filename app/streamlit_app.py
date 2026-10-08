@@ -512,10 +512,90 @@ def _build_grounded_prompt(question: str, hits, graph_ctx: str) -> tuple[str, li
     return prompt, meta
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# Patient-education mode (chat tab) — curated, source-traceable fact base
+# ─────────────────────────────────────────────────────────────────────────────
+PATIENT_FACTS_CSV = PROJECT_ROOT / "data" / "seed" / "patient_education_facts.csv"
+
+PATIENT_SYSTEM = (
+    "You are the patient-education voice of QianLieAnHui, a decision-support agent for the "
+    "prostate biopsy pathway. You are speaking to a patient or family member, NOT a clinician. "
+    "Answer in simple, warm Chinese: lay language, short sentences, explain every medical term "
+    "in one short sentence. Ground every factual claim ONLY in the 【患者教育要点】 fact entries "
+    "and 【证据】 blocks provided below; never invent statistics, percentages or study results. "
+    "Structure the answer as: (1) a direct answer to the question in 2-4 short numbered points; "
+    "(2) a short paragraph starting with '什么情况要及时就医：' using the safety-netting advice "
+    "from the fact entries; (3) one closing sentence advising the patient to discuss their own "
+    "case with the treating urologist. Do NOT issue an action verdict, drug dose, or schedule "
+    "that is not in the materials. Cite fact ids in square brackets like [edu_negative_result] "
+    "and evidence tags like [证据N] for claims taken from the materials."
+)
+
+
+@st.cache_data(show_spinner=False)
+def _load_patient_facts() -> list[dict]:
+    if not PATIENT_FACTS_CSV.exists():
+        return []
+    with PATIENT_FACTS_CSV.open(encoding="utf-8-sig") as fh:
+        return list(csv.DictReader(fh))
+
+
+def _match_patient_facts(question: str, facts: list[dict], cap: int = 3) -> list[dict]:
+    """Keyword-overlap matcher; returns matched facts best-first with hit counts."""
+    q = (question or "").lower()
+    scored = []
+    for f in facts:
+        kws = [k.strip().lower() for k in
+               ((f.get("zh_keywords") or "") + "|" + (f.get("en_keywords") or "")).split("|")
+               if k.strip()]
+        hits = [k for k in kws if k in q]
+        if hits:
+            scored.append({"hits": len(hits), "matched": hits, **f})
+    scored.sort(key=lambda f: -f["hits"])
+    return scored[:cap]
+
+
+def _build_patient_prompt(question: str, matched: list[dict], hits, graph_ctx: str) -> str:
+    parts = []
+    if matched:
+        fact_blocks = []
+        for i, f in enumerate(matched, 1):
+            fact_blocks.append(
+                f"【患者教育要点{i}】[{f['fact_id']}] {f['topic_en']} / {f['topic_zh']}\n"
+                f"核心解释：{f['lay_explanation_en']}\n"
+                f"就医提示（safety-netting）：{f['safety_netting_en']}\n"
+                f"来源：{f['sources']}")
+        parts.append("【Patient-education fact entries (curated, source-traceable)】\n"
+                     + "\n\n".join(fact_blocks))
+    blocks = []
+    for i, r in enumerate(hits, 1):
+        ch = r.chunk
+        blocks.append(f"【证据{i}】({ch.chunk_id} | {ch.source_locator})\n{ch.text}")
+    if blocks:
+        parts.append("【Evidence blocks】\n" + "\n\n".join(blocks))
+    if graph_ctx.strip():
+        parts.append("【Knowledge-graph context (retrieval-only)】\n" + graph_ctx[:2500])
+    parts.append(f"【Patient question】\n{question}")
+    return "\n\n".join(parts)
+
+
 def chat_tab() -> None:
     st.header("💬 智能问答")
-    st.caption("检索 LightRAG 知识图谱（仅上下文模式）+ 实体加权词法检索（357 条 ProBIOPSY 证据块），"
-               "再由 GLM 单次生成回答；证据编号可溯源，不足时明说，不编造。")
+    mode = st.radio(
+        "咨询模式",
+        ["👨‍⚕️ 医生循证模式", "🧑‍⚕️ 患者教育模式"],
+        horizontal=True, key="chat_mode",
+        help="医生模式：面向临床决策的循证问答（默认）。患者模式：面向患者/家属的科普教育，"
+             "使用同一证据库 + 可溯源患者教育要点库，用通俗语言回答并给出就医提示。")
+    patient_mode = "患者" in mode
+
+    if patient_mode:
+        st.caption("患者教育模式：同一 357 条 ProBIOPSY 证据块检索 + 关键词匹配的《患者教育要点库》"
+                   "（每条要点附已验证来源），GLM 以通俗中文作答，不编造数字，必给就医提示。"
+                   "本模式不构成诊疗建议，具体诊疗请以主治医生意见为准。")
+    else:
+        st.caption("检索 LightRAG 知识图谱（仅上下文模式）+ 实体加权词法检索（357 条 ProBIOPSY 证据块），"
+                   "再由 GLM 单次生成回答；证据编号可溯源，不足时明说，不编造。")
 
     if not Path(INDEX_DIR).exists():
         st.error("🚫 LightRAG 索引未构建。请先执行 Phase 4 构建。")
@@ -528,13 +608,21 @@ def chat_tab() -> None:
         st.error("LightRAG 或 GLM 客户端初始化失败，请检查 .env。")
         return
 
-    example_qs = [
-        "What biopsy scheme does the ProBIOPSY consensus recommend for a unifocal "
-        "PI-RADS 4 lesion planned for focal therapy?",
-        "Is bpMRI acceptable as an alternative to mpMRI for prostate cancer diagnosis?",
-        "How many targeted cores should be taken per MRI lesion?",
-        "Should antibiotic prophylaxis be omitted for transperineal biopsy?",
-    ]
+    if patient_mode:
+        example_qs = [
+            "医生，我穿刺结果是良性的，是不是以后就不用管了，也不用再查PSA了？",
+            "我报告上写着非典型小腺泡增生（ASAP），这是什么意思？严重吗？",
+            "我很怕疼，所以一直不敢做前列腺穿刺，能不做吗？",
+            "穿刺后回家要注意什么？出现什么情况要马上就医？",
+        ]
+    else:
+        example_qs = [
+            "What biopsy scheme does the ProBIOPSY consensus recommend for a unifocal "
+            "PI-RADS 4 lesion planned for focal therapy?",
+            "Is bpMRI acceptable as an alternative to mpMRI for prostate cancer diagnosis?",
+            "How many targeted cores should be taken per MRI lesion?",
+            "Should antibiotic prophylaxis be omitted for transperineal biopsy?",
+        ]
     st.write("**示例问题**")
     eq = st.columns(2)
     for i, q in enumerate(example_qs):
@@ -557,6 +645,8 @@ def chat_tab() -> None:
                     st.caption(msg["latency"])
                 if show_evidence and msg.get("evidence"):
                     _render_chat_evidence(msg["evidence"])
+                if show_evidence and msg.get("facts"):
+                    _render_patient_facts(msg["facts"])
 
     question = st.session_state.pop("chat_pending", None) or st.chat_input(
         "向 agent 提问…（例如：bpMRI 能否替代 mpMRI 用于前列腺癌诊断？）")
@@ -568,7 +658,7 @@ def chat_tab() -> None:
         st.write(question)
 
     with st.chat_message("assistant"):
-        answer, meta, latency = "", [], ""
+        answer, meta, latency, facts_used = "", [], "", []
         with st.status("🧠 三层证据检索 + GLM 生成中…", expanded=False) as status:
             t0 = time.perf_counter()
             try:
@@ -580,8 +670,21 @@ def chat_tab() -> None:
                 hits = assets.store.retrieve(question, k=6)
                 t_lex = time.perf_counter() - t2
                 status.update(label=f"✍️ GLM 生成中（思考模型约 10–50s）…")
-                if not hits and not graph_ctx.strip():
+                if not hits and not graph_ctx.strip() and not (
+                        patient_mode and _load_patient_facts()):
                     answer = "知识库中未检索到与该问题相关的证据，无法回答。请尝试更具体的关键词。"
+                elif patient_mode:
+                    facts_used = _match_patient_facts(question, _load_patient_facts())
+                    prompt = _build_patient_prompt(question, facts_used, hits, graph_ctx)
+                    t3 = time.perf_counter()
+                    resp = llm.complete(prompt=prompt, system=PATIENT_SYSTEM)
+                    t_gen = time.perf_counter() - t3
+                    answer = resp.text if not resp.degraded else (
+                        "LLM 调用失败（限流/网络），请稍后重试。")
+                    latency = (f"⏱ 图谱检索 {t_graph:.1f}s · 词法检索 {t_lex:.2f}s · "
+                               f"GLM 生成 {t_gen:.1f}s · 共 {time.perf_counter() - t0:.1f}s"
+                               + (" · ⚠️ 降级输出" if resp.degraded else "")
+                               + (f" · 命中要点 {len(facts_used)} 条" if facts_used else " · ⚠️ 未命中教育要点"))
                 else:
                     prompt, meta = _build_grounded_prompt(question, hits, graph_ctx)
                     t3 = time.perf_counter()
@@ -610,9 +713,20 @@ def chat_tab() -> None:
             st.caption(latency)
         if show_evidence and meta:
             _render_chat_evidence(meta)
+        if show_evidence and facts_used:
+            _render_patient_facts(facts_used)
 
     st.session_state["chat_messages"].append(
-        {"role": "assistant", "content": answer, "evidence": meta, "latency": latency})
+        {"role": "assistant", "content": answer, "evidence": meta,
+         "facts": facts_used, "latency": latency})
+
+
+def _render_patient_facts(facts: list[dict]) -> None:
+    with st.expander(f"🧑‍⚕️ 已匹配的患者教育要点（{len(facts)} 条，来源可溯源）"):
+        for f in facts:
+            st.markdown(
+                f"**[{f['fact_id']}]** {f['topic_zh']} — 来源：`{f['sources']}` "
+                f"（命中关键词：{'、'.join(f['matched'])}）")
 
 
 def _render_chat_evidence(meta: list[dict]) -> None:

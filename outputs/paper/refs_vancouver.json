@@ -209,5 +209,13 @@
   "yaoshi_rag": {
     "doi": "10.2196/75279",
     "text": "Sha H, Gong F, Liu B, Liu R, Wang H, Wu T. Leveraging Retrieval-Augmented Large Language Models for Dietary Recommendations With Traditional Chinese Medicine’s Medicine Food Homology: Algorithm Development and Validation. JMIR Med Inform. 2025;13:e75279-e75279. https://doi.org/10.2196/75279"
+  },
+  "hgpin_bju_2022": {
+    "doi": "10.1111/bju.15568",
+    "text": "Morote J, Schwartzmann I, Celma A, et al. The current recommendation for the management of isolated high‐grade prostatic intraepithelial neoplasia. BJU International. 2021;129(5):627-633. https://doi.org/10.1111/bju.15568"
+  },
+  "asap_rate_2024": {
+    "doi": "10.1159/000535123",
+    "text": "Ji WT, Jin XF, Wang Y. The Rate of Clinically Significant Prostate Cancer on Repeat Biopsy after a Diagnosis of Atypical Small Acinar Proliferation: A Systematic Review and Meta-Analysis. Oncology. 2023;102(7):631-640. https://doi.org/10.1159/000535123"
   }
 }

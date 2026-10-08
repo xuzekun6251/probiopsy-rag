@@ -76,6 +76,9 @@ REFDB = {
     "lightrag":          {"text": "Guo Z, Xia L, Yu Y, Ao T, Huang C. LightRAG: simple and fast retrieval-augmented generation. arXiv:2410.05779, 2024 (verified against arXiv listing)."},
     "graphrag":          {"text": "Edge D, Trinh H, Cheng N, et al. From local to global: a Graph RAG approach to query-focused summarization. arXiv:2404.16130, 2024 (verified via arXiv API)."},
     "zenodo_deposit":    {"text": "XU Z. QianLieAnHui (probiopsy-rag): a hybrid rule-engine, knowledge-graph, and LLM-arbitration decision-support system for the prostate biopsy pathway, validated against the ProBIOPSY consensus [software, version v1.0.1]. Zenodo. 2026. https://doi.org/10.5281/zenodo.22898439 (verified via DataCite API)."},
+    # --- patient-education layer (PMID-verified 2026-10-09 via PubMed E-utilities) ---
+    "hgpin_bju_2022":    {"doi": "10.1111/bju.15568"},  # BJU Int 2022, PMID 34375498, isolated HGPIN management
+    "asap_rate_2024":    {"doi": "10.1159/000535123"},  # Oncology 2024, PMID 38061334, csPCa rate after ASAP
 }
 
 MARKER = re.compile(r"\[@((?:@?[a-z0-9_]+)(?:;@?[a-z0-9_]+)*)\]")

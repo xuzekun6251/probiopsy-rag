@@ -17,7 +17,7 @@ We are pleased to submit our manuscript, "QianLieAnHui: development and benchmar
 
 **Novelty.** Beyond reporting scores, we isolate *where* the performance comes from: retrieval-augmented baselines structurally collapse onto frequent action classes (the nuanced conditional class was actively emitted in 0.8% of 1,120 baseline runs versus 17.0% for our system), and upgrading the generator tier does not rescue them (naive-RAG exact-5 fell 0.605 → 0.538 with the flagship tier). Architecture — rule-level priors and mechanically enforced hard constraints — is the dominant lever, not model scale.
 
-**Fit.** Every output traces to numbered consensus statements and evidence chunks, and the system's rule-file/index integrity is version-locked — properties directly relevant to clinical governance of AI tools, a standing interest of your readership.
+**Fit.** Every output traces to numbered consensus statements and evidence chunks, and the system's rule-file/index integrity is version-locked — properties directly relevant to clinical governance of AI tools, a standing interest of your readership. Beyond clinician-facing decisions, a patient-facing education mode reuses the same audited evidence chain — with a curated, source-traceable fact base — to answer in lay language the questions patients most often ask: benign reports, HGPIN and ASAP, pain and anaesthesia, and post-biopsy warning signs.
 
 **Declarations:**
 - All authors have read and approved the manuscript.

@@ -32,3 +32,8 @@ outputs/paper/*.pdf
 .DS_Store
 Thumbs.db
 outputs/phase4_build_log.txt 
+ 
+# Session/working noise 
+.zcode/ 
+outputs/_push_retry_log.txt 
+outputs/submission/~$*.docx

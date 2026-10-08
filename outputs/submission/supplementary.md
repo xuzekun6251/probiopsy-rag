@@ -223,7 +223,7 @@ Q57 (median 8, consensus agree) endorses reducing systematic biopsy to max 6 cor
 - **route_anaesthesia_prophylaxis** (high) — Default to d_route_transperineal. Use periprostatic nerve block for either route. If the patient carries infection_risk_factor (Q62 catalogue) and a transrectal route is unavoidable, give augmented antibiotic prophylaxis (report as majority position); antibiotic omission is acceptable only for transperineal biopsy without risk factors. *[citations: 10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q58-Q63); 10.1016/j.euo.2026.01.009 (Marra et al., Eur Urol Oncol 2026 — transperineal versus transrectal prostate biopsy: systematic review and meta-analysis of RCTs)]*
   - HARD: the consensus ENDORSES 'd_omit_abx_tp_no_risk' (Omit antibiotic prophylaxis for transperineal biopsy unless infection risk factors present) — do not reject it outright.
   - HARD: the consensus ENDORSES 'd_route_transperineal' (Use transperineal approach as standard route) — do not reject it outright.
-- **PF-unfit_for_curative_treatment** (medium) —  *[10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statement Q57 — patient-factor escalation of the reduced-systematic-scheme rule]*
+- **PF-unfit_for_curative_treatment** (medium) —  *[citations: ]*
   - HARD: the consensus ENDORSES 'd_sbx_reduced_6core_advanced' (Reduce SBx to max 6 cores for suspected locally advanced disease, PSA>50, or unfit for curative treatment) — do not reject it outright.
 
 ### Evidence grounding
@@ -265,9 +265,9 @@ Q58 SOQ consensus (97%) endorses the transperineal route as standard; hard const
 
 - **route_anaesthesia_prophylaxis** (high) — Default to d_route_transperineal. Use periprostatic nerve block for either route. If the patient carries infection_risk_factor (Q62 catalogue) and a transrectal route is unavoidable, give augmented antibiotic prophylaxis (report as majority position); antibiotic omission is acceptable only for transperineal biopsy without risk factors. *[citations: 10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q58-Q63); 10.1016/j.euo.2026.01.009 (Marra et al., Eur Urol Oncol 2026 — transperineal versus transrectal prostate biopsy: systematic review and meta-analysis of RCTs)]*
   - HARD: the consensus ENDORSES 'd_route_transperineal' (Use transperineal approach as standard route) — do not reject it outright.
-- **PF-immunocompromised_or_infection_history** (high) —  *[10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q58-Q63 — patient-factor escalation of the route/anaesthesia/prophylaxis rule]*
+- **PF-immunocompromised_or_infection_history** (high) —  *[citations: ]*
   - HARD: the consensus ENDORSES 'd_route_transperineal' (Use transperineal approach as standard route) — do not reject it outright.
-- **PF-repeat_biopsy_setting** (medium) —  *[10.1016/j.eururo.2026.06.012 (ProBIOPSY consensus, Eur Urol 2026; statements Q58, Q62 — repeat-biopsy setting; patient-factor escalation]*
+- **PF-repeat_biopsy_setting** (medium) —  *[citations: ]*
   - HARD: the consensus ENDORSES 'd_route_transperineal' (Use transperineal approach as standard route) — do not reject it outright.
 
 ### Evidence grounding
@@ -325,4 +325,97 @@ agreement statistics interpreted as preliminary. Full questionnaire:
 - Expert 1, case1_unifocal_scheme (rated conditional): 如果后续患者不做前列腺根治性切除术，而选择内放疗或者不可逆电穿孔手术，则需要明确是否确实是单发病灶。如果是多发病灶，则系统穿刺可以协助明确肿瘤具体位置
 - Expert 1, case2_psma_pet_upfront (rated report_option): 如果这名患者TPSA非常高，比如＞100ng/ml，很可能已经发生淋巴结转移或者骨转移，则应该考虑将PSMA PET-CT代替增强MR作为前列腺穿刺前的影像学检查。因为这类患者在穿刺病例证实为前列腺癌以后，绝对有必要探明有无前列腺癌局部或远处转移
 - Expert 2, case1_unifocal_scheme (rated conditional): 是否增加系统穿刺，需要考虑患者手术方案的选择
+
+## S7. Patient-education mode: verbatim consultations
+
+**Design.** The education mode reuses the frozen 357-chunk benchmark corpus
+and knowledge-graph retrieval (context-only), keyword-matches the patient's
+question against a curated, source-traceable patient-education fact base
+(`data/seed/patient_education_facts.csv`, ten entries covering biopsy sampling
+logic, biopsy indication, benign reports, HGPIN, ASAP, pain and anaesthesia,
+preparation, post-biopsy warning signs, result interpretation, and shared
+decision-making), and generates one lay-language Chinese answer with a
+safety-netting paragraph and an explicit referral to the treating clinician.
+The mode is not part of the 2,240-run benchmark. Transcripts below are
+verbatim; matched fact ids are shown per consultation.
+
+## Patient consultation 1 (verbatim)
+
+**Patient question (Chinese):** 医生，我穿刺结果是良性的，是不是以后就不用管了，也不用再查PSA了？
+
+**Matched fact entries:** edu_negative_result, edu_biopsy_sampling — sources: probiopsy (ProBIOPSY consensus, Chernysheva et al., Eur Urol 2026); eau_guideline (EAU Prostate Cancer Guidelines, uroweb.org, living guideline); borghesi_comp (Borghesi et al., complications after prostate biopsy, Eur Urol 2017); probiopsy (ProBIOPSY consensus, Chernysheva et al., Eur Urol 2026); eau_guideline (EAU Prostate Cancer Guidelines, uroweb.org, living guideline)
+
+**Retrieval:** 6 evidence chunks (frozen benchmark corpus) + knowledge-graph context (context-only mode)
+
+**Agent answer (Chinese, verbatim):**
+
+您好，先说结论：穿刺报告是良性的确是个好消息，但“良性”不等于“以后就不用管了”。
+
+1. 良性结果的意思是：这次取出来的那些组织样本里，没有发现癌细胞。它不代表前列腺一辈子都不会长癌 [edu_negative_result]。
+2. 穿刺是一种“抽样”检查：医生用很细的针，从前列腺里取出少量组织条，由病理科医生放在显微镜下看。它只能检查取到的那一部分，看不了整个前列腺，所以结果正常也不能百分之百排除癌症 [edu_biopsy_sampling]。
+3. 又小、又藏得深的肿瘤有可能没被针取到；还有些异常是以后才出现、或慢慢发展起来的 [edu_negative_result]。
+4. 所以PSA抽血检查（PSA就是“前列腺特异抗原”，一种通过验血反映前列腺情况的指标）和体格检查，还需要按泌尿科医生给您安排的时间继续做。医生有时还会参考“PSA密度”（PSA数值除以前列腺体积）这类指标，来判断要不要做进一步检查 [edu_negative_result][证据5]。如果医生仍然有怀疑，可能会建议做磁共振（MRI，一种给前列腺做详细成像、不用开刀的检查），或者再做一次穿刺 [edu_negative_result]。
+
+什么情况要及时就医：即使您自我感觉很好，也要按时复诊、按时抽血查PSA [edu_negative_result]。如果PSA又升高了，或者身体出现新的症状、新的不舒服，不要等到下一次预约的时间，请尽早联系您的主诊泌尿科医生 [edu_negative_result]。另外，如果您对报告内容或穿刺过程有任何不清楚的地方，也可以请医生把报告“一条一条、一针一针”地给您讲解 [edu_biopsy_sampling]。
+
+最后提醒一句：每个人的情况都不同，建议您带着穿刺报告，和您的主诊泌尿科医生一起商量出属于您自己的复查计划。
+
+**Timings:** graph 42.0s · lexical 0.00s · generation 48.4s
+
+## Patient consultation 2 (verbatim)
+
+**Patient question (Chinese):** 我报告上写着非典型小腺泡增生（ASAP），这是什么意思？严重吗？
+
+**Matched fact entries:** edu_asap — sources: asap_rate_2024 (clinically significant cancer on repeat biopsy after ASAP, Oncology 2024, doi:10.1159/000535123); eau_guideline (EAU Prostate Cancer Guidelines, uroweb.org, living guideline)
+
+**Retrieval:** 0 evidence chunks (frozen benchmark corpus) + knowledge-graph context (context-only mode)
+
+**Agent answer (Chinese, verbatim):**
+
+您好，别太紧张，我来用简单的话给您解释一下。
+
+**1. ASAP是什么意思？**
+ASAP的中文全称是“非典型小腺泡增生”。简单说：病理科医生（就是专门在显微镜下看组织的医生）在您的组织样本里，看到一小团长得不太正常的腺体（腺体是前列腺里负责分泌液体的小组织），它们“像”癌细胞，但因为取到的组织太少，还不能确定就是癌 [edu_asap]。
+
+**2. 严重吗？**
+它**不是癌症的诊断**，只是“怀疑但还没证实”。不过它确实需要重视：它和另一种叫“孤立性HGPIN”（高级别前列腺上皮内瘤变，一种异常但不是癌的改变）的情况不同，ASAP更要认真对待 [edu_asap]。
+
+**3. 为什么要重视？**
+因为有ASAP的人在再次活检（就是再做一次前列腺穿刺取组织）时，有相当一部分人会被查出“有临床意义的癌”——意思是需要治疗或密切关注的癌症 [edu_asap]。
+
+**4. 接下来一般会怎么做？**
+泌尿外科医生通常会建议尽早做一次重复活检，而且常常会配合MRI（磁共振检查，一种用磁场给前列腺拍详细图像的检查）来对准同一个部位，提高准确性 [edu_asap]。
+
+**什么情况要及时就医：**
+如果医生已经建议您做重复活检，请不要拖延，尽快安排；另外，如果您还没做过MRI，或者上次MRI是在这次活检之前做的，可以主动问一下医生：是否应该在重复活检之前，先做一次新的、更详细的mpMRI（多参数磁共振，一种能看得更清楚的前列腺磁共振检查）[edu_asap]。
+
+每个人的情况都不一样，建议您带着这份报告，和您的主诊泌尿外科医生详细商量属于您自己的下一步安排。
+
+**Timings:** graph 10.3s · lexical 0.00s · generation 27.2s
+
+## Patient consultation 3 (verbatim)
+
+**Patient question (Chinese):** 我很怕疼，所以一直不敢做前列腺穿刺，能不做吗？
+
+**Matched fact entries:** edu_biopsy_sampling, edu_pain_fear — sources: probiopsy (ProBIOPSY consensus, Chernysheva et al., Eur Urol 2026); eau_guideline (EAU Prostate Cancer Guidelines, uroweb.org, living guideline); probiopsy (ProBIOPSY consensus, Chernysheva et al., Eur Urol 2026); bryant_translate (TRANSLATE RCT, Bryant et al., Lancet Oncol); yang_tps_meta (transperineal vs transrectal RCT meta-analysis, Eur Urol Open Sci)
+
+**Retrieval:** 0 evidence chunks (frozen benchmark corpus) + knowledge-graph context (context-only mode)
+
+**Agent answer (Chinese, verbatim):**
+
+您好，特别理解您的担心，怕疼是人之常情。下面先直接回答您的问题：
+
+1. **怕疼很常见，也值得说出来。** 很多男士都有同样的顾虑，这不是难为情的事 [edu_pain_fear]。
+
+2. **穿刺通常会打麻药。** 医生一般会先做局部麻醉（就是让身体一小块区域暂时不疼的打药方式），常用的方法叫“前列腺周围神经阻滞”——把麻药打在前列腺周围神经旁边，让穿刺时不那么疼。不管是从直肠（肛门里面）进针，还是从会阴（阴囊和肛门之间的皮肤）进针，这都是标准做法；经会阴的穿刺甚至可以完全在局部麻醉下完成 [edu_pain_fear]。
+
+3. **大多数男性都能顺利完成。** 不舒服的感觉通常是一种短暂的压迫感，而不是尖锐的疼 [edu_pain_fear]。
+
+4. **关于“能不能不做”：** 穿刺是用细针取出几条很小的前列腺组织，由病理医生在显微镜下检查有没有癌细胞；只要取到的组织里有癌，就能确诊 [edu_biopsy_sampling]。但要注意：如果医生已经判断您需要做，却因为害怕一直拖着，可能会耽误一个本来有机会治愈的癌症的诊断 [edu_pain_fear]。所以“做不做”这件事，请一定和医生一起商量，而不是自己默默决定不做。
+
+什么情况要及时就医：请在穿刺之前就把怕疼告诉治疗团队，这样麻醉方案可以提前安排好；如果恐惧让您觉得难以承受，请一定说出来——这是医疗上需要认真对待的事，不是丢人的事，必要时还可以安排镇静（用药物帮助您放松）或者加用局部麻醉 [edu_pain_fear]。另外，如果您对穿刺的流程或报告有任何不清楚的地方，请直接请主管的泌尿科医生逐条给您讲解 [edu_biopsy_sampling]。
+
+每个人的情况都不一样，建议您带着自己的检查结果和顾虑，和主治的泌尿科医生当面商量最适合您的方案。
+
+**Timings:** graph 15.4s · lexical 0.00s · generation 27.4s
 
