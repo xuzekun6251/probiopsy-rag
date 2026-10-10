@@ -68,9 +68,9 @@ def fig1() -> None:
     BADGE = {"rules": "#4E80C8", "kg": "#3E9B7C", "llm": "#C99237"}
     INK = "#44566B"        # softened arrow ink
 
-    fig, ax = plt.subplots(figsize=(7.2, 4.42))
+    fig, ax = plt.subplots(figsize=(7.2, 5.36))
     ax.set_xlim(0, 100)
-    ax.set_ylim(0, 61)
+    ax.set_ylim(-13, 61)
     ax.axis("off")
     ax.set_position([0.0, 0.0, 1.0, 1.0])  # axes fills figure → 1 x-unit = 0.072 in
     # (default subplot margins would make fit_all's unit math wrong by ~29%)
@@ -123,7 +123,7 @@ def fig1() -> None:
         import os
         renderer = fig.canvas.get_renderer()
         x_in = 7.2 / 100    # inches per x-unit
-        y_in = 4.42 / 61    # inches per y-unit
+        y_in = 5.36 / 74    # inches per y-unit
         for _ in range(5):
             worst = 1.0
             for t, mw, mh in measured:
@@ -292,35 +292,64 @@ def fig1() -> None:
         max_w=13.6)
 
     # ── bottom strip: multi-seed benchmark ───────────────────────────────
-    ax.add_patch(Rectangle((2.2, 3.4), 3.2, 4.4, fc="white", ec=NAVY,
+    ax.add_patch(Rectangle((2.2, -9.6), 3.2, 4.4, fc="white", ec=NAVY,
                            lw=0.9, zorder=3))
-    ax.add_patch(Rectangle((3.1, 7.8), 1.4, 1.0, fc=NAVY, ec=NAVY, zorder=3))
-    for dy in (6.3, 5.3, 4.3):
+    ax.add_patch(Rectangle((3.1, -5.2), 1.4, 1.0, fc=NAVY, ec=NAVY, zorder=3))
+    for dy in (-6.7, -7.7, -8.7):
         ax.plot([3.0, 4.6], [dy, dy], color="#A9C4E4", lw=0.9, zorder=4)
-    txt(3.8, 2.2, "gold", fs=5.0, color="#6B7280", max_w=6)
-    txt(6.0, 8.2, "Multi-method benchmark", fs=6.2, weight="bold",
+    txt(3.8, -10.8, "gold", fs=5.0, color="#6B7280", max_w=6)
+    txt(6.0, -4.8, "Multi-method benchmark", fs=6.2, weight="bold",
         color="#1F2937", ha="left", max_w=17.0)
-    txt(6.0, 6.2, "112 statements × 4 methods", fs=5.2, color="#4B5563",
+    txt(6.0, -6.8, "112 statements × 4 methods", fs=5.2, color="#4B5563",
         ha="left", max_w=17.0)
-    txt(6.0, 4.4, "× 5 seeds = 2,240 runs", fs=5.2, color="#4B5563",
+    txt(6.0, -8.6, "× 5 seeds = 2,240 runs", fs=5.2, color="#4B5563",
         ha="left", max_w=17.0)
-    seg([(24.2, 6.2), (25.6, 6.2)], ms=10)
+    seg([(24.2, -6.8), (25.6, -6.8)], ms=10)
     chips = [("rule gate", "#7FA6DE", "#4E80C8", 29.5),
              ("RAG", "#6FBFA4", "#3E9B7C", 38.5),
              ("LLM", "#DFAE55", "#C99237", 46.5)]
     for lab, border, tcol, cx in chips:
-        rbox(cx - 3.6, 4.6, 7.2, 3.2, "white", border, lw=1.0, rs=0.9)
-        txt(cx, 6.2, lab, fs=6.0, weight="bold", color=tcol, max_w=6.2)
-    txt(38.0, 3.0, "architectures under test (generator held fixed)",
+        rbox(cx - 3.6, -8.4, 7.2, 3.2, "white", border, lw=1.0, rs=0.9)
+        txt(cx, -6.8, lab, fs=6.0, weight="bold", color=tcol, max_w=6.2)
+    txt(38.0, -10.0, "architectures under test (generator held fixed)",
         fs=5.0, color="#6B7280", max_w=26)
-    seg([(50.4, 6.2), (52.1, 6.2)], ms=10)
-    rbox(52.6, 3.2, 45.4, 7.2, NAVY, NAVY, lw=0, rs=1.2)
-    txt(75.3, 8.7, "exact-5 0.805 ± 0.012 · Cohen's κ 0.730 · against-F1 0.908",
+    seg([(50.4, -6.8), (52.1, -6.8)], ms=10)
+    rbox(52.6, -9.8, 45.4, 7.2, NAVY, NAVY, lw=0, rs=1.2)
+    txt(75.3, -4.3, "exact-5 0.805 ± 0.012 · Cohen's κ 0.730 · against-F1 0.908",
         fs=6.2, color="white", weight="bold", max_w=43.0)
-    txt(75.3, 6.4, "+19.2 pts exact-5 vs strongest baseline", fs=5.2,
+    txt(75.3, -6.6, "+19.2 pts exact-5 vs strongest baseline", fs=5.2,
         color="#C9D7E6", max_w=43.0)
-    txt(75.3, 4.6, "architecture — not generator tier — is the dominant lever",
+    txt(75.3, -8.4, "architecture — not generator tier — is the dominant lever",
         fs=5.2, color="#C9D7E6", max_w=43.0)
+
+    # ── second runtime mode: patient-facing education (qualitative) ──────
+    seg([(39.0, 15.0), (39.0, 7.2)], color="#8A94A6", lw=1.3,
+        ls=(0, (4, 2.2)))
+    txt(41.0, 12.7, "reuses the same frozen index (context-only retrieval)",
+        fs=5.0, color="#5B6B7E", ha="left", max_w=30)
+    rbox(1.0, 0.2, 98.0, 10.8, "#F6F2FB", "#B3A3D6", lw=1.1, rs=1.8, z=1)
+    txt(3.4, 9.7, "Patient-facing education mode", fs=6.8, weight="bold",
+        color="#6B4FA8", ha="left", max_w=32)
+    txt(3.4, 8.3, "second runtime mode — lay-language counselling (not benchmarked)",
+        fs=4.9, color="#6B7280", ha="left", max_w=36)
+    edu_boxes = [
+        (3.4, 14.6, "Patient question (lay)",
+         "“My biopsy was benign —\ncan I stop follow-up?”"),
+        (21.0, 24.5, "Keyword-matched curated fact base",
+         "10 lay-language entries, every claim\nsource-traceable (consensus + guidelines)"),
+        (48.5, 25.0, "Lay-language generation (same GLM)",
+         "numbered points · safety netting ·\nreferral to the treating urologist"),
+        (76.5, 21.0, "Plain-language answer",
+         "fact citations [edu-*] ·\nno invented statistics"),
+    ]
+    for i, (bx, bw, head, sub) in enumerate(edu_boxes):
+        rbox(bx, 2.6, bw, 4.6, "white", "#C9BBE3", lw=0.9, rs=0.9)
+        txt(bx + bw / 2, 6.1, head, fs=5.6, weight="bold", color="#6B4FA8",
+            max_w=bw - 2.2)
+        txt(bx + bw / 2, 4.1, sub, fs=4.9, color="#4B5563",
+            max_w=bw - 2.2, max_h=2.5)
+        if i:
+            seg([(bx - 3.0, 4.9), (bx, 4.9)], lw=1.3, ms=9)
 
     fit_all()
     _export(fig, "figure1_architecture")
