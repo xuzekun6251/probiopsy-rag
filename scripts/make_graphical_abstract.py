@@ -2,8 +2,9 @@
 """Graphical abstract for QianLieAnHui (EuOS submission).
 
 Visual language matches figure1 v4 (muted NMI pastel, fit-to-box text).
-Canvas 100 x 40 units at 6.33 x 2.53 in -> 1900 x 760 px @300 dpi (2.5:1,
-proportional to Elsevier's 531 x 1328 px h x w minimum).
+Canvas 100 x 46.5 units at 6.33 x 2.94 in -> 1900 x 883 px @300 dpi.
+Dual runtime modes: clinician decision support (main band) + patient-facing
+education (violet strip), above the benchmark strip.
 Outputs: outputs/submission/graphical_abstract.{png,svg,pdf}
 """
 import io
@@ -33,12 +34,12 @@ REGION = {"rules": ("#F0F5FD", "#7FA6DE"), "kg": ("#EBF7F2", "#6FBFA4"),
 BADGE = {"rules": "#4E80C8", "kg": "#3E9B7C", "llm": "#C99237"}
 INK = "#44566B"
 
-W_IN, H_IN = 6.33, 2.53
-W_U, H_U = 100.0, 40.0
+W_IN, H_IN = 6.33, 2.94
+W_U, H_U = 100.0, 46.5
 
 fig, ax = plt.subplots(figsize=(W_IN, H_IN))
 ax.set_xlim(0, W_U)
-ax.set_ylim(0, H_U)
+ax.set_ylim(-6.5, H_U)
 ax.axis("off")
 ax.set_position([0.0, 0.0, 1.0, 1.0])
 
@@ -161,12 +162,32 @@ txt(82.8, 13.2, "every verdict ↔ consensus statements + evidence chunks",
 seg([(18.0, 21.0), (20.8, 21.0)])
 seg([(63.2, 21.0), (66.3, 21.0)])
 
+# ── patient-education strip (second runtime mode) ───────────────────────────
+rbox(1.0, 0.8, 98.0, 6.2, "#F6F2FB", "#B3A3D6", lw=1.1, rs=1.2)
+txt(3.4, 6.0, "Patient-facing education mode — same evidence base · lay "
+    "language · safety netting", fs=6.8, weight="bold", color="#6B4FA8",
+    ha="left", max_w=48)
+txt(97.6, 6.0, "second runtime mode — qualitative, not benchmarked",
+    fs=5.2, color="#6B7280", ha="right", max_w=40)
+edu_boxes = [
+    (3.4, "Patient question\n(lay language)"),
+    (27.9, "Keyword-matched\ncurated fact base"),
+    (52.4, "Lay-language generation\n(same GLM, safety netting)"),
+    (76.9, "Plain-language answer\n[edu-*] citations"),
+]
+for i, (bx, lab) in enumerate(edu_boxes):
+    rbox(bx, 1.6, 21.5, 3.6, "white", "#C9BBE3", lw=0.9, rs=0.9)
+    txt(bx + 10.75, 3.4, lab, fs=5.6, weight="bold", color="#6B4FA8",
+        max_w=19.5)
+    if i:
+        seg([(bx - 3.0, 3.4), (bx, 3.4)], lw=1.3, ms=9)
+
 # ── results strip (bottom) ───────────────────────────────────────────────────
-rbox(1.0, 1.0, 98.0, 5.2, NAVY, NAVY, lw=0, rs=1.0)
-txt(50, 4.4, "Benchmark: 2,240 runs (4 architectures × 5 seeds × 112 ProBIOPSY "
+rbox(1.0, -6.2, 98.0, 5.2, NAVY, NAVY, lw=0, rs=1.0)
+txt(50, -3.1, "Benchmark: 2,240 runs (4 architectures × 5 seeds × 112 ProBIOPSY "
     "statements, generator held fixed)", fs=6.6, color="white", weight="bold",
     max_w=94)
-txt(50, 2.3, "exact-5 0.805 ± 0.012 · Cohen's κ 0.730 · against-F1 0.908 "
+txt(50, -5.2, "exact-5 0.805 ± 0.012 · Cohen's κ 0.730 · against-F1 0.908 "
     "(+19.2 pts vs strongest baseline) — architecture, not generator tier, "
     "is the dominant lever", fs=6.0, color="#C9D7E6", max_w=94)
 
