@@ -137,6 +137,7 @@ The system is implemented in Python 3.13 on lightrag-hku 1.5.7. The rule base, b
 All 2,240 runs (4 methods × 5 seeds × 112 statements) completed successfully with zero errors and zero degraded outputs. Table 3 reports the performance matrix; Figure 2 shows per-seed distributions.
 
 **Table 3.** Benchmark performance matrix: mean ± SD over five seeds (560 runs per method; 2,240 total). Context = mean retrieved characters per run.
+**Table 4.** Gold-standard domain × action distribution across the 112 final statements (indication 23, procedure 34, treatment planning 55; against class 25 statements, 22.3% overall).
 
 | method | exact5 | exact3 | macro_f1 | cohens_kappa | against_sensitivity | against_specificity | against_f1 | mean_context_chars |
 |---|---|---|---|---|---|---|---|---|
@@ -237,7 +238,7 @@ No patient data or biological samples were involved. The evidence corpus and gol
 
 **Figure 4.** Demonstration cases. **(a)** Consensus rules fired per case, coloured by recommended action. **(b)** Evidence corpus composition (112 consensus statements, 218 literature entries, 20 narrative passages, 7 systematic-review summaries).
 
-**Figure 5.** Runtime and knowledge-graph statistics. **(a)** End-to-end latency per demonstration case (log scale), split into the rule-engine layer (red) and the remaining pipeline (grey). **(b)** Top-12 knowledge-graph edge weights by relation type.
+**Figure 5.** Runtime and knowledge-graph statistics. **(a)** Decision-pass latency per demonstration case (log scale): the rule-engine layer (blue) versus retrieval + arbitration (yellow). **(b)** Strongest knowledge-graph relations: the top-12 of 3,078 edges by relation weight.
 
 ## Acknowledgments
 

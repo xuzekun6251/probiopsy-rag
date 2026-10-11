@@ -24,32 +24,32 @@
 
 # 引言 (Introduction)
 
-> 中文工作稿（Writer Phase 7_3；2026-10-11 引言整体替换为去重润色版）。引用骨架见文末参考文献（全部经 ≥2 独立数据源核验；编号为本稿骨架编号，与英文稿 manuscript.en.md 编号不同）。
+> 中文工作稿（Writer Phase 7_3；2026-10-11 引言整体替换为去重润色版）。2026-10-12：12 条参考文献经 Crossref/arXiv API 逐条复核，更正 MIRAGE（DOI 与页码，原误作 2024.findings-acl.37/633-54）与 PI-RADS v2.1（第一作者，原误作 Weinreb）两处条目错误，并按正文首次出现次序重新编号；编号为本稿编号，与英文稿 manuscript.en.md 不同。
 
 穿刺活检的当代目标是一个三难权衡：提高临床显著前列腺癌（clinically significant prostate cancer, csPCa）的检出、控制穿刺相关并发症、避免对低获益人群的过度穿刺。三项指标此消彼长，而穿刺本身又是多步骤、高度依赖术者主观判断的过程：系统穿刺与 MRI 靶向穿刺如何组合、是否饱和、经会阴抑或经直肠入路，目前均无唯一答案。ProBIOPSY 国际共识对这些决策点逐一表决，同时记录了各国各中心间显著的实践差异（Chernysheva 等，Eur Urol 2026）[1]。标准化的缺口是真实的，而且精确地落在每一个决策点上。
 
 患者侧的困难同样制约着穿刺路径的效率。医疗资源分布不均、部分患者缺少可靠的信息渠道、健康素养参差不齐，使一部分本应尽快穿刺的可疑前列腺癌患者在"建议"与"治疗"之间滞留。此时患者面临双重不利：疾病本身带来高度的不确定与脆弱，而支撑决策的关键信息，即穿刺为什么必要、报告如何解读、下一步意味着什么，又以专业语言写成。弥合这一鸿沟的常规途径是医患沟通，但这类对话耗时且难以计价，在紧凑的门诊议程中经常让位于优先级更高的诊疗任务；当医疗资源紧张时，它往往第一个被划去。结果是：最终承担决策的患者，得不到与决策相称的教育支持。
 
-新兴证据显示，大语言模型能够就前列腺穿刺活检与前列腺癌相关问题给出高质量、具备临床相关性的回答（如基于电子病历系统个性化前列腺癌患者教育的 LLM 智能体研究 [12]）。但放到患者教育这一具体任务上，通用 LLM 存在四重落差 [5-7]：知识可能失真（幻觉），结论无法回溯到指南原文（不可溯源），语言对非专业读者不够友好（可读性），输出随提问方式波动（不稳定）。这些落差无法靠提示词修补，需要架构级对策：确定性约束防止越界输出，检索使结论可回溯，生成提示控制语言层级并明确安全边界。
+新兴证据显示，大语言模型能够就前列腺穿刺活检与前列腺癌相关问题给出高质量、具备临床相关性的回答（如基于电子病历系统个性化前列腺癌患者教育的 LLM 智能体研究 [2]）。但放到患者教育这一具体任务上，通用 LLM 存在四重落差 [3-5]：知识可能失真（幻觉），结论无法回溯到指南原文（不可溯源），语言对非专业读者不够友好（可读性），输出随提问方式波动（不稳定）。这些落差无法靠提示词修补，需要架构级对策：确定性约束防止越界输出，检索使结论可回溯，生成提示控制语言层级并明确安全边界。
 
-为弥合上述双重缺口，本研究基于 ProBIOPSY 国际共识（112 条最终陈述）[1] 构建了前列安汇（QianLieAnHui）决策支持智能体。系统由三层串联而成：16 条确定性规则（与 EAU、AUA/ASTRO 指南交叉核对）在机制上禁止与共识相悖的输出；LightRAG [10] 知识图谱与词法证据库构成双层检索，使每条建议都能回溯到编号证据；GLM 仲裁器在硬约束解码下输出五类可执行动作之一，并附陈述级引用。患者教育模式复用同一冻结证据基座，将患者提问与十条逐项可溯源的策展事实匹配，以通俗语言生成包含"何时须就医"安全提示的回答，并将患者引导回其主管医生。设计目标不是替代沟通，而是把重复性的解释工作从临床时间中卸载，把共同决策的时间留给真正需要权衡的决策；这对健康素养有限的患者尤为重要。
+为弥合上述双重缺口，本研究基于 ProBIOPSY 国际共识（112 条最终陈述）[1] 构建了前列安汇（QianLieAnHui）决策支持智能体。系统由三层串联而成：16 条确定性规则（与 EAU、AUA/ASTRO 指南交叉核对）在机制上禁止与共识相悖的输出；LightRAG [6] 知识图谱与词法证据库构成双层检索，使每条建议都能回溯到编号证据；GLM 仲裁器在硬约束解码下输出五类可执行动作之一，并附陈述级引用。患者教育模式复用同一冻结证据基座，将患者提问与十条逐项可溯源的策展事实匹配，以通俗语言生成包含"何时须就医"安全提示的回答，并将患者引导回其主管医生。设计目标不是替代沟通，而是把重复性的解释工作从临床时间中卸载，把共同决策的时间留给真正需要权衡的决策；这对健康素养有限的患者尤为重要。
 
 系统价值经两条独立线索初步验证：在 2,240 次运行的基准（4 种架构 × 5 个随机种子 × 112 条陈述）中，细粒度裁决准确率 exact-5 0.805±0.012、Cohen's κ 0.730、against-F1 0.908，较最强基线高 19.2 个百分点；患者教育模式经三例真实咨询完成定性演示（详见结果部分与补充材料 S7）。
 
-## 参考文献骨架（2026-09-18 已全部核验 DOI；[12] 于 2026-10-11 补充，沿用英文稿已核验条目）
+## 参考文献骨架（编号按正文首次出现次序；2026-10-12 经 Crossref/arXiv API 全部复核，更正两处条目）
 
-1. Chernysheva D, Di Bello F, Avesani G, et al. ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy. Eur Urol 2026;90(3):212–224. DOI: 10.1016/j.eururo.2026.06.012（Crossref 元数据核验，2026-09-22）
-2. European Association of Urology. EAU Guidelines on Prostate Cancer. Arnhem: EAU; 2026. https://uroweb.org/guidelines/prostate-cancer（活页指南，投稿时更新版本日期）
-3. Weinreb JC, Barentsz JO, Choyke PL, et al. PI-RADS Prostate Imaging — Reporting and Data System: Version 2.1: 2019. Eur Urol 2019;76:340-51. DOI: 10.1016/j.eururo.2019.02.033
-4. Sutton RT, et al. An overview of clinical decision support systems: benefits, risks, and strategies for success. NPJ Digit Med 2020;3:17. DOI: 10.1038/s41746-020-0221-y
-5. Thirunavukarasu AJ, et al. Large language models in medicine. Nat Med 2023;29:1930-40. DOI: 10.1038/s41591-023-02448-8
-6. Singhal K, et al. Large language models encode clinical knowledge. Nature 2023;620:172-80. DOI: 10.1038/s41586-023-06291-2
-7. Ji Z, et al. Survey of hallucination in natural language generation. ACM Comput Surv 2023;55(12):248. DOI: 10.1145/3571730
-8. Lewis P, et al. Retrieval-augmented generation for knowledge-intensive NLP tasks. NeurIPS 2020;33:9459-74.（经典文献，会议论文集页码）
-9. Xiong G, Jin Q, Lu Z, Zhang A. Benchmarking retrieval-augmented generation for medicine (MIRAGE). Findings of ACL 2024:633-54. DOI: 10.18653/v1/2024.findings-acl.37
-10. Guo Z, Xia L, Yu Y, Ao T, Huang C. LightRAG: Simple and Fast Retrieval-Augmented Generation. arXiv:2410.05779 (2024).（arXiv 直接核验）
-11. Edge D, et al. From Local to Global: A Graph RAG Approach to Query-Focused Summarization. arXiv:2404.16130 (2024).
-12. Hao Y, Holmes J, Waddle MR, et al. Personalizing prostate cancer education for patients using an EHR-integrated LLM agent. npj Digit Med 2025;8:770. DOI: 10.1038/s41746-025-02166-0（英文稿文献 36，已核验）
+1. Chernysheva D, Di Bello F, Avesani G, et al. ProBIOPSY: A Multidisciplinary International Consensus on Standards for Prostate Biopsy. Eur Urol 2026;90(3):212–224. DOI: 10.1016/j.eururo.2026.06.012（Crossref 元数据核验，2026-09-22；2026-10-12 复核）
+2. Hao Y, Holmes J, Waddle MR, et al. Personalizing prostate cancer education for patients using an EHR-integrated LLM agent. npj Digit Med 2025;8:770. DOI: 10.1038/s41746-025-02166-0（英文稿文献 36，2026-10-12 复核）
+3. Thirunavukarasu AJ, et al. Large language models in medicine. Nat Med 2023;29:1930-40. DOI: 10.1038/s41591-023-02448-8（2026-10-12 复核）
+4. Singhal K, et al. Large language models encode clinical knowledge. Nature 2023;620:172-80. DOI: 10.1038/s41586-023-06291-2（2026-10-12 复核）
+5. Ji Z, et al. Survey of hallucination in natural language generation. ACM Comput Surv 2023;55(12):248. DOI: 10.1145/3571730（2026-10-12 复核）
+6. Guo Z, Xia L, Yu Y, Ao T, Huang C. LightRAG: Simple and Fast Retrieval-Augmented Generation. arXiv:2410.05779 (2024).（arXiv 直接核验，2026-10-12 复核）
+7. Turkbey B, Rosenkrantz AB, Haider MA, et al. Prostate Imaging Reporting and Data System Version 2.1: 2019 Update of Prostate Imaging Reporting and Data System Version 2. Eur Urol 2019;76:340-51. DOI: 10.1016/j.eururo.2019.02.033（2026-10-12 更正第一作者：原误作 Weinreb JC；Weinreb 为 PI-RADS v2（2016）第一作者）
+8. European Association of Urology. EAU Guidelines on Prostate Cancer. Arnhem: EAU; 2026. https://uroweb.org/guidelines/prostate-cancer（活页指南，投稿时更新版本日期；2026-10-12 链接复核）
+9. Xiong G, Jin Q, Lu Z, Zhang A. Benchmarking retrieval-augmented generation for medicine (MIRAGE). Findings of ACL 2024:6233-6251. DOI: 10.18653/v1/2024.findings-acl.372（2026-10-12 更正 DOI 与页码：原误作 2024.findings-acl.37、633-54）
+10. Lewis P, et al. Retrieval-augmented generation for knowledge-intensive NLP tasks. NeurIPS 2020;33:9459-74.（arXiv:2005.11401，2026-10-12 复核）
+11. Edge D, et al. From Local to Global: A Graph RAG Approach to Query-Focused Summarization. arXiv:2404.16130 (2024).（arXiv 直接核验，2026-10-12 复核）
+12. Sutton RT, et al. An overview of clinical decision support systems: benefits, risks, and strategies for success. NPJ Digit Med 2020;3:17. DOI: 10.1038/s41746-020-0221-y（2026-10-12 复核）
 
 ---
 
@@ -79,12 +79,12 @@
 
 ### 输入层：双实体注册表
 
-- **Entity A（患者临床情境）注册表**：51 个情境原型，49 个独立情境标志位（flags），覆盖影像（PI-RADS 分级、mpMRI/bpMRI、磁场强度、PI-QUAL 质量）、实验室标志物（PSA、PSA 密度）、临床与病史（既往穿刺阴性、家族史、感染危险因素、抗凝）、治疗意图与资源可得性等 7 个类别；
+- **Entity A（患者临床情境）注册表**：51 个情境原型，49 个独立情境标志位（flags），覆盖影像（PI-RADS 分级[7]、mpMRI/bpMRI、磁场强度、PI-QUAL 质量）、实验室标志物（PSA、PSA 密度）、临床与病史（既往穿刺阴性、家族史、感染危险因素、抗凝）、治疗意图与资源可得性等 7 个类别（表 1）；
 - **Entity B（穿刺决策项）注册表**：54 个决策项，20 个决策标志位，覆盖适应证（22）、操作流程（22）、治疗规划衔接（10）三类。
 
 ### 第 1 层：确定性规则引擎
 
-规则库（`configs/rules.yaml`）含 16 条确定性规则：12 条共识规则（consensus rules）+ 4 条患者因素升级规则（patient-factor rules）。每条规则定义触发标志位组合（Entity A flags × Entity B flags）、严重度（high/medium/low）、机制类别（影像路径、穿刺方案选择、靶向穿刺、围术期、治疗规划衔接等）与推荐动作。规则匹配完全确定性、无需 LLM 参与，匹配成功时向下游输出硬约束（hard constraints，例如必须否决某选项或必须升级某操作），并全部携带 ProBIOPSY 陈述编号（Q 编号）溯源。患者因素规则在共识规则之上做情境升级（如感染危险因素→优先经会阴入路/强化预防；不适合根治治疗→简化穿刺方案）。
+规则库（`configs/rules.yaml`）含 16 条确定性规则：12 条共识规则（consensus rules）+ 4 条患者因素升级规则（patient-factor rules）。每条规则定义触发标志位组合（Entity A flags × Entity B flags）、严重度（high/medium/low）、机制类别（影像路径、穿刺方案选择、靶向穿刺、围术期、治疗规划衔接等）与推荐动作。规则匹配完全确定性、无需 LLM 参与，匹配成功时向下游输出硬约束（hard constraints，例如必须否决某选项或必须升级某操作），并全部携带 ProBIOPSY 陈述编号（Q 编号）溯源（表 2）。全部 16 条规则均已与 EAU 前列腺癌指南[8]及 AUA/ASTRO 指南在动作层面交叉核对，分歧处以 ProBIOPSY 共识为准并记录于规则的依据字段。患者因素规则在共识规则之上做情境升级（如存在感染危险因素时优先经会阴入路或强化预防，不适合根治治疗时简化穿刺方案）。
 
 ### 第 2 层：LightRAG 知识图谱证据检索
 
@@ -220,13 +220,13 @@ naive_rag 的 exact5 反而从 0.605 降到 0.538、κ 从 0.512 降到 0.450：
 
 规则层之所以能补上生成模型的这个缺口，是因为十六条共识规则先以确定性的类别先验提示仲裁器在何种患者条件下必须收窄承诺，再以硬约束禁止一切缺乏规则或证据支撑的否决与支持，conditional 与 endorse_option 因此从基线运行中近乎绝迹的类别变成常规输出。换用更强的旗舰档生成器后，naive_rag 的 exact5 不升反降（从 0.605 降到 0.538），这从反面排除了"更强的生成能力可以自行补足"的可能，我们据此认为细粒度动作空间的表达能力是内建于架构的性质，而不是生成器的附带品。这种能力当然有代价：完整系统平均约 7,640 字符的上下文是最强基线的 3 倍，换来的是 +19.2 个百分点的 exact5；对成本敏感的场景，纯规则即可裁决的组合本可以经门控短路跳过图谱检索，把这部分开支再摊薄一些。
 
-放在现有文献里，本研究与医学 RAG 基准（如 MIRAGE[9]）回答的是两个不同的问题：前者衡量模型知道多少，我们衡量的是系统能否把一份共识执行成可审计的临床动作。检索增强生成确实能把输出锚定到外部语料[8]，但没有任何机制去拦截一条与指南相悖而措辞流畅的推荐，两个基线滥报反对和 conditional 静默的行为恰好为这个缺陷画了像。这也解释了 LightRAG[10] 在本架构中的位置：它专注承担证据引擎，分类和约束交给规则层；与传统规则型 CDSS[4] 相比，人工审计被压缩到小而关键的规则层面，长尾知识交由图谱。
+放在现有文献里，本研究与医学 RAG 基准（如 MIRAGE[9]）回答的是两个不同的问题：前者衡量模型知道多少，我们衡量的是系统能否把一份共识执行成可审计的临床动作。检索增强生成确实能把输出锚定到外部语料[10]，但没有任何机制去拦截一条与指南相悖而措辞流畅的推荐，两个基线滥报反对和 conditional 静默的行为恰好为这个缺陷画了像。这也界定了通用图检索方案（GraphRAG[11]、LightRAG[6]）在本架构中的位置：LightRAG 专注承担证据引擎，分类和约束交给规则层；与传统规则型 CDSS[12] 相比，人工审计被压缩到小而关键的规则层面，长尾知识交由图谱。
 
 基准之外，4 名未参与开发的专家的独立盲评提供了第二条证据，盲评关心的除了结论对不对，还有理由经不经得起复核：专家对组合命题的裁决与系统输出在全部 4 个有多数票的病例上一致（Cohen κ = 1.000，图 3），而在唯一平票的病例里，两位专家对"是否在靶向加病灶旁穿刺的基础上加做系统穿刺"持保留态度，他们援引的理由，即加做系统穿刺的增益取决于治疗意图是全腺还是局灶，与系统证据链引用的对侧系统穿刺检出率仅 0.3–4%（EV0024）实际上是同一件事。换句话说，系统给出的不是黑箱式的结论，而是能够被专家独立复核的推理材料。当然，专家间 Fleiss κ 为负属小样本下类别边际不均的已知伪影，Likert 评分又全部触顶，这条证据只能算初步支持，样本量的局限已在"限制"部分详述。
 
 对临床部署来说，我们认为最值得强调的是否决行为背后两类错误代价的不对称。在穿刺语境下，一次缺乏证据支撑的"支持"，可能意味着在影像质量不达标时贸然活检、对有感染危险因素的患者不加防范地行经直肠操作，或者按与治疗意图不相称的方案为规划局灶治疗的患者取材，后果直接落在并发症和治疗错配上；而一次保守的"反对"，至多多一次影像复查或多学科会诊。系统因此优先压低假阳性，specificity 0.986 正是"否决必须有规则或证据支撑"这一机制要求的自然结果，靠提示词调教很难稳定做到。除此之外，每条输出携带的陈述编号、触发规则与证据块编号让错误可以定位到具体证据，索引构建时记录的规则文件 SHA-256 和界面上的实时校验则防止知识库与规则库悄悄脱钩，这三件事合起来，临床治理审计才是纯 LLM 管线在机制上做不到的。
 
-穿刺路径的另一半在患者一侧。解释穿刺为什么必要、报告意味着什么，这类对话耗时且难以计价，在超负荷的门诊里最先被让位，而这一不对称正是教育型患者智能体的出发点（如基于电子病历的前列腺癌教育智能体[12]）。教育问答不需要五类动作的粒度，也就不必在生成层复制医生侧的硬约束，前列安汇的做法是复用同一冻结证据链，叠加十条逐项可溯源的事实库，以提示词要求通俗语言、禁止编造统计数字，并包含"什么时候必须就医"的安全网段落；内容对准的是门诊里最容易漏掉的要点，比如扩展穿刺方案下的孤立性 HGPIN 通常不需要早期重复穿刺、ASAP 后的重复穿刺因为相当比例能检出具临床意义的癌而不应推迟、良性报告绝不意味着随访终结。这个模式有意不输出动作裁决，只引用证据并把患者引回主管医生，让患者的回答也能像医生的裁决一样接受审计；目前它以三段逐字咨询完成了定性演示，可读性和效果评估还是未来工作。
+穿刺路径的另一半在患者一侧。解释穿刺为什么必要、报告意味着什么，这类对话耗时且难以计价，在超负荷的门诊里最先被让位，而这一不对称正是教育型患者智能体的出发点（如基于电子病历的前列腺癌教育智能体[2]）。教育问答不需要五类动作的粒度，也就不必在生成层复制医生侧的硬约束，前列安汇的做法是复用同一冻结证据链，叠加十条逐项可溯源的事实库，以提示词要求通俗语言、禁止编造统计数字，并包含"什么时候必须就医"的安全网段落；内容对准的是门诊里最容易漏掉的要点，比如扩展穿刺方案下的孤立性 HGPIN 通常不需要早期重复穿刺、ASAP 后的重复穿刺因为相当比例能检出具临床意义的癌而不应推迟、良性报告绝不意味着随访终结。这个模式有意不输出动作裁决，只引用证据并把患者引回主管医生，让患者的回答也能像医生的裁决一样接受审计；目前它以三段逐字咨询完成了定性演示，可读性和效果评估还是未来工作。
 
 沿此向前，通向临床试点的路径大体清楚：多中心扩展专家盲评、以真实病例开展前瞻注册研究、经 FHIR 对接 EMR、生成器本地化部署，以及在监督下评估教育模式的可读性、理解度和焦虑缓解。其中规则库向 EAU/AUA 指南其他章节的移植，意义超出本系统本身，因为它检验的是"陈述级共识可执行化"这套方法的普适性。ProBIOPSY[1] 只是第一个被操作化的共识，任何以明确陈述为终点的国际共识，原则上都可以经由"规则先验、证据检索、约束仲裁"的相同路径，从供人查阅的静态文本变成决策点上可执行、可审计的清单；如果后续的移植研究能够成立，这项工作留下的就不只是一个穿刺决策系统，更是一套把共识文本变成可审计软件的做法。
 
@@ -281,3 +281,23 @@ naive_rag 的 exact5 反而从 0.605 降到 0.538、κ 从 0.512 降到 0.450：
 - **表 2** 规则清单（outputs/tables/table2_rules.md）
 - **表 3** 性能矩阵（outputs/tables/table3_performance.md）
 - **表 4** 金标准领域×动作分布（outputs/tables/table4_validation.md）
+
+## 图注 (Figure legends)
+
+**图 1** 系统架构与基准设计。ProBIOPSY 共识语料（112 条终版陈述、357 个证据块、LightRAG 索引 1,864 实体/3,078 关系）在构建期蒸馏为 16 条确定性规则与检索索引。运行时，患者情境×决策项查询依次经过：(1) 输出 Q 编号硬约束的确定性规则引擎（虚线箭头绑定仲裁器）；(2) LightRAG 知识图谱与词法证据库融合的风险引导检索；(3) 在硬约束解码下输出带陈述级引用的五类动作裁决的 LLM 仲裁器（GLM-5.3）。图中给出示例查询（局灶治疗计划下的限局性 PI-RADS 4 病灶）与对应的结构化输出。管线之下为第二个运行模式条带：患者教育复用同一冻结证据库，患者的通俗提问经关键词匹配到含 10 个条目、逐项可溯源的策展事实库，同一生成器产生带"何时须就医"安全网段落并引导回主管医生的通俗回答（定性演示，不属于基准评测）。底部条带：多方法多种子基准（112 条陈述 × 4 方法 × 5 种子 = 2,240 次运行，生成器固定）。
+
+**图 2** 多种子基准（4 方法 × 5 种子 × 112 条陈述）。(a) 各方法核心指标（5 种子 mean±SD）：exact-5、exact-3、macro-F1、Cohen's κ 与 against 类 F1；(b) 各种子的 exact-5（点，虚线为均值）；(c) 各方法 560 次运行的预测类别分布（柱）与金标准分布（菱形）：检索基线几乎不输出 conditional，完整系统的分布最贴近金标准。
+
+**图 3** 四专家对五个演示病例（组合命题）的盲评。(a) 各病例的专家间一致率（4 专家中众数评分占比；虚线 = 3/4）；Fleiss κ = −0.09（标 *）为小样本伪影，原始一致率 17/20；(b) 各病例各专家的评分（End = endorse，EndO = endorse_option，Cond = conditional，RepO = report_option，Aga = against）；System 列为系统裁决，在 4 个有多数票的病例中均与专家多数一致，case1 为 2:2 平票（按预设规则不计入）；(c) 专家对系统输出的 Likert 评分（清晰度、有用性、认可度、证据充分性；一致 5 分，触顶）。
+
+**图 4** 演示病例。(a) 各病例触发的共识规则数，柱色与标注为该病例的裁决动作；(b) 证据语料构成（文献条目 C 218、共识陈述 B 112、共识叙述 20、系统综述摘要 7，共 357 块）。
+
+**图 5** 运行时与知识图谱统计。(a) 各演示病例的决策通过时延（对数轴）：规则引擎层（蓝）与检索加仲裁（黄）；(b) 最强知识图谱关系：按边权重排序的前 12 条（共 3,078 条边）。
+
+**表 1** 双实体注册表的条目数、标志位数与类别分布；完整注册表见 data/seed/entities_a.csv 与 entities_b.csv。
+
+**表 2** 16 条规则（12 条共识规则 + 4 条患者因素升级规则）；触发定义、推荐动作与 Q 编号引用见 configs/rules.yaml。
+
+**表 3** 基准性能矩阵（5 种子 mean±SD；每方法 560 次，共 2,240 次）；上下文为每次运行的平均检索字符数。
+
+**表 4** 112 条终版陈述的金标准领域×动作分布（indication 23、procedure 34、treatment planning 55；against 类 25 条，合计 22.3%）。
