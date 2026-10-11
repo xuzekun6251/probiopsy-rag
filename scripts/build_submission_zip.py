@@ -17,6 +17,7 @@ files = [
     (ROOT / "outputs" / "paper" / "manuscript.en.md", "manuscript.en.md"),
     (ROOT / "outputs" / "submission" / "manuscript.en.docx", "manuscript.en.docx"),
     (ROOT / "outputs" / "paper" / "manuscript.md", "manuscript_zh.md"),
+    (ROOT / "outputs" / "submission" / "manuscript_zh.docx", "manuscript_zh.docx"),
     (SUB / "supplementary.md", "supplementary.md"),
     (SUB / "cover_letter.md", "cover_letter.md"),
     (SUB / "highlights.md", "highlights.md"),
