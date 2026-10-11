@@ -29,6 +29,8 @@ parts = [
     P / "01_methods.md",
     P / "02_results.md",
     P / "04_discussion.md",
+    P / "05_limitations.md",
+    P / "06_conclusion.md",
 ]
 blocks = []
 for f in parts:
