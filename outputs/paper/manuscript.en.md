@@ -10,19 +10,19 @@ XU Zekun<sup>1,\*</sup>
 
 **Keywords:** prostate cancer; prostate biopsy; clinical decision support; LLM agent; knowledge graph; LightRAG; retrieval-augmented generation; large language models; ProBIOPSY
 
-**Word count:** abstract 265 / main text ~6,900 (excl. tables, legends, references)
+**Word count:** abstract 300 / main text ~6,900 (excl. tables, legends, references)
 
 ---
 
 ## Abstract
 
-**Background:** Prostate biopsy decisions require weighing patient-specific factors — MRI findings, PSA density, comorbidity, and treatment intent — against a complex pathway of interlocking choices. The ProBIOPSY consensus codified this pathway into 112 statements, yet substantial practice variation persists because a written consensus, however detailed, cannot be executed at the point of care.
+**Background:** Prostate biopsy decisions interlock imaging quality, sampling scheme, route, perioperative prophylaxis, and treatment planning. The ProBIOPSY consensus codified this pathway into 112 statements, yet a written consensus, however detailed, cannot be executed at the point of care; large language models (LLMs) supply linguistic flexibility but hallucinate, lack traceable provenance, and impose no deterministic safety constraint. We therefore aimed to turn this consensus into an executable, auditable decision-support agent and to quantify, with the statements as gold standard, how much conformance a hybrid three-layer architecture achieves and which layer carries the performance.
 
-**Methods:** We developed QianLieAnHui, a decision-support agent that encodes the consensus as an executable checklist. The system chains three layers: a deterministic rule engine (16 rules cross-checked against EAU and AUA/ASTRO guidelines) that emits hard constraints; risk-guided retrieval over a LightRAG knowledge graph built from 357 consensus-derived evidence chunks; and an LLM arbiter that produces one of five executable actions with statement-level citations. A patient-facing education mode reuses the same frozen evidence base with a curated, source-traceable fact base for lay-language counselling. Benchmarked across four architectures × five seeds × 112 statements (2,240 runs, generator fixed).
+**Methods:** We developed QianLieAnHui, which encodes the consensus as an executable checklist. It chains three layers: a deterministic rule engine (16 rules) that emits hard constraints; risk-guided retrieval over a LightRAG knowledge graph built from 357 consensus-derived evidence chunks; and an LLM arbiter that outputs one of five actions with statement-level citations. A patient-facing education mode reuses the same frozen evidence base with a curated, source-traceable fact base for lay-language counselling. Benchmarked across four architectures × five seeds × 112 statements (2,240 runs, generator fixed).
 
-**Results:** The agent achieved exact-5 accuracy 0.805 ± 0.012 and Cohen's κ 0.730 ± 0.016 against the consensus gold standard, outperforming LightRAG-only (0.613), naive RAG (0.605), and pure LLM (0.304). The safety-critical against class reached F1 0.908 at specificity 0.986. Retrieval baselines collapsed onto frequent classes (conditional: 0.8% vs 17.0%). Upgrading to a flagship generator did not rescue simpler architectures (naive RAG: 0.605 → 0.538).
+**Results:** The agent achieved exact-5 accuracy 0.805 ± 0.012, macro-F1 0.825, and Cohen's κ 0.730 ± 0.016, outperforming LightRAG-only (0.613), naive RAG (0.605), and pure LLM (0.304). The safety-critical against class reached F1 0.908 at specificity 0.986. Retrieval baselines collapsed onto frequent classes (conditional: 0.8% vs 17.0%). Upgrading to a flagship generator did not rescue simpler architectures (naive RAG: 0.605 → 0.538).
 
-**Conclusions:** A written international consensus can be turned into an executable decision-support agent with accuracy suitable for pilot clinical evaluation. The deterministic rule layer proved essential: without hard constraints, LLM-based systems miss nuanced recommendations and over-call unsafe actions. Every recommendation traces to numbered consensus statements, enabling clinical governance audits.
+**Conclusions:** A written international consensus can be turned into an executable decision-support agent ready for pilot clinical evaluation. The deterministic rule layer proved essential: without hard constraints, LLM systems miss nuanced recommendations and over-call unsafe actions; architecture, not generator scale, is the main performance lever. Every recommendation traces to numbered consensus statements, enabling governance audits, and the same evidence chain supports auditable lay-language patient education (qualitative demonstration).
 
 ---
 
