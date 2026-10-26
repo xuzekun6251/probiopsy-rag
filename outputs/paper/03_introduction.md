@@ -26,3 +26,4 @@
 10. Lewis P, et al. Retrieval-augmented generation for knowledge-intensive NLP tasks. NeurIPS 2020;33:9459-74.（arXiv:2005.11401，2026-10-12 复核）
 11. Edge D, et al. From Local to Global: A Graph RAG Approach to Query-Focused Summarization. arXiv:2404.16130 (2024).（arXiv 直接核验，2026-10-12 复核）
 12. Sutton RT, et al. An overview of clinical decision support systems: benefits, risks, and strategies for success. NPJ Digit Med 2020;3:17. DOI: 10.1038/s41746-020-0221-y（2026-10-12 复核）
+13. Tung JYM, et al. Performance of retrieval-augmented generation large language models in guideline-concordant prostate-specific antigen testing: comparative study with junior clinicians. J Med Internet Res 2025;27:e78393. DOI: 10.2196/78393（2026-10-26 Crossref 复核；作者提供的全文 PDF 与元数据一致）
