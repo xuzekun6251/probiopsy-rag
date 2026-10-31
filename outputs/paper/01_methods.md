@@ -1,12 +1,12 @@
 # 方法 (Methods)
 
-> 中文工作稿（Writer Phase 7_1）。英文提交稿见 `manuscript.en.md`。
+> 中文工作稿（Writer Phase 7_1）。英文提交稿见 `manuscript.en.md`。2026-10-31：仿 Tung 等（JMIR 2025）方法节范式改排小节名（验证集→金标准、系统总体架构→系统开发），并单列"统计分析"小节，与英文稿一致。
 
 ## 研究设计与伦理
 
 本研究为系统开发与基准验证研究（development and benchmark validation study），不涉及人类受试者、患者数据或生物样本：知识库语料仅来自公开出版的 ProBIOPSY 国际共识及其补充材料，验证金标准为该共识 112 条终版陈述（final statements），演示病例为研究团队构造的合成临床情境。研究无需伦理委员会审批（Planner 阶段已按 IRB 评估流程确认并留档）。
 
-## 验证集：ProBIOPSY 共识 112 条终版陈述
+## 金标准：ProBIOPSY 共识 112 条终版陈述
 
 以 ProBIOPSY 共识（European Urology 2026）全部 112 条终版陈述为金标准。每条陈述按预先定义的五类动作体系标注期望系统行为（expected system action）：
 
@@ -18,7 +18,7 @@
 
 112 条陈述按共识章节分为三个领域：indication（23 条）、procedure（34 条）、treatment planning（55 条）；其中 against 类 25 条（22.3%），构成对"系统性偏乐观"决策系统的有效检验。
 
-## 系统总体架构
+## 系统开发：前列安汇（系统总体架构）
 
 前列安汇（probiopsy-rag）采用三层混合决策架构，输入为"患者临床情境要素（Entity A）× 穿刺决策项（Entity B）"组合，输出为带置信度、触发规则、证据链与陈述引用的结构化五类动作裁决。
 
@@ -70,8 +70,11 @@
 - **macro-F1**：五类宏平均 F1；
 - **Cohen's κ**：与金标准的五类一致性（校正多数类偏倚）；
 - **against 类二分类指标**：sensitivity / specificity / F1（把 against 视为正类），反映系统"敢于且正确地反对"的能力；
-- 以上指标均按 5 个种子计算 mean ± SD；
 - 记录每次运行检索上下文字符数（context chars）作为效率指标。
+
+## 统计分析
+
+以上指标均按 5 个种子计算 mean ± SD。方法间差异以各种子为配对单位做双侧配对 t 检验（完整系统分别对比三个基线，exact5 与 κ 共六组比较），并用 Benjamini–Hochberg 法控制错误发现率。一致性系数（Cohen's κ、Fleiss κ）按其原始定义计算，小样本下的一致性悖论与解释规则在结果与局限性部分说明。
 
 ## 实现与可复现性
 

@@ -217,5 +217,9 @@
   "asap_rate_2024": {
     "doi": "10.1159/000535123",
     "text": "Ji WT, Jin XF, Wang Y. The Rate of Clinically Significant Prostate Cancer on Repeat Biopsy after a Diagnosis of Atypical Small Acinar Proliferation: A Systematic Review and Meta-Analysis. Oncology. 2023;102(7):631-640. https://doi.org/10.1159/000535123"
+  },
+  "tung_jmir": {
+    "doi": "10.2196/78393",
+    "text": "Tung JYM, Le Q, Yao J, et al. Performance of Retrieval-Augmented Generation Large Language Models in Guideline-Concordant Prostate-Specific Antigen Testing: Comparative Study With Junior Clinicians. J Med Internet Res. 2025;27:e78393-e78393. https://doi.org/10.2196/78393"
   }
 }
