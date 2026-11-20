@@ -31,6 +31,16 @@ for stem in ["figure1_architecture", "figure2_performance",
     for ext in ["svg", "pdf", "png", "tiff"]:
         files.append((FIG / f"{stem}.{ext}", f"figures/{stem}.{ext}"))
 
+# BMJ Digital Health submission extras (title page, anonymised manuscript,
+# cover letter, plain language summary, DECIDE-AI checklist), if built
+BMJ = SUB / "bmj_dh"
+for name in ["title_page_BMJ_DH.docx", "manuscript_BMJ_DH_anon.docx",
+             "cover_letter_BMJ_DH.docx", "plain_language_summary_BMJ_DH.docx",
+             "DECIDE-AI_checklist_BMJ_DH.docx"]:
+    p = BMJ / name
+    if p.exists():
+        files.append((p, f"bmj_dh/{name}"))
+
 missing = [str(p) for p, _ in files if p.name != "manuscript.en.docx" and not p.exists()]
 if missing:
     raise SystemExit("MISSING: " + "; ".join(missing))

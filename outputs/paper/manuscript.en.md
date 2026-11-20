@@ -13,6 +13,8 @@ XU Zekun<sup>1,\*</sup>
 **Word count:** abstract ~300 / main text ~7,480 (excl. tables, legends, references)
 
 > 2026-11-20: Abstract and Introduction restructured after the writing model of Sesen et al. (BMJ Digit Health 2026) — the Abstract now uses Sesen's four-section layout (Objective / Methods / Results / Conclusions) with the clinical background folded into a three-sentence Objective, plain comparative Methods, numbers-only Results closing with the residual decomposition (in place of Sesen's scope-limitation closing sentence), and Conclusions closing with deployment requirements. The Introduction gains Sesen's closing moves: a "This paper examines" paragraph, a reporting-frameworks scoping paragraph (TRIPOD+AI, DECIDE-AI), and a numbered three-contribution paragraph ending in an off-the-shelf positioning sentence. All benchmark numbers, methods, and results unchanged.
+>
+> 2026-11-21: BMJ Digital Health conformance — abstract heading renamed to "Methods and analysis" (as in Sesen et al., published in this journal); the two BMJ-family boxes ("What this study adds", "How this study might affect research, practice or policy") added after the Abstract; "Patient and public involvement" subsection added to Methods; citations render as superscript in the Word build; BMJ submission package (title page, anonymised manuscript, cover letter, plain language summary) generated under outputs/submission/bmj_dh/.
 
 ---
 
@@ -20,11 +22,17 @@ XU Zekun<sup>1,\*</sup>
 
 **Objective:** Prostate biopsy is the gateway to every treatment decision in prostate cancer, yet practice varies substantially across centres and operators. The ProBIOPSY consensus codified this pathway into 112 statements, but a written consensus cannot be executed at the point of care; large language models (LLMs) supply linguistic flexibility but hallucinate and lack traceable provenance. This study aimed to evaluate whether a hybrid architecture chaining deterministic rules, knowledge-graph retrieval, and LLM arbitration can turn this written consensus into an executable, auditable decision-support agent, and which architectural layer carries the performance.
 
-**Methods:** We compared four configurations: a pure LLM, naive RAG, LightRAG-only retrieval, and the full agent QianLieAnHui, which chains a deterministic rule engine (16 hard-constraint rules), risk-guided retrieval over a LightRAG knowledge graph (357 evidence chunks), and an LLM arbiter outputting one of five consensus-semantics actions with statement-level citations. Each answered the 112 statements — the gold standard — across five seeds under one generator (2,240 runs); baselines were repeated with a flagship generator.
+**Methods and analysis:** We compared four configurations: a pure LLM, naive RAG, LightRAG-only retrieval, and the full agent QianLieAnHui, which chains a deterministic rule engine (16 hard-constraint rules), risk-guided retrieval over a LightRAG knowledge graph (357 evidence chunks), and an LLM arbiter outputting one of five consensus-semantics actions with statement-level citations. Each answered the 112 statements — the gold standard — across five seeds under one generator (2,240 runs); baselines were repeated with a flagship generator.
 
 **Results:** The agent achieved exact-5 accuracy 0.805 ± 0.012, macro-F1 0.825, and Cohen's κ 0.730 ± 0.016, outperforming LightRAG-only (0.613), naive RAG (0.605), and pure LLM (0.304); the safety-critical against class reached F1 0.908 at specificity 0.986. Retrieval baselines collapsed onto frequent classes (conditional: 0.8% vs 17.0%), and a flagship generator did not rescue them (naive RAG: 0.605 → 0.538). Offline decomposition of all 560 full-system runs found 100% item-linked evidence coverage; all 109 residual misclassifications were arbitration-layer errors.
 
 **Conclusions:** A written international consensus can be turned into an executable decision-support agent ready for pilot clinical evaluation; fine-grained action-space expressiveness must be built into the architecture, and architecture, not generator scale, is the main performance lever. Deployment will require versioned guideline-corpus management, arbiter-layer calibration, and integration within clinical governance structures; the same frozen evidence chain also supports auditable lay-language patient education.
+
+---
+
+**What this study adds:** A written international consensus (112 final statements) was turned into an executable, auditable decision-support agent for the prostate biopsy pathway; the hybrid architecture outperformed retrieval-only and pure-LLM baselines (exact-5 accuracy 0.805, Cohen's κ 0.730), and offline decomposition located all residual misclassifications in the arbitration layer rather than in retrieval.
+
+**How this study might affect research, practice or policy:** Consensus statements can serve directly as an executable gold standard for benchmarking clinical decision-support agents; safe deployment requires arbiter-layer calibration, versioned guideline corpora, and prospective evaluation within clinical governance structures.
 
 ---
 
@@ -53,6 +61,10 @@ While prior studies have demonstrated the general feasibility of retrieval-based
 ### Study design and ethics
 
 This is a system-development and benchmark-validation study. The computational evaluation involved no patient data or biological samples: the corpus derives solely from the published ProBIOPSY consensus and its supplementary material, the gold standard consists of the consensus' 112 published final statements, and demonstration cases are synthetic vignettes constructed by the study team. A four-expert blinded face-validity review was subsequently conducted (anonymous, voluntary participation; synthetic cases only; no identifiable data collected; participation-information sheet embedded in the questionnaire). Because no patient data and no interventional procedures were involved, institutional review board approval was not required (assessment documented during project planning).
+
+### Patient and public involvement
+
+Patients and/or the public were not involved in the design, conduct, reporting, or dissemination plans of this research. The patient-facing education mode was demonstrated on synthetic scenarios only and involves no real patients.
 
 ### Validation set: 112 ProBIOPSY final statements
 
