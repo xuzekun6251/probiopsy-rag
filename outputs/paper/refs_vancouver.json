@@ -221,5 +221,8 @@
   "tung_jmir": {
     "doi": "10.2196/78393",
     "text": "Tung JYM, Le Q, Yao J, et al. Performance of Retrieval-Augmented Generation Large Language Models in Guideline-Concordant Prostate-Specific Antigen Testing: Comparative Study With Junior Clinicians. J Med Internet Res. 2025;27:e78393-e78393. https://doi.org/10.2196/78393"
+  },
+  "sesen_bmjdh": {
+    "text": "Sesen MB, Au Yeung JA, Asgari E. Development and evaluation of Retrieval-Augmented Generation (RAG) and GraphRAG for guideline-based clinical decision support in chronic kidney disease. BMJ Digit Health. 2026;2(1):e000041. https://doi.org/10.1136/bmjdh-2026-000041 (verified via Crossref API, 2026-11-20; author name as printed in the article byline)."
   }
 }

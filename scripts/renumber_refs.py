@@ -57,6 +57,10 @@ REFDB = {
     "hao_pca_agent":     {"doi": "10.1038/s41746-025-02166-0"},  # npj Digit Med, PCa education
     "geneagent":         {"doi": "10.1038/s41592-025-02748-6"},  # Nat Methods
     "tung_jmir":         {"doi": "10.2196/78393"},  # JMIR 2025, PSA-testing RAG tool vs junior clinicians (verified 2026-10-26 Crossref, matched author PDF)
+    # --- round 9: Sesen et al. CKD guideline RAG/GraphRAG (verified 2026-11-20, Crossref) ---
+    # hand-verified text: Crossref parses the second author as family="Yeung",
+    # given="Joshua Au"; the article byline prints "Au Yeung JA".
+    "sesen_bmjdh":       {"text": "Sesen MB, Au Yeung JA, Asgari E. Development and evaluation of Retrieval-Augmented Generation (RAG) and GraphRAG for guideline-based clinical decision support in chronic kidney disease. BMJ Digit Health. 2026;2(1):e000041. https://doi.org/10.1136/bmjdh-2026-000041 (verified via Crossref API, 2026-11-20; author name as printed in the article byline)."},  # BMJ Digit Health 2026;2(1):e000041
     # --- round 8: Yaoshi-RAG (verified 2026-10-04, Crossref) ---
     "yaoshi_rag":        {"doi": "10.2196/75279"},  # JMIR Med Inform, TCM UKG+RAG
     "cohen1960":         {"doi": "10.1177/001316446002000104"},
@@ -235,7 +239,9 @@ def main():
           "PI-RADS inter-reader agreement, biopsy-to-prostatectomy concordance) were additionally "
           "confirmed against PubMed via the NCBI E-utilities API, and the round-7 medical-agent "
           "positioning additions (PULSE, the hypertension and prostate-cancer agents, GeneAgent) "
-          "via Crossref (PMIDs and DOIs recorded in the verification scripts); "
+          "via Crossref (PMIDs and DOIs recorded in the verification scripts), and the round-9 "
+          "addition (Sesen et al., BMJ Digit Health 2026;2:e000041, RAG/GraphRAG positioning and "
+          "failure-decomposition precedent) via Crossref on 2026-11-20; "
           "arXiv entries (refs for LightRAG, GraphRAG, Lewis RAG) verified via the arXiv API / "
           "arXiv listings, the Zenodo software deposit via the DataCite API; the EAU guideline is a "
           "living web citation — update edition and access date at submission time.")

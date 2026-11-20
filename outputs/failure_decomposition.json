@@ -1,0 +1,116 @@
+{
+ "n_full_system_runs": 560,
+ "n_misclassified_runs": 109,
+ "misclassified_by_stratum": {
+  "arbitration_error": 109
+ },
+ "misclassified_statements_by_stratum": {
+  "corpus_gap": [],
+  "retrieval_miss": [],
+  "arbitration_error": [
+   "Q22",
+   "Q34",
+   "Q42",
+   "Q48",
+   "Q49a",
+   "Q50",
+   "Q51",
+   "Q63",
+   "Q64",
+   "Q64a",
+   "Q65a",
+   "Q66",
+   "Q67a",
+   "Q68",
+   "Q68a",
+   "Q69",
+   "Q71",
+   "Q71a",
+   "Q72",
+   "Q77",
+   "Q77a",
+   "Q78",
+   "Q80",
+   "Q80a",
+   "Q86",
+   "Q86a",
+   "Q92a"
+  ],
+  "no_decision_item": []
+ },
+ "misclassified_by_transition_and_stratum": {
+  "conditional->report_option": {
+   "arbitration_error": 10
+  },
+  "conditional->endorse": {
+   "arbitration_error": 74
+  },
+  "report_option->endorse_option": {
+   "arbitration_error": 3
+  },
+  "conditional->against": {
+   "arbitration_error": 6
+  },
+  "against->endorse": {
+   "arbitration_error": 16
+  }
+ },
+ "misclassified_by_domain_and_stratum": {
+  "procedure": {
+   "arbitration_error": 27
+  },
+  "indication": {
+   "arbitration_error": 5
+  },
+  "treatment_planning": {
+   "arbitration_error": 77
+  }
+ },
+ "runs_with_item_evidence_in_pack": 560,
+ "item_evidence_coverage_rate": 1.0,
+ "arbitration_accuracy_given_item_evidence": 0.8054,
+ "arbitration_accuracy_given_item_evidence_missing": 0.0,
+ "runs_with_gold_q_chunk_in_pack": 385,
+ "arbitration_accuracy_given_gold_q_chunk": 0.8286,
+ "corpus_statements_without_item_linked_chunks": [],
+ "corpus_statements_without_any_q_mention_chunk": [
+  "Q10a",
+  "Q10b",
+  "Q37a",
+  "Q44a",
+  "Q46a",
+  "Q46b",
+  "Q47a",
+  "Q49a",
+  "Q4a",
+  "Q4b",
+  "Q55a",
+  "Q55b",
+  "Q64a",
+  "Q65a",
+  "Q67a",
+  "Q68a",
+  "Q70a",
+  "Q71a",
+  "Q73a",
+  "Q74a",
+  "Q76a",
+  "Q77a",
+  "Q79a",
+  "Q80a",
+  "Q82a",
+  "Q83a",
+  "Q85a",
+  "Q86a",
+  "Q88a",
+  "Q89a",
+  "Q91a",
+  "Q92a",
+  "Q94a",
+  "Q95a"
+ ],
+ "reconstruction_logged_minus_lexical_distribution": {
+  "0": 1,
+  "1": 559
+ }
+}

@@ -36,6 +36,7 @@
  "fast_guideline",
  "lewis_rag",
  "xiong_mirage",
+ "sesen_bmjdh",
  "hao_outdated",
  "ray_alertfatigue",
  "sutton_cdss",
@@ -47,13 +48,13 @@
  "asap_rate_2024",
  "cohen1960",
  "bh1995",
+ "tripod_ai",
+ "decide_ai",
  "fleiss1971",
  "feinstein_paradox",
  "tung_jmir",
  "graphrag",
  "ayers_chatbot",
- "decide_ai",
- "tripod_ai",
  "alkhanaty_psma",
  "zenodo_deposit"
 ]

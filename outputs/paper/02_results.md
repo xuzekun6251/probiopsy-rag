@@ -1,6 +1,6 @@
 # 结果 (Results)
 
-> 中文工作稿（Writer Phase 7_2）。所有数值出自 `outputs/evaluation_summary.json`（n=5 种子，mean±SD）与 `outputs/tables/table3_performance.md`。2026-10-31：补入"残留错误"小节与配对检验结果，与英文稿对齐。
+> 中文工作稿（Writer Phase 7_2）。所有数值出自 `outputs/evaluation_summary.json`（n=5 种子，mean±SD）与 `outputs/tables/table3_performance.md`。2026-10-31：补入"残留错误"小节与配对检验结果，与英文稿对齐。2026-11-20：残留错误小节补入检索—仲裁分解分析（outputs/failure_decomposition.json）。
 
 ## 基准总览
 
@@ -46,6 +46,8 @@ against（建议反对）是临床安全上最重要的类别（金标准中占 
 ## 残留错误：conditional 是最难类
 
 完整系统聚合混淆矩阵（补充材料表 S1）显示 endorse 类近乎完美（金标准 endorse 190/190 全部正确），但 conditional 召回仅 95/185（0.51）：185 次金标准为 conditional 的运行中，74 次被预测为 endorse、10 次为 report_option、6 次为 against。conditional 上的错误因此偏向"支持得过宽"，这正是临床治理最担心的方向，也是临床试点前需要类别校准的原因。分领域混淆矩阵显示这一模式在治疗规划领域（against 密度最高）最为明显。
+
+为区分残留错误发生在检索层还是仲裁层，我们利用词法检索的确定性（IDF 打分与实体加权，与基准管线同参数），离线重建了全部 560 次完整系统运行中仲裁层看到的证据包，并把误判分为语料缺口、检索未中与仲裁错误三类。112 个决策项在语料中均有链接证据块（无语料缺口）；560 次运行的证据包全部包含决策项链接证据（覆盖率 100%），109 次残留误判因此全部为仲裁错误；重建的包内块数与逐次运行日志一致（559 次为词法块加 1 个图谱块，1 次为纯词法块）。按更严的准则（证据包内是否含金标准陈述本身，以 Q 码识别），385 次运行（68.8%）含该块，这部分运行的准确率为 0.829，不含者为 0.754；109 次误判中 66 次发生时该块已在包内（含全部 16 次 against 误判为 endorse 与全部 10 次 conditional 误判为 report_option），43 次不在包内（41 次 conditional 误判为 endorse、2 次误判为 against）。误判按领域分布为治疗规划 77 次、操作 27 次、适应证 5 次。在检索覆盖已饱和的前提下，conditional 的残留弱点属于仲裁层的类别判别问题，改进方向是仲裁器校准而非检索层改造（逐次分解明细见 outputs/failure_decomposition.json 与 outputs/figures/source_data/failure_decomposition_runs.csv）。
 
 ## 生成器档位的补充实验
 
