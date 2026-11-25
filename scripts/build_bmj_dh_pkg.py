@@ -178,7 +178,7 @@ REPORTED = [
     "Not applicable — no users in the benchmark; the expert panel is described in Methods, 'Study design and ethics'.",
     "Not applicable — no users; system usage is reported as runtime cost (Results, 'Running cost').",
     "Not applicable — no clinical workflow was modified.",
-    "Reported — Results, 'Benchmark overview' and 'Main results' (Table 3; Figure 2).",
+    "Reported — Results, 'Benchmark overview and headline performance' (Table 3; Figure 2).",
     "Reported — Results, 'Domain breakdown' (Table 4).",
     "Reported (adapted) — the system was frozen during evaluation; the generator-tier supplementary experiment is "
     "described in Methods, 'Benchmark protocol', and Results, 'Generator-tier supplementary experiment'.",
