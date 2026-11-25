@@ -165,7 +165,7 @@ def fig1() -> None:
         color="white", ha="left", max_w=31.5)
     txt(14.5, 53.2, "• 357 evidence chunks (B: statements, C: literature)", fs=5.6,
         color="white", ha="left", max_w=31.5)
-    txt(14.5, 51.2, "• LightRAG KG: 1,864 entities / 3,078 relations", fs=5.6,
+    txt(14.5, 51.2, "• GraphRAG KG: 1,864 entities / 3,078 relations", fs=5.6,
         color="white", ha="left", max_w=31.5)
 
     # unstructured | structured callout (top right)
@@ -228,7 +228,7 @@ def fig1() -> None:
     txt(24.4, 28.0, "Risk-guided retrieval", fs=6.8, weight="bold",
         color="#2E7D62", ha="left", max_w=32)
     rbox(22.5, 22.2, 16.0, 4.6, "white", "#9CCDBB", lw=0.8, rs=0.9)
-    txt(30.5, 25.3, "LightRAG KG (semantic)", fs=5.8, max_w=14)
+    txt(30.5, 25.3, "GraphRAG KG (semantic)", fs=5.8, max_w=14)
     txt(30.5, 23.5, "1,864 entities · 3,078 rel.", fs=5.2, color="#6B7280",
         max_w=14)
     rbox(40.5, 22.2, 16.0, 4.6, "white", "#9CCDBB", lw=0.8, rs=0.9)
@@ -359,7 +359,7 @@ def fig1() -> None:
 def fig2() -> None:
     summary = json.loads((ROOT / "outputs" / "evaluation_summary.json").read_text(encoding="utf-8"))
     methods = [("pure_llm", "pure LLM"), ("naive_rag", "naive RAG"),
-               ("lightrag", "LightRAG-only"), ("probiopsy-rag", "QianLieAnHui (agent)")]
+               ("lightrag", "GraphRAG-only"), ("probiopsy-rag", "QianLieAnHui (agent)")]
     metrics = [("exact5", "Exact-5\nacc"), ("exact3", "Exact-3\nacc"),
                ("macro_f1", "Macro-\nF1"), ("kappa", "Cohen's\nκ"),
                ("against_f1", "Against-\nF1")]
@@ -405,7 +405,7 @@ def fig2() -> None:
         ax2.text(j + 0.3, mean, f"{mean:.3f}", fontsize=5.4, color="#4B5563",
                  va="center", zorder=5)
     ax2.set_xticks(range(n_m))
-    ax2.set_xticklabels(["pure\nLLM", "naive\nRAG", "LightRAG\nonly",
+    ax2.set_xticklabels(["pure\nLLM", "naive\nRAG", "GraphRAG\nonly",
                          "QianLie\nAnHui"], fontsize=5.8)
     ax2.set_ylabel("Exact-5 accuracy", fontsize=7)
     ax2.set_ylim(0.15, 0.92)

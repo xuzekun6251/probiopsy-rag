@@ -73,7 +73,7 @@ def build_cover_letter():
            "engine, a knowledge-graph evidence base, and an LLM arbiter cover one another's failure modes. Three "
            "features differentiate the work: (1) the international consensus' 112 final statements themselves serve "
            "as the executable gold standard, with the action space bound to the consensus' voting semantics; (2) four "
-           "architectures (pure LLM, naive RAG, LightRAG-only, and the full agent) were benchmarked under one "
+           "architectures (pure LLM, naive RAG, GraphRAG-only, and the full agent) were benchmarked under one "
            "generator across five seeds — 2,240 runs; and (3) exploiting the determinism of the lexical retrieval "
            "layer, we decomposed every full-system run into retrieval and arbitration contributions: evidence "
            "coverage was complete, and all residual misclassifications were located in the arbitration layer, "
@@ -153,8 +153,8 @@ REPORTED = [
     "Not applicable — no clinician users were recruited for the benchmark. A separate four-expert blinded "
     "face-validity panel is described in Methods, 'Study design and ethics'.",
     "Not applicable — no users operating the system in clinical practice.",
-    "Reported — Methods, 'System architecture' and 'Implementation and reproducibility' (rule engine, LightRAG, "
-    "arbiter; generator GLM-5.3-Flash frozen; code released).",
+    "Reported — Methods, 'System architecture' and 'Implementation and reproducibility' (rule engine, GraphRAG "
+    "(LightRAG implementation), arbiter; generator GLM-5.3-Flash frozen; code released).",
     "Reported — Methods, 'Input layer: dual registries' and 'Layer 2' (evidence chunks; corpus derived solely from "
     "the published consensus).",
     "Reported — Methods, 'Layer 3' (five-action verdict with confidence and statement citations; Figure 1), and "

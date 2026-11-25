@@ -125,7 +125,7 @@ rbox(23.0, 17.2, 32.0, 5.6, fc, ec, lw=1.1, rs=1.0, z=2)
 badge(25.2, 20.0, 2, BADGE["kg"])
 txt(26.8, 20.8, "Risk-guided retrieval", fs=7.0, weight="bold",
     color="#2E7D62", ha="left", max_w=26)
-txt(26.8, 18.6, "LightRAG KG: 1,864 entities · 3,078 relations · 357 chunks",
+txt(26.8, 18.6, "GraphRAG KG: 1,864 entities · 3,078 relations · 357 chunks",
     fs=6.0, color="#374151", ha="left", max_w=27)
 
 fc, ec = REGION["llm"]
