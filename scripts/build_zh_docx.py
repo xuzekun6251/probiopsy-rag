@@ -139,7 +139,35 @@ def add_table(rows):
     if not cells:
         return
     t = doc.add_table(rows=len(cells), cols=len(cells[0]))
-    t.style = "Table Grid"
+    # publication three-line style: 1.5pt top/bottom rules, 0.75pt rule under the
+    # header row, no vertical or inner horizontal lines (overrides table style)
+    tbl_pr = t._tbl.tblPr
+    borders = tbl_pr.makeelement(qn("w:tblBorders"), {})
+    for tag, val, sz in (("top", "single", "12"), ("left", "none", "0"),
+                         ("bottom", "single", "12"), ("right", "none", "0"),
+                         ("insideH", "none", "0"), ("insideV", "none", "0")):
+        borders.append(borders.makeelement(
+            qn(f"w:{tag}"), {qn("w:val"): val, qn("w:sz"): sz,
+                             qn("w:color"): "000000", qn("w:space"): "0"}))
+    look = tbl_pr.find(qn("w:tblLook"))
+    if look is not None:
+        look.addprevious(borders)
+    else:
+        tbl_pr.append(borders)
+    for cell in t.rows[0].cells:
+        tc_pr = cell._tc.get_or_add_tcPr()
+        tc_borders = tc_pr.makeelement(qn("w:tcBorders"), {})
+        tc_borders.append(tc_borders.makeelement(
+            qn("w:bottom"), {qn("w:val"): "single", qn("w:sz"): "6",
+                             qn("w:color"): "000000", qn("w:space"): "0"}))
+        tc_pr.append(tc_borders)
+    # keep rows intact across pages; repeat the header row
+    row_pr = t.rows[0]._tr.get_or_add_trPr()
+    row_pr.append(row_pr.makeelement(qn("w:cantSplit"), {qn("w:val"): "true"}))
+    row_pr.append(row_pr.makeelement(qn("w:tblHeader"), {qn("w:val"): "true"}))
+    for row in t.rows[1:]:
+        row_pr = row._tr.get_or_add_trPr()
+        row_pr.append(row_pr.makeelement(qn("w:cantSplit"), {qn("w:val"): "true"}))
     for i, row in enumerate(cells):
         for j, val in enumerate(row):
             cell = t.cell(i, j)
