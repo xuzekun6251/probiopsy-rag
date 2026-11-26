@@ -371,7 +371,7 @@ def fig2() -> None:
         ax.tick_params(labelsize=6.2)
 
     fig, (ax1, ax2, ax3) = plt.subplots(
-        1, 3, figsize=(7.6, 3.0), gridspec_kw={"width_ratios": [2.7, 2.0, 2.4]})
+        1, 3, figsize=(7.6, 3.0), gridspec_kw={"width_ratios": [3.2, 2.45, 1.95]})
 
     # (a) grouped bars with SD error bars
     n_m, n_met = len(methods), len(metrics)
@@ -386,32 +386,38 @@ def fig2() -> None:
                 error_kw={"lw": 0.7, "elinewidth": 0.7, "ecolor": "#6B7280"},
                 zorder=3)
     ax1.set_xticks(range(n_met))
-    ax1.set_xticklabels([l for _, l in metrics], fontsize=6.2)
+    ax1.set_xticklabels([l for _, l in metrics], fontsize=6.0)
     ax1.set_ylabel("Score (0–1)", fontsize=7)
     ax1.set_ylim(0, 1.0)
-    ax1.legend(fontsize=5.4, ncol=4, frameon=False, loc="lower center",
-               bbox_to_anchor=(0.5, 1.01))
+    # keep the top legend out of tight_layout's bbox, otherwise it steals a
+    # quarter of the panel width and the tick labels collide
+    leg1 = ax1.legend(fontsize=5.4, ncol=4, frameon=False, loc="lower center",
+                      bbox_to_anchor=(0.5, 1.01))
+    leg1.set_in_layout(False)
     ax1.set_title("(a) Core metrics (mean ± SD, 5 seeds)", fontsize=7, pad=14)
     style(ax1)
 
-    # (b) per-seed exact-5 dots + mean dash
+    # (b) per-seed exact-5 dots with mean dash, horizontal layout: method names
+    #     sit on the y-axis so the long labels never crowd the x-axis
     for j, (mid, label) in enumerate(methods):
         seeds = [s["exact5"] for s in summary["methods"][mid]["seeds"]]
         mean = summary["methods"][mid]["aggregate"]["exact5"]["mean"]
-        offs = [-0.14, -0.07, 0.0, 0.07, 0.14][:len(seeds)]
-        ax2.scatter([j + o for o in offs], seeds, s=14, color=C_METH[mid],
+        offs = [-0.11, -0.055, 0.0, 0.055, 0.11][:len(seeds)]
+        ax2.scatter(seeds, [j + o for o in offs], s=14, color=C_METH[mid],
                     zorder=3, edgecolors="white", linewidths=0.4)
-        ax2.hlines(mean, j - 0.26, j + 0.26, color=C_METH[mid], lw=1.8, zorder=4)
-        ax2.text(j + 0.3, mean, f"{mean:.3f}", fontsize=5.4, color="#4B5563",
-                 va="center", zorder=5)
-    ax2.set_xticks(range(n_m))
-    ax2.set_xticklabels(["pure\nLLM", "naive\nRAG", "GraphRAG\nonly",
-                         "QianLie\nAnHui"], fontsize=5.8)
-    ax2.set_ylabel("Exact-5 accuracy", fontsize=7)
-    ax2.set_ylim(0.15, 0.92)
-    ax2.set_xlim(-0.55, n_m - 0.45)
+        ax2.vlines(mean, j - 0.20, j + 0.20, color=C_METH[mid], lw=1.8, zorder=4)
+        ax2.text(mean, j - 0.30, f"{mean:.3f}", fontsize=5.4, color="#4B5563",
+                 ha="center", va="center", zorder=5)
+    ax2.set_yticks(range(n_m))
+    ax2.set_yticklabels(["pure LLM", "naive RAG", "GraphRAG-only",
+                         "QianLieAnHui"], fontsize=5.8)
+    ax2.set_ylim(n_m - 0.45, -0.55)
+    ax2.set_xlim(0.15, 0.92)
+    ax2.set_xlabel("Exact-5 accuracy", fontsize=7)
     ax2.set_title("(b) Exact-5 per seed (dash = mean)", fontsize=7)
     style(ax2)
+    ax2.grid(axis="y", visible=False)
+    ax2.grid(axis="x", color="#E5E7EB", lw=0.5, zorder=0)
 
     # (c) predicted class distribution per method (counts over 560 runs),
     #     gold-standard counts overlaid as dark diamonds. Horizontal layout:
@@ -437,8 +443,9 @@ def fig2() -> None:
     ax3.set_yticklabels(classes, fontsize=5.8)
     ax3.invert_yaxis()
     ax3.set_xlabel("Predictions (of 560 runs)", fontsize=7)
-    ax3.legend(fontsize=5.2, frameon=False, loc="upper center", ncol=2,
-               bbox_to_anchor=(0.5, -0.34))
+    leg3 = ax3.legend(fontsize=5.2, frameon=False, loc="upper center", ncol=2,
+                      bbox_to_anchor=(0.5, -0.34))
+    leg3.set_in_layout(False)
     ax3.set_title("(c) Predicted vs gold distribution", fontsize=7)
     style(ax3)
     ax3.grid(axis="x", color="#E5E7EB", lw=0.5, zorder=0)
@@ -676,7 +683,9 @@ def fig3() -> None:
         ax3.text(i, m + 0.08, f"{m:.1f}", ha="center", fontsize=5.8,
                  color="#4B5563")
     ax3.set_xticks(range(len(dims)))
-    ax3.set_xticklabels(dims, fontsize=5.6, rotation=18, ha="right")
+    # narrow panel: vertical labels keep the long dimension names apart
+    ax3.set_xticklabels(dims, fontsize=5.4, rotation=90, ha="center",
+                        va="top")
     ax3.set_ylim(0, 5.6)
     ax3.set_ylabel("Likert score (1–5)", fontsize=7)
     ax3.set_title("(c) Expert Likert ratings\n(uniform 5 — ceiling)", fontsize=6.6)
