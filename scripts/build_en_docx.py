@@ -183,7 +183,7 @@ def build_title_page(out_path):
     par("Affiliation: Department of Urology, Affiliated Jinhua Hospital, Zhejiang University School of Medicine.")
     par("Corresponding author: XU Zekun, xuzekunurology@163.com (ORCID iD to be linked at submission).")
     par("")
-    par("Word counts: abstract ~335 / main text ~7,480 (excl. tables, legends, references).")
+    par("Word counts: abstract ~335 / main text ~7,560 (excl. tables, legends, references).")
     par("Funding: this research received no external funding.")
     par("Conflicts of interest: the authors declare no conflicts of interest.")
     par("Data availability: the rule base, dual seed registries, evidence chunks, gold standard, all 2,240 raw "
