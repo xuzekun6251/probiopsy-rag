@@ -1,0 +1,189 @@
+# -*- coding: utf-8 -*-
+"""Build the JAMIA submission Word file (manuscript_JAMIA.docx) from manuscript.jamia.md.
+
+JAMIA (Research and Applications): double-spaced, line numbers, AMA superscript
+citations, three-line tables (Tables 1-4). Single-blind review — author block
+stays in the manuscript. Output: outputs/submission/jamia/.
+"""
+import re
+import sys
+from pathlib import Path
+
+from docx import Document
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.oxml.ns import qn
+from docx.shared import Mm, Pt
+
+ROOT = Path(__file__).resolve().parents[1]
+SRC = ROOT / "outputs" / "paper" / "manuscript.jamia.md"
+OUT = ROOT / "outputs" / "submission" / "jamia" / "manuscript_JAMIA.docx"
+
+ASCII, EA = "Times New Roman", "宋体"
+
+CITE = re.compile(r"\[\d+(?:\s*[,–-]\s*\d+)*\]")
+TOKEN = re.compile(r"(\[\d+(?:\s*[,–-]\s*\d+)*\]|<sup>.+?</sup>|\*\*.+?\*\*|`[^`]+`|\*[^*]+\*)")
+
+
+def set_run(run, size=12, bold=False, sup=False):
+    run.font.name = ASCII
+    run.font.size = Pt(size)
+    run.font.bold = bold
+    run.font.superscript = sup
+    rPr = run._element.get_or_add_rPr()
+    rPr.get_or_add_rFonts().set(qn("w:eastAsia"), EA)
+
+
+def new_doc():
+    d = Document()
+    s = d.sections[0]
+    s.page_width, s.page_height = Mm(210), Mm(297)
+    s.top_margin = s.bottom_margin = Mm(25.4)
+    s.left_margin = s.right_margin = Mm(31.7)
+    lnnum = s._sectPr.makeelement(qn("w:lnNumType"), {qn("w:countBy"): "1", qn("w:restart"): "newPage"})
+    s._sectPr.append(lnnum)
+    style = d.styles["Normal"]
+    style.font.name = ASCII
+    style.font.size = Pt(12)
+    style.element.rPr.rFonts.set(qn("w:eastAsia"), EA)
+    return d
+
+
+def add_inline(doc, p, text, size=12, base_bold=False):
+    for tok in TOKEN.split(text):
+        if not tok:
+            continue
+        if re.fullmatch(CITE, tok):
+            # AMA/JAMIA style: numbered citations as superscript, no brackets
+            r = p.add_run(tok[1:-1])
+            set_run(r, size=size, bold=base_bold, sup=True)
+        elif tok.startswith("<sup>"):
+            r = p.add_run(tok[5:-6].replace("\\*", "*"))
+            set_run(r, size=size, bold=base_bold, sup=True)
+        elif tok.startswith("**"):
+            r = p.add_run(tok[2:-2].replace("\\*", "*"))
+            set_run(r, size=size, bold=True)
+        elif tok.startswith("`"):
+            r = p.add_run(tok[1:-1])
+            set_run(r, size=size, bold=base_bold)
+        elif tok.startswith("*") and tok.endswith("*") and len(tok) > 2:
+            r = p.add_run(tok[1:-1].replace("\\*", "*"))
+            set_run(r, size=size, bold=base_bold)
+            r.font.italic = True
+        else:
+            r = p.add_run(tok.replace("\\*", "*"))
+            set_run(r, size=size, bold=base_bold)
+
+
+def build_doc(md_text, out_path):
+    text = "\n".join(ln for ln in md_text.splitlines() if not ln.strip().startswith(">"))
+    doc = new_doc()
+
+    def add_body(txt, indent=True):
+        p = doc.add_paragraph()
+        pf = p.paragraph_format
+        pf.line_spacing = 2.0
+        pf.space_before = Pt(0)
+        pf.space_after = Pt(0)
+        if indent:
+            pf.first_line_indent = Pt(36)
+        add_inline(doc, p, txt)
+        return p
+
+    def add_heading_md(txt, level):
+        p = doc.add_paragraph()
+        pf = p.paragraph_format
+        pf.line_spacing = 1.5
+        pf.space_before = Pt(12)
+        pf.space_after = Pt(6)
+        size = {1: 15, 2: 14, 3: 12}[level]
+        if level == 1:
+            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        add_inline(doc, p, txt, size=size, base_bold=True)
+        pPr = p._p.get_or_add_pPr()
+        pPr.append(pPr.makeelement(qn("w:outlineLvl"), {qn("w:val"): str(level - 1)}))
+        return p
+
+    def add_table(rows):
+        cells = [[c.strip() for c in r.strip().strip("|").split("|")] for r in rows]
+        cells = [r for r in cells if not all(re.fullmatch(r":?-{2,}:?", c) for c in r)]
+        if not cells:
+            return
+        t = doc.add_table(rows=len(cells), cols=len(cells[0]))
+        # publication three-line style: 1.5pt top/bottom rules, 0.75pt rule under
+        # the header row, no vertical or inner horizontal lines
+        tbl_pr = t._tbl.tblPr
+        borders = tbl_pr.makeelement(qn("w:tblBorders"), {})
+        for tag, val, sz in (("top", "single", "12"), ("left", "none", "0"),
+                             ("bottom", "single", "12"), ("right", "none", "0"),
+                             ("insideH", "none", "0"), ("insideV", "none", "0")):
+            borders.append(borders.makeelement(
+                qn(f"w:{tag}"), {qn("w:val"): val, qn("w:sz"): sz,
+                                 qn("w:color"): "000000", qn("w:space"): "0"}))
+        look = tbl_pr.find(qn("w:tblLook"))
+        if look is not None:
+            look.addprevious(borders)
+        else:
+            tbl_pr.append(borders)
+        for cell in t.rows[0].cells:
+            tc_pr = cell._tc.get_or_add_tcPr()
+            tc_borders = tc_pr.makeelement(qn("w:tcBorders"), {})
+            tc_borders.append(tc_borders.makeelement(
+                qn("w:bottom"), {qn("w:val"): "single", qn("w:sz"): "6",
+                                 qn("w:color"): "000000", qn("w:space"): "0"}))
+            tc_pr.append(tc_borders)
+        # keep rows intact across pages; repeat the header row
+        row_pr = t.rows[0]._tr.get_or_add_trPr()
+        row_pr.append(row_pr.makeelement(qn("w:cantSplit"), {qn("w:val"): "true"}))
+        row_pr.append(row_pr.makeelement(qn("w:tblHeader"), {qn("w:val"): "true"}))
+        for row in t.rows[1:]:
+            row_pr = row._tr.get_or_add_trPr()
+            row_pr.append(row_pr.makeelement(qn("w:cantSplit"), {qn("w:val"): "true"}))
+        for i, row in enumerate(cells):
+            for j, val in enumerate(row):
+                cell = t.cell(i, j)
+                cell.text = ""
+                p = cell.paragraphs[0]
+                p.paragraph_format.line_spacing = 1.15
+                add_inline(doc, p, val, size=10.5, base_bold=(i == 0))
+        doc.add_paragraph()
+
+    blocks = [b for b in re.split(r"\n\s*\n", text) if b.strip()]
+    current_section = ""
+    for b in blocks:
+        raw_lines = b.splitlines()
+        if all(l.lstrip().startswith("|") for l in raw_lines if l.strip()):
+            add_table(raw_lines)
+            continue
+        for ln in raw_lines:
+            s = ln.strip()
+            if not s or s == "---":
+                continue
+            if s.startswith("### "):
+                add_heading_md(s[4:], 3)
+            elif s.startswith("## "):
+                current_section = s[3:]
+                add_heading_md(s[3:], 2)
+            elif s.startswith("# "):
+                current_section = s[2:]
+                add_heading_md(s[2:], 1)
+            elif s.startswith("- "):
+                p = doc.add_paragraph(style="List Bullet")
+                p.paragraph_format.line_spacing = 2.0
+                add_inline(doc, p, s[2:])
+            elif current_section.lower().startswith("references") and re.match(r"^\d+\.\s", s):
+                add_body(s, indent=False)
+            else:
+                add_body(s, indent=True)
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    doc.save(out_path)
+    print(f"[docx] {out_path} ({out_path.stat().st_size:,} bytes)")
+
+
+def main():
+    text = SRC.read_text(encoding="utf-8")
+    build_doc(text, OUT)
+
+
+if __name__ == "__main__":
+    main()
